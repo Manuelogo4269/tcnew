@@ -54,5 +54,8 @@ class DatabaseSeeder extends Seeder
 
         // 4. Real Iconic Zacatecas Centro Businesses
         $this->call(ZacatecasRealBusinessesSeeder::class);
+
+        // 5. Enterprise Stories
+        $this->call(StorySeeder::class);
     }
 }

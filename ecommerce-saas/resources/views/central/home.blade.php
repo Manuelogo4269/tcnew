@@ -4720,6 +4720,318 @@
             text-decoration: none;
             font-size: 13.5px;
             box-shadow: 0 4px 14px rgba(200, 109, 99, 0.4);
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+        .btn-story-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(200, 109, 99, 0.55);
+        }
+
+        /* --- STORY CREATION & TRAY ENHANCEMENTS --- */
+        .story-create-item {
+            cursor: pointer;
+        }
+        .story-create-ring {
+            background: linear-gradient(135deg, #cbd5e1, #94a3b8) !important;
+            border: 2px dashed rgba(200, 109, 99, 0.8) !important;
+            padding: 2px !important;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08) !important;
+        }
+        .story-create-box {
+            background: linear-gradient(135deg, #faeae7, #ffffff) !important;
+            display: grid !important;
+            place-items: center !important;
+        }
+        [data-theme="dark"] .story-create-box {
+            background: linear-gradient(135deg, #2a1e23, #1e2430) !important;
+        }
+        .story-create-icon {
+            font-size: 24px;
+            color: #c86d63;
+            filter: drop-shadow(0 2px 4px rgba(200,109,99,0.3));
+            transition: transform 0.2s ease;
+        }
+        .story-create-item:hover .story-create-icon {
+            transform: scale(1.2) rotate(90deg);
+        }
+        .story-count-badge {
+            position: absolute;
+            bottom: -2px;
+            right: -2px;
+            background: #c86d63;
+            color: #fff;
+            font-size: 10px;
+            font-weight: 800;
+            width: 19px;
+            height: 19px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            border: 2px solid var(--paper);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+        }
+        .story-ring.story-viewed {
+            background: #cbd5e1 !important;
+            opacity: 0.75;
+        }
+
+        /* --- MULTI-SEGMENT STORY VIEWER --- */
+        .story-segments-row {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            gap: 4px;
+            padding: 12px 14px 6px;
+            z-index: 20;
+        }
+        .story-segment-bar {
+            flex: 1;
+            height: 3.5px;
+            background: rgba(255, 255, 255, 0.35);
+            border-radius: 999px;
+            overflow: hidden;
+        }
+        .story-segment-fill {
+            height: 100%;
+            width: 0%;
+            background: #ffffff;
+            border-radius: 999px;
+            transition: width 0.1s linear;
+        }
+        .story-segment-fill.completed {
+            width: 100% !important;
+            transition: none !important;
+        }
+        .story-touch-nav {
+            position: absolute;
+            top: 55px;
+            bottom: 140px;
+            z-index: 8;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .story-touch-nav.left {
+            left: 0;
+            width: 35%;
+            cursor: pointer;
+        }
+        .story-touch-nav.right {
+            right: 0;
+            width: 65%;
+            cursor: pointer;
+        }
+        .story-views-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 11px;
+            background: rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(6px);
+            color: #fff;
+            padding: 3px 8px;
+            border-radius: 999px;
+        }
+        .story-quick-chat-row {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .story-quick-chat-input {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 999px;
+            color: #fff;
+            padding: 9px 16px;
+            font-size: 12.5px;
+            outline: none;
+        }
+        .story-quick-chat-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* --- CREATE STORY MODAL --- */
+        .create-story-modal-card {
+            background: var(--card);
+            border-radius: 24px;
+            max-width: 500px;
+            width: 100%;
+            padding: 28px 24px;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.35);
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1.5px solid var(--card-border);
+        }
+        .create-story-header {
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        /* --- PRODUCT LAYOUT & SPACING COHESION --- */
+        @keyframes tabFadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .tab-panel-content {
+            animation: tabFadeIn 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Companies Grid & Product Thumbnails Uniformity */
+        .companies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 24px;
+        }
+        .company-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border-radius: 20px;
+            padding: 24px;
+            border: 1.5px solid var(--card-border);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            background: var(--card);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .company-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.09);
+        }
+
+        .company-preview-strip {
+            margin: 18px 0 14px;
+            padding-top: 14px;
+            border-top: 1px dashed var(--line);
+        }
+        .preview-products-grid {
+            display: grid !important;
+            grid-template-columns: repeat(3, 1fr) !important;
+            gap: 10px !important;
+            margin-top: 8px !important;
+        }
+        .preview-thumb-box {
+            position: relative;
+            aspect-ratio: 1 / 1 !important;
+            height: auto !important;
+            border-radius: 12px;
+            overflow: hidden;
+            background: var(--paper);
+            border: 1.5px solid var(--card-border);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .preview-thumb-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.25s ease;
+            display: block;
+        }
+        .preview-thumb-box:hover img {
+            transform: scale(1.08);
+        }
+        .preview-thumb-price {
+            position: absolute;
+            bottom: 5px;
+            left: 5px;
+            background: rgba(18, 19, 17, 0.88);
+            backdrop-filter: blur(4px);
+            color: #ffffff;
+            font-size: 10.5px;
+            font-weight: 800;
+            padding: 2px 6px;
+            border-radius: 6px;
+            z-index: 2;
+            pointer-events: none;
+        }
+        .preview-quick-add-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: #c86d63;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            width: 26px;
+            height: 26px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            display: grid;
+            place-items: center;
+            z-index: 3;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            transition: transform 0.15s ease, background 0.15s ease;
+        }
+        .preview-quick-add-btn:hover {
+            transform: scale(1.15);
+            background: #b1554a;
+        }
+
+        /* Search Results Grid Cohesion */
+        .search-results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+        }
+        .search-product-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border-radius: 18px;
+            border: 1.5px solid var(--card-border);
+            background: var(--card);
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .search-product-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+        }
+        .search-product-thumb {
+            aspect-ratio: 1 / 1;
+            position: relative;
+            overflow: hidden;
+            background: var(--paper);
+        }
+        .search-product-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.25s ease;
+        }
+        .search-product-thumb:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Social Feed Cohesion */
+        .social-feed-stream {
+            max-width: 680px;
+            margin: 0 auto 40px;
+            padding: 0 4px;
+        }
+        .social-card {
+            margin-bottom: 28px;
+            border-radius: 22px;
+            border: 1.5px solid var(--card-border);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+            background: var(--card);
+        }
+        .social-card-media {
+            aspect-ratio: 4 / 3;
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            background: #000;
+        }
+        .social-card-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
     </style>
 </head>
@@ -5038,8 +5350,20 @@
     <!-- STORIES TRAY (ESTILO INSTAGRAM / TIKTOK / FACEBOOK STORIES) -->
     <section class="stories-tray-section" id="storiesTraySection" aria-label="Historias destacadas de Zacatecas">
         <div class="stories-tray-scroll">
+            <!-- CREATE STORY BUTTON (FOR ENTERPRISES & MERCHANTS) -->
+            <button type="button" class="story-item story-create-item" onclick="openCreateStoryModal()" title="Publicar nueva historia para tu empresa">
+                <div class="story-ring story-create-ring">
+                    <div class="story-avatar-box story-create-box">
+                        <span class="story-create-icon">➕</span>
+                    </div>
+                </div>
+                <span class="story-name"><strong>+ Publicar</strong></span>
+            </button>
+
             @foreach($allBusinesses as $biz)
                 @php
+                    $bizStories = $storiesByStore[$biz['id']]['slides'] ?? [];
+                    $storiesCount = count($bizStories);
                     $storeAvatar = !empty($biz['logo_url']) ? $biz['logo_url'] : match($biz['id']) {
                         'acropolis' => 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=160&q=80',
                         'donajulia' => 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=160&q=80',
@@ -5050,11 +5374,14 @@
                         default => 'https://placehold.co/160x160?text=' . urlencode(substr($biz['store_name'], 0, 2))
                     };
                 @endphp
-                <button type="button" class="story-item" onclick="openStoryViewer('{{ $biz['id'] }}')" title="Ver historia de {{ $biz['store_name'] }}">
-                    <div class="story-ring">
+                <button type="button" class="story-item" id="storyItem_{{ $biz['id'] }}" onclick="openStoryViewer('{{ $biz['id'] }}')" title="Ver {{ $storiesCount > 0 ? $storiesCount . ' historias' : 'historia' }} de {{ $biz['store_name'] }}">
+                    <div class="story-ring {{ $storiesCount > 0 ? 'has-active-stories' : '' }}" id="storyRing_{{ $biz['id'] }}">
                         <div class="story-avatar-box">
                             <img src="{{ $storeAvatar }}" alt="{{ $biz['store_name'] }}" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/160x160?text=ZAC';">
                         </div>
+                        @if($storiesCount > 1)
+                            <span class="story-count-badge">{{ $storiesCount }}</span>
+                        @endif
                     </div>
                     <span class="story-name">{{ Str::limit($biz['store_name'], 10) }}</span>
                 </button>
@@ -6357,32 +6684,45 @@
 <!-- Global Toast Notification -->
 <div class="toast-popup" id="toastPopup" role="status" aria-live="polite"></div>
 
-<!-- FULLSCREEN STORY VIEWER MODAL (ESTILO INSTAGRAM / TIKTOK / FACEBOOK STORIES) -->
+<!-- FULLSCREEN STORY VIEWER MODAL (MULTI-SLIDE ESTILO INSTAGRAM / TIKTOK) -->
 <div class="story-viewer-modal" id="storyViewerModal" onclick="handleStoryBackdropClick(event)">
-    <div class="story-viewer-content">
-        <!-- Progress Bar -->
-        <div class="story-progress-bar-wrap">
-            <div class="story-progress-bar-fill" id="storyProgressFill"></div>
+    <div class="story-viewer-content" id="storyViewerBox" onmousedown="pauseStoryPlayback()" onmouseup="resumeStoryPlayback()" ontouchstart="pauseStoryPlayback()" ontouchend="resumeStoryPlayback()">
+        <!-- Segmented Progress Bars (one per slide) -->
+        <div class="story-segments-row" id="storySegmentsRow">
+            <!-- Dynamically populated per story slide -->
         </div>
 
         <!-- Header -->
         <div class="story-header-bar">
-            <img src="" alt="" id="storyHeaderLogo" class="story-header-avatar">
-            <div class="story-header-meta">
-                <strong id="storyHeaderName">Tienda</strong>
-                <small id="storyHeaderCategory">Centro Histórico · Zacatecas</small>
+            <div style="display: flex; align-items: center; gap: 9px; flex: 1; min-width: 0;">
+                <img src="" alt="" id="storyHeaderLogo" class="story-header-avatar">
+                <div class="story-header-meta" style="min-width: 0;">
+                    <div style="display: flex; align-items: center; gap: 4px;">
+                        <strong id="storyHeaderName" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Tienda</strong>
+                        <span class="social-verified-badge" title="Comercio Verificado" style="font-size: 11px;">✓</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 6px;">
+                        <small id="storyHeaderTime" style="color: rgba(255,255,255,0.75); font-size: 11px;">Hace 2h</small>
+                        <span class="story-views-pill" id="storyViewsPill">👁️ 0</span>
+                    </div>
+                </div>
             </div>
             <button type="button" class="btn-close-story" onclick="closeStoryViewer()" aria-label="Cerrar Historia">✕</button>
         </div>
 
-        <!-- Story Visual Image -->
-        <img src="" alt="" id="storyHeroImg" style="width: 100%; height: 100%; object-fit: cover;">
+        <!-- Touch Navigation Left / Right -->
+        <div class="story-touch-nav left" onclick="prevStorySlide(event)" title="Diapositiva anterior"></div>
+        <div class="story-touch-nav right" onclick="nextStorySlide(event)" title="Siguiente diapositiva"></div>
 
-        <!-- Story Caption Overlay -->
+        <!-- Story Visual Image -->
+        <img src="" alt="" id="storyHeroImg" class="story-media-main">
+
+        <!-- Story Caption & Controls Overlay -->
         <div class="story-caption-overlay">
-            <span class="story-badge-category" id="storyBadgeCategory" style="display: inline-block; padding: 3px 10px; border-radius: 999px; background: rgba(200, 109, 99, 0.85); color: #fff; font-size: 11px; font-weight: 700; margin-bottom: 8px;">Comercio Oficial</span>
-            <h3 id="storyCaptionTitle">Nombre de la Tienda</h3>
-            <p id="storyCaptionText">Descripción del comercio y productos exclusivos en Zacatecas Centro.</p>
+            <span class="story-badge-category" id="storyBadgeCategory" style="display: inline-block; padding: 3px 10px; border-radius: 999px; background: rgba(200, 109, 99, 0.85); color: #fff; font-size: 11px; font-weight: 700; margin-bottom: 6px;">Comercio Oficial</span>
+            <h3 id="storyCaptionTitle" style="font-size: 17px; font-weight: 800; margin: 0 0 4px;">Nombre de la Tienda</h3>
+            <p id="storyCaptionText" style="font-size: 13px; color: rgba(255,255,255,0.92); margin: 0 0 12px; line-height: 1.4;">Descripción de la historia.</p>
+            
             <div style="display: flex; gap: 8px;">
                 <a href="#" id="storyCtaLink" target="_blank" class="btn-story-cta" style="flex: 1;">
                     🛍️ Ver Tienda Oficial
@@ -6391,7 +6731,114 @@
                     💬
                 </a>
             </div>
+
+            <!-- In-viewer direct message quick reply to WhatsApp -->
+            <div class="story-quick-chat-row">
+                <input type="text" id="storyQuickReplyInput" class="story-quick-chat-input" placeholder="Enviar mensaje a la tienda..." onkeydown="if(event.key==='Enter') sendStoryQuickReply()">
+                <button type="button" onclick="sendStoryQuickReply()" style="background: rgba(255,255,255,0.2); border: none; border-radius: 50%; width: 36px; height: 36px; color: #fff; cursor: pointer; display: grid; place-items: center; font-size: 14px;" title="Enviar por WhatsApp">
+                    ➔
+                </button>
+            </div>
         </div>
+    </div>
+</div>
+
+<!-- MODAL: PUBLICAR HISTORIA DE EMPRESA -->
+<div class="modal-backdrop" id="createStoryModal" onclick="handleCreateStoryBackdrop(event)">
+    <div class="create-story-modal-card">
+        <button type="button" class="modal-close-x" onclick="closeCreateStoryModal()" aria-label="Cerrar modal">✕</button>
+
+        <div class="create-story-header">
+            <span class="section-eyebrow" style="color: var(--accent);">✦ Novedades y Promociones</span>
+            <h3 style="font-size: 21px; font-weight: 800; margin: 4px 0; color: var(--ink);">Publicar Historia de Empresa</h3>
+            <p style="font-size: 13px; color: var(--muted); margin: 0;">Comparte fotos, ofertas del día o novedades de tu comercio en el Centro de Zacatecas.</p>
+        </div>
+
+        <form id="createStoryForm" onsubmit="submitCreateStory(event)" enctype="multipart/form-data">
+            <!-- Selección de Empresa -->
+            <div class="auth-field" style="margin-top: 14px;">
+                <label>Selecciona tu Empresa / Comercio</label>
+                <select name="tenant_id" id="storyTenantSelect" onchange="handleStoryStoreChange()" required style="width: 100%; padding: 11px 14px; border-radius: 12px; border: 1.5px solid var(--card-border); background: var(--card); color: var(--ink); font-size: 14px;">
+                    @foreach($allBusinesses as $biz)
+                        <option value="{{ $biz['id'] }}" data-name="{{ $biz['store_name'] }}" data-logo="{{ $biz['logo_url'] ?? '' }}" data-wa="{{ $biz['whatsapp_number'] ?? '' }}">
+                            {{ $biz['store_name'] }} ({{ $biz['business_category'] }})
+                        </option>
+                    @endforeach
+                    <option value="custom" data-name="" data-logo="" data-wa="">+ Registrar Otra Empresa...</option>
+                </select>
+                <input type="hidden" name="store_name" id="storyStoreName" value="{{ $allBusinesses[0]['store_name'] ?? 'Mi Empresa' }}">
+                <input type="hidden" name="store_logo" id="storyStoreLogo" value="{{ $allBusinesses[0]['logo_url'] ?? '' }}">
+            </div>
+
+            <!-- Custom Store Name if chosen -->
+            <div class="auth-field" id="customStoreField" style="display: none; margin-top: 10px;">
+                <label>Nombre de la Empresa</label>
+                <input type="text" id="customStoreNameInput" placeholder="Ej. Platería La Mina de Plata" oninput="document.getElementById('storyStoreName').value = this.value">
+            </div>
+
+            <!-- Media Source: URL or File Upload with Live Preview -->
+            <div class="auth-field" style="margin-top: 12px;">
+                <label>Foto de la Historia</label>
+                <div style="display: flex; gap: 8px; margin-bottom: 8px;">
+                    <button type="button" class="billing-toggle-btn active" id="btnMediaUrlTab" onclick="switchMediaTab('url')" style="padding: 6px 14px; font-size: 12px;">
+                        🔗 Pegar URL de Imagen
+                    </button>
+                    <button type="button" class="billing-toggle-btn" id="btnMediaFileTab" onclick="switchMediaTab('file')" style="padding: 6px 14px; font-size: 12px;">
+                        📁 Subir desde Dispositivo
+                    </button>
+                </div>
+
+                <div id="mediaUrlGroup">
+                    <input type="url" name="media_url" id="storyMediaUrlInput" placeholder="https://images.unsplash.com/... o enlace de imagen" oninput="previewStoryMedia(this.value)">
+                    <div class="sample-story-images" style="display: flex; gap: 6px; margin-top: 6px; overflow-x: auto; padding-bottom: 4px;">
+                        <span style="font-size: 11px; color: var(--muted); align-self: center;">Sugerencias:</span>
+                        <button type="button" class="popular-tag" onclick="selectSuggestedStoryImg('https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=800&q=80')">☕ Café</button>
+                        <button type="button" class="popular-tag" onclick="selectSuggestedStoryImg('https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=800&q=80')">🌮 Comida</button>
+                        <button type="button" class="popular-tag" onclick="selectSuggestedStoryImg('https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=800&q=80')">💎 Plata .925</button>
+                        <button type="button" class="popular-tag" onclick="selectSuggestedStoryImg('https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=800&q=80')">🍷 Mezcal</button>
+                    </div>
+                </div>
+
+                <div id="mediaFileGroup" style="display: none;">
+                    <input type="file" name="media_file" id="storyMediaFileInput" accept="image/*" onchange="handleStoryFileSelect(event)">
+                </div>
+
+                <!-- Live Preview -->
+                <div id="storyLivePreviewWrap" style="margin-top: 10px; display: none; text-align: center;">
+                    <span style="font-size: 11.5px; font-weight: 700; color: var(--muted); display: block; margin-bottom: 4px;">Vista Previa:</span>
+                    <div style="width: 140px; height: 200px; border-radius: 14px; overflow: hidden; margin: 0 auto; box-shadow: 0 8px 20px rgba(0,0,0,0.15); border: 2px solid var(--accent); position: relative;">
+                        <img id="storyLivePreviewImg" src="" alt="Vista previa" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Caption -->
+            <div class="auth-field" style="margin-top: 12px;">
+                <label>Descripción / Oferta de la Historia</label>
+                <textarea name="caption" id="storyCaptionInput" rows="2" placeholder="Ej. ¡2x1 en capuchinos hoy de 4pm a 7pm frente a Catedral!" required style="width: 100%; padding: 10px 14px; border-radius: 12px; border: 1.5px solid var(--card-border); background: var(--card); color: var(--ink); font-size: 13.5px; resize: vertical;"></textarea>
+            </div>
+
+            <!-- CTA Text & Link -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px;">
+                <div class="auth-field">
+                    <label>Texto del Botón</label>
+                    <input type="text" name="cta_text" id="storyCtaTextInput" value="Ver Tienda Oficial" placeholder="Ej. Ver Oferta">
+                </div>
+                <div class="auth-field">
+                    <label>WhatsApp de Contacto</label>
+                    <input type="tel" name="whatsapp_number" id="storyWaInput" value="{{ $allBusinesses[0]['whatsapp_number'] ?? '4921234567' }}" placeholder="492XXXXXXX">
+                </div>
+            </div>
+
+            <div style="margin-top: 18px; display: flex; gap: 10px;">
+                <button type="button" onclick="closeCreateStoryModal()" class="btn-auth-cancel" style="flex: 1; padding: 12px; border-radius: 999px; border: 1.5px solid var(--card-border); background: transparent; color: var(--muted); font-weight: 700; cursor: pointer;">
+                    Cancelar
+                </button>
+                <button type="submit" id="btnSubmitStory" class="btn-submit-email-auth" style="flex: 2; margin-top: 0; padding: 12px; border-radius: 999px; background: linear-gradient(135deg, #c86d63, #b45b51); color: #fff; font-weight: 800; border: none; cursor: pointer; box-shadow: 0 4px 14px rgba(200,109,99,0.35);">
+                    🚀 Publicar Historia
+                </button>
+            </div>
+        </form>
     </div>
 </div>
 
@@ -6425,9 +6872,30 @@
 // ========================================================
 // TIKTOK & FACEBOOK APP UX: TABS, STORIES & SOCIAL FEED
 // ========================================================
+// Store real multi-slide stories from backend
 const storiesCatalog = {
     @foreach($allBusinesses as $b)
         @php
+            $bizSlides = $storiesByStore[$b['id']]['slides'] ?? [];
+            if (empty($bizSlides)) {
+                // Fallback default slide
+                $fallbackHero = !empty($b['sample_products'][0]['image_url']) 
+                    ? $b['sample_products'][0]['image_url'] 
+                    : 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=800&q=80';
+                $bizSlides = [
+                    [
+                        'id' => 'fb-' . $b['id'],
+                        'media_url' => $fallbackHero,
+                        'caption' => $b['tagline'] ?: 'Visítanos en Zacatecas Centro Histórico. Catálogo oficial y pedidos por WhatsApp.',
+                        'cta_text' => 'Ver Tienda Oficial',
+                        'cta_url' => $b['store_url'],
+                        'whatsapp_number' => !empty($b['whatsapp_number']) ? preg_replace('/[^0-9]/', '', $b['whatsapp_number']) : '',
+                        'views_count' => 180,
+                        'duration_seconds' => 5,
+                        'time_ago' => 'Hoy',
+                    ]
+                ];
+            }
             $stLogo = !empty($b['logo_url']) ? $b['logo_url'] : match($b['id']) {
                 'acropolis' => 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=160&q=80',
                 'donajulia' => 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=160&q=80',
@@ -6437,18 +6905,6 @@ const storiesCatalog = {
                 'libreriaandrea' => 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=160&q=80',
                 default => 'https://placehold.co/160x160?text=' . urlencode(substr($b['store_name'], 0, 2))
             };
-            $stHero = !empty($b['sample_products'][0]['image_url']) 
-                ? $b['sample_products'][0]['image_url'] 
-                : match($b['id']) {
-                    'acropolis' => 'https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=800&q=80',
-                    'donajulia' => 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=800&q=80',
-                    'rosadeplata' => 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=800&q=80',
-                    'elserranito' => 'https://images.unsplash.com/photo-1501443762994-82bd5dace89a?auto=format&fit=crop&w=800&q=80',
-                    'quinceletras' => 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=800&q=80',
-                    'libreriaandrea' => 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=800&q=80',
-                    default => 'https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=800&q=80'
-                };
-            $stWa = !empty($b['whatsapp_number']) ? preg_replace('/[^0-9]/', '', $b['whatsapp_number']) : '';
         @endphp
         '{{ $b['id'] }}': {
             name: @json($b['store_name']),
@@ -6456,75 +6912,230 @@ const storiesCatalog = {
             tagline: @json($b['tagline']),
             address: @json($b['address']),
             url: @json($b['store_url']),
-            whatsapp: @json($stWa),
+            whatsapp: @json(!empty($b['whatsapp_number']) ? preg_replace('/[^0-9]/', '', $b['whatsapp_number']) : ''),
             logo: @json($stLogo),
-            heroImg: @json($stHero)
+            slides: @json($bizSlides)
         },
     @endforeach
 };
 
-let storyTimer = null;
-let currentStoryKey = null;
+let currentStoreKey = null;
+let currentSlideIndex = 0;
+let storySlideTimer = null;
+let storyTimerRemaining = 5000;
+let storyTimerStart = null;
+let isStoryPaused = false;
+let viewedStores = new Set(JSON.parse(localStorage.getItem('viewed_stores') || '[]'));
 
-function openStoryViewer(storeId) {
+// Mark initially viewed stories in tray
+function updateViewedStoriesInTray() {
+    viewedStores.forEach(sKey => {
+        const ring = document.getElementById('storyRing_' + sKey);
+        if (ring) ring.classList.add('story-viewed');
+    });
+}
+
+function openStoryViewer(storeId, slideIdx = 0) {
     const data = storiesCatalog[storeId];
-    if (!data) return;
-    currentStoryKey = storeId;
+    if (!data || !data.slides || data.slides.length === 0) return;
+
+    currentStoreKey = storeId;
+    currentSlideIndex = Math.max(0, Math.min(slideIdx, data.slides.length - 1));
+
+    // Mark store as viewed
+    viewedStores.add(storeId);
+    try {
+        localStorage.setItem('viewed_stores', JSON.stringify(Array.from(viewedStores)));
+    } catch(e) {}
+    updateViewedStoriesInTray();
+
+    renderStorySlide();
 
     const modal = document.getElementById('storyViewerModal');
+    if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function renderStorySlide() {
+    const data = storiesCatalog[currentStoreKey];
+    if (!data) return;
+    const slide = data.slides[currentSlideIndex];
+    if (!slide) return;
+
+    const modal = document.getElementById('storyViewerModal');
+    const segRow = document.getElementById('storySegmentsRow');
     const headerLogo = document.getElementById('storyHeaderLogo');
     const headerName = document.getElementById('storyHeaderName');
-    const headerCat = document.getElementById('storyHeaderCategory');
+    const headerTime = document.getElementById('storyHeaderTime');
+    const viewsPill = document.getElementById('storyViewsPill');
     const heroImg = document.getElementById('storyHeroImg');
     const badgeCat = document.getElementById('storyBadgeCategory');
     const capTitle = document.getElementById('storyCaptionTitle');
     const capText = document.getElementById('storyCaptionText');
     const ctaLink = document.getElementById('storyCtaLink');
     const waLink = document.getElementById('storyWhatsappLink');
-    const fill = document.getElementById('storyProgressFill');
 
+    // Populate header & metadata
     if (headerLogo) headerLogo.src = data.logo;
     if (headerName) headerName.textContent = data.name;
-    if (headerCat) headerCat.textContent = data.category + ' · Zacatecas Centro';
-    if (heroImg) heroImg.src = data.heroImg;
+    if (headerTime) headerTime.textContent = slide.time_ago || 'Hoy';
+    if (viewsPill) viewsPill.textContent = '👁️ ' + (slide.views_count || 1);
+    if (heroImg) heroImg.src = slide.media_url;
     if (badgeCat) badgeCat.textContent = data.category;
     if (capTitle) capTitle.textContent = data.name;
-    if (capText) capText.textContent = data.tagline || data.address;
-    if (ctaLink) ctaLink.href = data.url;
+    if (capText) capText.textContent = slide.caption || data.tagline;
+    if (ctaLink) {
+        ctaLink.href = slide.cta_url || data.url;
+        ctaLink.textContent = '🛍️ ' + (slide.cta_text || 'Ver Tienda Oficial');
+    }
+
+    const waNum = slide.whatsapp_number || data.whatsapp;
     if (waLink) {
-        if (data.whatsapp) {
-            waLink.href = 'https://wa.me/' + data.whatsapp + '?text=' + encodeURIComponent('¡Hola! Vi la historia de ' + data.name + ' en el portal Atelier Zacatecas.');
+        if (waNum) {
+            waLink.href = 'https://wa.me/' + waNum + '?text=' + encodeURIComponent('¡Hola! Vi la historia de ' + data.name + ' en Atelier Zacatecas.');
             waLink.style.display = 'grid';
         } else {
             waLink.style.display = 'none';
         }
     }
 
+    // Build segmented progress bars
+    if (segRow) {
+        segRow.innerHTML = '';
+        data.slides.forEach((s, idx) => {
+            const bar = document.createElement('div');
+            bar.className = 'story-segment-bar';
+            const fill = document.createElement('div');
+            fill.className = 'story-segment-fill';
+            fill.id = 'segFill_' + idx;
+
+            if (idx < currentSlideIndex) {
+                fill.classList.add('completed');
+            } else if (idx === currentSlideIndex) {
+                fill.style.width = '0%';
+            }
+            bar.appendChild(fill);
+            segRow.appendChild(bar);
+        });
+    }
+
+    // Increment views via API in background
+    if (slide.id && !String(slide.id).startsWith('fb-')) {
+        fetch('/api/stories/' + slide.id + '/view', { method: 'POST' })
+            .then(res => res.json())
+            .then(d => {
+                if (d.views_count && viewsPill) viewsPill.textContent = '👁️ ' + d.views_count;
+            })
+            .catch(() => {});
+    }
+
+    // Start progress timer
+    const duration = (slide.duration_seconds || 5) * 1000;
+    startStoryProgress(duration);
+}
+
+function startStoryProgress(duration) {
+    if (storySlideTimer) clearTimeout(storySlideTimer);
+    storyTimerRemaining = duration;
+    storyTimerStart = Date.now();
+    isStoryPaused = false;
+
+    const fill = document.getElementById('segFill_' + currentSlideIndex);
     if (fill) {
         fill.style.transition = 'none';
         fill.style.width = '0%';
         setTimeout(() => {
-            fill.style.transition = 'width 5s linear';
+            fill.style.transition = 'width ' + (duration / 1000) + 's linear';
             fill.style.width = '100%';
-        }, 30);
+        }, 20);
     }
 
-    if (modal) {
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
+    storySlideTimer = setTimeout(() => {
+        nextStorySlide();
+    }, duration);
+}
+
+function nextStorySlide(event) {
+    if (event) event.stopPropagation();
+    if (storySlideTimer) clearTimeout(storySlideTimer);
+
+    const data = storiesCatalog[currentStoreKey];
+    if (!data) return;
+
+    if (currentSlideIndex < data.slides.length - 1) {
+        currentSlideIndex++;
+        renderStorySlide();
+    } else {
+        // Advance to next store in catalog
+        const storeKeys = Object.keys(storiesCatalog);
+        const curIdx = storeKeys.indexOf(currentStoreKey);
+        if (curIdx >= 0 && curIdx < storeKeys.length - 1) {
+            openStoryViewer(storeKeys[curIdx + 1], 0);
+        } else {
+            closeStoryViewer();
+        }
+    }
+}
+
+function prevStorySlide(event) {
+    if (event) event.stopPropagation();
+    if (storySlideTimer) clearTimeout(storySlideTimer);
+
+    if (currentSlideIndex > 0) {
+        currentSlideIndex--;
+        renderStorySlide();
+    } else {
+        // Go to previous store in catalog
+        const storeKeys = Object.keys(storiesCatalog);
+        const curIdx = storeKeys.indexOf(currentStoreKey);
+        if (curIdx > 0) {
+            const prevStore = storiesCatalog[storeKeys[curIdx - 1]];
+            openStoryViewer(storeKeys[curIdx - 1], prevStore.slides.length - 1);
+        } else {
+            renderStorySlide();
+        }
+    }
+}
+
+function pauseStoryPlayback() {
+    if (isStoryPaused || !storyTimerStart) return;
+    isStoryPaused = true;
+    const elapsed = Date.now() - storyTimerStart;
+    storyTimerRemaining = Math.max(200, storyTimerRemaining - elapsed);
+    if (storySlideTimer) clearTimeout(storySlideTimer);
+
+    const fill = document.getElementById('segFill_' + currentSlideIndex);
+    if (fill) {
+        const computedWidth = window.getComputedStyle(fill).width;
+        fill.style.transition = 'none';
+        fill.style.width = computedWidth;
+    }
+}
+
+function resumeStoryPlayback() {
+    if (!isStoryPaused) return;
+    isStoryPaused = false;
+    storyTimerStart = Date.now();
+
+    const fill = document.getElementById('segFill_' + currentSlideIndex);
+    if (fill) {
+        fill.style.transition = 'width ' + (storyTimerRemaining / 1000) + 's linear';
+        fill.style.width = '100%';
     }
 
-    if (storyTimer) clearTimeout(storyTimer);
-    storyTimer = setTimeout(() => {
-        closeStoryViewer();
-    }, 5000);
+    storySlideTimer = setTimeout(() => {
+        nextStorySlide();
+    }, storyTimerRemaining);
 }
 
 function closeStoryViewer() {
-    if (storyTimer) {
-        clearTimeout(storyTimer);
-        storyTimer = null;
+    if (storySlideTimer) {
+        clearTimeout(storySlideTimer);
+        storySlideTimer = null;
     }
+    isStoryPaused = false;
     const modal = document.getElementById('storyViewerModal');
     if (modal) {
         modal.classList.remove('active');
@@ -6536,6 +7147,184 @@ function handleStoryBackdropClick(event) {
     if (event.target && event.target.id === 'storyViewerModal') {
         closeStoryViewer();
     }
+}
+
+function sendStoryQuickReply() {
+    const input = document.getElementById('storyQuickReplyInput');
+    if (!input || !input.value.trim()) return;
+
+    const data = storiesCatalog[currentStoreKey];
+    const waNum = data ? (data.slides[currentSlideIndex]?.whatsapp_number || data.whatsapp) : '';
+    if (!waNum) {
+        showToast('Esta tienda no tiene WhatsApp configurado.');
+        return;
+    }
+
+    const msg = '¡Hola! Vi su historia en Atelier Zacatecas: "' + input.value.trim() + '"';
+    const waUrl = 'https://wa.me/' + waNum + '?text=' + encodeURIComponent(msg);
+    window.open(waUrl, '_blank');
+    input.value = '';
+    showToast('Redirigiendo a WhatsApp...');
+}
+
+// --- CREATE STORY MODAL HANDLERS ---
+function openCreateStoryModal() {
+    const modal = document.getElementById('createStoryModal');
+    if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closeCreateStoryModal() {
+    const modal = document.getElementById('createStoryModal');
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+function handleCreateStoryBackdrop(event) {
+    if (event.target && event.target.id === 'createStoryModal') {
+        closeCreateStoryModal();
+    }
+}
+
+function handleStoryStoreChange() {
+    const sel = document.getElementById('storyTenantSelect');
+    const opt = sel.options[sel.selectedIndex];
+    const customField = document.getElementById('customStoreField');
+    const storeNameInput = document.getElementById('storyStoreName');
+    const storeLogoInput = document.getElementById('storyStoreLogo');
+    const waInput = document.getElementById('storyWaInput');
+
+    if (sel.value === 'custom') {
+        customField.style.display = 'block';
+        storeNameInput.value = document.getElementById('customStoreNameInput').value;
+        storeLogoInput.value = '';
+    } else {
+        customField.style.display = 'none';
+        storeNameInput.value = opt.getAttribute('data-name');
+        storeLogoInput.value = opt.getAttribute('data-logo') || '';
+        if (waInput && opt.getAttribute('data-wa')) {
+            waInput.value = opt.getAttribute('data-wa');
+        }
+    }
+}
+
+function switchMediaTab(type) {
+    const urlTab = document.getElementById('btnMediaUrlTab');
+    const fileTab = document.getElementById('btnMediaFileTab');
+    const urlGroup = document.getElementById('mediaUrlGroup');
+    const fileGroup = document.getElementById('mediaFileGroup');
+
+    if (type === 'url') {
+        urlTab.classList.add('active');
+        fileTab.classList.remove('active');
+        urlGroup.style.display = 'block';
+        fileGroup.style.display = 'none';
+    } else {
+        fileTab.classList.add('active');
+        urlTab.classList.remove('active');
+        fileGroup.style.display = 'block';
+        urlGroup.style.display = 'none';
+    }
+}
+
+function previewStoryMedia(url) {
+    const wrap = document.getElementById('storyLivePreviewWrap');
+    const img = document.getElementById('storyLivePreviewImg');
+    if (url && url.trim()) {
+        img.src = url;
+        wrap.style.display = 'block';
+    } else {
+        wrap.style.display = 'none';
+    }
+}
+
+function selectSuggestedStoryImg(url) {
+    const input = document.getElementById('storyMediaUrlInput');
+    if (input) {
+        input.value = url;
+        previewStoryMedia(url);
+    }
+}
+
+function handleStoryFileSelect(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            previewStoryMedia(e.target.result);
+        };
+        reader.readAsDataURL(file);
+    }
+}
+
+function submitCreateStory(event) {
+    event.preventDefault();
+    const btn = document.getElementById('btnSubmitStory');
+    const origText = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '⏳ Publicando historia...';
+
+    const form = document.getElementById('createStoryForm');
+    const formData = new FormData(form);
+
+    fetch('/api/stories', {
+        method: 'POST',
+        body: formData,
+    })
+    .then(res => res.json())
+    .then(data => {
+        btn.disabled = false;
+        btn.innerHTML = origText;
+
+        if (data.success) {
+            closeCreateStoryModal();
+            showToast('🎉 ' + data.message);
+
+            const s = data.story;
+            const storeKey = s.tenant_id || 'general';
+
+            if (!storiesCatalog[storeKey]) {
+                storiesCatalog[storeKey] = {
+                    name: s.store_name,
+                    category: 'Comercio Zacatecano',
+                    tagline: s.caption,
+                    address: 'Zacatecas Centro',
+                    url: s.cta_url,
+                    whatsapp: s.whatsapp_number,
+                    logo: s.store_logo || 'https://placehold.co/160x160?text=ZAC',
+                    slides: []
+                };
+            }
+
+            storiesCatalog[storeKey].slides.unshift({
+                id: s.id,
+                media_url: s.media_url,
+                caption: s.caption,
+                cta_text: s.cta_text,
+                cta_url: s.cta_url,
+                whatsapp_number: s.whatsapp_number,
+                views_count: 1,
+                duration_seconds: s.duration_seconds || 5,
+                time_ago: 'Justo ahora',
+            });
+
+            // Auto-open newly created story!
+            setTimeout(() => {
+                openStoryViewer(storeKey, 0);
+            }, 300);
+        } else {
+            showToast('Error al publicar: ' + (data.message || 'Verifica los campos'));
+        }
+    })
+    .catch(err => {
+        btn.disabled = false;
+        btn.innerHTML = origText;
+        showToast('Error de red al publicar historia.');
+    });
 }
 
 // MAIN TAB SWITCHER (PARATI, MAPA, TIENDAS, PLANES)

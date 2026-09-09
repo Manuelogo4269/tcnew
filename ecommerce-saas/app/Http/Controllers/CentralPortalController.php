@@ -163,6 +163,31 @@ class CentralPortalController extends Controller
         $hasGoogleKeys = !empty(config('services.google.client_id')) && !empty(config('services.google.client_secret'));
         $hasFacebookKeys = !empty(config('services.facebook.client_id')) && !empty(config('services.facebook.client_secret'));
 
+        $rawStories = \App\Models\Story::active()->latest()->get();
+        $storiesByStore = [];
+        foreach ($rawStories as $st) {
+            $key = (string) ($st->tenant_id ?: 'general');
+            if (!isset($storiesByStore[$key])) {
+                $storiesByStore[$key] = [
+                    'store_id' => $key,
+                    'store_name' => $st->store_name,
+                    'store_logo' => $st->store_logo,
+                    'slides' => [],
+                ];
+            }
+            $storiesByStore[$key]['slides'][] = [
+                'id' => (string) $st->id,
+                'media_url' => $st->media_url,
+                'caption' => $st->caption,
+                'cta_text' => $st->cta_text ?: 'Ver Tienda Oficial',
+                'cta_url' => $st->cta_url ?: ($st->tenant_id ? url('/tienda/' . $st->tenant_id) : url('/')),
+                'whatsapp_number' => $st->whatsapp_number,
+                'views_count' => (int) $st->views_count,
+                'duration_seconds' => (int) ($st->duration_seconds ?: 5),
+                'time_ago' => $st->created_at ? $st->created_at->diffForHumans(null, true) : 'Hoy',
+            ];
+        }
+
         return view('central.home', [
             'businesses' => $filteredBusinesses,
             'allBusinesses' => $businesses,
@@ -174,6 +199,7 @@ class CentralPortalController extends Controller
             'user' => $user,
             'hasGoogleKeys' => $hasGoogleKeys,
             'hasFacebookKeys' => $hasFacebookKeys,
+            'storiesByStore' => $storiesByStore,
         ]);
     }
 
@@ -368,5 +394,98 @@ class CentralPortalController extends Controller
 
         // For all mobile networks, LAN IP (e.g. 192.168.0.128), and HTTPS tunnels (e.g. Cloudflare / Ngrok):
         return url("/tienda/{$tenant->id}");
+    }
+
+    /**
+     * Create a new enterprise story
+     */
+    public function createStory(Request $request)
+    {
+        $validated = $request->validate([
+            'tenant_id' => 'nullable|string|max:80',
+            'store_name' => 'required|string|max:120',
+            'store_logo' => 'nullable|string|max:1000',
+            'caption' => 'nullable|string|max:500',
+            'media_url' => 'nullable|string|max:1000',
+            'media_file' => 'nullable|image|max:10240',
+            'cta_text' => 'nullable|string|max:80',
+            'cta_url' => 'nullable|string|max:1000',
+            'whatsapp_number' => 'nullable|string|max:30',
+            'duration_seconds' => 'nullable|integer|min:3|max:30',
+        ]);
+
+        $mediaUrl = $validated['media_url'] ?? null;
+        if ($request->hasFile('media_file')) {
+            $file = $request->file('media_file');
+            $filename = 'story_' . time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $dest = public_path('uploads/stories');
+            if (!file_exists($dest)) {
+                mkdir($dest, 0755, true);
+            }
+            $file->move($dest, $filename);
+            $mediaUrl = url('uploads/stories/' . $filename);
+        }
+
+        if (empty($mediaUrl)) {
+            $mediaUrl = 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=800&q=80';
+        }
+
+        $story = \App\Models\Story::create([
+            'tenant_id' => $validated['tenant_id'] ?? null,
+            'store_name' => $validated['store_name'],
+            'store_logo' => $validated['store_logo'] ?? null,
+            'media_url' => $mediaUrl,
+            'caption' => $validated['caption'] ?? null,
+            'cta_text' => $validated['cta_text'] ?? 'Ver Tienda Oficial',
+            'cta_url' => $validated['cta_url'] ?? (!empty($validated['tenant_id']) ? url('/tienda/' . $validated['tenant_id']) : url('/')),
+            'whatsapp_number' => $validated['whatsapp_number'] ?? null,
+            'duration_seconds' => (int) ($validated['duration_seconds'] ?? 5),
+            'views_count' => 1,
+            'is_active' => true,
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => '¡Historia publicada exitosamente!',
+            'story' => [
+                'id' => (string) $story->id,
+                'tenant_id' => $story->tenant_id,
+                'store_name' => $story->store_name,
+                'store_logo' => $story->store_logo,
+                'media_url' => $story->media_url,
+                'caption' => $story->caption,
+                'cta_text' => $story->cta_text,
+                'cta_url' => $story->cta_url,
+                'whatsapp_number' => $story->whatsapp_number,
+                'views_count' => $story->views_count,
+                'duration_seconds' => $story->duration_seconds,
+                'time_ago' => 'Justo ahora',
+            ],
+        ]);
+    }
+
+    /**
+     * Increment story views count
+     */
+    public function viewStory(string $id)
+    {
+        $story = \App\Models\Story::find($id);
+        if ($story) {
+            $story->increment('views_count');
+            return response()->json(['success' => true, 'views_count' => $story->views_count]);
+        }
+        return response()->json(['success' => false, 'message' => 'Story not found'], 404);
+    }
+
+    /**
+     * Get all active stories
+     */
+    public function getStories()
+    {
+        $rawStories = \App\Models\Story::active()->latest()->get();
+        return response()->json([
+            'success' => true,
+            'stories' => $rawStories,
+        ]);
     }
 }
