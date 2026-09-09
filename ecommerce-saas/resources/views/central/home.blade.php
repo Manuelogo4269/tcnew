@@ -364,18 +364,28 @@
             color: var(--accent);
             border-color: rgba(220, 126, 116, 0.3);
         }
-        [data-theme="dark"] .rating-score {
+        [data-theme="dark"] .rating-score,
+        [data-theme="dark"] .rating-num {
             color: #f3f4f6;
         }
+        [data-theme="dark"] .store-open-badge.badge-open,
         [data-theme="dark"] .store-open-badge.status-open {
             background: rgba(16, 185, 129, 0.18);
             color: #34d399;
             border-color: rgba(16, 185, 129, 0.35);
         }
+        [data-theme="dark"] .store-open-badge.badge-closed,
         [data-theme="dark"] .store-open-badge.status-closed {
             background: rgba(239, 68, 68, 0.18);
             color: #f87171;
             border-color: rgba(239, 68, 68, 0.35);
+        }
+        [data-theme="dark"] .store-hours-bar {
+            background: #1a1e28;
+            border-color: rgba(255, 255, 255, 0.08);
+        }
+        [data-theme="dark"] .hours-text {
+            color: #f1f5f9;
         }
         [data-theme="dark"] .radius-pill {
             background: #1e232e;
@@ -387,6 +397,16 @@
             background: var(--accent);
             color: #ffffff;
             border-color: var(--accent);
+        }
+        [data-theme="dark"] .filter-only-open {
+            background: rgba(16, 185, 129, 0.15);
+            border-color: rgba(16, 185, 129, 0.35);
+            color: #34d399;
+        }
+        [data-theme="dark"] .filter-only-open.active {
+            background: #059669;
+            color: #ffffff;
+            border-color: #059669;
         }
         [data-theme="dark"] .btn-back-to-top {
             background: #151820;
@@ -427,7 +447,18 @@
         [data-theme="dark"] .leaflet-popup-content-wrapper {
             background: #15181f !important;
             color: #f3f4f6 !important;
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.15) !important;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5) !important;
+        }
+        [data-theme="dark"] .leaflet-popup-tip {
+            background: #15181f !important;
+        }
+        [data-theme="dark"] .leaflet-popup-content h4 {
+            color: #ffffff !important;
+        }
+        [data-theme="dark"] .leaflet-popup-content p {
+            color: #94a3b8 !important;
+        }
             box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
         }
         [data-theme="dark"] .leaflet-popup-tip {
@@ -1937,11 +1968,12 @@
             font-size: 13px;
             letter-spacing: 1px;
         }
-        .rating-score {
+        .rating-score, .rating-num {
             font-weight: 800;
             color: var(--ink);
+            font-size: 12px;
         }
-        .reviews-count {
+        .reviews-count, .rating-count {
             color: var(--muted);
             font-size: 11px;
         }
@@ -1961,38 +1993,71 @@
         }
 
         /* REAL-TIME OPEN / CLOSED STATUS BADGES */
+        .store-hours-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            flex-wrap: wrap;
+            background: var(--paper);
+            padding: 8px 12px;
+            border-radius: 12px;
+            border: 1px solid var(--line);
+            margin-bottom: 14px;
+        }
+        .store-hours-info {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--muted);
+            flex: 1;
+            min-width: 150px;
+        }
+        .hours-text {
+            color: var(--ink);
+            font-weight: 700;
+        }
         .store-open-badge {
             display: inline-flex;
             align-items: center;
             gap: 6px;
             font-size: 11px;
             font-weight: 700;
-            padding: 3px 10px;
+            padding: 3px 9px;
             border-radius: 999px;
-            margin-bottom: 8px;
-            align-self: flex-start;
+            white-space: nowrap;
+            flex-shrink: 0;
+            line-height: 1.2;
         }
-        .status-dot {
+        .store-open-badge .dot,
+        .store-open-badge .status-dot {
             width: 7px;
             height: 7px;
             border-radius: 50%;
             display: inline-block;
+            flex-shrink: 0;
         }
+        .store-open-badge.badge-open,
         .store-open-badge.status-open {
             background: #ecfdf5;
             color: #065f46;
             border: 1px solid #a7f3d0;
         }
+        .store-open-badge.badge-open .dot,
         .store-open-badge.status-open .status-dot {
             background: #10b981;
             box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.25);
             animation: pulseDot 2s infinite;
         }
+        .store-open-badge.badge-closed,
         .store-open-badge.status-closed {
             background: #fef2f2;
             color: #991b1b;
             border: 1px solid #fecaca;
         }
+        .store-open-badge.badge-closed .dot,
         .store-open-badge.status-closed .status-dot {
             background: #ef4444;
         }
@@ -2006,12 +2071,26 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            flex-wrap: wrap;
-            padding-top: 10px;
+            overflow-x: auto;
+            flex-wrap: nowrap;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            padding: 10px 0 6px;
             border-top: 1px dashed var(--line);
         }
+        .walking-radius-row::-webkit-scrollbar { display: none; }
+        .walking-radius-label {
+            font-size: 11.5px;
+            font-weight: 700;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
         .radius-pill {
-            padding: 5px 12px;
+            padding: 6px 14px;
             border-radius: 999px;
             background: var(--paper);
             border: 1px solid var(--line);
@@ -2019,6 +2098,8 @@
             font-weight: 700;
             color: var(--muted);
             cursor: pointer;
+            white-space: nowrap;
+            flex-shrink: 0;
             transition: all 0.2s ease;
         }
         .radius-pill:hover, .radius-pill.active {
@@ -2027,11 +2108,10 @@
             border-color: var(--ink);
         }
         .filter-only-open {
-            margin-left: auto;
             display: inline-flex;
             align-items: center;
             gap: 5px;
-            padding: 5px 12px;
+            padding: 6px 14px;
             border-radius: 999px;
             font-size: 11.5px;
             font-weight: 700;
@@ -2039,7 +2119,10 @@
             border: 1px solid #10b981;
             background: #ecfdf5;
             color: #065f46;
+            white-space: nowrap;
+            flex-shrink: 0;
             transition: all 0.2s ease;
+            margin-left: 4px;
         }
         .filter-only-open.active {
             background: #059669;
@@ -2631,57 +2714,130 @@
         }
 
         @media (max-width: 768px) {
-            .shell { width: calc(100% - 28px); }
-            .portal-hero { padding: 40px 0 24px; }
-            .portal-hero h1 { font-size: clamp(26px, 6vw, 42px); }
-            .portal-hero p { font-size: 14px; margin-bottom: 24px; }
-            .portal-brand strong { font-size: 15px; }
+            .shell { width: calc(100% - 24px); }
+            .portal-header {
+                padding-top: max(6px, env(safe-area-inset-top));
+            }
+            .header-inner {
+                min-height: 58px;
+                gap: 8px;
+            }
+            .portal-brand {
+                min-width: 0;
+                gap: 8px;
+            }
+            .portal-brand strong { font-size: 14.5px; white-space: nowrap; }
             .portal-brand small { display: none; }
             
-            /* Clean up top header by moving rent and admin buttons into the mobile drawer */
-            .btn-rent-nav { display: none; }
-            .btn-admin-panel { display: none; }
-            .portal-auth-actions { gap: 8px; }
+            /* Clean up top header in mobile: brand on left, theme and menu drawer on right */
+            .btn-rent-nav,
+            .btn-admin-panel,
+            .btn-lang-toggle,
+            .btn-share-header,
+            .btn-auth-login,
+            .user-profile-pill {
+                display: none !important;
+            }
+            .portal-auth-actions {
+                gap: 6px;
+                flex-shrink: 0;
+            }
+            .btn-theme-toggle {
+                width: 36px;
+                height: 36px;
+                font-size: 15px;
+            }
+            .btn-mobile-menu {
+                display: inline-flex;
+                height: 36px;
+                padding: 0 10px;
+                gap: 5px;
+                border-radius: 999px;
+            }
+            .btn-mobile-menu-bars {
+                width: 15px;
+                height: 11px;
+            }
+            .mobile-menu-label {
+                font-size: 12px;
+            }
+            
+            .portal-hero { padding: 32px 0 20px; }
+            .portal-hero h1 { font-size: clamp(24px, 5.5vw, 36px); }
+            .portal-hero p { font-size: 13.5px; margin-bottom: 20px; }
             
             .companies-grid { grid-template-columns: 1fr; gap: 16px; }
             .company-card { padding: 18px 16px; border-radius: 18px; }
             
             .plans-grid { grid-template-columns: 1fr; max-width: 440px; margin-left: auto; margin-right: auto; }
-            .plan-card { padding: 26px 20px; }
+            .plan-card { padding: 24px 18px; }
             
-            .search-results-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
-            .search-product-body { padding: 12px; }
-            .search-product-body h3 { font-size: 14px; }
+            .search-results-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            .search-product-body { padding: 10px; }
+            .search-product-body h3 { font-size: 13px; }
             .search-product-body p { display: none; }
-            .search-product-price { font-size: 16px; }
-            .btn-buy-store { font-size: 10.5px; padding: 6px 10px; }
+            .search-product-price { font-size: 15px; }
+            .btn-buy-store { font-size: 10px; padding: 5px 8px; }
             
-            .proximity-actions-row { flex-direction: column; align-items: stretch; }
+            .proximity-actions-row { flex-direction: column; align-items: stretch; gap: 8px; }
             .btn-use-gps { width: 100%; justify-content: center; }
             .gps-status-indicator { text-align: center; }
-            .zac-map-box { height: 280px; border-radius: 16px; }
+            .zac-map-box { height: 290px; border-radius: 16px; }
             
+            /* PWA Install prompts */
             .pwa-install-bar { display: block; }
-            .pwa-install-inner { flex-direction: column; text-align: center; }
-            .floating-pwa-badge { bottom: 16px; right: 16px; padding: 8px 14px; font-size: 12px; }
+            .pwa-install-inner { flex-direction: column; text-align: center; gap: 10px; }
+            .floating-pwa-badge { display: none !important; }
+            .btn-back-to-top { bottom: 20px; right: 16px; left: auto; width: 42px; height: 42px; }
         }
 
         @media (max-width: 540px) {
             .mobile-menu-label { display: none; }
-            .btn-mobile-menu { width: 40px; padding: 0; }
-            .btn-auth-login { padding: 7px 12px; font-size: 12px; }
+            .btn-mobile-menu { width: 36px; height: 36px; padding: 0; justify-content: center; }
 
             .search-btn-text { display: none; }
             .global-search-btn::after { content: 'Buscar'; }
-            .global-search-form { padding: 4px 6px 4px 14px; }
-            .global-search-input { font-size: 13.5px; }
+            .global-search-form { padding: 4px 6px 4px 12px; }
+            .global-search-input { font-size: 14px; }
             
             .search-results-grid { grid-template-columns: 1fr; }
-            .company-actions-footer { width: 100%; padding-top: 12px; }
-            .btn-visit-company { width: 100%; justify-content: center; }
             
-            .billing-toggle-btn { padding: 7px 14px; font-size: 12px; }
-            .annual-badge-pill { font-size: 11px; padding: 3px 10px; }
+            .company-actions-footer {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                padding-top: 12px;
+            }
+            .btn-visit-company {
+                flex: 1;
+                min-width: 0;
+                width: auto !important;
+                justify-content: center;
+                padding: 10px 14px;
+                font-size: 12.5px;
+            }
+            .btn-share-card {
+                flex-shrink: 0;
+                width: 38px;
+                height: 38px;
+            }
+
+            .company-social-links {
+                gap: 5px;
+            }
+            .social-icon-btn {
+                padding: 4px 7px;
+                font-size: 11px;
+                border-radius: 6px;
+            }
+            .social-icon-btn span {
+                font-size: 10.5px;
+            }
+            
+            .billing-toggle-box { width: 100%; justify-content: center; }
+            .billing-toggle-btn { padding: 7px 12px; font-size: 12px; flex: 1; text-align: center; }
+            .annual-badge-pill { font-size: 10.5px; padding: 3px 8px; text-align: center; }
             
             .portal-footer-grid { grid-template-columns: 1fr; gap: 24px; }
             .portal-footer-bottom { flex-direction: column; gap: 10px; text-align: center; }
@@ -2694,6 +2850,18 @@
             .global-search-btn::after { display: none; }
             .global-search-btn { padding: 10px 14px; }
             .brand-badge { width: 32px; height: 32px; font-size: 16px; }
+            .portal-brand strong { font-size: 13.5px; }
+        }
+
+        /* STANDALONE PWA OPTIMIZATIONS (INSTALLED ON MOBILE) */
+        @media all and (display-mode: standalone) {
+            .pwa-install-bar,
+            .floating-pwa-badge {
+                display: none !important;
+            }
+            .portal-header {
+                padding-top: max(10px, env(safe-area-inset-top));
+            }
         }
     </style>
 </head>
@@ -3111,11 +3279,11 @@
             <!-- Zacatecas Zone Filter Pills -->
             <div class="zac-zones-pills">
                 <button type="button" class="zone-pill active" onclick="filterByZone('all', this)">✦ Todas las Zonas</button>
-                <button type="button" class="zone-pill" onclick="filterByZone('Centro Histórico', this)">🏛️ Centro Histórico</button>
-                <button type="button" class="zone-pill" onclick="filterByZone('Av. Hidalgo', this)">🚶 Av. Hidalgo</button>
-                <button type="button" class="zone-pill" onclick="filterByZone('Calle Tacuba', this)">🛍️ Calle Tacuba</button>
-                <button type="button" class="zone-pill" onclick="filterByZone('Av. Juárez', this)">🏬 Av. Juárez</button>
+                <button type="button" class="zone-pill" onclick="filterByZone('Hidalgo', this)">🚶 Av. Hidalgo</button>
+                <button type="button" class="zone-pill" onclick="filterByZone('Tacuba', this)">🛍️ Calle Tacuba</button>
+                <button type="button" class="zone-pill" onclick="filterByZone('Juárez', this)">🏬 Av. Juárez</button>
                 <button type="button" class="zone-pill" onclick="filterByZone('Portal de Rosales', this)">☕ Portal de Rosales</button>
+                <button type="button" class="zone-pill" onclick="filterByZone('González Ortega', this)">🏛️ Mercado González Ortega</button>
             </div>
 
             <!-- Walking Distance Radius Filter Pills & Open Now Toggle -->
@@ -3222,8 +3390,8 @@
                             @endif
 
                             <!-- Real-time dynamic Open / Closed status -->
-                            <div style="font-size: 11.5px; color: #059669; font-weight: 700; margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap;">
-                                <div style="display: flex; align-items: center; gap: 5px;">
+                            <div class="store-hours-bar">
+                                <div class="store-hours-info">
                                     <span>⏰</span> <span class="hours-text">{{ $company['opening_hours'] }}</span>
                                 </div>
                                 <span class="store-open-badge badge-closed" id="badge-open-{{ $company['id'] }}">
@@ -4185,7 +4353,11 @@ function initZacatecasMap() {
     const mapEl = document.getElementById('zacatecasMap');
     if (!mapEl || typeof L === 'undefined') return;
 
-    map = L.map('zacatecasMap').setView(ZACATECAS_CENTER, 15);
+    const isMobile = window.innerWidth < 768;
+    map = L.map('zacatecasMap', {
+        scrollWheelZoom: false,
+        touchZoom: true
+    }).setView(ZACATECAS_CENTER, isMobile ? 14.5 : 15);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
@@ -4534,7 +4706,12 @@ function applyAllFilters() {
     renderStoreMarkers(visibleStores.length > 0 ? visibleStores : (onlyOpenFilterActive || activeRadiusKm ? [] : businessesData));
     if (visibleStores.length > 0 && map && currentZoneFilter !== 'all') {
         const first = visibleStores[0];
-        map.panTo([parseFloat(first.latitude) || 22.7753, parseFloat(first.longitude) || -102.5724]);
+        map.setView([parseFloat(first.latitude) || 22.7753, parseFloat(first.longitude) || -102.5724], 17);
+        if (mapMarkers.length > 0) {
+            mapMarkers[0].openPopup();
+        }
+    } else if (map && currentZoneFilter === 'all') {
+        map.setView(ZACATECAS_CENTER, window.innerWidth < 768 ? 14.5 : 15);
     }
 }
 
