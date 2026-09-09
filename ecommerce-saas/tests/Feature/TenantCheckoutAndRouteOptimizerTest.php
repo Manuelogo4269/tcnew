@@ -14,9 +14,9 @@ class TenantCheckoutAndRouteOptimizerTest extends TestCase
         $response = $this->get('http://localhost/');
         $response->assertStatus(200);
 
+        $response->assertSee('btnToggleRoutePanel');
         $response->assertSee('routeOptimizerPanel');
-        $response->assertSee('RUTA INTELIGENTE SEGÚN TU CARRITO');
-        $response->assertSee('Ruta Peatonal Más Corta entre tu Ubicación y las Tiendas Físicas');
+        $response->assertSee('Ruta de Compras según tu Carrito');
         $response->assertSee('cartRouteItemsContainer');
         $response->assertSee('routeOriginBar');
         $response->assertSee('btnRouteUseGps');

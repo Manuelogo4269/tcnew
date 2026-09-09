@@ -2887,31 +2887,156 @@
             white-space: nowrap;
         }
 
-        /* ROUTE ORIGIN CONTROLS BAR */
-        .route-origin-bar {
-            background: rgba(37, 99, 235, 0.05);
-            border: 1.5px solid rgba(37, 99, 235, 0.22);
-            border-radius: 14px;
+        /* MINIMALIST ROUTE TOGGLE BAR & COMPACT PANEL */
+        .route-panel-toggle-wrapper {
+            margin: 12px 0 0 0;
+            display: flex;
+            justify-content: center;
+        }
+        .btn-toggle-route-panel {
+            background: var(--card);
+            border: 1.5px solid var(--line);
+            border-radius: 999px;
+            padding: 8px 18px;
+            color: var(--ink);
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            transition: all .2s ease;
+        }
+        .btn-toggle-route-panel:hover, .btn-toggle-route-panel.active {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: var(--bg);
+            box-shadow: 0 4px 14px rgba(200, 109, 99, 0.18);
+        }
+        .route-toggle-left {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .route-toggle-right {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: var(--muted);
+        }
+        .btn-toggle-route-panel.active .route-toggle-right {
+            color: var(--accent);
+        }
+        .route-cart-badge-pill {
+            background: var(--accent);
+            color: #fff;
+            padding: 1px 8px;
+            border-radius: 999px;
+            font-size: 10.5px;
+            font-weight: 800;
+        }
+        .toggle-arrow {
+            font-size: 11px;
+            transition: transform .2s ease;
+        }
+
+        /* MINIMALIST ROUTE OPTIMIZER HEADER */
+        .route-opt-header-minimal {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 10px;
+            margin-bottom: 12px;
+            border-bottom: 1px dashed var(--line);
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .btn-opt-close-min {
+            background: transparent;
+            border: 1px solid var(--line);
+            color: var(--muted);
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 11.5px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all .15s ease;
+        }
+        .btn-opt-close-min:hover {
+            border-color: var(--ink);
+            color: var(--ink);
+        }
+        .btn-opt-clear-min {
+            background: transparent;
+            border: 1px solid transparent;
+            color: #ef4444;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 11.5px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all .15s ease;
+        }
+        .btn-opt-clear-min:hover {
+            background: rgba(239, 68, 68, 0.08);
+        }
+
+        /* MINIMALIST EMPTY CART STATE */
+        .cart-route-empty-min {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
             padding: 12px 16px;
+            background: var(--bg);
+            border: 1px dashed var(--line);
+            border-radius: 12px;
+        }
+        .btn-seed-sample-cart-min {
+            background: rgba(200, 109, 99, 0.12);
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            padding: 5px 12px;
+            border-radius: 999px;
+            font-size: 11.5px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all .2s ease;
+            white-space: nowrap;
+        }
+        .btn-seed-sample-cart-min:hover {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        /* ROUTE ORIGIN CONTROLS BAR (MINIMAL) */
+        .route-origin-bar {
+            background: rgba(37, 99, 235, 0.04);
+            border: 1px solid rgba(37, 99, 235, 0.18);
+            border-radius: 10px;
+            padding: 8px 12px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 14px;
+            gap: 8px;
+            margin-top: 10px;
         }
         .btn-route-origin-pill {
             background: var(--card);
             border: 1px solid var(--line);
             color: var(--ink);
-            padding: 5px 12px;
+            padding: 4px 10px;
             border-radius: 999px;
-            font-size: 11.5px;
+            font-size: 11px;
             font-weight: 700;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
-            gap: 5px;
+            gap: 4px;
             transition: all .2s ease;
         }
         .btn-route-origin-pill:hover, .btn-route-origin-pill.active {
@@ -4007,8 +4132,8 @@
         </nav>
 
         <div class="portal-auth-actions">
-            <button type="button" class="btn-central-cart" id="btnCentralCart" onclick="goToCartRoutePlanner()" title="Ver productos en mi Carrito Peatonal y calcular ruta">
-                <span>🛒</span> <span class="central-cart-label">Carrito Peatonal</span>
+            <button type="button" class="btn-central-cart" id="btnCentralCart" onclick="goToCartRoutePlanner()" title="Ver productos en mi Carrito y calcular ruta">
+                <span>🛒</span> <span class="central-cart-label">Mi Carrito</span>
                 <span class="central-cart-badge" id="centralCartBadge">0</span>
             </button>
 
@@ -4112,11 +4237,11 @@
     <!-- Navigation Options (The 5 requested sections) -->
     <div class="drawer-section-title">Navegación del Portal</div>
     <nav class="mobile-nav-list">
-        <a href="#routeOptimizerPanel" class="drawer-nav-item" onclick="closeMobileMenu(); goToCartRoutePlanner();">
+        <a href="#zacatecasMap" class="drawer-nav-item" onclick="closeMobileMenu(); goToCartRoutePlanner();">
             <div class="nav-item-icon" style="background: rgba(200, 109, 99, 0.15); color: #c86d63;">🛒</div>
             <div class="nav-item-text">
-                <div class="nav-item-title">Mi Carrito Peatonal (<span id="drawerCartBadge">0</span>)</div>
-                <div class="nav-item-sub">Ruta de compras para ver productos en tiendas</div>
+                <div class="nav-item-title">Mi Carrito de Compras (<span id="drawerCartBadge">0</span>)</div>
+                <div class="nav-item-sub">Ruta para ver y comprar tus artículos en tiendas</div>
             </div>
             <span class="nav-item-arrow">›</span>
         </a>
@@ -4384,17 +4509,33 @@
         <div class="zac-map-section">
             <div id="zacatecasMap" class="zac-map-box"></div>
 
-            <!-- Smart Shopping Route Optimizer Panel -->
-            <div class="route-optimizer-box" id="routeOptimizerPanel">
-                <div class="route-opt-header">
+            <!-- Botón Desplegable Minimalista para la Ruta de Compras -->
+            <div class="route-panel-toggle-wrapper">
+                <button type="button" class="btn-toggle-route-panel" id="btnToggleRoutePanel" onclick="toggleRoutePanel()">
+                    <span class="route-toggle-left">
+                        <span class="toggle-icon">🗺️</span>
+                        <span class="toggle-title">Ruta de Compras según tu Carrito</span>
+                        <span class="route-cart-badge-pill" id="routeCartBadgePill" style="display: none;">0 productos</span>
+                    </span>
+                    <span class="route-toggle-right">
+                        <span id="routeToggleActionText" class="toggle-action-text">Configurar y Ver Ruta</span>
+                        <span id="toggleRouteArrow" class="toggle-arrow">▾</span>
+                    </span>
+                </button>
+            </div>
+
+            <!-- Panel Desplegable de Ruta de Compras -->
+            <div class="route-optimizer-box" id="routeOptimizerPanel" style="display: none; margin-top: 12px;">
+                <div class="route-opt-header-minimal">
                     <div>
-                        <span class="route-opt-badge">⚡ RUTA INTELIGENTE SEGÚN TU CARRITO Y UBICACIÓN</span>
-                        <h3 style="font-size: 18px; font-weight: 800; margin: 4px 0; color: var(--ink);">Ruta Peatonal Más Corta entre tu Ubicación y las Tiendas Físicas</h3>
-                        <p style="font-size: 13px; color: var(--muted); margin: 0;">Agrega productos a tu carrito. Calculamos automáticamente la <strong>ruta peatonal más corta y eficiente</strong> por las calles de cantera de Zacatecas Centro desde tu ubicación actual hasta cada tienda para verlos y comprarlos.</p>
+                        <h3 style="font-size: 15px; font-weight: 800; margin: 0; color: var(--ink); display: flex; align-items: center; gap: 8px;">
+                            <span>🗺️</span> Ruta de Compras
+                        </h3>
+                        <p style="font-size: 12px; color: var(--muted); margin: 2px 0 0;">Visita las tiendas físicas de los artículos en tu carrito por Zacatecas Centro.</p>
                     </div>
-                    <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
-                        <button type="button" class="btn-opt-clear" onclick="clearCartRouteItems()" id="btnClearRouteCart" style="display: none;">🗑️ Vaciar Carrito</button>
-                        <button type="button" class="btn-opt-select-all" onclick="toggleManualStoreSelector()" id="btnToggleManualStores"><span>⚙</span> Ver Catálogo de Tiendas ▾</button>
+                    <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
+                        <button type="button" class="btn-opt-clear-min" onclick="clearCartRouteItems()" id="btnClearRouteCart" style="display: none;">🗑️ Vaciar</button>
+                        <button type="button" class="btn-opt-close-min" onclick="toggleRoutePanel(false)">✕ Ocultar</button>
                     </div>
                 </div>
 
@@ -4459,9 +4600,9 @@
                     @endforeach
                 </div>
 
-                <div class="route-opt-trigger-row" style="margin-top: 16px;">
+                <div class="route-opt-trigger-row" style="margin-top: 14px;">
                     <button type="button" class="btn-calculate-route" id="btnCalculateRoute" onclick="optimizeShoppingRoute(true)">
-                        <span>🚶‍♂️</span> Calcular Ruta Recomendada (Más Corta)
+                        <span>🚶‍♂️</span> Calcular Ruta Recomendada
                     </button>
                 </div>
 
@@ -4778,14 +4919,14 @@
             <div class="floating-cart-info">
                 <span class="floating-cart-icon">🛒</span>
                 <div>
-                    <strong id="floatingCartText">0 productos en tu Carrito de Ruta</strong>
-                    <small id="floatingCartSub">Calcula la ruta más corta desde tu ubicación</small>
+                    <strong id="floatingCartText">0 productos en tu Carrito</strong>
+                    <small id="floatingCartSub">Calcula tu ruta recomendada desde tu ubicación</small>
                 </div>
             </div>
             <div class="floating-cart-action">
                 <span class="floating-cart-total" id="floatingCartTotal">$0.00 MXN</span>
                 <button type="button" class="btn-floating-route-cta">
-                    <span>🚶‍♂️ Ver Ruta Más Corta ➔</span>
+                    <span>🗺️ Ver Ruta Recomendada ➔</span>
                 </button>
             </div>
         </div>
@@ -5227,7 +5368,7 @@
                 <!-- Action Buttons -->
                 <div class="modal-actions-row">
                     <button type="button" id="centralModalAddCartBtn" class="btn-add-cart-route-modal" onclick="addCurrentModalProductToRouteCart()">
-                        <span>🛒</span> Añadir a mi Carrito para Ruta Peatonal
+                        <span>🛒</span> Añadir a mi Carrito para Ruta
                     </button>
                     <a id="centralModalWaBtn" href="#" target="_blank" class="btn-whatsapp-order">
                         <svg style="width:20px; height:20px; fill:#fff;" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.699c.971.53 1.769.814 2.797.814 3.18 0 5.767-2.587 5.768-5.766 0-3.18-2.588-5.766-5.769-5.766zm0 10.355c-.886 0-1.616-.242-2.348-.675l-.168-.1-1.745.458.466-1.701-.11-.175c-.476-.757-.728-1.503-.728-2.399 0-2.531 2.059-4.59 4.635-4.59 2.576 0 4.635 2.059 4.635 4.59 0 2.531-2.059 4.592-4.535 4.592zm-8.031-4.589c0 6.627 5.373 12 12 12s12-5.373 12-12-5.373-12-12-12-12 5.373-12 12z"/></svg>
@@ -6184,10 +6325,31 @@ function toggleManualStoreSelector(forceShow) {
     }
 }
 
+function toggleRoutePanel(forceOpen) {
+    const panel = document.getElementById('routeOptimizerPanel');
+    const btn = document.getElementById('btnToggleRoutePanel');
+    const arrow = document.getElementById('toggleRouteArrow');
+    const actionText = document.getElementById('routeToggleActionText');
+    if (!panel) return;
+
+    const isHidden = (panel.style.display === 'none' || panel.style.display === '');
+    const shouldShow = forceOpen !== undefined ? forceOpen : isHidden;
+
+    panel.style.display = shouldShow ? 'block' : 'none';
+    if (arrow) arrow.textContent = shouldShow ? '▴' : '▾';
+    if (actionText) actionText.textContent = shouldShow ? 'Ocultar Opciones' : 'Configurar y Ver Ruta';
+    if (btn) btn.classList.toggle('active', shouldShow);
+
+    if (shouldShow) {
+        renderCartForRoute();
+    }
+}
+
 function goToCartRoutePlanner() {
+    toggleRoutePanel(true);
     const panel = document.getElementById('routeOptimizerPanel');
     if (panel) {
-        panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 }
 
@@ -6209,6 +6371,16 @@ function renderCartForRoute() {
     });
 
     updateHeaderCartBadge(totalItems);
+
+    const badgePill = document.getElementById('routeCartBadgePill');
+    if (badgePill) {
+        if (totalItems > 0) {
+            badgePill.style.display = 'inline-block';
+            badgePill.textContent = `${totalItems} prod${totalItems > 1 ? 's' : ''}`;
+        } else {
+            badgePill.style.display = 'none';
+        }
+    }
 
     const clearBtn = document.getElementById('btnClearRouteCart');
     if (clearBtn) clearBtn.style.display = storeIds.length > 0 ? 'inline-flex' : 'none';
@@ -6244,16 +6416,20 @@ function renderCartForRoute() {
     if (storeIds.length === 0) {
         if (floatBar) floatBar.style.display = 'none';
         container.innerHTML = `
-            <div class="cart-route-empty">
-                <div class="cart-empty-icon">🛒</div>
-                <h4>Tu carrito peatonal está vacío</h4>
-                <p>Para generar la ruta más corta hacia las tiendas físicas, agrega productos desde el catálogo o carga un ejemplo con 1 clic:</p>
-                <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 14px;">
-                    <button type="button" class="btn-seed-sample-cart" onclick="loadSampleCartForRouteDemo()">
-                        <span>✦</span> Cargar 3 Productos de Prueba para Ver la Ruta
+            <div class="cart-route-empty-min">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span style="font-size: 20px;">🛒</span>
+                    <div>
+                        <strong style="font-size: 13px; color: var(--ink);">Tu carrito está vacío</strong>
+                        <div style="font-size: 11.5px; color: var(--muted);">Agrega artículos desde las tiendas o carga una muestra para ver la ruta recomendada.</div>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+                    <button type="button" class="btn-seed-sample-cart-min" onclick="loadSampleCartForRouteDemo()">
+                        <span>✦</span> Cargar 3 Productos de Muestra
                     </button>
-                    <button type="button" class="btn-explore-stores-scroll" onclick="toggleManualStoreSelector(true)">
-                        <span>⚙</span> Seleccionar Tiendas Manualmente ▾
+                    <button type="button" class="btn-route-origin-pill" onclick="toggleManualStoreSelector(true)">
+                        <span>⚙</span> Elegir Tiendas ▾
                     </button>
                 </div>
             </div>
@@ -6333,8 +6509,8 @@ function renderCartForRoute() {
                 ${storesHtml}
             </div>
             <div style="margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
-                <button type="button" class="btn-calculate-route" onclick="optimizeShoppingRoute(true)" style="padding: 12px 24px; font-size: 14px;">
-                    <span>🚶‍♂️</span> Trazar Ruta Peatonal Recomendada para Ver/Comprar estos Productos (${storeIds.length} tiendas)
+                <button type="button" class="btn-calculate-route" onclick="optimizeShoppingRoute(true)" style="padding: 10px 22px; font-size: 13.5px;">
+                    <span>🚶‍♂️</span> Calcular Ruta Recomendada (${storeIds.length} tiendas)
                 </button>
             </div>
         </div>
@@ -6441,7 +6617,7 @@ function setCustomMapOrigin(lat, lng) {
         name: `Punto en el Mapa (${lat.toFixed(4)}, ${lng.toFixed(4)})`
     };
     updateOriginBarUI('custom', `<span style="color:#2563eb; font-weight:700;">📍 Punto Fijado en el Mapa</span> (${lat.toFixed(4)}, ${lng.toFixed(4)})`);
-    showToast('📍 Punto de partida actualizado en el mapa. Recalculando ruta más corta...');
+    showToast('📍 Punto de partida actualizado en el mapa. Recalculando ruta recomendada...');
     optimizeShoppingRoute(false);
 }
 
@@ -6559,7 +6735,7 @@ function optimizeShoppingRoute(scroll = true) {
     }
 
     if (selectedRouteStoreIds.size === 0) {
-        alert('Tu carrito peatonal está vacío. Agrega productos al carrito o pulsa "Cargar 3 Productos de Prueba" para trazar la ruta más corta.');
+        alert('Tu carrito está vacío. Agrega productos al carrito o pulsa "Cargar 3 Productos de Muestra" para trazar la ruta recomendada.');
         goToCartRoutePlanner();
         return;
     }
@@ -6704,7 +6880,7 @@ function renderRouteItineraryUI(startPoint, orderedRoute, totalKm) {
             <div class="stop-number-badge" style="background: #2563eb;">🏁</div>
             <div class="stop-info">
                 <div class="stop-title">Punto de Partida: ${startPoint.name}</div>
-                <div class="stop-meta">Inicio del recorrido peatonal por el Centro Histórico de Zacatecas</div>
+                <div class="stop-meta">Inicio del recorrido por el Centro Histórico de Zacatecas</div>
             </div>
         </div>
     `;
@@ -6764,9 +6940,9 @@ function renderRouteItineraryUI(startPoint, orderedRoute, totalKm) {
         <div class="route-itinerary-card">
             <div class="itinerary-header">
                 <div>
-                    <span class="itinerary-tag">✓ RUTA MÁS CORTA CALCULADA</span>
-                    <h4>Itinerario Óptimo de Compras</h4>
-                    <small style="color:var(--muted); font-size:12px;">Ordenadas de la más cercana a la más lejana para ahorrar pasos</small>
+                    <span class="itinerary-tag">✓ RUTA CALCULADA</span>
+                    <h4>Itinerario de Compras</h4>
+                    <small style="color:var(--muted); font-size:12px;">Ordenadas para minimizar tu recorrido por el Centro</small>
                 </div>
                 <div class="itinerary-metrics">
                     <div class="metric-box">
