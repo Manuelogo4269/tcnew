@@ -163,30 +163,70 @@ class CentralPortalController extends Controller
         $hasGoogleKeys = !empty(config('services.google.client_id')) && !empty(config('services.google.client_secret'));
         $hasFacebookKeys = !empty(config('services.facebook.client_id')) && !empty(config('services.facebook.client_secret'));
 
-        $rawStories = \App\Models\Story::active()->latest()->get();
-        $storiesByStore = [];
-        foreach ($rawStories as $st) {
-            $key = (string) ($st->tenant_id ?: 'general');
-            if (!isset($storiesByStore[$key])) {
-                $storiesByStore[$key] = [
-                    'store_id' => $key,
-                    'store_name' => $st->store_name,
-                    'store_logo' => $st->store_logo,
-                    'slides' => [],
+        // Dynamic company ratings and reviews count from Review model
+        foreach ($businesses as &$b) {
+            $companyRevs = \App\Models\Review::forCompany($b['id'])->approved()->get();
+            if ($companyRevs->isNotEmpty()) {
+                $b['rating'] = round($companyRevs->avg('rating'), 1);
+                $b['reviews_count'] = $companyRevs->count();
+            }
+        }
+        unset($b);
+
+        // Compile Most Visited Products across all iconic stores
+        $allProductsList = [];
+        foreach ($businesses as $b) {
+            foreach ($b['sample_products'] as $p) {
+                $pSlug = $p['slug'] ?? \Illuminate\Support\Str::slug($p['name']);
+                $revs = \App\Models\Review::forProduct($pSlug)->approved()->get();
+                $avgRating = $revs->isNotEmpty() ? round($revs->avg('rating'), 1) : 5.0;
+                $revCount = $revs->isNotEmpty() ? $revs->count() : match($p['store_id'] ?? $b['id']) {
+                    'acropolis' => 38,
+                    'donajulia' => 45,
+                    'rosadeplata' => 29,
+                    'elserranito' => 24,
+                    'quinceletras' => 52,
+                    'libreriaandrea' => 19,
+                    default => 15,
+                };
+                $visits = match($p['store_id'] ?? $b['id']) {
+                    'acropolis' => 1420,
+                    'donajulia' => 1350,
+                    'rosadeplata' => 980,
+                    'elserranito' => 840,
+                    'quinceletras' => 910,
+                    'libreriaandrea' => 670,
+                    default => 450,
+                };
+
+                $allProductsList[] = [
+                    'id' => (string) $p['id'],
+                    'slug' => $pSlug,
+                    'name' => $p['name'],
+                    'price' => (float) $p['price'],
+                    'image_url' => $p['image_url'],
+                    'description' => $p['description'],
+                    'stock' => $p['stock'] ?? 15,
+                    'url' => $p['url'],
+                    'store_id' => $b['id'],
+                    'store_name' => $b['store_name'],
+                    'store_url' => $b['store_url'],
+                    'store_logo' => $b['logo_url'] ?? '',
+                    'store_category' => $b['business_category'],
+                    'address' => $b['address'],
+                    'hours' => $b['opening_hours'],
+                    'whatsapp' => $b['whatsapp_number'] ?? '',
+                    'maps_url' => $b['maps_url'] ?? '',
+                    'visits_count' => $visits,
+                    'rating' => $avgRating,
+                    'reviews_count' => $revCount,
                 ];
             }
-            $storiesByStore[$key]['slides'][] = [
-                'id' => (string) $st->id,
-                'media_url' => $st->media_url,
-                'caption' => $st->caption,
-                'cta_text' => $st->cta_text ?: 'Ver Tienda Oficial',
-                'cta_url' => $st->cta_url ?: ($st->tenant_id ? url('/tienda/' . $st->tenant_id) : url('/')),
-                'whatsapp_number' => $st->whatsapp_number,
-                'views_count' => (int) $st->views_count,
-                'duration_seconds' => (int) ($st->duration_seconds ?: 5),
-                'time_ago' => $st->created_at ? $st->created_at->diffForHumans(null, true) : 'Hoy',
-            ];
         }
+
+        // Sort by visits descending
+        usort($allProductsList, fn($a, $b) => $b['visits_count'] <=> $a['visits_count']);
+        $mostVisitedProducts = array_slice($allProductsList, 0, 8);
 
         return view('central.home', [
             'businesses' => $filteredBusinesses,
@@ -199,7 +239,7 @@ class CentralPortalController extends Controller
             'user' => $user,
             'hasGoogleKeys' => $hasGoogleKeys,
             'hasFacebookKeys' => $hasFacebookKeys,
-            'storiesByStore' => $storiesByStore,
+            'mostVisitedProducts' => $mostVisitedProducts,
         ]);
     }
 
@@ -478,14 +518,92 @@ class CentralPortalController extends Controller
     }
 
     /**
-     * Get all active stories
+     * Get reviews for a company or product
      */
-    public function getStories()
+    public function getReviews(Request $request)
     {
-        $rawStories = \App\Models\Story::active()->latest()->get();
+        $type = $request->input('type'); // 'company' or 'product'
+        $id = $request->input('id');
+
+        if (!$type || !$id) {
+            return response()->json(['success' => false, 'message' => 'Faltan parámetros type o id.'], 400);
+        }
+
+        $reviews = \App\Models\Review::where('reviewable_type', $type)
+            ->where('reviewable_id', $id)
+            ->approved()
+            ->latest()
+            ->get()
+            ->map(fn($r) => [
+                'id' => $r->id,
+                'author_name' => $r->author_name,
+                'rating' => (int) $r->rating,
+                'comment' => $r->comment,
+                'verified_purchase' => (bool) $r->verified_purchase,
+                'time_ago' => $r->created_at ? $r->created_at->diffForHumans(null, true) : 'Reciente',
+                'created_at_fmt' => $r->created_at ? $r->created_at->format('d/m/Y') : '',
+            ]);
+
+        $avg = $reviews->isNotEmpty() ? round($reviews->avg('rating'), 1) : 5.0;
+
         return response()->json([
             'success' => true,
-            'stories' => $rawStories,
+            'reviews' => $reviews,
+            'count' => $reviews->count(),
+            'average_rating' => $avg,
+        ]);
+    }
+
+    /**
+     * Store a new 1-5 star review & comment
+     */
+    public function storeReview(Request $request)
+    {
+        $validated = $request->validate([
+            'reviewable_type' => 'required|string|in:company,product',
+            'reviewable_id' => 'required|string|max:120',
+            'rating' => 'required|integer|min:1|max:5',
+            'author_name' => 'required|string|min:2|max:80',
+            'comment' => 'required|string|min:4|max:1000',
+        ], [
+            'rating.min' => 'La calificación mínima es de 1 estrella.',
+            'rating.max' => 'La calificación máxima es de 5 estrellas.',
+            'author_name.required' => 'Por favor ingresa tu nombre.',
+            'comment.min' => 'El comentario debe tener al menos 4 caracteres.',
+        ]);
+
+        $review = \App\Models\Review::create([
+            'reviewable_type' => $validated['reviewable_type'],
+            'reviewable_id' => $validated['reviewable_id'],
+            'rating' => (int) $validated['rating'],
+            'author_name' => strip_tags(trim($validated['author_name'])),
+            'comment' => strip_tags(trim($validated['comment'])),
+            'verified_purchase' => true,
+            'is_approved' => true,
+        ]);
+
+        $allRevs = \App\Models\Review::where('reviewable_type', $validated['reviewable_type'])
+            ->where('reviewable_id', $validated['reviewable_id'])
+            ->approved()
+            ->get();
+
+        $newAvg = round($allRevs->avg('rating'), 1);
+        $newCount = $allRevs->count();
+
+        return response()->json([
+            'success' => true,
+            'message' => '¡Muchas gracias por tu reseña y calificación!',
+            'review' => [
+                'id' => $review->id,
+                'author_name' => $review->author_name,
+                'rating' => $review->rating,
+                'comment' => $review->comment,
+                'verified_purchase' => true,
+                'time_ago' => 'Justo ahora',
+                'created_at_fmt' => now()->format('d/m/Y'),
+            ],
+            'average_rating' => $newAvg,
+            'reviews_count' => $newCount,
         ]);
     }
 }

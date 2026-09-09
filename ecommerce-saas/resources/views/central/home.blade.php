@@ -4350,8 +4350,8 @@
             color: var(--muted);
         }
 
-        /* 3. SOCIAL FEED STREAM (TIKTOK / FACEBOOK CARDS) */
-        .social-feed-stream {
+        /* 3. LEGACY FEED STREAM */
+        .legacy-feed-stream {
             max-width: 620px;
             margin: 0 auto;
             display: flex;
@@ -5009,7 +5009,7 @@
         }
 
         /* Social Feed Cohesion */
-        .social-feed-stream {
+        .legacy-feed-stream {
             max-width: 680px;
             margin: 0 auto 40px;
             padding: 0 4px;
@@ -5032,6 +5032,334 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+        }
+            /* --- MOST VISITED PRODUCTS SECTION --- */
+        .most-visited-section {
+            margin: 32px 0 45px;
+        }
+        .most-visited-header-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 22px;
+            padding: 0 4px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .most-visited-tag-badge {
+            font-size: 12.5px;
+            font-weight: 800;
+            color: #fff;
+            background: linear-gradient(135deg, #c86d63, #b45b51);
+            padding: 7px 16px;
+            border-radius: 999px;
+            box-shadow: 0 4px 12px rgba(200, 109, 99, 0.35);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .most-visited-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+            gap: 22px;
+        }
+        .visited-product-card {
+            background: var(--card);
+            border-radius: 20px;
+            border: 1.5px solid var(--card-border);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.05);
+            transition: transform 0.22s ease, box-shadow 0.22s ease;
+        }
+        .visited-product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.1);
+        }
+        .visited-product-thumb {
+            aspect-ratio: 1 / 1;
+            position: relative;
+            overflow: hidden;
+            background: var(--paper);
+            cursor: pointer;
+        }
+        .visited-product-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+            display: block;
+        }
+        .visited-product-card:hover .visited-product-thumb img {
+            transform: scale(1.07);
+        }
+        .visited-badge-visits {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(18, 19, 17, 0.88);
+            backdrop-filter: blur(8px);
+            color: #fff;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 4px 9px;
+            border-radius: 999px;
+            border: 1px solid rgba(255,255,255,0.18);
+            z-index: 2;
+        }
+        .visited-badge-store {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(8px);
+            color: #181d26;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 3px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(203, 213, 225, 0.8);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+            z-index: 2;
+        }
+        [data-theme="dark"] .visited-badge-store {
+            background: rgba(20, 24, 34, 0.92);
+            color: #f1f5f9;
+            border-color: rgba(255,255,255,0.15);
+        }
+        .visited-product-body {
+            padding: 16px 18px 12px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .visited-product-cat {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: .05em;
+            margin-bottom: 4px;
+        }
+        .visited-product-title {
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--ink);
+            margin: 0 0 8px;
+            line-height: 1.35;
+            cursor: pointer;
+            transition: color 0.15s ease;
+        }
+        .visited-product-title:hover {
+            color: var(--accent);
+        }
+        .visited-product-rating {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            font-size: 12.5px;
+        }
+        .stars-gold {
+            color: #f59e0b;
+            letter-spacing: 1px;
+            font-size: 13px;
+        }
+        .rating-val {
+            font-weight: 800;
+            color: var(--ink);
+        }
+        .rating-qty {
+            color: var(--muted);
+            font-size: 11.5px;
+        }
+        .visited-product-price-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: auto;
+            padding-top: 8px;
+            border-top: 1px dashed var(--line);
+        }
+        .visited-product-price {
+            font-size: 16.5px;
+            font-weight: 800;
+            color: var(--accent);
+        }
+        .visited-product-stock {
+            font-size: 11px;
+            font-weight: 700;
+            color: #10b981;
+        }
+        .visited-product-footer {
+            padding: 0 18px 16px;
+            display: flex;
+            gap: 8px;
+        }
+        .btn-visited-add-cart {
+            flex: 1;
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #c86d63, #b45b51);
+            color: #fff;
+            border: none;
+            font-weight: 800;
+            font-size: 12.5px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            box-shadow: 0 3px 10px rgba(200, 109, 99, 0.3);
+            transition: transform 0.15s ease, background 0.15s ease;
+        }
+        .btn-visited-add-cart:hover {
+            transform: translateY(-1px);
+            background: linear-gradient(135deg, #b85b51, #9e4338);
+        }
+        .btn-visited-view {
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: var(--paper);
+            color: var(--ink);
+            border: 1.5px solid var(--card-border);
+            font-weight: 700;
+            font-size: 12px;
+            cursor: pointer;
+            transition: background 0.15s ease;
+        }
+        .btn-visited-view:hover {
+            background: var(--card-border);
+        }
+
+        /* --- 1-5 STAR RATING & REVIEWS SYSTEM STYLES --- */
+        .reviews-section-box {
+            margin-top: 20px;
+            padding-top: 18px;
+            border-top: 1px dashed var(--line);
+        }
+        .reviews-header-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .reviews-summary-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(245, 158, 11, 0.12);
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 800;
+            color: #d97706;
+        }
+        .btn-toggle-review-form {
+            background: var(--paper);
+            border: 1.5px solid var(--card-border);
+            border-radius: 999px;
+            padding: 6px 14px;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--ink);
+            cursor: pointer;
+            transition: background 0.15s ease;
+        }
+        .btn-toggle-review-form:hover {
+            background: var(--card-border);
+        }
+        .review-form-card {
+            background: var(--paper);
+            border: 1.5px solid var(--card-border);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+        .star-rating-selector {
+            display: flex;
+            gap: 4px;
+            margin: 6px 0 12px;
+        }
+        .star-pick-btn {
+            background: transparent;
+            border: none;
+            font-size: 24px;
+            color: #cbd5e1;
+            cursor: pointer;
+            transition: transform 0.15s ease, color 0.15s ease;
+            padding: 2px;
+        }
+        .star-pick-btn.active {
+            color: #f59e0b;
+        }
+        .star-pick-btn:hover {
+            transform: scale(1.2);
+        }
+        .review-item-card {
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            padding: 12px 14px;
+            margin-bottom: 10px;
+        }
+        .review-item-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 4px;
+        }
+        .review-author-name {
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--ink);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .review-verified-tag {
+            font-size: 10px;
+            color: #10b981;
+            font-weight: 700;
+            background: rgba(16, 185, 129, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        .review-item-date {
+            font-size: 11px;
+            color: var(--muted);
+        }
+        .review-item-text {
+            font-size: 12.5px;
+            color: var(--ink);
+            margin: 4px 0 0;
+            line-height: 1.45;
+        }
+
+        /* Company Card Interactive Review Pill */
+        .btn-company-reviews-trigger {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 999px;
+            padding: 4px 12px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #b45309;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: background 0.15s ease, transform 0.15s ease;
+            margin-top: 4px;
+        }
+        .btn-company-reviews-trigger:hover {
+            background: rgba(245, 158, 11, 0.2);
+            transform: translateY(-1px);
         }
     </style>
 </head>
@@ -5347,53 +5675,11 @@
 
 <main class="shell">
 
-    <!-- STORIES TRAY (ESTILO INSTAGRAM / TIKTOK / FACEBOOK STORIES) -->
-    <section class="stories-tray-section" id="storiesTraySection" aria-label="Historias destacadas de Zacatecas">
-        <div class="stories-tray-scroll">
-            <!-- CREATE STORY BUTTON (FOR ENTERPRISES & MERCHANTS) -->
-            <button type="button" class="story-item story-create-item" onclick="openCreateStoryModal()" title="Publicar nueva historia para tu empresa">
-                <div class="story-ring story-create-ring">
-                    <div class="story-avatar-box story-create-box">
-                        <span class="story-create-icon">➕</span>
-                    </div>
-                </div>
-                <span class="story-name"><strong>+ Publicar</strong></span>
-            </button>
-
-            @foreach($allBusinesses as $biz)
-                @php
-                    $bizStories = $storiesByStore[$biz['id']]['slides'] ?? [];
-                    $storiesCount = count($bizStories);
-                    $storeAvatar = !empty($biz['logo_url']) ? $biz['logo_url'] : match($biz['id']) {
-                        'acropolis' => 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=160&q=80',
-                        'donajulia' => 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=160&q=80',
-                        'rosadeplata' => 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=160&q=80',
-                        'elserranito' => 'https://images.unsplash.com/photo-1579954115545-a95591f28bfc?auto=format&fit=crop&w=160&q=80',
-                        'quinceletras' => 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=160&q=80',
-                        'libreriaandrea' => 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=160&q=80',
-                        default => 'https://placehold.co/160x160?text=' . urlencode(substr($biz['store_name'], 0, 2))
-                    };
-                @endphp
-                <button type="button" class="story-item" id="storyItem_{{ $biz['id'] }}" onclick="openStoryViewer('{{ $biz['id'] }}')" title="Ver {{ $storiesCount > 0 ? $storiesCount . ' historias' : 'historia' }} de {{ $biz['store_name'] }}">
-                    <div class="story-ring {{ $storiesCount > 0 ? 'has-active-stories' : '' }}" id="storyRing_{{ $biz['id'] }}">
-                        <div class="story-avatar-box">
-                            <img src="{{ $storeAvatar }}" alt="{{ $biz['store_name'] }}" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/160x160?text=ZAC';">
-                        </div>
-                        @if($storiesCount > 1)
-                            <span class="story-count-badge">{{ $storiesCount }}</span>
-                        @endif
-                    </div>
-                    <span class="story-name">{{ Str::limit($biz['store_name'], 10) }}</span>
-                </button>
-            @endforeach
-        </div>
-    </section>
-
     <!-- SEGMENTED TABS (ESTILO TIKTOK 'PARA TI' / FACEBOOK FEED TABS) -->
     <nav class="main-tab-nav-wrapper" id="mainTabNavWrapper" aria-label="Secciones principales">
         <div class="main-tab-switcher">
             <button type="button" class="main-tab-btn active" id="tabBtnFeed" onclick="switchMainTab('feed')">
-                <span>✦</span> Para Ti
+                <span>🔥</span> Más Visitados
             </button>
             <button type="button" class="main-tab-btn" id="tabBtnMap" onclick="switchMainTab('map')">
                 <span>📍</span> Mapa &amp; Cercanía
@@ -5580,125 +5866,136 @@
         </section>
     @endif
 
-    <!-- SOCIAL FEED STREAM (ESTILO TIKTOK / FACEBOOK CARDS) -->
-    <section class="social-feed-stream" aria-label="Feed social de publicaciones y productos destacados">
-        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; padding: 0 4px;">
+    <!-- SECCIÓN DESTACADA: PRODUCTOS MÁS VISITADOS DE ZACATECAS CENTRO -->
+    <section class="most-visited-section" id="productosPopulares" aria-label="Productos más visitados">
+        <div class="most-visited-header-bar">
             <div>
-                <span class="section-eyebrow" style="color: var(--accent);">✦ Novedades en Zacatecas Centro</span>
-                <h2 style="font-size: 22px; font-weight: 800; margin: 2px 0; color: var(--ink);">Feed de Productos &amp; Comercios</h2>
-                <p style="font-size: 13.5px; color: var(--muted); margin: 0;">Descubre lo más nuevo estilo social: dale ❤️ a lo que te guste y añade a tu carrito directo.</p>
+                <span class="section-eyebrow" style="color: var(--accent);">✦ Lo Más Buscado en Zacatecas</span>
+                <h2 style="font-size: 24px; font-weight: 800; margin: 2px 0; color: var(--ink);">Productos Más Visitados de Zacatecas Centro</h2>
+                <p style="font-size: 13.5px; color: var(--muted); margin: 0;">Los artículos más populares y con mejores calificaciones en los comercios del Centro Histórico.</p>
             </div>
-            <div style="font-size: 12.5px; font-weight: 700; color: var(--accent); background: var(--accent-soft); padding: 6px 14px; border-radius: 999px;">
-                🔥 Tendencias Locales
+            <div class="most-visited-tag-badge">
+                🔥 Tendencias en Vivo
             </div>
         </div>
 
-        @foreach($businesses as $store)
-            @foreach(collect($store['sample_products'])->take(2) as $prod)
-                @php
-                    $postId = 'post-' . $store['id'] . '-' . $prod['id'];
-                    $likeCount = 18 + (($loop->parent->index * 7 + $loop->index * 13) % 43);
-                    $storeWa = preg_replace('/[^0-9]/', '', $store['whatsapp_number'] ?? '4921234567');
-                @endphp
-                <article class="social-card" id="{{ $postId }}">
-                    <!-- Header -->
-                    <div class="social-card-header">
-                        <a href="{{ $store['store_url'] }}" class="social-author-meta">
-                            <div class="social-author-avatar-wrap">
-                                <img src="{{ !empty($store['logo_url']) ? $store['logo_url'] : 'https://placehold.co/80x80?text=' . urlencode(substr($store['store_name'], 0, 2)) }}" alt="{{ $store['store_name'] }}">
-                            </div>
-                            <div class="social-author-info">
-                                <h4>
-                                    {{ $store['store_name'] }}
-                                    <span class="social-verified-badge" title="Comercio Oficial Verificado">✓</span>
-                                </h4>
-                                <div class="social-author-sub">
-                                    <span>{{ $store['business_category'] }}</span> ·
-                                    <span>📍 {{ Str::limit($store['address'], 26) }}</span>
-                                </div>
-                            </div>
-                        </a>
-                        @if(!empty($storeWa))
-                            <a href="https://wa.me/{{ $storeWa }}?text={{ urlencode('¡Hola! Vi este producto en el Feed de Atelier Zacatecas: ' . $prod['name'] . ' (' . $prod['url'] . ')') }}" target="_blank" class="btn-card-wa" title="Preguntar por WhatsApp">
-                                💬 WhatsApp
-                            </a>
-                        @endif
+        <!-- Grid of Most Visited Products -->
+        <div class="most-visited-grid">
+            @foreach($mostVisitedProducts as $item)
+                <article class="visited-product-card" id="card-prod-{{ $item['id'] }}">
+                    <div class="visited-product-thumb" onclick='openCentralProductModal({
+                        id: @json($item["id"]),
+                        slug: @json($item["slug"]),
+                        store_id: @json($item["store_id"]),
+                        name: @json($item["name"]),
+                        price: {{ (float)$item["price"] }},
+                        image_url: @json($item["image_url"] ?? ""),
+                        description: @json($item["description"] ?? ""),
+                        stock: {{ (int)($item["stock"] ?? 15) }},
+                        url: @json($item["url"]),
+                        store_name: @json($item["store_name"]),
+                        store_url: @json($item["store_url"]),
+                        address: @json($item["address"]),
+                        hours: @json($item["hours"]),
+                        whatsapp: @json($item["whatsapp"] ?? ""),
+                        maps_url: @json($item["maps_url"] ?? ""),
+                        rating: {{ (float)$item["rating"] }},
+                        reviews_count: {{ (int)$item["reviews_count"] }}
+                    });'>
+                        <img src="{{ !empty($item['image_url']) ? $item['image_url'] : 'https://placehold.co/600x600?text=' . urlencode($item['name']) }}" alt="{{ $item['name'] }}" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/600x600?text=Zacatecas';">
+                        <span class="visited-badge-visits">🔥 {{ number_format($item['visits_count']) }} visitas</span>
+                        <span class="visited-badge-store">🏬 {{ $item['store_name'] }}</span>
                     </div>
 
-                    <!-- Media -->
-                    <div class="social-card-media" ondblclick="likeFeedPost('{{ $postId }}', true)">
-                        <img src="{{ !empty($prod['image_url']) ? $prod['image_url'] : 'https://placehold.co/600x600?text=Zacatecas' }}" alt="{{ $prod['name'] }}" loading="lazy">
-                        <span class="social-card-price-tag">${{ number_format($prod['price'], 0) }} MXN</span>
-                        <div class="social-heart-pop" id="heartPop-{{ $postId }}">❤️</div>
-                    </div>
+                    <div class="visited-product-body">
+                        <span class="visited-product-cat">{{ $item['store_category'] }}</span>
+                        <h3 class="visited-product-title" onclick='openCentralProductModal({
+                            id: @json($item["id"]),
+                            slug: @json($item["slug"]),
+                            store_id: @json($item["store_id"]),
+                            name: @json($item["name"]),
+                            price: {{ (float)$item["price"] }},
+                            image_url: @json($item["image_url"] ?? ""),
+                            description: @json($item["description"] ?? ""),
+                            stock: {{ (int)($item["stock"] ?? 15) }},
+                            url: @json($item["url"]),
+                            store_name: @json($item["store_name"]),
+                            store_url: @json($item["store_url"]),
+                            address: @json($item["address"]),
+                            hours: @json($item["hours"]),
+                            whatsapp: @json($item["whatsapp"] ?? ""),
+                            maps_url: @json($item["maps_url"] ?? ""),
+                            rating: {{ (float)$item["rating"] }},
+                            reviews_count: {{ (int)$item["reviews_count"] }}
+                        });'>{{ $item['name'] }}</h3>
 
-                    <!-- Actions Bar -->
-                    <div class="social-actions-bar">
-                        <div class="social-actions-left">
-                            <button type="button" class="btn-social-action" id="btnLike-{{ $postId }}" onclick="likeFeedPost('{{ $postId }}', false)" title="Me gusta">
-                                <span class="like-icon" id="likeIcon-{{ $postId }}">🤍</span>
-                                <span class="action-count" id="likeCount-{{ $postId }}">{{ $likeCount }}</span>
-                            </button>
-                            <button type="button" class="btn-social-action" onclick='openCentralProductModal({
-                                id: @json($prod["id"]),
-                                store_id: @json($store["id"]),
-                                name: @json($prod["name"]),
-                                price: {{ (float)$prod["price"] }},
-                                image_url: @json($prod["image_url"] ?? ""),
-                                description: @json($prod["description"] ?? ""),
-                                stock: {{ (int)($prod["stock"] ?? 15) }},
-                                url: @json($prod["url"]),
-                                store_name: @json($store["store_name"]),
-                                store_url: @json($store["store_url"]),
-                                address: @json($store["address"]),
-                                hours: @json($store["opening_hours"]),
-                                whatsapp: @json($store["whatsapp_number"] ?? ""),
-                                maps_url: @json($store["maps_url"] ?? "")
-                            })' title="Ver detalles y opiniones">
-                                <span>💬</span>
-                                <span class="action-count">{{ 3 + (($loop->parent->index + $loop->index) % 8) }}</span>
-                            </button>
-                            <button type="button" class="btn-social-action" onclick="shareStore('{{ addslashes($prod['name']) }}', '{{ $prod['url'] }}', '{{ addslashes($store['store_name']) }}')" title="Compartir">
-                                <span>📤</span>
-                            </button>
+                        <!-- Star Rating Summary -->
+                        <div class="visited-product-rating" onclick='openProductReviewsTab({
+                            id: @json($item["id"]),
+                            slug: @json($item["slug"]),
+                            store_id: @json($item["store_id"]),
+                            name: @json($item["name"]),
+                            price: {{ (float)$item["price"] }},
+                            image_url: @json($item["image_url"] ?? ""),
+                            description: @json($item["description"] ?? ""),
+                            stock: {{ (int)($item["stock"] ?? 15) }},
+                            url: @json($item["url"]),
+                            store_name: @json($item["store_name"]),
+                            store_url: @json($item["store_url"]),
+                            address: @json($item["address"]),
+                            hours: @json($item["hours"]),
+                            whatsapp: @json($item["whatsapp"] ?? ""),
+                            maps_url: @json($item["maps_url"] ?? ""),
+                            rating: {{ (float)$item["rating"] }},
+                            reviews_count: {{ (int)$item["reviews_count"] }}
+                        })' title="Ver opiniones y calificar">
+                            <span class="stars-gold">★★★★★</span>
+                            <span class="rating-val">{{ number_format($item['rating'], 1) }}</span>
+                            <span class="rating-qty">({{ $item['reviews_count'] }} opiniones)</span>
                         </div>
-                        <div>
-                            <button type="button" class="btn-feed-add-cart" onclick='quickAddProductToRouteCart({
-                                id: @json($prod["id"]),
-                                store_id: @json($store["id"]),
-                                store_name: @json($store["store_name"]),
-                                name: @json($prod["name"]),
-                                price: {{ (float)$prod["price"] }},
-                                image_url: @json($prod["image_url"] ?? "")
-                            })' title="Añadir a mi Carrito">
-                                + 🛒 Añadir
-                            </button>
+
+                        <div class="visited-product-price-row">
+                            <span class="visited-product-price">${{ number_format($item['price'], 0) }} MXN</span>
+                            <span class="visited-product-stock">✓ En existencia</span>
                         </div>
                     </div>
 
-                    <!-- Caption & Description -->
-                    <div class="social-card-body">
-                        <div class="social-card-caption">
-                            <strong>{{ $store['store_name'] }}</strong>
-                            <span>{{ $prod['name'] }}</span>
-                            @if(!empty($prod['description']))
-                                <p style="font-size: 13px; color: var(--muted); margin: 6px 0 0; line-height: 1.45;">
-                                    {{ Str::limit($prod['description'], 110) }}
-                                </p>
-                            @endif
-                        </div>
-                    </div>
-
-                    <!-- Footer with CTA -->
-                    <div class="social-card-footer">
-                        <a href="{{ $prod['url'] }}" class="social-view-store-link">
-                            <span>Ver en Tienda Oficial ({{ $store['store_name'] }})</span>
-                            <span>➔</span>
-                        </a>
+                    <div class="visited-product-footer">
+                        <button type="button" class="btn-visited-add-cart" onclick='quickAddProductToRouteCart({
+                            id: @json($item["id"]),
+                            store_id: @json($item["store_id"]),
+                            store_name: @json($item["store_name"]),
+                            name: @json($item["name"]),
+                            price: {{ (float)$item["price"] }},
+                            image_url: @json($item["image_url"] ?? "")
+                        })'>
+                            <span>+ 🛒</span> Añadir
+                        </button>
+                        <button type="button" class="btn-visited-view" onclick='openCentralProductModal({
+                            id: @json($item["id"]),
+                            slug: @json($item["slug"]),
+                            store_id: @json($item["store_id"]),
+                            name: @json($item["name"]),
+                            price: {{ (float)$item["price"] }},
+                            image_url: @json($item["image_url"] ?? ""),
+                            description: @json($item["description"] ?? ""),
+                            stock: {{ (int)($item["stock"] ?? 15) }},
+                            url: @json($item["url"]),
+                            store_name: @json($item["store_name"]),
+                            store_url: @json($item["store_url"]),
+                            address: @json($item["address"]),
+                            hours: @json($item["hours"]),
+                            whatsapp: @json($item["whatsapp"] ?? ""),
+                            maps_url: @json($item["maps_url"] ?? ""),
+                            rating: {{ (float)$item["rating"] }},
+                            reviews_count: {{ (int)$item["reviews_count"] }}
+                        })'>
+                            Ver y Calificar
+                        </button>
                     </div>
                 </article>
             @endforeach
-        @endforeach
+        </div>
     </section>
     </div> <!-- /#panelFeed -->
 
@@ -5955,10 +6252,18 @@
                             <h3>{{ $company['store_name'] }}</h3>
 
                             <!-- Star Rating & Tradition Badge -->
-                            <div class="store-rating-row">
+                            <div class="store-rating-row" style="flex-wrap: wrap; gap: 6px;">
                                 <span class="stars-gold">★★★★★</span>
-                                <span class="rating-num">{{ number_format($company['rating'] ?? 4.9, 1) }}</span>
-                                <span class="rating-count">({{ $company['reviews_count'] ?? 180 }} <span data-i18n="reviews">reseñas</span>)</span>
+                                <span class="rating-num" id="companyRatingNum_{{ $company['id'] }}">{{ number_format($company['rating'] ?? 4.9, 1) }}</span>
+                                <span class="rating-count" id="companyReviewsCount_{{ $company['id'] }}">({{ $company['reviews_count'] ?? 180 }} <span data-i18n="reviews">reseñas</span>)</span>
+                                <button type="button" class="btn-company-reviews-trigger" onclick='openCompanyReviewsModal({
+                                    id: @json($company["id"]),
+                                    name: @json($company["store_name"]),
+                                    rating: {{ (float)($company["rating"] ?? 4.9) }},
+                                    reviews_count: {{ (int)($company["reviews_count"] ?? 180) }}
+                                })'>
+                                    💬 Opiniones (1 a 5 ★)
+                                </button>
                             </div>
                             @if(!empty($company['tradition_badge']))
                                 <div>
@@ -6658,6 +6963,51 @@
                     </div>
                 </div>
 
+                <!-- REVIEWS & 1-5 STAR COMMENTS SECTION FOR THIS PRODUCT -->
+                <div class="reviews-section-box">
+                    <div class="reviews-header-row">
+                        <div class="reviews-summary-badge">
+                            <span class="stars-gold">★★★★★</span>
+                            <span id="productModalRatingVal">5.0</span>
+                            <span id="productModalReviewCount">(0 reseñas)</span>
+                        </div>
+                        <button type="button" class="btn-toggle-review-form" onclick="toggleProductReviewForm()">
+                            ✍️ Dejar Opinión (1 a 5 ★)
+                        </button>
+                    </div>
+
+                    <!-- Collapsible Review Form -->
+                    <div class="review-form-card" id="productReviewFormCard" style="display: none;">
+                        <h4 style="font-size: 13px; font-weight: 800; margin: 0 0 4px; color: var(--ink);">Calificar este Producto</h4>
+                        <div style="margin-bottom: 6px;">
+                            <label style="font-size: 11px; color: var(--muted); font-weight: 700;">Selecciona tus estrellas:</label>
+                            <div class="star-rating-selector" id="productStarPicker">
+                                <button type="button" class="star-pick-btn active" data-val="1" onclick="setProductStarRating(1)">★</button>
+                                <button type="button" class="star-pick-btn active" data-val="2" onclick="setProductStarRating(2)">★</button>
+                                <button type="button" class="star-pick-btn active" data-val="3" onclick="setProductStarRating(3)">★</button>
+                                <button type="button" class="star-pick-btn active" data-val="4" onclick="setProductStarRating(4)">★</button>
+                                <button type="button" class="star-pick-btn active" data-val="5" onclick="setProductStarRating(5)">★</button>
+                            </div>
+                        </div>
+                        <div class="auth-field" style="margin-bottom: 8px;">
+                            <label style="font-size: 11px;">Tu Nombre</label>
+                            <input type="text" id="productReviewAuthorInput" placeholder="Ej. Roberto L." required style="padding: 8px 12px; font-size: 12.5px;">
+                        </div>
+                        <div class="auth-field" style="margin-bottom: 10px;">
+                            <label style="font-size: 11px;">Tu Opinión sobre el Producto</label>
+                            <textarea id="productReviewCommentInput" rows="2" placeholder="¿Qué te pareció el sabor, calidad, presentación o textura?" required style="width: 100%; padding: 8px 12px; border-radius: 10px; border: 1.5px solid var(--card-border); background: var(--card); color: var(--ink); font-size: 12.5px; resize: vertical;"></textarea>
+                        </div>
+                        <button type="button" id="btnSubmitProductReview" onclick="submitProductReview()" class="btn-submit-email-auth" style="margin-top: 0; padding: 9px; font-size: 12.5px;">
+                            Publicar Calificación de Producto
+                        </button>
+                    </div>
+
+                    <!-- Reviews List for Product -->
+                    <div id="productReviewsContainer" style="max-height: 220px; overflow-y: auto;">
+                        <!-- Dynamically populated -->
+                    </div>
+                </div>
+
                 <!-- Action Buttons -->
                 <div class="modal-actions-row">
                     <button type="button" id="centralModalAddCartBtn" class="btn-add-cart-route-modal" onclick="addCurrentModalProductToRouteCart()">
@@ -6684,646 +7034,331 @@
 <!-- Global Toast Notification -->
 <div class="toast-popup" id="toastPopup" role="status" aria-live="polite"></div>
 
-<!-- FULLSCREEN STORY VIEWER MODAL (MULTI-SLIDE ESTILO INSTAGRAM / TIKTOK) -->
-<div class="story-viewer-modal" id="storyViewerModal" onclick="handleStoryBackdropClick(event)">
-    <div class="story-viewer-content" id="storyViewerBox" onmousedown="pauseStoryPlayback()" onmouseup="resumeStoryPlayback()" ontouchstart="pauseStoryPlayback()" ontouchend="resumeStoryPlayback()">
-        <!-- Segmented Progress Bars (one per slide) -->
-        <div class="story-segments-row" id="storySegmentsRow">
-            <!-- Dynamically populated per story slide -->
+<!-- MODAL: CALIFICACIONES Y COMENTARIOS DE EMPRESA (1 A 5 ESTRELLAS) -->
+<div class="modal-backdrop" id="companyReviewsModal" onclick="handleCompanyReviewsBackdrop(event)">
+    <div class="modal-card create-story-modal-card" style="max-width: 540px;">
+        <button type="button" class="modal-close-x" onclick="closeCompanyReviewsModal()" aria-label="Cerrar modal">✕</button>
+
+        <div style="text-align: center; margin-bottom: 16px;">
+            <span class="section-eyebrow" style="color: var(--accent);">✦ Opiniones y Calificaciones de Clientes</span>
+            <h3 id="companyReviewStoreTitle" style="font-size: 21px; font-weight: 800; margin: 4px 0; color: var(--ink);">Nombre de la Empresa</h3>
+            <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 6px;">
+                <span class="stars-gold" style="font-size: 16px;">★★★★★</span>
+                <strong id="companyReviewAvgRating" style="font-size: 15px; color: var(--ink);">5.0</strong>
+                <span id="companyReviewCountText" style="font-size: 12px; color: var(--muted);">(0 opiniones)</span>
+            </div>
         </div>
 
-        <!-- Header -->
-        <div class="story-header-bar">
-            <div style="display: flex; align-items: center; gap: 9px; flex: 1; min-width: 0;">
-                <img src="" alt="" id="storyHeaderLogo" class="story-header-avatar">
-                <div class="story-header-meta" style="min-width: 0;">
-                    <div style="display: flex; align-items: center; gap: 4px;">
-                        <strong id="storyHeaderName" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Tienda</strong>
-                        <span class="social-verified-badge" title="Comercio Verificado" style="font-size: 11px;">✓</span>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 6px;">
-                        <small id="storyHeaderTime" style="color: rgba(255,255,255,0.75); font-size: 11px;">Hace 2h</small>
-                        <span class="story-views-pill" id="storyViewsPill">👁️ 0</span>
+        <!-- Review Submission Card -->
+        <div class="review-form-card">
+            <h4 style="font-size: 13.5px; font-weight: 800; margin: 0 0 4px; color: var(--ink);">✍️ Deja tu Calificación (1 a 5 Estrellas)</h4>
+            <p style="font-size: 12px; color: var(--muted); margin: 0 0 10px;">Tu experiencia ayuda a otros compradores y a los comercios de Zacatecas Centro.</p>
+
+            <form id="companyReviewForm" onsubmit="submitCompanyReview(event)">
+                <input type="hidden" id="companyReviewStoreId" value="">
+                
+                <div style="margin-bottom: 8px;">
+                    <label style="font-size: 11px; font-weight: 700; color: var(--muted); display: block;">Calificación:</label>
+                    <div class="star-rating-selector" id="companyStarPicker">
+                        <button type="button" class="star-pick-btn active" data-val="1" onclick="setCompanyStarRating(1)">★</button>
+                        <button type="button" class="star-pick-btn active" data-val="2" onclick="setCompanyStarRating(2)">★</button>
+                        <button type="button" class="star-pick-btn active" data-val="3" onclick="setCompanyStarRating(3)">★</button>
+                        <button type="button" class="star-pick-btn active" data-val="4" onclick="setCompanyStarRating(4)">★</button>
+                        <button type="button" class="star-pick-btn active" data-val="5" onclick="setCompanyStarRating(5)">★</button>
                     </div>
                 </div>
-            </div>
-            <button type="button" class="btn-close-story" onclick="closeStoryViewer()" aria-label="Cerrar Historia">✕</button>
+
+                <div class="auth-field" style="margin-bottom: 8px;">
+                    <label style="font-size: 11px;">Tu Nombre o Alias</label>
+                    <input type="text" id="companyReviewAuthorInput" placeholder="Ej. Mariana González" required style="padding: 9px 12px; font-size: 13px;">
+                </div>
+
+                <div class="auth-field" style="margin-bottom: 12px;">
+                    <label style="font-size: 11px;">Tu Comentario u Opinión</label>
+                    <textarea id="companyReviewCommentInput" rows="2" placeholder="Cuéntanos tu experiencia con sus productos, atención y calidad..." required style="width: 100%; padding: 9px 12px; border-radius: 10px; border: 1.5px solid var(--card-border); background: var(--card); color: var(--ink); font-size: 13px; resize: vertical;"></textarea>
+                </div>
+
+                <button type="submit" id="btnSubmitCompanyReview" class="btn-submit-email-auth" style="margin-top: 0; padding: 10px; font-size: 13px;">
+                    Publicar Mi Opinión (1 a 5 ★)
+                </button>
+            </form>
         </div>
 
-        <!-- Touch Navigation Left / Right -->
-        <div class="story-touch-nav left" onclick="prevStorySlide(event)" title="Diapositiva anterior"></div>
-        <div class="story-touch-nav right" onclick="nextStorySlide(event)" title="Siguiente diapositiva"></div>
-
-        <!-- Story Visual Image -->
-        <img src="" alt="" id="storyHeroImg" class="story-media-main">
-
-        <!-- Story Caption & Controls Overlay -->
-        <div class="story-caption-overlay">
-            <span class="story-badge-category" id="storyBadgeCategory" style="display: inline-block; padding: 3px 10px; border-radius: 999px; background: rgba(200, 109, 99, 0.85); color: #fff; font-size: 11px; font-weight: 700; margin-bottom: 6px;">Comercio Oficial</span>
-            <h3 id="storyCaptionTitle" style="font-size: 17px; font-weight: 800; margin: 0 0 4px;">Nombre de la Tienda</h3>
-            <p id="storyCaptionText" style="font-size: 13px; color: rgba(255,255,255,0.92); margin: 0 0 12px; line-height: 1.4;">Descripción de la historia.</p>
-            
-            <div style="display: flex; gap: 8px;">
-                <a href="#" id="storyCtaLink" target="_blank" class="btn-story-cta" style="flex: 1;">
-                    🛍️ Ver Tienda Oficial
-                </a>
-                <a href="#" id="storyWhatsappLink" target="_blank" class="btn-story-cta" style="background: #25D366; box-shadow: 0 4px 14px rgba(37,211,102,0.4); width: 48px; padding: 12px 0; display: grid; place-items: center;" title="Contactar por WhatsApp">
-                    💬
-                </a>
-            </div>
-
-            <!-- In-viewer direct message quick reply to WhatsApp -->
-            <div class="story-quick-chat-row">
-                <input type="text" id="storyQuickReplyInput" class="story-quick-chat-input" placeholder="Enviar mensaje a la tienda..." onkeydown="if(event.key==='Enter') sendStoryQuickReply()">
-                <button type="button" onclick="sendStoryQuickReply()" style="background: rgba(255,255,255,0.2); border: none; border-radius: 50%; width: 36px; height: 36px; color: #fff; cursor: pointer; display: grid; place-items: center; font-size: 14px;" title="Enviar por WhatsApp">
-                    ➔
-                </button>
+        <!-- List of Reviews -->
+        <div>
+            <h4 style="font-size: 14px; font-weight: 800; margin: 0 0 10px; color: var(--ink);">Opiniones de Clientes Verificados</h4>
+            <div id="companyReviewsContainer">
+                <!-- Dynamically populated via AJAX -->
             </div>
         </div>
     </div>
 </div>
-
-<!-- MODAL: PUBLICAR HISTORIA DE EMPRESA -->
-<div class="modal-backdrop" id="createStoryModal" onclick="handleCreateStoryBackdrop(event)">
-    <div class="create-story-modal-card">
-        <button type="button" class="modal-close-x" onclick="closeCreateStoryModal()" aria-label="Cerrar modal">✕</button>
-
-        <div class="create-story-header">
-            <span class="section-eyebrow" style="color: var(--accent);">✦ Novedades y Promociones</span>
-            <h3 style="font-size: 21px; font-weight: 800; margin: 4px 0; color: var(--ink);">Publicar Historia de Empresa</h3>
-            <p style="font-size: 13px; color: var(--muted); margin: 0;">Comparte fotos, ofertas del día o novedades de tu comercio en el Centro de Zacatecas.</p>
-        </div>
-
-        <form id="createStoryForm" onsubmit="submitCreateStory(event)" enctype="multipart/form-data">
-            <!-- Selección de Empresa -->
-            <div class="auth-field" style="margin-top: 14px;">
-                <label>Selecciona tu Empresa / Comercio</label>
-                <select name="tenant_id" id="storyTenantSelect" onchange="handleStoryStoreChange()" required style="width: 100%; padding: 11px 14px; border-radius: 12px; border: 1.5px solid var(--card-border); background: var(--card); color: var(--ink); font-size: 14px;">
-                    @foreach($allBusinesses as $biz)
-                        <option value="{{ $biz['id'] }}" data-name="{{ $biz['store_name'] }}" data-logo="{{ $biz['logo_url'] ?? '' }}" data-wa="{{ $biz['whatsapp_number'] ?? '' }}">
-                            {{ $biz['store_name'] }} ({{ $biz['business_category'] }})
-                        </option>
-                    @endforeach
-                    <option value="custom" data-name="" data-logo="" data-wa="">+ Registrar Otra Empresa...</option>
-                </select>
-                <input type="hidden" name="store_name" id="storyStoreName" value="{{ $allBusinesses[0]['store_name'] ?? 'Mi Empresa' }}">
-                <input type="hidden" name="store_logo" id="storyStoreLogo" value="{{ $allBusinesses[0]['logo_url'] ?? '' }}">
-            </div>
-
-            <!-- Custom Store Name if chosen -->
-            <div class="auth-field" id="customStoreField" style="display: none; margin-top: 10px;">
-                <label>Nombre de la Empresa</label>
-                <input type="text" id="customStoreNameInput" placeholder="Ej. Platería La Mina de Plata" oninput="document.getElementById('storyStoreName').value = this.value">
-            </div>
-
-            <!-- Media Source: URL or File Upload with Live Preview -->
-            <div class="auth-field" style="margin-top: 12px;">
-                <label>Foto de la Historia</label>
-                <div style="display: flex; gap: 8px; margin-bottom: 8px;">
-                    <button type="button" class="billing-toggle-btn active" id="btnMediaUrlTab" onclick="switchMediaTab('url')" style="padding: 6px 14px; font-size: 12px;">
-                        🔗 Pegar URL de Imagen
-                    </button>
-                    <button type="button" class="billing-toggle-btn" id="btnMediaFileTab" onclick="switchMediaTab('file')" style="padding: 6px 14px; font-size: 12px;">
-                        📁 Subir desde Dispositivo
-                    </button>
-                </div>
-
-                <div id="mediaUrlGroup">
-                    <input type="url" name="media_url" id="storyMediaUrlInput" placeholder="https://images.unsplash.com/... o enlace de imagen" oninput="previewStoryMedia(this.value)">
-                    <div class="sample-story-images" style="display: flex; gap: 6px; margin-top: 6px; overflow-x: auto; padding-bottom: 4px;">
-                        <span style="font-size: 11px; color: var(--muted); align-self: center;">Sugerencias:</span>
-                        <button type="button" class="popular-tag" onclick="selectSuggestedStoryImg('https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=800&q=80')">☕ Café</button>
-                        <button type="button" class="popular-tag" onclick="selectSuggestedStoryImg('https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=800&q=80')">🌮 Comida</button>
-                        <button type="button" class="popular-tag" onclick="selectSuggestedStoryImg('https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=800&q=80')">💎 Plata .925</button>
-                        <button type="button" class="popular-tag" onclick="selectSuggestedStoryImg('https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=800&q=80')">🍷 Mezcal</button>
-                    </div>
-                </div>
-
-                <div id="mediaFileGroup" style="display: none;">
-                    <input type="file" name="media_file" id="storyMediaFileInput" accept="image/*" onchange="handleStoryFileSelect(event)">
-                </div>
-
-                <!-- Live Preview -->
-                <div id="storyLivePreviewWrap" style="margin-top: 10px; display: none; text-align: center;">
-                    <span style="font-size: 11.5px; font-weight: 700; color: var(--muted); display: block; margin-bottom: 4px;">Vista Previa:</span>
-                    <div style="width: 140px; height: 200px; border-radius: 14px; overflow: hidden; margin: 0 auto; box-shadow: 0 8px 20px rgba(0,0,0,0.15); border: 2px solid var(--accent); position: relative;">
-                        <img id="storyLivePreviewImg" src="" alt="Vista previa" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                </div>
-            </div>
-
-            <!-- Caption -->
-            <div class="auth-field" style="margin-top: 12px;">
-                <label>Descripción / Oferta de la Historia</label>
-                <textarea name="caption" id="storyCaptionInput" rows="2" placeholder="Ej. ¡2x1 en capuchinos hoy de 4pm a 7pm frente a Catedral!" required style="width: 100%; padding: 10px 14px; border-radius: 12px; border: 1.5px solid var(--card-border); background: var(--card); color: var(--ink); font-size: 13.5px; resize: vertical;"></textarea>
-            </div>
-
-            <!-- CTA Text & Link -->
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px;">
-                <div class="auth-field">
-                    <label>Texto del Botón</label>
-                    <input type="text" name="cta_text" id="storyCtaTextInput" value="Ver Tienda Oficial" placeholder="Ej. Ver Oferta">
-                </div>
-                <div class="auth-field">
-                    <label>WhatsApp de Contacto</label>
-                    <input type="tel" name="whatsapp_number" id="storyWaInput" value="{{ $allBusinesses[0]['whatsapp_number'] ?? '4921234567' }}" placeholder="492XXXXXXX">
-                </div>
-            </div>
-
-            <div style="margin-top: 18px; display: flex; gap: 10px;">
-                <button type="button" onclick="closeCreateStoryModal()" class="btn-auth-cancel" style="flex: 1; padding: 12px; border-radius: 999px; border: 1.5px solid var(--card-border); background: transparent; color: var(--muted); font-weight: 700; cursor: pointer;">
-                    Cancelar
-                </button>
-                <button type="submit" id="btnSubmitStory" class="btn-submit-email-auth" style="flex: 2; margin-top: 0; padding: 12px; border-radius: 999px; background: linear-gradient(135deg, #c86d63, #b45b51); color: #fff; font-weight: 800; border: none; cursor: pointer; box-shadow: 0 4px 14px rgba(200,109,99,0.35);">
-                    🚀 Publicar Historia
-                </button>
-            </div>
-        </form>
-    </div>
-</div>
-
-<!-- BOTTOM NAVIGATION BAR (ESTILO APP NATIVA / TIKTOK / INSTAGRAM / FACEBOOK) -->
-<nav class="mobile-bottom-nav" id="mobileBottomNav" aria-label="Navegación Móvil Rápida">
-    <button type="button" class="bottom-nav-tab active" id="bnavFeed" onclick="switchMainTab('feed')" aria-label="Inicio">
-        <span class="bottom-nav-icon">🏠</span>
-        <span class="bottom-nav-label">Inicio</span>
-    </button>
-    <button type="button" class="bottom-nav-tab" id="bnavMap" onclick="switchMainTab('map')" aria-label="Mapa">
-        <span class="bottom-nav-icon">📍</span>
-        <span class="bottom-nav-label">Mapa</span>
-    </button>
-    <button type="button" class="bottom-nav-tab" id="bnavRoute" onclick="goToCartRoutePlanner()" aria-label="Ruta">
-        <span class="bottom-nav-icon">🗺️</span>
-        <span class="bottom-nav-label">Ruta</span>
-    </button>
-    <button type="button" class="bottom-nav-tab" id="bnavStores" onclick="switchMainTab('stores')" aria-label="Tiendas">
-        <span class="bottom-nav-icon">🏬</span>
-        <span class="bottom-nav-label">Tiendas</span>
-    </button>
-    <button type="button" class="bottom-nav-tab" id="bnavCart" onclick="goToCartRoutePlanner()" aria-label="Carrito">
-        <span class="bottom-nav-icon">🛒</span>
-        <span class="bottom-nav-badge" id="bottomNavCartBadge" style="display: none;">0</span>
-        <span class="bottom-nav-label">Carrito</span>
-    </button>
-</nav>
 
 <!-- JAVASCRIPT FOR LIVE SEARCH & MODAL -->
 <script>
 // ========================================================
-// TIKTOK & FACEBOOK APP UX: TABS, STORIES & SOCIAL FEED
+// 1 TO 5 STARS RATING & COMMENTS SYSTEM (PRODUCTS & COMPANIES)
 // ========================================================
-// Store real multi-slide stories from backend
-const storiesCatalog = {
-    @foreach($allBusinesses as $b)
-        @php
-            $bizSlides = $storiesByStore[$b['id']]['slides'] ?? [];
-            if (empty($bizSlides)) {
-                // Fallback default slide
-                $fallbackHero = !empty($b['sample_products'][0]['image_url']) 
-                    ? $b['sample_products'][0]['image_url'] 
-                    : 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=800&q=80';
-                $bizSlides = [
-                    [
-                        'id' => 'fb-' . $b['id'],
-                        'media_url' => $fallbackHero,
-                        'caption' => $b['tagline'] ?: 'Visítanos en Zacatecas Centro Histórico. Catálogo oficial y pedidos por WhatsApp.',
-                        'cta_text' => 'Ver Tienda Oficial',
-                        'cta_url' => $b['store_url'],
-                        'whatsapp_number' => !empty($b['whatsapp_number']) ? preg_replace('/[^0-9]/', '', $b['whatsapp_number']) : '',
-                        'views_count' => 180,
-                        'duration_seconds' => 5,
-                        'time_ago' => 'Hoy',
-                    ]
-                ];
-            }
-            $stLogo = !empty($b['logo_url']) ? $b['logo_url'] : match($b['id']) {
-                'acropolis' => 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=160&q=80',
-                'donajulia' => 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=160&q=80',
-                'rosadeplata' => 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=160&q=80',
-                'elserranito' => 'https://images.unsplash.com/photo-1579954115545-a95591f28bfc?auto=format&fit=crop&w=160&q=80',
-                'quinceletras' => 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=160&q=80',
-                'libreriaandrea' => 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=160&q=80',
-                default => 'https://placehold.co/160x160?text=' . urlencode(substr($b['store_name'], 0, 2))
-            };
-        @endphp
-        '{{ $b['id'] }}': {
-            name: @json($b['store_name']),
-            category: @json($b['business_category']),
-            tagline: @json($b['tagline']),
-            address: @json($b['address']),
-            url: @json($b['store_url']),
-            whatsapp: @json(!empty($b['whatsapp_number']) ? preg_replace('/[^0-9]/', '', $b['whatsapp_number']) : ''),
-            logo: @json($stLogo),
-            slides: @json($bizSlides)
-        },
-    @endforeach
-};
+let currentProductReviewSlug = null;
+let currentSelectedProductStars = 5;
+let currentCompanyReviewStoreId = null;
+let currentSelectedCompanyStars = 5;
 
-let currentStoreKey = null;
-let currentSlideIndex = 0;
-let storySlideTimer = null;
-let storyTimerRemaining = 5000;
-let storyTimerStart = null;
-let isStoryPaused = false;
-let viewedStores = new Set(JSON.parse(localStorage.getItem('viewed_stores') || '[]'));
+// Open product modal with review data and fetch reviews
+const origOpenCentralProductModal = window.openCentralProductModal;
 
-// Mark initially viewed stories in tray
-function updateViewedStoriesInTray() {
-    viewedStores.forEach(sKey => {
-        const ring = document.getElementById('storyRing_' + sKey);
-        if (ring) ring.classList.add('story-viewed');
+function openProductReviewsTab(prod) {
+    openCentralProductModal(prod);
+    const formCard = document.getElementById('productReviewFormCard');
+    if (formCard) formCard.style.display = 'block';
+}
+
+function setProductStarRating(stars) {
+    currentSelectedProductStars = stars;
+    const picker = document.getElementById('productStarPicker');
+    if (!picker) return;
+    const buttons = picker.querySelectorAll('.star-pick-btn');
+    buttons.forEach((btn, idx) => {
+        btn.classList.toggle('active', idx < stars);
     });
 }
 
-function openStoryViewer(storeId, slideIdx = 0) {
-    const data = storiesCatalog[storeId];
-    if (!data || !data.slides || data.slides.length === 0) return;
-
-    currentStoreKey = storeId;
-    currentSlideIndex = Math.max(0, Math.min(slideIdx, data.slides.length - 1));
-
-    // Mark store as viewed
-    viewedStores.add(storeId);
-    try {
-        localStorage.setItem('viewed_stores', JSON.stringify(Array.from(viewedStores)));
-    } catch(e) {}
-    updateViewedStoriesInTray();
-
-    renderStorySlide();
-
-    const modal = document.getElementById('storyViewerModal');
-    if (modal) {
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
+function toggleProductReviewForm() {
+    const card = document.getElementById('productReviewFormCard');
+    if (card) {
+        card.style.display = (card.style.display === 'none' || card.style.display === '') ? 'block' : 'none';
     }
 }
 
-function renderStorySlide() {
-    const data = storiesCatalog[currentStoreKey];
-    if (!data) return;
-    const slide = data.slides[currentSlideIndex];
-    if (!slide) return;
+function loadProductReviews(prodSlug, defaultAvg = 5.0, defaultCount = 0) {
+    currentProductReviewSlug = prodSlug;
+    const container = document.getElementById('productReviewsContainer');
+    const ratingVal = document.getElementById('productModalRatingVal');
+    const countVal = document.getElementById('productModalReviewCount');
+    if (!container) return;
 
-    const modal = document.getElementById('storyViewerModal');
-    const segRow = document.getElementById('storySegmentsRow');
-    const headerLogo = document.getElementById('storyHeaderLogo');
-    const headerName = document.getElementById('storyHeaderName');
-    const headerTime = document.getElementById('storyHeaderTime');
-    const viewsPill = document.getElementById('storyViewsPill');
-    const heroImg = document.getElementById('storyHeroImg');
-    const badgeCat = document.getElementById('storyBadgeCategory');
-    const capTitle = document.getElementById('storyCaptionTitle');
-    const capText = document.getElementById('storyCaptionText');
-    const ctaLink = document.getElementById('storyCtaLink');
-    const waLink = document.getElementById('storyWhatsappLink');
+    container.innerHTML = '<div style="font-size: 12px; color: var(--muted); padding: 8px 0;">Cargando opiniones...</div>';
 
-    // Populate header & metadata
-    if (headerLogo) headerLogo.src = data.logo;
-    if (headerName) headerName.textContent = data.name;
-    if (headerTime) headerTime.textContent = slide.time_ago || 'Hoy';
-    if (viewsPill) viewsPill.textContent = '👁️ ' + (slide.views_count || 1);
-    if (heroImg) heroImg.src = slide.media_url;
-    if (badgeCat) badgeCat.textContent = data.category;
-    if (capTitle) capTitle.textContent = data.name;
-    if (capText) capText.textContent = slide.caption || data.tagline;
-    if (ctaLink) {
-        ctaLink.href = slide.cta_url || data.url;
-        ctaLink.textContent = '🛍️ ' + (slide.cta_text || 'Ver Tienda Oficial');
-    }
-
-    const waNum = slide.whatsapp_number || data.whatsapp;
-    if (waLink) {
-        if (waNum) {
-            waLink.href = 'https://wa.me/' + waNum + '?text=' + encodeURIComponent('¡Hola! Vi la historia de ' + data.name + ' en Atelier Zacatecas.');
-            waLink.style.display = 'grid';
-        } else {
-            waLink.style.display = 'none';
-        }
-    }
-
-    // Build segmented progress bars
-    if (segRow) {
-        segRow.innerHTML = '';
-        data.slides.forEach((s, idx) => {
-            const bar = document.createElement('div');
-            bar.className = 'story-segment-bar';
-            const fill = document.createElement('div');
-            fill.className = 'story-segment-fill';
-            fill.id = 'segFill_' + idx;
-
-            if (idx < currentSlideIndex) {
-                fill.classList.add('completed');
-            } else if (idx === currentSlideIndex) {
-                fill.style.width = '0%';
+    fetch('/api/reviews?type=product&id=' + encodeURIComponent(prodSlug))
+        .then(res => res.json())
+        .then(data => {
+            if (data.success && data.reviews.length > 0) {
+                if (ratingVal) ratingVal.textContent = parseFloat(data.average_rating).toFixed(1);
+                if (countVal) countVal.textContent = `(${data.count} reseñas)`;
+                renderReviewsList(container, data.reviews);
+            } else {
+                if (ratingVal) ratingVal.textContent = parseFloat(defaultAvg).toFixed(1);
+                if (countVal) countVal.textContent = `(${defaultCount} reseñas)`;
+                container.innerHTML = '<div style="font-size: 12px; color: var(--muted); padding: 8px 0;">Sé el primero en calificar este producto en Zacatecas Centro.</div>';
             }
-            bar.appendChild(fill);
-            segRow.appendChild(bar);
+        })
+        .catch(() => {
+            container.innerHTML = '<div style="font-size: 12px; color: var(--muted); padding: 8px 0;">No se pudieron cargar las opiniones.</div>';
         });
-    }
-
-    // Increment views via API in background
-    if (slide.id && !String(slide.id).startsWith('fb-')) {
-        fetch('/api/stories/' + slide.id + '/view', { method: 'POST' })
-            .then(res => res.json())
-            .then(d => {
-                if (d.views_count && viewsPill) viewsPill.textContent = '👁️ ' + d.views_count;
-            })
-            .catch(() => {});
-    }
-
-    // Start progress timer
-    const duration = (slide.duration_seconds || 5) * 1000;
-    startStoryProgress(duration);
 }
 
-function startStoryProgress(duration) {
-    if (storySlideTimer) clearTimeout(storySlideTimer);
-    storyTimerRemaining = duration;
-    storyTimerStart = Date.now();
-    isStoryPaused = false;
+function submitProductReview() {
+    const authorInput = document.getElementById('productReviewAuthorInput');
+    const commentInput = document.getElementById('productReviewCommentInput');
+    const btn = document.getElementById('btnSubmitProductReview');
 
-    const fill = document.getElementById('segFill_' + currentSlideIndex);
-    if (fill) {
-        fill.style.transition = 'none';
-        fill.style.width = '0%';
-        setTimeout(() => {
-            fill.style.transition = 'width ' + (duration / 1000) + 's linear';
-            fill.style.width = '100%';
-        }, 20);
+    if (!authorInput.value.trim()) {
+        showToast('Por favor escribe tu nombre');
+        authorInput.focus();
+        return;
     }
-
-    storySlideTimer = setTimeout(() => {
-        nextStorySlide();
-    }, duration);
-}
-
-function nextStorySlide(event) {
-    if (event) event.stopPropagation();
-    if (storySlideTimer) clearTimeout(storySlideTimer);
-
-    const data = storiesCatalog[currentStoreKey];
-    if (!data) return;
-
-    if (currentSlideIndex < data.slides.length - 1) {
-        currentSlideIndex++;
-        renderStorySlide();
-    } else {
-        // Advance to next store in catalog
-        const storeKeys = Object.keys(storiesCatalog);
-        const curIdx = storeKeys.indexOf(currentStoreKey);
-        if (curIdx >= 0 && curIdx < storeKeys.length - 1) {
-            openStoryViewer(storeKeys[curIdx + 1], 0);
-        } else {
-            closeStoryViewer();
-        }
-    }
-}
-
-function prevStorySlide(event) {
-    if (event) event.stopPropagation();
-    if (storySlideTimer) clearTimeout(storySlideTimer);
-
-    if (currentSlideIndex > 0) {
-        currentSlideIndex--;
-        renderStorySlide();
-    } else {
-        // Go to previous store in catalog
-        const storeKeys = Object.keys(storiesCatalog);
-        const curIdx = storeKeys.indexOf(currentStoreKey);
-        if (curIdx > 0) {
-            const prevStore = storiesCatalog[storeKeys[curIdx - 1]];
-            openStoryViewer(storeKeys[curIdx - 1], prevStore.slides.length - 1);
-        } else {
-            renderStorySlide();
-        }
-    }
-}
-
-function pauseStoryPlayback() {
-    if (isStoryPaused || !storyTimerStart) return;
-    isStoryPaused = true;
-    const elapsed = Date.now() - storyTimerStart;
-    storyTimerRemaining = Math.max(200, storyTimerRemaining - elapsed);
-    if (storySlideTimer) clearTimeout(storySlideTimer);
-
-    const fill = document.getElementById('segFill_' + currentSlideIndex);
-    if (fill) {
-        const computedWidth = window.getComputedStyle(fill).width;
-        fill.style.transition = 'none';
-        fill.style.width = computedWidth;
-    }
-}
-
-function resumeStoryPlayback() {
-    if (!isStoryPaused) return;
-    isStoryPaused = false;
-    storyTimerStart = Date.now();
-
-    const fill = document.getElementById('segFill_' + currentSlideIndex);
-    if (fill) {
-        fill.style.transition = 'width ' + (storyTimerRemaining / 1000) + 's linear';
-        fill.style.width = '100%';
-    }
-
-    storySlideTimer = setTimeout(() => {
-        nextStorySlide();
-    }, storyTimerRemaining);
-}
-
-function closeStoryViewer() {
-    if (storySlideTimer) {
-        clearTimeout(storySlideTimer);
-        storySlideTimer = null;
-    }
-    isStoryPaused = false;
-    const modal = document.getElementById('storyViewerModal');
-    if (modal) {
-        modal.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-}
-
-function handleStoryBackdropClick(event) {
-    if (event.target && event.target.id === 'storyViewerModal') {
-        closeStoryViewer();
-    }
-}
-
-function sendStoryQuickReply() {
-    const input = document.getElementById('storyQuickReplyInput');
-    if (!input || !input.value.trim()) return;
-
-    const data = storiesCatalog[currentStoreKey];
-    const waNum = data ? (data.slides[currentSlideIndex]?.whatsapp_number || data.whatsapp) : '';
-    if (!waNum) {
-        showToast('Esta tienda no tiene WhatsApp configurado.');
+    if (!commentInput.value.trim() || commentInput.value.trim().length < 4) {
+        showToast('Por favor escribe un comentario de al menos 4 letras');
+        commentInput.focus();
         return;
     }
 
-    const msg = '¡Hola! Vi su historia en Atelier Zacatecas: "' + input.value.trim() + '"';
-    const waUrl = 'https://wa.me/' + waNum + '?text=' + encodeURIComponent(msg);
-    window.open(waUrl, '_blank');
-    input.value = '';
-    showToast('Redirigiendo a WhatsApp...');
-}
-
-// --- CREATE STORY MODAL HANDLERS ---
-function openCreateStoryModal() {
-    const modal = document.getElementById('createStoryModal');
-    if (modal) {
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-}
-
-function closeCreateStoryModal() {
-    const modal = document.getElementById('createStoryModal');
-    if (modal) {
-        modal.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-}
-
-function handleCreateStoryBackdrop(event) {
-    if (event.target && event.target.id === 'createStoryModal') {
-        closeCreateStoryModal();
-    }
-}
-
-function handleStoryStoreChange() {
-    const sel = document.getElementById('storyTenantSelect');
-    const opt = sel.options[sel.selectedIndex];
-    const customField = document.getElementById('customStoreField');
-    const storeNameInput = document.getElementById('storyStoreName');
-    const storeLogoInput = document.getElementById('storyStoreLogo');
-    const waInput = document.getElementById('storyWaInput');
-
-    if (sel.value === 'custom') {
-        customField.style.display = 'block';
-        storeNameInput.value = document.getElementById('customStoreNameInput').value;
-        storeLogoInput.value = '';
-    } else {
-        customField.style.display = 'none';
-        storeNameInput.value = opt.getAttribute('data-name');
-        storeLogoInput.value = opt.getAttribute('data-logo') || '';
-        if (waInput && opt.getAttribute('data-wa')) {
-            waInput.value = opt.getAttribute('data-wa');
-        }
-    }
-}
-
-function switchMediaTab(type) {
-    const urlTab = document.getElementById('btnMediaUrlTab');
-    const fileTab = document.getElementById('btnMediaFileTab');
-    const urlGroup = document.getElementById('mediaUrlGroup');
-    const fileGroup = document.getElementById('mediaFileGroup');
-
-    if (type === 'url') {
-        urlTab.classList.add('active');
-        fileTab.classList.remove('active');
-        urlGroup.style.display = 'block';
-        fileGroup.style.display = 'none';
-    } else {
-        fileTab.classList.add('active');
-        urlTab.classList.remove('active');
-        fileGroup.style.display = 'block';
-        urlGroup.style.display = 'none';
-    }
-}
-
-function previewStoryMedia(url) {
-    const wrap = document.getElementById('storyLivePreviewWrap');
-    const img = document.getElementById('storyLivePreviewImg');
-    if (url && url.trim()) {
-        img.src = url;
-        wrap.style.display = 'block';
-    } else {
-        wrap.style.display = 'none';
-    }
-}
-
-function selectSuggestedStoryImg(url) {
-    const input = document.getElementById('storyMediaUrlInput');
-    if (input) {
-        input.value = url;
-        previewStoryMedia(url);
-    }
-}
-
-function handleStoryFileSelect(event) {
-    const file = event.target.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            previewStoryMedia(e.target.result);
-        };
-        reader.readAsDataURL(file);
-    }
-}
-
-function submitCreateStory(event) {
-    event.preventDefault();
-    const btn = document.getElementById('btnSubmitStory');
-    const origText = btn.innerHTML;
     btn.disabled = true;
-    btn.innerHTML = '⏳ Publicando historia...';
+    btn.textContent = 'Publicando opinión...';
 
-    const form = document.getElementById('createStoryForm');
-    const formData = new FormData(form);
-
-    fetch('/api/stories', {
+    fetch('/api/reviews', {
         method: 'POST',
-        body: formData,
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+            reviewable_type: 'product',
+            reviewable_id: currentProductReviewSlug,
+            rating: currentSelectedProductStars,
+            author_name: authorInput.value.trim(),
+            comment: commentInput.value.trim(),
+        })
     })
     .then(res => res.json())
     .then(data => {
         btn.disabled = false;
-        btn.innerHTML = origText;
+        btn.textContent = 'Publicar Calificación de Producto';
 
         if (data.success) {
-            closeCreateStoryModal();
-            showToast('🎉 ' + data.message);
+            showToast('⭐ ' + data.message);
+            commentInput.value = '';
+            toggleProductReviewForm();
 
-            const s = data.story;
-            const storeKey = s.tenant_id || 'general';
-
-            if (!storiesCatalog[storeKey]) {
-                storiesCatalog[storeKey] = {
-                    name: s.store_name,
-                    category: 'Comercio Zacatecano',
-                    tagline: s.caption,
-                    address: 'Zacatecas Centro',
-                    url: s.cta_url,
-                    whatsapp: s.whatsapp_number,
-                    logo: s.store_logo || 'https://placehold.co/160x160?text=ZAC',
-                    slides: []
-                };
-            }
-
-            storiesCatalog[storeKey].slides.unshift({
-                id: s.id,
-                media_url: s.media_url,
-                caption: s.caption,
-                cta_text: s.cta_text,
-                cta_url: s.cta_url,
-                whatsapp_number: s.whatsapp_number,
-                views_count: 1,
-                duration_seconds: s.duration_seconds || 5,
-                time_ago: 'Justo ahora',
-            });
-
-            // Auto-open newly created story!
-            setTimeout(() => {
-                openStoryViewer(storeKey, 0);
-            }, 300);
+            // Refresh reviews
+            loadProductReviews(currentProductReviewSlug);
         } else {
-            showToast('Error al publicar: ' + (data.message || 'Verifica los campos'));
+            showToast('Error: ' + (data.message || 'Verifica los datos'));
         }
     })
-    .catch(err => {
+    .catch(() => {
         btn.disabled = false;
-        btn.innerHTML = origText;
-        showToast('Error de red al publicar historia.');
+        btn.textContent = 'Publicar Calificación de Producto';
+        showToast('Error al enviar la calificación.');
+    });
+}
+
+// --- COMPANY REVIEWS SYSTEM ---
+function openCompanyReviewsModal(comp) {
+    currentCompanyReviewStoreId = comp.id;
+    const modal = document.getElementById('companyReviewsModal');
+    const title = document.getElementById('companyReviewStoreTitle');
+    const avg = document.getElementById('companyReviewAvgRating');
+    const count = document.getElementById('companyReviewCountText');
+    const storeInput = document.getElementById('companyReviewStoreId');
+
+    if (title) title.textContent = comp.name;
+    if (avg) avg.textContent = parseFloat(comp.rating || 4.9).toFixed(1);
+    if (count) count.textContent = `(${comp.reviews_count || 0} opiniones)`;
+    if (storeInput) storeInput.value = comp.id;
+
+    loadCompanyReviews(comp.id, comp.rating, comp.reviews_count);
+
+    if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closeCompanyReviewsModal() {
+    const modal = document.getElementById('companyReviewsModal');
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+function handleCompanyReviewsBackdrop(event) {
+    if (event.target && event.target.id === 'companyReviewsModal') {
+        closeCompanyReviewsModal();
+    }
+}
+
+function setCompanyStarRating(stars) {
+    currentSelectedCompanyStars = stars;
+    const picker = document.getElementById('companyStarPicker');
+    if (!picker) return;
+    const buttons = picker.querySelectorAll('.star-pick-btn');
+    buttons.forEach((btn, idx) => {
+        btn.classList.toggle('active', idx < stars);
+    });
+}
+
+function loadCompanyReviews(storeId, defaultAvg = 4.9, defaultCount = 0) {
+    const container = document.getElementById('companyReviewsContainer');
+    const avg = document.getElementById('companyReviewAvgRating');
+    const count = document.getElementById('companyReviewCountText');
+    if (!container) return;
+
+    container.innerHTML = '<div style="font-size: 12px; color: var(--muted); padding: 8px 0;">Cargando opiniones de clientes...</div>';
+
+    fetch('/api/reviews?type=company&id=' + encodeURIComponent(storeId))
+        .then(res => res.json())
+        .then(data => {
+            if (data.success && data.reviews.length > 0) {
+                if (avg) avg.textContent = parseFloat(data.average_rating).toFixed(1);
+                if (count) count.textContent = `(${data.count} opiniones)`;
+                renderReviewsList(container, data.reviews);
+            } else {
+                if (avg) avg.textContent = parseFloat(defaultAvg).toFixed(1);
+                if (count) count.textContent = `(${defaultCount} opiniones)`;
+                container.innerHTML = '<div style="font-size: 12px; color: var(--muted); padding: 8px 0;">Esta empresa aún no tiene comentarios. ¡Sé el primero en calificarla!</div>';
+            }
+        })
+        .catch(() => {
+            container.innerHTML = '<div style="font-size: 12px; color: var(--muted); padding: 8px 0;">No se pudieron cargar las opiniones.</div>';
+        });
+}
+
+function submitCompanyReview(event) {
+    event.preventDefault();
+    const authorInput = document.getElementById('companyReviewAuthorInput');
+    const commentInput = document.getElementById('companyReviewCommentInput');
+    const btn = document.getElementById('btnSubmitCompanyReview');
+
+    if (!authorInput.value.trim() || !commentInput.value.trim()) return;
+
+    btn.disabled = true;
+    btn.textContent = 'Guardando opinión...';
+
+    fetch('/api/reviews', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+            reviewable_type: 'company',
+            reviewable_id: currentCompanyReviewStoreId,
+            rating: currentSelectedCompanyStars,
+            author_name: authorInput.value.trim(),
+            comment: commentInput.value.trim(),
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        btn.disabled = false;
+        btn.textContent = 'Publicar Mi Opinión (1 a 5 ★)';
+
+        if (data.success) {
+            showToast('⭐ ' + data.message);
+            commentInput.value = '';
+
+            // Update badge on company card in directory
+            const cardRatingNum = document.getElementById('companyRatingNum_' + currentCompanyReviewStoreId);
+            const cardCount = document.getElementById('companyReviewsCount_' + currentCompanyReviewStoreId);
+            if (cardRatingNum) cardRatingNum.textContent = parseFloat(data.average_rating).toFixed(1);
+            if (cardCount) cardCount.textContent = `(${data.reviews_count} reseñas)`;
+
+            loadCompanyReviews(currentCompanyReviewStoreId);
+        } else {
+            showToast('Error: ' + (data.message || 'Verifica los datos'));
+        }
+    })
+    .catch(() => {
+        btn.disabled = false;
+        btn.textContent = 'Publicar Mi Opinión (1 a 5 ★)';
+        showToast('Error de conexión al enviar la reseña.');
+    });
+}
+
+function renderReviewsList(container, reviews) {
+    container.innerHTML = '';
+    reviews.forEach(r => {
+        const item = document.createElement('div');
+        item.className = 'review-item-card';
+
+        let starsStr = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
+
+        item.innerHTML = `
+            <div class="review-item-header">
+                <div class="review-author-name">
+                    <span>${r.author_name}</span>
+                    <span class="review-verified-tag">✓ Verificado</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <span class="stars-gold">${starsStr}</span>
+                    <span class="review-item-date">${r.time_ago}</span>
+                </div>
+            </div>
+            <p class="review-item-text">${r.comment}</p>
+        `;
+        container.appendChild(item);
     });
 }
 
@@ -7362,7 +7397,7 @@ function switchMainTab(tabName, shouldScroll = true) {
     }
 
     if (shouldScroll) {
-        const targetEl = document.getElementById('mainTabNavWrapper') || document.getElementById('storiesTraySection');
+        const targetEl = document.getElementById('mainTabNavWrapper') || document.getElementById('productosPopulares');
         if (targetEl) {
             targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
@@ -7601,6 +7636,8 @@ function addCurrentModalProductToRouteCart() {
 function openCentralProductModal(item) {
     if (!item) return;
     currentCentralProduct = item;
+    const prodSlug = item.slug || String(item.name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    loadProductReviews(prodSlug, item.rating || 5.0, item.reviews_count || 12);
     const modal = document.getElementById('centralProductModal');
     if (!modal) return;
 

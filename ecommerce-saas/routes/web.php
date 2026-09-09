@@ -21,9 +21,8 @@ foreach ($centralDomains as $domain) {
         })->name('central.plans');
         Route::post('/rentar-tienda', [CentralPortalController::class, 'registerTenant'])->name('central.rent.tenant');
         Route::get('/api/global-search', [CentralPortalController::class, 'apiSearch'])->name('central.api.search');
-        Route::get('/api/stories', [CentralPortalController::class, 'getStories'])->name('central.api.stories');
-        Route::post('/api/stories', [CentralPortalController::class, 'createStory'])->name('central.api.stories.create');
-        Route::post('/api/stories/{id}/view', [CentralPortalController::class, 'viewStory'])->name('central.api.stories.view');
+        Route::get('/api/reviews', [CentralPortalController::class, 'getReviews'])->name('central.api.reviews.index');
+        Route::post('/api/reviews', [CentralPortalController::class, 'storeReview'])->name('central.api.reviews.store');
 
         // Direct Mobile / LAN Storefront Route (No custom DNS required on mobile devices)
         Route::get('/tienda/{tenant}', function (string $tenantId) {
