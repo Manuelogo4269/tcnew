@@ -4000,15 +4000,216 @@
             .portal-brand strong { font-size: 13.5px; }
         }
 
-        /* STANDALONE PWA OPTIMIZATIONS (INSTALLED ON MOBILE) */
-        @media all and (display-mode: standalone) {
-            .pwa-install-bar,
-            .floating-pwa-badge {
-                display: none !important;
-            }
-            .portal-header {
-                padding-top: max(10px, env(safe-area-inset-top));
-            }
+        /* STICKY QUICK JUMP BAR */
+        .portal-quick-jump-bar {
+            position: sticky;
+            top: 72px;
+            z-index: 85;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 6px 10px;
+            margin: 0 auto 20px;
+            background: rgba(255, 255, 255, 0.94);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+            max-width: fit-content;
+            overflow-x: auto;
+            scrollbar-width: none;
+            transition: all .2s ease;
+        }
+        .portal-quick-jump-bar::-webkit-scrollbar { display: none; }
+        [data-theme="dark"] .portal-quick-jump-bar {
+            background: rgba(20, 24, 34, 0.94);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        .jump-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 12px;
+            border-radius: 999px;
+            font-size: 11.5px;
+            font-weight: 700;
+            color: var(--muted);
+            text-decoration: none;
+            transition: all .2s ease;
+            white-space: nowrap;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+        }
+        .jump-pill:hover, .jump-pill.active {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        /* HERO QUICK INTUITIVE ACTIONS */
+        .hero-quick-actions {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            max-width: 960px;
+            margin: 24px auto 0;
+            text-align: left;
+        }
+        @media (max-width: 900px) {
+            .hero-quick-actions { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 480px) {
+            .hero-quick-actions { grid-template-columns: 1fr; }
+        }
+        .hero-action-card {
+            background: var(--card);
+            border: 1.5px solid var(--line);
+            border-radius: 14px;
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            transition: all .2s ease;
+            position: relative;
+            text-align: left;
+            width: 100%;
+        }
+        .hero-action-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent);
+            box-shadow: 0 8px 20px rgba(200, 109, 99, 0.14);
+        }
+        .hero-action-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        .hero-action-text {
+            flex: 1;
+            min-width: 0;
+        }
+        .hero-action-text strong {
+            display: block;
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--ink);
+            margin-bottom: 2px;
+        }
+        .hero-action-text p {
+            font-size: 11px;
+            color: var(--muted);
+            margin: 0;
+            line-height: 1.35;
+        }
+        .hero-action-arrow {
+            font-size: 12px;
+            color: var(--muted);
+            transition: transform .2s ease, color .2s ease;
+        }
+        .hero-action-card:hover .hero-action-arrow {
+            transform: translateX(3px);
+            color: var(--accent);
+        }
+
+        /* HOW IT WORKS GUIDANCE STRIP */
+        .how-it-works-strip {
+            background: linear-gradient(135deg, rgba(200,109,99,0.05) 0%, rgba(37,99,235,0.03) 100%);
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            padding: 20px 24px;
+            margin: 8px 0 28px;
+        }
+        .how-it-works-header {
+            text-align: center;
+            max-width: 580px;
+            margin: 0 auto 16px;
+        }
+        .how-steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+        }
+        @media (max-width: 768px) {
+            .how-steps-grid { grid-template-columns: 1fr; }
+        }
+        .how-step-card {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+            transition: transform .2s ease;
+        }
+        .how-step-card:hover {
+            transform: translateY(-2px);
+        }
+        .how-step-badge {
+            display: inline-block;
+            background: var(--accent-soft);
+            color: var(--accent);
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            padding: 2px 7px;
+            border-radius: 999px;
+            margin-bottom: 6px;
+        }
+        .how-step-icon {
+            font-size: 20px;
+            margin-bottom: 6px;
+        }
+        .how-step-card h3 {
+            font-size: 13.5px;
+            font-weight: 800;
+            color: var(--ink);
+            margin: 0 0 4px;
+        }
+        .how-step-card p {
+            font-size: 11.5px;
+            color: var(--muted);
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        /* DIRECT STORE TO MAP FOCUS BUTTON */
+        .btn-focus-map-card {
+            background: rgba(37, 99, 235, 0.08);
+            border: 1px solid rgba(37, 99, 235, 0.22);
+            color: #2563eb;
+            padding: 7px 11px;
+            border-radius: 999px;
+            font-size: 11.5px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: all .2s ease;
+            white-space: nowrap;
+        }
+        .btn-focus-map-card:hover {
+            background: #2563eb;
+            color: #fff;
+        }
+        [data-theme="dark"] .btn-focus-map-card {
+            background: rgba(59, 130, 246, 0.15);
+            border-color: rgba(59, 130, 246, 0.4);
+            color: #60a5fa;
+        }
+        [data-theme="dark"] .btn-focus-map-card:hover {
+            background: #3b82f6;
+            color: #fff;
         }
     </style>
 </head>
@@ -4324,6 +4525,15 @@
 
 <main class="shell">
 
+    <!-- STICKY QUICK JUMP BAR PARA NAVEGACIÓN INTUITIVA -->
+    <nav class="portal-quick-jump-bar" id="portalQuickJumpBar" aria-label="Navegación rápida de secciones">
+        <a href="#buscar" class="jump-pill active"><span>🔍</span> Buscar</a>
+        <a href="#cercanas" class="jump-pill"><span>📍</span> Mapa &amp; Cercanía</a>
+        <a href="#empresas" class="jump-pill"><span>🏬</span> Tiendas ({{ count($allBusinesses) }})</a>
+        <a href="#zacatecasMap" class="jump-pill" onclick="goToCartRoutePlanner()"><span>🛒</span> Mi Carrito / Ruta</a>
+        <a href="#planes" class="jump-pill"><span>💎</span> Planes de Renta</a>
+    </nav>
+
     <!-- HERO WITH MULTI-STORE GLOBAL SEARCH -->
     <section class="portal-hero" id="buscar">
         <span class="zac-location-hero-badge">📍 Zacatecas Centro Histórico · Cantera Rosa &amp; Plata</span>
@@ -4354,6 +4564,45 @@
                 <a href="{{ url('/?q=Mezcal') }}" class="popular-tag">🍷 Las Quince Letras</a>
                 <a href="{{ url('/?q=Libro') }}" class="popular-tag">📚 Librería André-a</a>
             </div>
+        </div>
+
+        <!-- QUICK INTUITIVE ACTION DECK ("¿QUÉ DESEAS HACER HOY?") -->
+        <div class="hero-quick-actions">
+            <a href="#cercanas" class="hero-action-card">
+                <div class="hero-action-icon" style="background: rgba(37, 99, 235, 0.12); color: #2563eb;">📍</div>
+                <div class="hero-action-text">
+                    <strong>Mapa &amp; Cercanía</strong>
+                    <p>Comercios y cafeterías a pocos minutos a pie</p>
+                </div>
+                <span class="hero-action-arrow">➔</span>
+            </a>
+
+            <a href="#empresas" class="hero-action-card">
+                <div class="hero-action-icon" style="background: rgba(200, 109, 99, 0.12); color: #c86d63;">🏬</div>
+                <div class="hero-action-text">
+                    <strong>Directorio Oficial</strong>
+                    <p>Marcas locales de plata, comida, café y arte</p>
+                </div>
+                <span class="hero-action-arrow">➔</span>
+            </a>
+
+            <button type="button" class="hero-action-card" onclick="goToCartRoutePlanner()">
+                <div class="hero-action-icon" style="background: rgba(16, 185, 129, 0.12); color: #10b981;">🗺️</div>
+                <div class="hero-action-text">
+                    <strong>Ruta de Compras</strong>
+                    <p>Arma tu carrito y genera el itinerario sugerido</p>
+                </div>
+                <span class="hero-action-arrow">➔</span>
+            </button>
+
+            <a href="#planes" class="hero-action-card">
+                <div class="hero-action-icon" style="background: rgba(168, 85, 247, 0.12); color: #a855f7;">✨</div>
+                <div class="hero-action-text">
+                    <strong>Renta tu Tienda</strong>
+                    <p>Digitaliza tu marca con 0% de comisiones</p>
+                </div>
+                <span class="hero-action-arrow">➔</span>
+            </a>
         </div>
     </section>
 
@@ -4455,6 +4704,35 @@
         </section>
     @endif
 
+    <!-- GUÍA INTUITIVA: CÓMO FUNCIONA EL PORTAL (3 PASOS) -->
+    <section class="how-it-works-strip">
+        <div class="how-it-works-header">
+            <span class="section-eyebrow" style="font-size: 11px;">✦ Guía Rápida del Portal</span>
+            <h2 style="font-size: 19px; font-weight: 800; margin: 4px 0; color: var(--ink);">¿Cómo Explorar y Comprar en Zacatecas Centro?</h2>
+            <p style="font-size: 13px; color: var(--muted); margin: 0;">Descubre comercios locales de cantera y plata, consulta productos y planea tus compras fácilmente:</p>
+        </div>
+        <div class="how-steps-grid">
+            <div class="how-step-card">
+                <div class="how-step-badge">Paso 1</div>
+                <div class="how-step-icon">🔍</div>
+                <h3>Explora Comercios &amp; Catálogos</h3>
+                <p>Navega por el mapa interactivo o directorio para ver productos, precios y horarios en tiempo real.</p>
+            </div>
+            <div class="how-step-card">
+                <div class="how-step-badge">Paso 2</div>
+                <div class="how-step-icon">🛒</div>
+                <h3>Agrega al Carrito o Pide Directo</h3>
+                <p>Guarda artículos de diferentes tiendas en tu carrito o contacta a la tienda oficial vía WhatsApp.</p>
+            </div>
+            <div class="how-step-card">
+                <div class="how-step-badge">Paso 3</div>
+                <div class="how-step-icon">🚶‍♂️</div>
+                <h3>Visita con la Ruta Recomendada</h3>
+                <p>Calcula el recorrido más corto por las calles del Centro para ver tus artículos o solicita envío a domicilio.</p>
+            </div>
+        </div>
+    </section>
+
     <!-- TIENDAS CERCANAS EN ZACATECAS CENTRO & MAPA INTERACTIVO -->
     <section class="companies-section" id="cercanas">
         <div class="section-intro">
@@ -4481,6 +4759,9 @@
 
             <!-- Zacatecas Zone Filter Pills -->
             <div class="zac-zones-pills">
+                <span style="font-size: 11.5px; font-weight: 700; color: var(--muted); display: inline-flex; align-items: center; gap: 4px; margin-right: 4px;">
+                    <span>📍</span> <span>Zona:</span>
+                </span>
                 <button type="button" class="zone-pill active" onclick="filterByZone('all', this)">✦ Todas las Zonas</button>
                 <button type="button" class="zone-pill" onclick="filterByZone('Hidalgo', this)">🚶 Av. Hidalgo</button>
                 <button type="button" class="zone-pill" onclick="filterByZone('Tacuba', this)">🛍️ Calle Tacuba</button>
@@ -4791,6 +5072,9 @@
                     </div>
 
                     <div class="company-actions-footer">
+                        <button type="button" class="btn-focus-map-card" onclick="focusStoreOnMap('{{ $company['id'] }}')" title="Ubicar sucursal física en el mapa de Zacatecas Centro">
+                            <span>📍 Ver en Mapa</span>
+                        </button>
                         <a href="{{ $company['store_url'] }}" target="_blank" class="btn-visit-company">
                             <span data-i18n="enter_store">Entrar a la Tienda</span> <span>↗</span>
                         </a>
@@ -5957,10 +6241,64 @@ function renderStoreMarkers(stores) {
         `;
 
         const marker = L.marker([lat, lng], { icon: customIcon }).addTo(map);
+        marker.storeId = String(store.id);
         marker.bindPopup(popupContent);
         mapMarkers.push(marker);
     });
 }
+
+// FOCUS AND HIGHLIGHT STORE ON MAP
+function focusStoreOnMap(storeId) {
+    const sId = String(storeId);
+    const store = businessesData.find(b => String(b.id) === sId);
+    if (!store) return;
+
+    const mapBox = document.getElementById('zacatecasMap');
+    if (mapBox) {
+        mapBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    setTimeout(() => {
+        if (map && store.latitude && store.longitude) {
+            map.flyTo([parseFloat(store.latitude), parseFloat(store.longitude)], 17, {
+                animate: true,
+                duration: 1.0
+            });
+            const marker = mapMarkers.find(m => m.storeId === sId);
+            if (marker) {
+                marker.openPopup();
+            }
+        }
+    }, 450);
+}
+
+// ACTIVE HIGHLIGHT FOR QUICK JUMP BAR ON SCROLL
+window.addEventListener('scroll', () => {
+    const jumpBar = document.getElementById('portalQuickJumpBar');
+    if (!jumpBar) return;
+
+    const sections = [
+        { id: 'buscar', link: jumpBar.querySelector('a[href="#buscar"]') },
+        { id: 'cercanas', link: jumpBar.querySelector('a[href="#cercanas"]') },
+        { id: 'empresas', link: jumpBar.querySelector('a[href="#empresas"]') },
+        { id: 'planes', link: jumpBar.querySelector('a[href="#planes"]') }
+    ];
+
+    const scrollY = window.scrollY + 140;
+    let currentActive = null;
+
+    for (const sec of sections) {
+        const el = document.getElementById(sec.id);
+        if (el && el.offsetTop <= scrollY) {
+            currentActive = sec.link;
+        }
+    }
+
+    if (currentActive) {
+        jumpBar.querySelectorAll('.jump-pill').forEach(p => p.classList.remove('active'));
+        currentActive.classList.add('active');
+    }
+}, { passive: true });
 
 // HAVERSINE DISTANCE IN KILOMETERS
 function calculateDistanceKm(lat1, lon1, lat2, lon2) {
