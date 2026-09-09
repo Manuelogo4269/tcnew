@@ -239,10 +239,39 @@
             background: #181c24;
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
-        [data-theme="dark"] .auth-modal-card {
+        [data-theme="dark"] .auth-modal-card,
+        [data-theme="dark"] .central-product-modal-card {
             background: #15181f;
             color: #f3f4f6;
             border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.7);
+        }
+        [data-theme="dark"] .central-product-modal-card .modal-close-btn {
+            background: #1e232e;
+            border-color: rgba(255, 255, 255, 0.15);
+            color: #f3f4f6;
+        }
+        [data-theme="dark"] .central-product-modal-card .modal-close-btn:hover {
+            background: var(--accent);
+            color: #ffffff;
+        }
+        [data-theme="dark"] .central-product-modal-card .modal-img-wrap {
+            background: #0d0f14;
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        [data-theme="dark"] .central-product-modal-card .modal-chip-store {
+            background: #1e232e;
+            border-color: rgba(255, 255, 255, 0.12);
+            color: #9ca3af;
+        }
+        [data-theme="dark"] .central-product-modal-card .modal-zac-location-box {
+            background: rgba(200, 109, 99, 0.12);
+            border-color: rgba(200, 109, 99, 0.3);
+        }
+        [data-theme="dark"] .btn-visit-store-modal {
+            background: #1e232e;
+            border-color: rgba(255, 255, 255, 0.12);
+            color: #f3f4f6;
         }
         [data-theme="dark"] .modal-close-x {
             background: #202532;
@@ -1276,7 +1305,160 @@
             place-items: center;
             padding: 20px;
         }
-        .modal-backdrop.open { display: grid; }
+        .modal-backdrop.open { display: flex; align-items: center; justify-content: center; overflow-y: auto; }
+        .central-product-modal-card {
+            width: min(840px, 100%);
+            max-height: min(90vh, 820px);
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding: 28px 32px 32px;
+            border-radius: 26px;
+            background: var(--card);
+            border: 1px solid var(--line);
+            position: relative;
+            box-shadow: 0 25px 65px rgba(0,0,0,0.35);
+            margin: auto;
+        }
+        .central-product-modal-card .modal-drag-indicator {
+            display: none;
+            width: 44px;
+            height: 5px;
+            border-radius: 999px;
+            background: var(--line);
+            margin: -8px auto 14px;
+        }
+        .central-product-modal-card .modal-header-actions {
+            position: sticky;
+            top: -12px;
+            z-index: 50;
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: -32px;
+            pointer-events: none;
+        }
+        .central-product-modal-card .modal-close-btn {
+            pointer-events: auto;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid var(--line);
+            background: var(--card);
+            color: var(--ink);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+            transition: all .2s ease;
+        }
+        .central-product-modal-card .modal-close-btn:hover {
+            background: var(--accent);
+            color: #ffffff;
+            border-color: var(--accent);
+            transform: scale(1.08);
+        }
+        .central-product-modal-card .modal-main-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.25fr;
+            gap: 28px;
+            margin-top: 14px;
+            margin-bottom: 10px;
+        }
+        .central-product-modal-card .modal-img-col {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .central-product-modal-card .modal-img-wrap {
+            aspect-ratio: 1 / 1;
+            border-radius: 20px;
+            overflow: hidden;
+            background: var(--paper);
+            border: 1px solid var(--line);
+            position: relative;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .central-product-modal-card .modal-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .central-product-modal-card .modal-badges-row {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        .central-product-modal-card .modal-chip {
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .central-product-modal-card .modal-chip-store { background: var(--paper); border: 1px solid var(--line); color: var(--muted); }
+        .central-product-modal-card .modal-chip-stock { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+        .central-product-modal-card .modal-content-col { display: flex; flex-direction: column; }
+        .central-product-modal-card .modal-cat-tag {
+            font-size: 11.5px;
+            font-weight: 800;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            margin-bottom: 4px;
+            display: inline-block;
+        }
+        .central-product-modal-card .modal-title { font-size: clamp(20px, 2.8vw, 26px); font-weight: 800; line-height: 1.25; margin-bottom: 8px; color: var(--ink); }
+        .central-product-modal-card .modal-price-row {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+        .central-product-modal-card .modal-price { font-size: 28px; font-weight: 900; color: var(--accent); letter-spacing: -0.02em; }
+        .central-product-modal-card .modal-price-currency { font-size: 12px; color: var(--muted); font-weight: 600; }
+        .central-product-modal-card .modal-desc {
+            font-size: 13.5px;
+            line-height: 1.6;
+            color: var(--muted);
+            margin-bottom: 16px;
+        }
+        .central-product-modal-card .modal-zac-location-box {
+            margin: 14px 0;
+            padding: 12px 14px;
+            background: rgba(200, 109, 99, 0.08);
+            border: 1px solid rgba(200, 109, 99, 0.22);
+            border-radius: 14px;
+        }
+        .central-product-modal-card .modal-actions-row {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 14px;
+        }
+        .btn-visit-store-modal {
+            padding: 12px 18px;
+            border-radius: 999px;
+            border: 1px solid var(--line);
+            background: var(--paper);
+            color: var(--ink);
+            font-size: 13px;
+            font-weight: 700;
+            text-align: center;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+            transition: all .2s ease;
+        }
+        .btn-visit-store-modal:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
         .auth-modal-card {
             background: var(--card);
             border-radius: 26px;
@@ -2844,6 +3026,33 @@
             
             .auth-modal-card, .rent-modal-card { padding: 22px 16px; border-radius: 20px; }
             .auth-modal-title { font-size: 20px; }
+
+            .central-product-modal-card {
+                padding: 14px 16px max(24px, env(safe-area-inset-bottom));
+                width: 100%;
+                max-height: 88vh;
+                border-radius: 24px 24px 0 0;
+                box-shadow: 0 -10px 40px rgba(0,0,0,0.5);
+                margin: 0;
+            }
+            .central-product-modal-card .modal-drag-indicator { display: block; }
+            .central-product-modal-card .modal-header-actions {
+                top: -8px;
+                margin-bottom: -28px;
+            }
+            .central-product-modal-card .modal-close-btn { width: 34px; height: 34px; font-size: 15px; }
+            .central-product-modal-card .modal-main-layout {
+                grid-template-columns: 1fr;
+                gap: 12px;
+                margin-top: 6px;
+            }
+            .central-product-modal-card .modal-img-wrap {
+                aspect-ratio: 16 / 10;
+                max-height: 210px;
+                border-radius: 16px;
+            }
+            .central-product-modal-card .modal-title { font-size: 20px; line-height: 1.25; }
+            .central-product-modal-card .modal-price { font-size: 24px; }
         }
 
         @media (max-width: 380px) {
@@ -3222,19 +3431,46 @@
                 <div class="search-results-grid">
                     @foreach($searchResults as $item)
                         <article class="search-product-card">
-                            <div class="search-product-thumb">
+                            <div class="search-product-thumb" style="cursor: pointer;"
+                                onclick='openCentralProductModal({
+                                    name: @json($item["name"]),
+                                    price: {{ (float)$item["price"] }},
+                                    image_url: @json($item["image_url"] ?? ""),
+                                    description: @json($item["description"] ?? ""),
+                                    stock: {{ (int)($item["stock"] ?? 10) }},
+                                    url: @json($item["store_url"]),
+                                    store_name: @json($item["store_name"]),
+                                    store_url: @json($item["store_url"]),
+                                    address: "Centro Histórico, Zacatecas, Zac.",
+                                    hours: "Lunes a Sábado: 10:00 AM - 8:30 PM",
+                                    whatsapp: "",
+                                    maps_url: "https://maps.google.com/?q=22.7753,-102.5724"
+                                });'>
                                 <span class="search-store-badge-float" style="border-left: 3px solid {{ $item['store_color'] }};">
                                     🏬 {{ $item['store_name'] }}
                                 </span>
-                                <img src="{{ !empty($item['image_url']) ? $item['image_url'] : 'https://placehold.co/600x600?text=' . urlencode($item['name']) }}" alt="{{ $item['name'] }}" loading="lazy">
+                                <img src="{{ !empty($item['image_url']) ? $item['image_url'] : 'https://placehold.co/600x600?text=' . urlencode($item['name']) }}" alt="{{ $item['name'] }}" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/600x600?text=Zacatecas';">
                             </div>
                             <div class="search-product-body">
                                 <span style="font-size: 11px; font-weight: 700; color: var(--accent); text-transform: uppercase; margin-bottom: 4px;">{{ $item['category_name'] }}</span>
-                                <h3>{{ $item['name'] }}</h3>
+                                <h3 style="cursor: pointer;" onclick='openCentralProductModal({
+                                    name: @json($item["name"]),
+                                    price: {{ (float)$item["price"] }},
+                                    image_url: @json($item["image_url"] ?? ""),
+                                    description: @json($item["description"] ?? ""),
+                                    stock: {{ (int)($item["stock"] ?? 10) }},
+                                    url: @json($item["store_url"]),
+                                    store_name: @json($item["store_name"]),
+                                    store_url: @json($item["store_url"]),
+                                    address: "Centro Histórico, Zacatecas, Zac.",
+                                    hours: "Lunes a Sábado: 10:00 AM - 8:30 PM",
+                                    whatsapp: "",
+                                    maps_url: "https://maps.google.com/?q=22.7753,-102.5724"
+                                });'>{{ $item['name'] }}</h3>
                                 <p>{{ Str::limit($item['description'], 75) }}</p>
                                 <div class="search-product-footer">
                                     <span class="search-product-price">${{ number_format($item['price'], 2) }}</span>
-                                    <a href="{{ $item['store_url'] }}" target="_blank" class="btn-buy-store">
+                                    <a href="{{ $item['store_url'] }}" class="btn-buy-store">
                                         Ver en {{ Str::limit($item['store_name'], 12) }} ↗
                                     </a>
                                 </div>
@@ -3410,8 +3646,22 @@
                                 </div>
                                 <div class="preview-products-grid">
                                     @foreach(collect($company['sample_products'])->take(3) as $prod)
-                                        <a href="{{ $prod['url'] }}" target="_blank" class="preview-thumb-box" title="{{ $prod['name'] }}">
-                                            <img src="{{ !empty($prod['image_url']) ? $prod['image_url'] : 'https://placehold.co/200x200?text=Prod' }}" alt="{{ $prod['name'] }}">
+                                        <a href="{{ $prod['url'] }}" class="preview-thumb-box" title="{{ $prod['name'] }}"
+                                            onclick='event.preventDefault(); openCentralProductModal({
+                                                name: @json($prod["name"]),
+                                                price: {{ (float)$prod["price"] }},
+                                                image_url: @json($prod["image_url"] ?? ""),
+                                                description: @json($prod["description"] ?? ""),
+                                                stock: {{ (int)($prod["stock"] ?? 15) }},
+                                                url: @json($prod["url"]),
+                                                store_name: @json($company["store_name"]),
+                                                store_url: @json($company["store_url"]),
+                                                address: @json($company["address"]),
+                                                hours: @json($company["opening_hours"]),
+                                                whatsapp: @json($company["whatsapp_number"] ?? ""),
+                                                maps_url: @json($company["maps_url"] ?? "")
+                                            });'>
+                                            <img src="{{ !empty($prod['image_url']) ? $prod['image_url'] : 'https://placehold.co/200x200?text=Prod' }}" alt="{{ $prod['name'] }}" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/200x200?text=Zacatecas';">
                                             <span class="preview-thumb-price">${{ number_format($prod['price'], 0) }}</span>
                                         </a>
                                     @endforeach
@@ -3969,6 +4219,68 @@
 </div>
 </div>
 
+<!-- CENTRAL PRODUCT DETAIL QUICK VIEW MODAL -->
+<div class="modal-backdrop" id="centralProductModal">
+    <div class="central-product-modal-card">
+        <div class="modal-drag-indicator"></div>
+        <div class="modal-header-actions">
+            <button class="modal-close-btn" onclick="closeCentralProductModal()" aria-label="Cerrar modal" title="Cerrar">✕</button>
+        </div>
+        <div class="modal-main-layout">
+            <!-- Left: Product Image & Store Badge -->
+            <div class="modal-img-col">
+                <div class="modal-img-wrap">
+                    <img id="centralModalImg" src="" alt="Producto" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/600x600?text=Zacatecas+Producto';">
+                </div>
+                <div class="modal-badges-row">
+                    <span class="modal-chip modal-chip-store" id="centralModalStoreBadge">🏬 Tienda</span>
+                    <span class="modal-chip modal-chip-stock" id="centralModalStock">✓ En existencia</span>
+                </div>
+            </div>
+
+            <!-- Right: Product Info, Store & Actions -->
+            <div class="modal-content-col">
+                <span class="modal-cat-tag" id="centralModalStoreTag">Comercio Oficial</span>
+                <h3 class="modal-title" id="centralModalTitle">Nombre del Producto</h3>
+                
+                <div class="modal-price-row">
+                    <div class="modal-price" id="centralModalPrice">$0.00</div>
+                    <span class="modal-price-currency">MXN / Zacatecas Centro</span>
+                </div>
+
+                <p class="modal-desc" id="centralModalDesc">Descripción del producto.</p>
+
+                <!-- Store Info in Zacatecas Centro -->
+                <div class="modal-zac-location-box">
+                    <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 4px;">
+                        <span style="font-size: 11.5px; font-weight: 800; color: var(--accent); text-transform: uppercase; letter-spacing: .06em; display: flex; align-items: center; gap: 5px;">
+                            <span>📍</span> <span id="centralModalStoreLocName">Sucursal Zacatecas Centro</span>
+                        </span>
+                        <a id="centralModalMapsLink" href="#" target="_blank" style="font-size: 11px; font-weight: 700; color: var(--accent); text-decoration: underline;">
+                            Ver Mapa ↗
+                        </a>
+                    </div>
+                    <div id="centralModalAddress" style="font-size: 12.5px; font-weight: 600; color: var(--ink);">Centro Histórico, Zacatecas</div>
+                    <div id="centralModalHours" style="font-size: 11px; color: var(--muted); margin-top: 3px;">
+                        ⏰ Lunes a Sábado: 10:00 AM - 8:30 PM
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="modal-actions-row">
+                    <a id="centralModalWaBtn" href="#" target="_blank" class="btn-whatsapp-order">
+                        <svg style="width:20px; height:20px; fill:#fff;" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.699c.971.53 1.769.814 2.797.814 3.18 0 5.767-2.587 5.768-5.766 0-3.18-2.588-5.766-5.769-5.766zm0 10.355c-.886 0-1.616-.242-2.348-.675l-.168-.1-1.745.458.466-1.701-.11-.175c-.476-.757-.728-1.503-.728-2.399 0-2.531 2.059-4.59 4.635-4.59 2.576 0 4.635 2.059 4.635 4.59 0 2.531-2.059 4.592-4.535 4.592zm-8.031-4.589c0 6.627 5.373 12 12 12s12-5.373 12-12-5.373-12-12-12-12 5.373-12 12z"/></svg>
+                        Pedir por WhatsApp (<span id="centralModalBtnPrice">$0.00</span>)
+                    </a>
+                    <a id="centralModalStoreBtn" href="#" class="btn-visit-store-modal">
+                        <span>🏬</span> Ir a la Tienda Oficial Completa ↗
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Floating Back to Top Button -->
 <button type="button" class="btn-back-to-top" id="btnBackToTop" onclick="scrollToTop()" title="Volver arriba" aria-label="Volver arriba">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
@@ -4131,8 +4443,108 @@ document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
         closeAuthModal();
         closeRentModal();
+        closeCentralProductModal();
     }
 });
+
+// Backdrop click closes centralProductModal
+const centralProdModalEl = document.getElementById('centralProductModal');
+if (centralProdModalEl) {
+    centralProdModalEl.addEventListener('click', (e) => {
+        if (e.target === centralProdModalEl) {
+            closeCentralProductModal();
+        }
+    });
+}
+
+function openCentralProductModal(item) {
+    if (!item) return;
+    const modal = document.getElementById('centralProductModal');
+    if (!modal) return;
+
+    const imgEl = document.getElementById('centralModalImg');
+    if (imgEl) {
+        imgEl.src = item.image_url || 'https://placehold.co/600x600?text=Zacatecas';
+        imgEl.alt = item.name || 'Producto';
+    }
+
+    const titleEl = document.getElementById('centralModalTitle');
+    if (titleEl) titleEl.textContent = item.name || '';
+
+    const storeTagEl = document.getElementById('centralModalStoreTag');
+    if (storeTagEl) storeTagEl.textContent = item.store_name ? ('🏬 ' + item.store_name) : 'Comercio Oficial';
+
+    const storeBadgeEl = document.getElementById('centralModalStoreBadge');
+    if (storeBadgeEl) storeBadgeEl.textContent = '🏬 ' + (item.store_name || 'Comercio');
+
+    const stockEl = document.getElementById('centralModalStock');
+    if (stockEl) {
+        if (item.stock > 0) {
+            stockEl.textContent = `✓ En existencia (${item.stock} disp.)`;
+            stockEl.style.background = '#dcfce7';
+            stockEl.style.color = '#166534';
+        } else {
+            stockEl.textContent = '✕ Agotado temporalmente';
+            stockEl.style.background = '#fee2e2';
+            stockEl.style.color = '#991b1b';
+        }
+    }
+
+    const priceFormatted = '$' + parseFloat(item.price || 0).toFixed(2);
+    const priceEl = document.getElementById('centralModalPrice');
+    if (priceEl) priceEl.textContent = priceFormatted;
+
+    const btnPriceEl = document.getElementById('centralModalBtnPrice');
+    if (btnPriceEl) btnPriceEl.textContent = priceFormatted;
+
+    const descEl = document.getElementById('centralModalDesc');
+    if (descEl) descEl.textContent = item.description || 'Artículo exclusivo y certificado del Centro Histórico de Zacatecas.';
+
+    const locNameEl = document.getElementById('centralModalStoreLocName');
+    if (locNameEl) locNameEl.textContent = item.store_name || 'Sucursal Centro';
+
+    const addrEl = document.getElementById('centralModalAddress');
+    if (addrEl) addrEl.textContent = item.address || 'Centro Histórico, Zacatecas, Zac.';
+
+    const hoursEl = document.getElementById('centralModalHours');
+    if (hoursEl) hoursEl.textContent = '⏰ ' + (item.hours || 'Lunes a Sábado: 10:00 AM - 8:30 PM');
+
+    const mapsLink = document.getElementById('centralModalMapsLink');
+    if (mapsLink) mapsLink.href = item.maps_url || 'https://maps.google.com/?q=22.7753,-102.5724';
+
+    // WhatsApp Order Button
+    const waBtn = document.getElementById('centralModalWaBtn');
+    if (waBtn) {
+        const cleanWa = item.whatsapp ? item.whatsapp.replace(/[^0-9]/g, '') : '';
+        const msg = encodeURIComponent(`¡Hola! Me interesa comprar el siguiente producto en ${item.store_name}:\n• Producto: ${item.name}\n• Precio: ${priceFormatted} MXN\n• Sucursal: ${item.address || 'Zacatecas Centro'}\n\n¿Tienen entrega en Zacatecas o recogida en sucursal?`);
+        if (cleanWa) {
+            waBtn.href = `https://wa.me/${cleanWa}?text=${msg}`;
+        } else {
+            waBtn.href = `https://wa.me/?text=${msg}`;
+        }
+    }
+
+    // Go to store full catalog button
+    const storeBtn = document.getElementById('centralModalStoreBtn');
+    if (storeBtn) {
+        storeBtn.href = item.store_url || item.url || '#';
+        storeBtn.innerHTML = `<span>🏬</span> Visitar Tienda de ${item.store_name || 'Comercio'} ↗`;
+    }
+
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+
+    const card = modal.querySelector('.central-product-modal-card');
+    if (card) card.scrollTop = 0;
+}
+
+function closeCentralProductModal() {
+    const modal = document.getElementById('centralProductModal');
+    if (modal) modal.classList.remove('open');
+    document.body.style.overflow = '';
+    document.documentElement.style.overflow = '';
+}
 
 function openAuthModal(view = 'login') {
     switchAuthTab(view);

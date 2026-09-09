@@ -197,10 +197,65 @@
         [data-theme="dark"] .store-mobile-nav a:hover {
             background: #1e232e;
         }
-        [data-theme="dark"] .product-modal-card {
+        [data-theme="dark"] .modal-card {
             background: #15181f;
             color: #f3f4f6;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.7);
+        }
+        [data-theme="dark"] .modal-close-btn {
+            background: #1e232e;
+            border-color: rgba(255, 255, 255, 0.15);
+            color: #f3f4f6;
+        }
+        [data-theme="dark"] .modal-close-btn:hover {
+            background: var(--accent);
+            color: #ffffff;
+        }
+        [data-theme="dark"] .modal-img-wrap {
+            background: #0d0f14;
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        [data-theme="dark"] .modal-chip-sku {
+            background: #1e232e;
+            border-color: rgba(255, 255, 255, 0.12);
+            color: #9ca3af;
+        }
+        [data-theme="dark"] .modal-chip-stock {
+            background: rgba(34, 197, 94, 0.18);
+            color: #4ade80;
+            border-color: rgba(34, 197, 94, 0.3);
+        }
+        [data-theme="dark"] .modal-chip-delivery {
+            background: rgba(56, 189, 248, 0.18);
+            color: #7dd3fc;
+            border-color: rgba(56, 189, 248, 0.3);
+        }
+        [data-theme="dark"] .modal-qty-container {
+            background: #0d0f14;
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        [data-theme="dark"] .qty-btn {
+            background: #1e232e;
+            border-color: rgba(255, 255, 255, 0.15);
+            color: #f3f4f6;
+        }
+        [data-theme="dark"] .spec-box {
+            background: #0d0f14;
+            border-color: rgba(255, 255, 255, 0.08);
+        }
+        [data-theme="dark"] .modal-zac-location-box {
+            background: rgba(200, 109, 99, 0.12);
+            border-color: rgba(200, 109, 99, 0.3);
+        }
+        [data-theme="dark"] .btn-modal-action {
+            background: #1e232e;
+            border-color: rgba(255, 255, 255, 0.12);
+            color: #f3f4f6;
+        }
+        [data-theme="dark"] .related-card {
+            background: #0d0f14;
+            border-color: rgba(255, 255, 255, 0.08);
         }
         [data-theme="dark"] .store-footer {
             background: #08090c;
@@ -1155,69 +1210,100 @@
         .modal-backdrop {
             position: fixed;
             inset: 0;
-            z-index: 9999;
-            background: rgba(15, 23, 42, 0.75);
-            backdrop-filter: blur(10px);
+            z-index: 10000;
+            background: rgba(10, 12, 16, 0.78);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             display: none;
-            place-items: center;
-            padding: 20px;
+            align-items: center;
+            justify-content: center;
+            padding: 24px 16px;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
-        .modal-backdrop.open { display: grid; }
+        .modal-backdrop.open { display: flex; }
         .modal-card {
             background: var(--card);
+            border: 1px solid var(--line);
             border-radius: 26px;
-            width: min(920px, 100%);
-            max-height: 92vh;
+            width: min(880px, 100%);
+            max-height: min(90vh, 840px);
             overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
             position: relative;
-            box-shadow: 0 30px 70px rgba(0,0,0,.35);
-            padding: 36px;
+            box-shadow: 0 25px 65px rgba(0, 0, 0, 0.35);
+            padding: 28px 32px 36px;
+            margin: auto;
+        }
+        .modal-drag-indicator {
+            display: none;
+            width: 44px;
+            height: 5px;
+            border-radius: 999px;
+            background: var(--line);
+            margin: -8px auto 14px;
+        }
+        .modal-header-actions {
+            position: sticky;
+            top: -12px;
+            z-index: 50;
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: -32px;
+            pointer-events: none;
         }
         .modal-close-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 38px;
-            height: 38px;
+            pointer-events: auto;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             border: 1px solid var(--line);
-            background: var(--paper);
+            background: var(--card);
             color: var(--ink);
             cursor: pointer;
-            display: grid;
-            place-items: center;
-            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
             transition: all .2s ease;
-            z-index: 10;
         }
         .modal-close-btn:hover {
             background: var(--accent);
             color: #ffffff;
             border-color: var(--accent);
+            transform: scale(1.08);
         }
 
         .modal-main-layout {
             display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            gap: 32px;
-            margin-bottom: 30px;
+            grid-template-columns: 1fr 1.25fr;
+            gap: 28px;
+            margin-top: 14px;
+            margin-bottom: 24px;
         }
         .modal-img-col {
             display: flex;
             flex-direction: column;
-            gap: 14px;
+            gap: 12px;
         }
         .modal-img-wrap {
-            aspect-ratio: 1;
+            aspect-ratio: 1 / 1;
             border-radius: 20px;
             overflow: hidden;
-            background: #f4ede4;
+            background: var(--paper);
+            border: 1px solid var(--line);
             position: relative;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .modal-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+        .modal-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
         .modal-badges-row {
             display: flex;
-            gap: 8px;
+            gap: 6px;
             flex-wrap: wrap;
         }
         .modal-chip {
@@ -1230,36 +1316,36 @@
             gap: 5px;
         }
         .modal-chip-sku { background: var(--paper); border: 1px solid var(--line); color: var(--muted); }
-        .modal-chip-stock { background: #dcfce7; color: #166534; }
-        .modal-chip-delivery { background: #e0f2fe; color: #0369a1; }
+        .modal-chip-stock { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+        .modal-chip-delivery { background: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; }
 
         .modal-content-col { display: flex; flex-direction: column; }
         .modal-cat-tag {
             font-size: 11.5px;
-            font-weight: 700;
+            font-weight: 800;
             color: var(--accent);
             text-transform: uppercase;
-            letter-spacing: .1em;
-            margin-bottom: 6px;
+            letter-spacing: .08em;
+            margin-bottom: 4px;
             cursor: pointer;
             display: inline-block;
         }
         .modal-cat-tag:hover { text-decoration: underline; }
-        .modal-title { font-size: clamp(22px, 2.5vw, 30px); line-height: 1.2; margin-bottom: 12px; }
+        .modal-title { font-size: clamp(20px, 2.8vw, 26px); font-weight: 800; line-height: 1.25; margin-bottom: 8px; color: var(--ink); }
         .modal-price-row {
             display: flex;
             align-items: baseline;
-            gap: 12px;
-            margin-bottom: 18px;
+            gap: 10px;
+            margin-bottom: 14px;
         }
-        .modal-price { font-size: 28px; font-weight: 800; color: var(--accent); }
-        .modal-price-currency { font-size: 13px; color: var(--muted); font-weight: 600; }
+        .modal-price { font-size: 28px; font-weight: 900; color: var(--accent); letter-spacing: -0.02em; }
+        .modal-price-currency { font-size: 12px; color: var(--muted); font-weight: 600; }
 
         .modal-desc {
-            font-size: 14px;
-            line-height: 1.65;
+            font-size: 13.5px;
+            line-height: 1.6;
             color: var(--muted);
-            margin-bottom: 22px;
+            margin-bottom: 18px;
         }
 
         /* QUANTITY SELECTOR WITH LIVE TOTAL */
@@ -1267,11 +1353,11 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 14px 18px;
+            padding: 12px 16px;
             background: var(--paper);
             border-radius: 14px;
             border: 1px solid var(--line);
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
         .qty-controls {
             display: flex;
@@ -1279,13 +1365,13 @@
             gap: 10px;
         }
         .qty-btn {
-            width: 32px;
-            height: 32px;
+            width: 34px;
+            height: 34px;
             border-radius: 8px;
             border: 1px solid var(--line);
             background: var(--card);
             color: var(--ink);
-            font-size: 16px;
+            font-size: 18px;
             font-weight: 700;
             cursor: pointer;
             display: grid;
@@ -1316,18 +1402,22 @@
         .modal-tabs-header {
             display: flex;
             border-bottom: 1px solid var(--line);
-            gap: 20px;
-            margin-bottom: 16px;
+            gap: 16px;
+            margin-bottom: 14px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
         }
         .modal-tab-btn {
             background: none;
             border: none;
             padding: 8px 4px 10px;
-            font-size: 13px;
+            font-size: 12.5px;
             font-weight: 600;
             color: var(--muted);
             cursor: pointer;
             position: relative;
+            white-space: nowrap;
             transition: color .2s ease;
         }
         .modal-tab-btn.active {
@@ -1342,6 +1432,7 @@
             right: 0;
             height: 2px;
             background: var(--accent);
+            border-radius: 2px;
         }
         .modal-tab-pane { display: none; font-size: 13px; line-height: 1.6; color: var(--muted); }
         .modal-tab-pane.active { display: block; }
@@ -1349,44 +1440,57 @@
         .specs-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
+            gap: 10px;
         }
         .spec-box {
-            padding: 10px 14px;
+            padding: 10px 12px;
             background: var(--paper);
             border-radius: 10px;
             border: 1px solid var(--line);
         }
-        .spec-box span { display: block; font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 2px; }
-        .spec-box strong { font-size: 13px; color: var(--ink); }
+        .spec-box span { display: block; font-size: 10.5px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 2px; }
+        .spec-box strong { font-size: 12.5px; color: var(--ink); }
+
+        /* ZACATECAS CENTRO SUCURSAL INFOBOX */
+        .modal-zac-location-box {
+            margin: 16px 0 14px;
+            padding: 12px 14px;
+            background: rgba(200, 109, 99, 0.08);
+            border: 1px solid rgba(200, 109, 99, 0.22);
+            border-radius: 14px;
+        }
 
         /* MODAL ACTION BUTTONS */
         .modal-actions-row {
             display: flex;
             flex-direction: column;
             gap: 10px;
-            margin-top: 24px;
+            margin-top: 18px;
         }
         .btn-whatsapp-order {
             padding: 14px 20px;
             border-radius: 999px;
             background: #25d366;
             color: #ffffff;
-            font-weight: 700;
-            font-size: 14px;
+            font-weight: 800;
+            font-size: 14.5px;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
             text-decoration: none;
-            transition: transform .2s ease;
+            transition: transform .2s ease, box-shadow .2s ease;
             box-shadow: 0 6px 18px rgba(37,211,102,.35);
+            min-height: 48px;
         }
-        .btn-whatsapp-order:hover { transform: translateY(-2px); }
+        .btn-whatsapp-order:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(37,211,102,.45);
+        }
 
         .modal-secondary-actions {
             display: flex;
-            gap: 10px;
+            gap: 8px;
         }
         .btn-modal-action {
             flex: 1;
@@ -1403,6 +1507,7 @@
             align-items: center;
             justify-content: center;
             gap: 6px;
+            text-decoration: none;
             transition: all .2s ease;
         }
         .btn-modal-action:hover {
@@ -1413,25 +1518,25 @@
         /* RELATED PRODUCTS SECTION IN MODAL */
         .modal-related-wrap {
             border-top: 1px solid var(--line);
-            padding-top: 24px;
-            margin-top: 24px;
+            padding-top: 20px;
+            margin-top: 20px;
         }
         .modal-related-wrap h4 {
-            font-size: 14px;
+            font-size: 13.5px;
             font-weight: 700;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
             color: var(--ink);
         }
         .modal-related-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 14px;
+            gap: 12px;
         }
         .related-card {
             background: var(--paper);
             border: 1px solid var(--line);
             border-radius: 12px;
-            padding: 10px;
+            padding: 8px 10px;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -1443,10 +1548,12 @@
             transform: translateY(-2px);
         }
         .related-card img {
-            width: 48px;
-            height: 48px;
+            width: 44px;
+            height: 44px;
             object-fit: cover;
             border-radius: 8px;
+            flex-shrink: 0;
+            background: var(--card);
         }
         .related-card strong { display: block; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 130px; }
         .related-card span { font-size: 11.5px; font-weight: 700; color: var(--accent); }
@@ -1670,9 +1777,31 @@
             .network-grid { grid-template-columns: 1fr; }
             .testimonial-card { flex: 0 0 280px; padding: 18px; }
 
-            .modal-card { padding: 20px 14px; width: calc(100% - 16px); border-radius: 18px; }
-            .modal-close-btn { top: 12px; right: 12px; width: 32px; height: 32px; font-size: 16px; }
-            .modal-title { font-size: 20px; }
+            .modal-backdrop {
+                padding: 0;
+                align-items: flex-end;
+            }
+            .modal-card {
+                padding: 14px 16px max(24px, env(safe-area-inset-bottom));
+                width: 100%;
+                max-height: 88vh;
+                border-radius: 24px 24px 0 0;
+                box-shadow: 0 -10px 40px rgba(0,0,0,0.5);
+                margin: 0;
+            }
+            .modal-drag-indicator { display: block; }
+            .modal-header-actions {
+                top: -8px;
+                margin-bottom: -28px;
+            }
+            .modal-close-btn { width: 34px; height: 34px; font-size: 15px; }
+            .modal-main-layout { grid-template-columns: 1fr; gap: 12px; margin-top: 6px; }
+            .modal-img-wrap {
+                aspect-ratio: 16 / 10;
+                max-height: 210px;
+                border-radius: 16px;
+            }
+            .modal-title { font-size: 20px; line-height: 1.25; }
             .modal-price { font-size: 24px; }
             .modal-badges-row { gap: 4px; }
             .modal-chip { font-size: 10px; padding: 3px 7px; }
@@ -2008,7 +2137,7 @@
             @foreach($featuredProducts as $item)
                 <div class="featured-item">
                     <article class="product-card">
-                        <div class="product-card-thumb" onclick='openProductDetail(@json($item))'>
+                        <div class="product-card-thumb" onclick="openProductById({{ $item->id }})">
                             @if($item->category)
                                 <span class="product-badge-cat" onclick="event.stopPropagation(); selectCategory('{{ $item->category->slug }}', '{{ addslashes($item->category->name) }}')">
                                     {{ $item->category->name }}
@@ -2017,14 +2146,14 @@
                             <span class="product-stock-tag {{ $item->stock > 10 ? 'stock-available' : ($item->stock > 0 ? 'stock-low' : 'stock-none') }}">
                                 {{ $item->stock > 0 ? ($item->stock . ' en stock') : 'Agotado' }}
                             </span>
-                            <img src="{{ !empty($item->image_url) ? $item->image_url : 'https://placehold.co/600x600?text=' . urlencode($item->name) }}" alt="{{ $item->name }}" loading="lazy">
+                            <img src="{{ !empty($item->image_url) ? $item->image_url : 'https://placehold.co/600x600?text=' . urlencode($item->name) }}" alt="{{ $item->name }}" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/600x600?text=Zacatecas';">
                         </div>
                         <div class="product-card-body">
-                            <h3 onclick='openProductDetail(@json($item))'>{{ $item->name }}</h3>
+                            <h3 onclick="openProductById({{ $item->id }})">{{ $item->name }}</h3>
                             <p>{{ Str::limit($item->description, 80) }}</p>
                             <div class="product-card-footer">
                                 <span class="product-price">${{ number_format($item->price, 2) }}</span>
-                                <button class="btn-quick-view" onclick='openProductDetail(@json($item))'>Ver detalles ↗</button>
+                                <button class="btn-quick-view" onclick="openProductById({{ $item->id }})">Ver detalles ↗</button>
                             </div>
                         </div>
                     </article>
@@ -2090,7 +2219,7 @@
                     data-desc="{{ strtolower($product->description ?? '') }}" 
                     data-category="{{ $product->category?->slug ?? 'sin-categoria' }}"
                     data-category-name="{{ $product->category?->name ?? 'General' }}">
-                    <div class="product-card-thumb" onclick='openProductDetail(@json($product))'>
+                    <div class="product-card-thumb" onclick="openProductById({{ $product->id }})">
                         @if($product->category)
                             <span class="product-badge-cat" onclick="event.stopPropagation(); selectCategory('{{ $product->category->slug }}', '{{ addslashes($product->category->name) }}')">
                                 {{ $product->category->name }}
@@ -2099,14 +2228,14 @@
                         <span class="product-stock-tag {{ $product->stock > 10 ? 'stock-available' : ($product->stock > 0 ? 'stock-low' : 'stock-none') }}">
                             {{ $product->stock > 0 ? ($product->stock . ' en stock') : 'Agotado' }}
                         </span>
-                        <img src="{{ !empty($product->image_url) ? $product->image_url : 'https://placehold.co/600x600?text=' . urlencode($product->name) }}" alt="{{ $product->name }}" loading="lazy">
+                        <img src="{{ !empty($product->image_url) ? $product->image_url : 'https://placehold.co/600x600?text=' . urlencode($product->name) }}" alt="{{ $product->name }}" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/600x600?text=Zacatecas';">
                     </div>
                     <div class="product-card-body">
-                        <h3 onclick='openProductDetail(@json($product))'>{{ $product->name }}</h3>
+                        <h3 onclick="openProductById({{ $product->id }})">{{ $product->name }}</h3>
                         <p>{{ Str::limit($product->description, 85) }}</p>
                         <div class="product-card-footer">
                             <span class="product-price">${{ number_format($product->price, 2) }}</span>
-                            <button class="btn-quick-view" onclick='openProductDetail(@json($product))'>Ver detalles ↗</button>
+                            <button class="btn-quick-view" onclick="openProductById({{ $product->id }})">Ver detalles ↗</button>
                         </div>
                     </div>
                 </article>
@@ -2357,13 +2486,16 @@
 <!-- ENRICHED PRODUCT DETAILS MODAL ("VER MÁS COSAS DE LOS PRODUCTOS") -->
 <div class="modal-backdrop" id="productDetailModal">
     <div class="modal-card">
-        <button class="modal-close-btn" onclick="closeProductDetail()" aria-label="Cerrar modal">✕</button>
+        <div class="modal-drag-indicator"></div>
+        <div class="modal-header-actions">
+            <button class="modal-close-btn" onclick="closeProductDetail()" aria-label="Cerrar modal" title="Cerrar">✕</button>
+        </div>
         
         <div class="modal-main-layout">
             <!-- Left: Product Image & Badges -->
             <div class="modal-img-col">
                 <div class="modal-img-wrap">
-                    <img id="modalImg" src="" alt="Producto">
+                    <img id="modalImg" src="" alt="Producto" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/600x600?text=Zacatecas+Producto';">
                 </div>
                 <div class="modal-badges-row">
                     <span class="modal-chip modal-chip-sku" id="modalSku">SKU: PROD-000</span>
@@ -2389,9 +2521,9 @@
                     <div>
                         <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 6px;">Cantidad a comprar</span>
                         <div class="qty-controls">
-                            <button class="qty-btn" onclick="changeModalQty(-1)">−</button>
+                            <button class="qty-btn" onclick="changeModalQty(-1)" aria-label="Disminuir cantidad">−</button>
                             <span class="qty-display" id="modalQtyDisplay">1</span>
-                            <button class="qty-btn" onclick="changeModalQty(1)">+</button>
+                            <button class="qty-btn" onclick="changeModalQty(1)" aria-label="Aumentar cantidad">+</button>
                         </div>
                     </div>
                     <div class="modal-subtotal-info" style="text-align: right;">
@@ -2441,7 +2573,7 @@
                 </div>
 
                 <!-- Sucursal Zacatecas Centro Location Pill / Infobox -->
-                <div class="modal-zac-location-box" style="margin: 16px 0 12px; padding: 12px 14px; background: rgba(226,112,78,0.06); border: 1px solid rgba(226,112,78,0.22); border-radius: 14px;">
+                <div class="modal-zac-location-box">
                     <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 4px;">
                         <span style="font-size: 11.5px; font-weight: 800; color: var(--accent); text-transform: uppercase; letter-spacing: .06em; display: flex; align-items: center; gap: 5px;">
                             <span>📍</span> Sucursal Zacatecas Centro
@@ -2632,6 +2764,16 @@ document.addEventListener('DOMContentLoaded', () => {
             closeProductDetail();
         }
     });
+
+    // Close modal on backdrop click
+    const productModalEl = document.getElementById('productDetailModal');
+    if (productModalEl) {
+        productModalEl.addEventListener('click', (e) => {
+            if (e.target === productModalEl) {
+                closeProductDetail();
+            }
+        });
+    }
 });
 
 // DROPDOWN OFICIAL STORES TOGGLE
@@ -2721,6 +2863,14 @@ function applyCatalogFilter() {
 }
 
 // ENRICHED PRODUCT DETAIL MODAL LOGIC ("VER MÁS COSAS DE LOS PRODUCTOS")
+function openProductById(id) {
+    if (!window.ALL_PRODUCTS || !Array.isArray(ALL_PRODUCTS)) return;
+    const p = ALL_PRODUCTS.find(item => String(item.id) === String(id) || item.slug === String(id));
+    if (p) {
+        openProductDetail(p);
+    }
+}
+
 function openProductDetail(product) {
     if (!product) return;
     currentModalProduct = product;
@@ -2730,7 +2880,11 @@ function openProductDetail(product) {
     if (!modal) return;
 
     // Fill Basic Details
-    document.getElementById('modalImg').src = product.image_url || ('https://placehold.co/600x600?text=' + encodeURIComponent(product.name));
+    const modalImgEl = document.getElementById('modalImg');
+    if (modalImgEl) {
+        modalImgEl.src = product.image_url || ('https://placehold.co/600x600?text=' + encodeURIComponent(product.name));
+        modalImgEl.alt = product.name;
+    }
     document.getElementById('modalTitle').textContent = product.name;
     const catName = product.category ? product.category.name : 'Colección General';
     document.getElementById('modalCat').textContent = catName;
@@ -2776,6 +2930,12 @@ function openProductDetail(product) {
 
     modal.classList.add('open');
     document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+
+    const card = modal.querySelector('.modal-card');
+    if (card) {
+        card.scrollTop = 0;
+    }
 
     // Update URL parameter
     const url = new URL(window.location);
@@ -2787,6 +2947,7 @@ function closeProductDetail() {
     const modal = document.getElementById('productDetailModal');
     if (modal) modal.classList.remove('open');
     document.body.style.overflow = '';
+    document.documentElement.style.overflow = '';
 
     const url = new URL(window.location);
     url.searchParams.delete('producto');

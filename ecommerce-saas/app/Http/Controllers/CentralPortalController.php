@@ -31,9 +31,11 @@ class CentralPortalController extends Controller
                         ->get()
                         ->map(fn ($p) => [
                             'name' => $p->name,
-                            'price' => $p->price,
+                            'price' => (float) $p->price,
                             'image_url' => $p->image_url,
                             'slug' => $p->slug,
+                            'description' => $p->description,
+                            'stock' => (int) $p->stock,
                             'url' => str_contains($storeUrl, '?') ? "{$storeUrl}&producto={$p->slug}" : "{$storeUrl}/?producto={$p->slug}",
                         ]);
 
