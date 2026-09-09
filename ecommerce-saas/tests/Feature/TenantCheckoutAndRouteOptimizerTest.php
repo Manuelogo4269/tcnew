@@ -16,15 +16,20 @@ class TenantCheckoutAndRouteOptimizerTest extends TestCase
 
         $response->assertSee('routeOptimizerPanel');
         $response->assertSee('RUTA INTELIGENTE SEGÚN TU CARRITO');
-        $response->assertSee('Ruta Peatonal para Ver Productos en Tiendas Físicas');
+        $response->assertSee('Ruta Peatonal Más Corta entre tu Ubicación y las Tiendas Físicas');
         $response->assertSee('cartRouteItemsContainer');
+        $response->assertSee('routeOriginBar');
+        $response->assertSee('btnRouteUseGps');
+        $response->assertSee('floatingRouteCartBar');
         $response->assertSee('btnCentralCart');
         $response->assertSee('btnCalculateRoute');
         $response->assertSee('Calcular Ruta Recomendada');
         $response->assertSee('routeStoresSelector');
         $response->assertSee('optimizeShoppingRoute');
+        $response->assertSee('computeExactShortestRoute');
         $response->assertSee('loadSampleCartForRouteDemo');
         $response->assertSee('addCurrentModalProductToRouteCart');
+        $response->assertSee('quickAddProductToRouteCart');
     }
 
     public function test_tenant_storefront_displays_cart_drawer_and_checkout_modal(): void

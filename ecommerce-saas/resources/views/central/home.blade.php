@@ -2761,6 +2761,171 @@
             margin-left: auto;
         }
 
+        /* QUICK ADD ON PRODUCT THUMBNAIL */
+        .preview-thumb-box {
+            position: relative;
+        }
+        .preview-quick-add-btn {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            background: rgba(200, 109, 99, 0.94);
+            color: #fff;
+            border: none;
+            border-radius: 999px;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 3px 8px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+            transition: all .18s ease;
+            z-index: 2;
+        }
+        .preview-quick-add-btn:hover {
+            background: #ba584d;
+            transform: scale(1.08);
+        }
+        .search-quick-add-btn {
+            background: rgba(200, 109, 99, 0.12);
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 800;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: all .2s ease;
+            margin-top: 6px;
+            width: 100%;
+            justify-content: center;
+        }
+        .search-quick-add-btn:hover {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        /* FLOATING ROUTE CART BAR */
+        .floating-route-cart-bar {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 999;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 999px;
+            border: 1.5px solid rgba(255, 255, 255, 0.22);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: all .25s cubic-bezier(0.16, 1, 0.3, 1);
+            max-width: 92vw;
+        }
+        .floating-route-cart-bar:hover {
+            transform: translateX(-50%) translateY(-2px);
+            box-shadow: 0 12px 38px rgba(200, 109, 99, 0.5);
+            border-color: var(--accent);
+        }
+        .floating-cart-inner {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            width: 100%;
+            justify-content: space-between;
+        }
+        .floating-cart-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .floating-cart-icon {
+            font-size: 20px;
+        }
+        .floating-cart-info strong {
+            font-size: 13px;
+            color: #fff;
+            display: block;
+        }
+        .floating-cart-info small {
+            font-size: 11px;
+            color: #cbd5e1;
+        }
+        .floating-cart-action {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .floating-cart-total {
+            font-size: 13px;
+            font-weight: 800;
+            color: #fcd34d;
+            white-space: nowrap;
+        }
+        .btn-floating-route-cta {
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+        }
+
+        /* ROUTE ORIGIN CONTROLS BAR */
+        .route-origin-bar {
+            background: rgba(37, 99, 235, 0.05);
+            border: 1.5px solid rgba(37, 99, 235, 0.22);
+            border-radius: 14px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 14px;
+        }
+        .btn-route-origin-pill {
+            background: var(--card);
+            border: 1px solid var(--line);
+            color: var(--ink);
+            padding: 5px 12px;
+            border-radius: 999px;
+            font-size: 11.5px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: all .2s ease;
+        }
+        .btn-route-origin-pill:hover, .btn-route-origin-pill.active {
+            background: #2563eb;
+            color: #fff;
+            border-color: #2563eb;
+        }
+
+        @keyframes pulseGps {
+            0% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.7); }
+            70% { box-shadow: 0 0 0 14px rgba(37, 99, 235, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); }
+        }
+
         /* STORE CARD LOCATION SPECIFICS */
         .store-location-chip {
             display: flex;
@@ -4143,6 +4308,14 @@
                                         Ver en {{ Str::limit($item['store_name'], 12) }} ↗
                                     </a>
                                 </div>
+                                <button type="button" class="search-quick-add-btn" onclick='quickAddProductToRouteCart({
+                                    id: @json((string)$item["id"]),
+                                    store_id: @json((string)$item["store_id"]),
+                                    store_name: @json($item["store_name"]),
+                                    name: @json($item["name"]),
+                                    price: {{ (float)$item["price"] }},
+                                    image_url: @json($item["image_url"] ?? "")
+                                });'>+ 🛒 Añadir al Carrito de Ruta</button>
                             </div>
                         </article>
                     @endforeach
@@ -4215,9 +4388,9 @@
             <div class="route-optimizer-box" id="routeOptimizerPanel">
                 <div class="route-opt-header">
                     <div>
-                        <span class="route-opt-badge">⚡ RUTA INTELIGENTE SEGÚN TU CARRITO</span>
-                        <h3 style="font-size: 18px; font-weight: 800; margin: 4px 0; color: var(--ink);">Ruta Peatonal para Ver Productos en Tiendas Físicas</h3>
-                        <p style="font-size: 13px; color: var(--muted); margin: 0;">Calcula la <strong>ruta peatonal más corta y eficiente</strong> por las calles de cantera de Zacatecas Centro para visitar y comprar en las tiendas los productos que tienes en tu carrito.</p>
+                        <span class="route-opt-badge">⚡ RUTA INTELIGENTE SEGÚN TU CARRITO Y UBICACIÓN</span>
+                        <h3 style="font-size: 18px; font-weight: 800; margin: 4px 0; color: var(--ink);">Ruta Peatonal Más Corta entre tu Ubicación y las Tiendas Físicas</h3>
+                        <p style="font-size: 13px; color: var(--muted); margin: 0;">Agrega productos a tu carrito. Calculamos automáticamente la <strong>ruta peatonal más corta y eficiente</strong> por las calles de cantera de Zacatecas Centro desde tu ubicación actual hasta cada tienda para verlos y comprarlos.</p>
                     </div>
                     <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
                         <button type="button" class="btn-opt-clear" onclick="clearCartRouteItems()" id="btnClearRouteCart" style="display: none;">🗑️ Vaciar Carrito</button>
@@ -4228,6 +4401,28 @@
                 <!-- Live Cart Items for Route Container -->
                 <div id="cartRouteItemsContainer" class="cart-route-items-container">
                     <!-- Dynamically rendered by renderCartForRoute() -->
+                </div>
+
+                <!-- Selector de Ubicación de Origen / Tu Ubicación -->
+                <div class="route-origin-bar" id="routeOriginBar">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span style="font-size: 22px;">📍</span>
+                        <div>
+                            <strong style="font-size: 13px; color: var(--ink);">Tu Punto de Partida:</strong>
+                            <div style="font-size: 12px; color: var(--muted);" id="routeOriginLabel">Obteniendo ubicación GPS actual...</div>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                        <button type="button" class="btn-route-origin-pill active" id="btnRouteUseGps" onclick="requestUserLocationForRoute(true)" title="Usar coordenadas GPS en tiempo real">
+                            <span>📡</span> Mi Ubicación GPS
+                        </button>
+                        <button type="button" class="btn-route-origin-pill" id="btnRoutePlazaArmas" onclick="setOriginPlazaDeArmas()" title="Fijar punto de partida en Plaza de Armas">
+                            <span>🏛️</span> Plaza de Armas
+                        </button>
+                        <button type="button" class="btn-route-origin-pill" id="btnClickMapOrigin" onclick="enableMapPickOrigin()" title="Hacer clic en cualquier parte del mapa para fijar tu hotel o punto de partida">
+                            <span>🗺️</span> Elegir en Mapa
+                        </button>
+                    </div>
                 </div>
 
                 <!-- Manual Stores Selector (Collapsible) -->
@@ -4265,11 +4460,8 @@
                 </div>
 
                 <div class="route-opt-trigger-row" style="margin-top: 16px;">
-                    <button type="button" class="btn-calculate-route" id="btnCalculateRoute" onclick="optimizeShoppingRoute()">
-                        <span>🗺️</span> Calcular Ruta Recomendada
-                    </button>
-                    <button type="button" class="btn-route-gps-origin" id="btnRouteUseGps" onclick="requestUserLocationForRoute()">
-                        <span>📍</span> <span id="routeOriginLabel">Origen: Plaza de Armas (Centro)</span>
+                    <button type="button" class="btn-calculate-route" id="btnCalculateRoute" onclick="optimizeShoppingRoute(true)">
+                        <span>🚶‍♂️</span> Calcular Ruta Recomendada (Más Corta)
                     </button>
                 </div>
 
@@ -4381,26 +4573,36 @@
                                 </div>
                                 <div class="preview-products-grid">
                                     @foreach(collect($company['sample_products'])->take(3) as $prod)
-                                        <a href="{{ $prod['url'] }}" class="preview-thumb-box" title="{{ $prod['name'] }}"
-                                            onclick='event.preventDefault(); openCentralProductModal({
+                                        <div class="preview-thumb-box" title="{{ $prod['name'] }}">
+                                            <a href="{{ $prod['url'] }}" style="display: block; width: 100%; height: 100%; text-decoration: none;"
+                                                onclick='event.preventDefault(); openCentralProductModal({
+                                                    id: @json($prod["id"] ?? (string)\Illuminate\Support\Str::slug($prod["name"])),
+                                                    store_id: @json($company["id"]),
+                                                    name: @json($prod["name"]),
+                                                    price: {{ (float)$prod["price"] }},
+                                                    image_url: @json($prod["image_url"] ?? ""),
+                                                    description: @json($prod["description"] ?? ""),
+                                                    stock: {{ (int)($prod["stock"] ?? 15) }},
+                                                    url: @json($prod["url"]),
+                                                    store_name: @json($company["store_name"]),
+                                                    store_url: @json($company["store_url"]),
+                                                    address: @json($company["address"]),
+                                                    hours: @json($company["opening_hours"]),
+                                                    whatsapp: @json($company["whatsapp_number"] ?? ""),
+                                                    maps_url: @json($company["maps_url"] ?? "")
+                                                });'>
+                                                <img src="{{ !empty($prod['image_url']) ? $prod['image_url'] : 'https://placehold.co/200x200?text=Prod' }}" alt="{{ $prod['name'] }}" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/200x200?text=Zacatecas';">
+                                                <span class="preview-thumb-price">${{ number_format($prod['price'], 0) }}</span>
+                                            </a>
+                                            <button type="button" class="preview-quick-add-btn" title="Añadir a mi Carrito de Ruta" onclick='event.stopPropagation(); event.preventDefault(); quickAddProductToRouteCart({
                                                 id: @json($prod["id"] ?? (string)\Illuminate\Support\Str::slug($prod["name"])),
                                                 store_id: @json($company["id"]),
+                                                store_name: @json($company["store_name"]),
                                                 name: @json($prod["name"]),
                                                 price: {{ (float)$prod["price"] }},
-                                                image_url: @json($prod["image_url"] ?? ""),
-                                                description: @json($prod["description"] ?? ""),
-                                                stock: {{ (int)($prod["stock"] ?? 15) }},
-                                                url: @json($prod["url"]),
-                                                store_name: @json($company["store_name"]),
-                                                store_url: @json($company["store_url"]),
-                                                address: @json($company["address"]),
-                                                hours: @json($company["opening_hours"]),
-                                                whatsapp: @json($company["whatsapp_number"] ?? ""),
-                                                maps_url: @json($company["maps_url"] ?? "")
-                                            });'>
-                                            <img src="{{ !empty($prod['image_url']) ? $prod['image_url'] : 'https://placehold.co/200x200?text=Prod' }}" alt="{{ $prod['name'] }}" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/200x200?text=Zacatecas';">
-                                            <span class="preview-thumb-price">${{ number_format($prod['price'], 0) }}</span>
-                                        </a>
+                                                image_url: @json($prod["image_url"] ?? "")
+                                            });'>+ 🛒</button>
+                                        </div>
                                     @endforeach
                                 </div>
                             </div>
@@ -4569,6 +4771,25 @@
             @endforeach
         </div>
     </section>
+
+    <!-- FLOATING STICKY ROUTE CART BAR (VISIBLE WHEN ITEMS IN CART) -->
+    <div class="floating-route-cart-bar" id="floatingRouteCartBar" onclick="goToCartRoutePlanner()" style="display: none;">
+        <div class="floating-cart-inner">
+            <div class="floating-cart-info">
+                <span class="floating-cart-icon">🛒</span>
+                <div>
+                    <strong id="floatingCartText">0 productos en tu Carrito de Ruta</strong>
+                    <small id="floatingCartSub">Calcula la ruta más corta desde tu ubicación</small>
+                </div>
+            </div>
+            <div class="floating-cart-action">
+                <span class="floating-cart-total" id="floatingCartTotal">$0.00 MXN</span>
+                <button type="button" class="btn-floating-route-cta">
+                    <span>🚶‍♂️ Ver Ruta Más Corta ➔</span>
+                </button>
+            </div>
+        </div>
+    </div>
 
 </main>
 
@@ -5533,6 +5754,13 @@ function initZacatecasMap() {
 
     // Place store markers
     renderStoreMarkers(businessesData);
+
+    // Support picking custom origin on map click
+    map.on('click', function(e) {
+        if (typeof mapPickOriginActive !== 'undefined' && mapPickOriginActive) {
+            setCustomMapOrigin(e.latlng.lat, e.latlng.lng);
+        }
+    });
 }
 
 function renderStoreMarkers(stores) {
@@ -5814,6 +6042,17 @@ function addGlobalCartItem(prod) {
     saveUnifiedCart(cart);
 }
 
+function quickAddProductToRouteCart(prod) {
+    if (!prod) return;
+    addGlobalCartItem(prod);
+    renderCartForRoute();
+    updateHeaderCartBadge();
+    showToast(`🛒 ¡"${prod.name}" añadido a tu Carrito de Ruta!`);
+    if (currentRoutePolyline) {
+        optimizeShoppingRoute(false);
+    }
+}
+
 function updateRouteCartQty(storeId, prodId, delta) {
     const cart = getUnifiedCart();
     if (!cart[storeId] || !cart[storeId].items) return;
@@ -6000,12 +6239,15 @@ function renderCartForRoute() {
         }
     });
 
+    const floatBar = document.getElementById('floatingRouteCartBar');
+
     if (storeIds.length === 0) {
+        if (floatBar) floatBar.style.display = 'none';
         container.innerHTML = `
             <div class="cart-route-empty">
                 <div class="cart-empty-icon">🛒</div>
                 <h4>Tu carrito peatonal está vacío</h4>
-                <p>Para generar la ruta recomendada hacia las tiendas físicas, agrega productos desde el catálogo o carga un ejemplo con 1 clic:</p>
+                <p>Para generar la ruta más corta hacia las tiendas físicas, agrega productos desde el catálogo o carga un ejemplo con 1 clic:</p>
                 <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 14px;">
                     <button type="button" class="btn-seed-sample-cart" onclick="loadSampleCartForRouteDemo()">
                         <span>✦</span> Cargar 3 Productos de Prueba para Ver la Ruta
@@ -6017,6 +6259,14 @@ function renderCartForRoute() {
             </div>
         `;
         return;
+    }
+
+    if (floatBar) {
+        floatBar.style.display = 'flex';
+        const textEl = document.getElementById('floatingCartText');
+        if (textEl) textEl.textContent = `${totalItems} producto(s) en ${storeIds.length} tienda(s)`;
+        const totalEl = document.getElementById('floatingCartTotal');
+        if (totalEl) totalEl.textContent = `$${grandTotal.toFixed(2)} MXN`;
     }
 
     let storesHtml = '';
@@ -6084,7 +6334,7 @@ function renderCartForRoute() {
             </div>
             <div style="margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
                 <button type="button" class="btn-calculate-route" onclick="optimizeShoppingRoute(true)" style="padding: 12px 24px; font-size: 14px;">
-                    <span>🚶‍♂️</span> Trazar Ruta Peatonal Recomendada para Ver/Comprar estos Productos
+                    <span>🚶‍♂️</span> Trazar Ruta Peatonal Recomendada para Ver/Comprar estos Productos (${storeIds.length} tiendas)
                 </button>
             </div>
         </div>
@@ -6119,93 +6369,214 @@ function clearRouteSelection() {
     resetMapRoute();
 }
 
-function requestUserLocationForRoute() {
+// ========================================================
+// ORIGIN & GEOLOCATION CONTROLS (TU UBICACIÓN / CENTRO)
+// ========================================================
+let mapPickOriginActive = false;
+
+function updateOriginBarUI(activeType, labelText) {
+    const lbl = document.getElementById('routeOriginLabel');
+    if (lbl && labelText) lbl.innerHTML = labelText;
+
+    const btnGps = document.getElementById('btnRouteUseGps');
+    const btnPlaza = document.getElementById('btnRoutePlazaArmas');
+    const btnMap = document.getElementById('btnClickMapOrigin');
+
+    if (btnGps) btnGps.classList.toggle('active', activeType === 'gps');
+    if (btnPlaza) btnPlaza.classList.toggle('active', activeType === 'plaza');
+    if (btnMap) btnMap.classList.toggle('active', activeType === 'map' || activeType === 'custom');
+}
+
+function requestUserLocationForRoute(andOptimize = false) {
     if (!navigator.geolocation) {
-        alert('Tu dispositivo no soporta geolocalización GPS.');
+        setOriginPlazaDeArmas();
+        showToast('⚠️ Tu dispositivo no soporta GPS, usando Plaza de Armas');
         return;
     }
-    const lbl = document.getElementById('routeOriginLabel');
-    if (lbl) lbl.textContent = 'Obteniendo GPS...';
+
+    updateOriginBarUI('gps', '📡 Obteniendo coordenadas GPS en tiempo real...');
 
     navigator.geolocation.getCurrentPosition(
         (pos) => {
             userCoords = { lat: pos.coords.latitude, lng: pos.coords.longitude };
-            routeOrigin = { lat: pos.coords.latitude, lng: pos.coords.longitude, name: 'Mi Ubicación Actual' };
-            if (lbl) lbl.textContent = `Origen: Mi Ubicación (${userCoords.lat.toFixed(4)}, ${userCoords.lng.toFixed(4)})`;
-            showToast('📍 Origen configurado en tu ubicación actual');
-            if (selectedRouteStoreIds.size > 0) {
+            routeOrigin = {
+                lat: pos.coords.latitude,
+                lng: pos.coords.longitude,
+                name: 'Tu Ubicación Actual (GPS)'
+            };
+            updateOriginBarUI('gps', `<span style="color:#059669; font-weight:700;">✓ Tu Ubicación Actual (GPS)</span> · Coords: ${userCoords.lat.toFixed(4)}, ${userCoords.lng.toFixed(4)}`);
+            showToast('📍 Origen configurado en tu ubicación GPS actual');
+            if (andOptimize || selectedRouteStoreIds.size > 0) {
                 optimizeShoppingRoute(true);
             }
         },
         (err) => {
-            routeOrigin = { lat: ZACATECAS_CENTER[0], lng: ZACATECAS_CENTER[1], name: 'Plaza de Armas (Centro)' };
-            if (lbl) lbl.textContent = 'Origen: Plaza de Armas (Centro)';
+            setOriginPlazaDeArmas();
             showToast('⚠️ No se pudo obtener GPS, usando Plaza de Armas');
         },
-        { enableHighAccuracy: true, timeout: 8000 }
+        { enableHighAccuracy: true, timeout: 8000, maximumAge: 30000 }
     );
+}
+
+function setOriginPlazaDeArmas() {
+    routeOrigin = { lat: ZACATECAS_CENTER[0], lng: ZACATECAS_CENTER[1], name: 'Plaza de Armas (Centro Histórico)' };
+    updateOriginBarUI('plaza', '🏛️ Plaza de Armas (Centro Histórico)');
+    showToast('🏛️ Origen configurado en Plaza de Armas');
+    if (selectedRouteStoreIds.size > 0 && currentRoutePolyline) {
+        optimizeShoppingRoute(false);
+    }
+}
+
+function enableMapPickOrigin() {
+    mapPickOriginActive = true;
+    updateOriginBarUI('map', '👉 Haz clic en cualquier punto del mapa para fijar tu ubicación...');
+    showToast('📍 Haz clic en cualquier punto del mapa para fijar tu hotel o punto de partida');
+}
+
+function setCustomMapOrigin(lat, lng) {
+    mapPickOriginActive = false;
+    routeOrigin = {
+        lat: lat,
+        lng: lng,
+        name: `Punto en el Mapa (${lat.toFixed(4)}, ${lng.toFixed(4)})`
+    };
+    updateOriginBarUI('custom', `<span style="color:#2563eb; font-weight:700;">📍 Punto Fijado en el Mapa</span> (${lat.toFixed(4)}, ${lng.toFixed(4)})`);
+    showToast('📍 Punto de partida actualizado en el mapa. Recalculando ruta más corta...');
+    optimizeShoppingRoute(false);
+}
+
+function autoDetectUserLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            (pos) => {
+                userCoords = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+                if (!routeOrigin || routeOrigin.name.includes('Plaza de Armas')) {
+                    routeOrigin = {
+                        lat: pos.coords.latitude,
+                        lng: pos.coords.longitude,
+                        name: 'Tu Ubicación Actual (GPS)'
+                    };
+                    updateOriginBarUI('gps', `<span style="color:#059669; font-weight:700;">✓ Tu Ubicación Actual (GPS)</span> · Coords: ${userCoords.lat.toFixed(4)}, ${userCoords.lng.toFixed(4)}`);
+                }
+            },
+            () => {
+                if (!routeOrigin) {
+                    routeOrigin = { lat: ZACATECAS_CENTER[0], lng: ZACATECAS_CENTER[1], name: 'Plaza de Armas (Centro)' };
+                    updateOriginBarUI('plaza', 'Plaza de Armas (Centro Histórico)');
+                }
+            },
+            { enableHighAccuracy: true, timeout: 6000, maximumAge: 60000 }
+        );
+    } else {
+        if (!routeOrigin) {
+            routeOrigin = { lat: ZACATECAS_CENTER[0], lng: ZACATECAS_CENTER[1], name: 'Plaza de Armas (Centro)' };
+            updateOriginBarUI('plaza', 'Plaza de Armas (Centro Histórico)');
+        }
+    }
+}
+
+// ========================================================
+// EXACT TRAVELING SALESPERSON ROUTING ALGORITHM
+// (MATHEMATICALLY SHORTEST WALKING ROUTE FROM USER COORDS)
+// ========================================================
+function computeExactShortestRoute(startPoint, storesList) {
+    if (!storesList || storesList.length === 0) return { orderedRoute: [], totalKm: 0 };
+    if (storesList.length === 1) {
+        const s = storesList[0];
+        const sLat = parseFloat(s.latitude) || 22.7753;
+        const sLng = parseFloat(s.longitude) || -102.5724;
+        const dist = calculateDistanceKm(startPoint.lat, startPoint.lng, sLat, sLng);
+        return {
+            orderedRoute: [{ store: s, legDistanceKm: dist, accumulatedKm: dist }],
+            totalKm: dist
+        };
+    }
+
+    // Exact permutation solver for minimum total walking distance from startPoint
+    let bestPermutation = null;
+    let minTotalDist = Infinity;
+
+    function generatePermutations(arr, current = []) {
+        if (arr.length === 0) {
+            let dist = 0;
+            let cLat = startPoint.lat;
+            let cLng = startPoint.lng;
+            for (let i = 0; i < current.length; i++) {
+                const s = current[i];
+                const sLat = parseFloat(s.latitude) || 22.7753;
+                const sLng = parseFloat(s.longitude) || -102.5724;
+                dist += calculateDistanceKm(cLat, cLng, sLat, sLng);
+                cLat = sLat;
+                cLng = sLng;
+            }
+            if (dist < minTotalDist) {
+                minTotalDist = dist;
+                bestPermutation = current;
+            }
+            return;
+        }
+        for (let i = 0; i < arr.length; i++) {
+            const nextArr = arr.slice(0, i).concat(arr.slice(i + 1));
+            generatePermutations(nextArr, current.concat([arr[i]]));
+        }
+    }
+
+    generatePermutations(storesList);
+
+    let orderedRoute = [];
+    let curLat = startPoint.lat;
+    let curLng = startPoint.lng;
+    let accumulated = 0;
+
+    for (let i = 0; i < bestPermutation.length; i++) {
+        const store = bestPermutation[i];
+        const sLat = parseFloat(store.latitude) || 22.7753;
+        const sLng = parseFloat(store.longitude) || -102.5724;
+        const legDist = calculateDistanceKm(curLat, curLng, sLat, sLng);
+        accumulated += legDist;
+        orderedRoute.push({
+            store: store,
+            legDistanceKm: legDist,
+            accumulatedKm: accumulated
+        });
+        curLat = sLat;
+        curLng = sLng;
+    }
+
+    return {
+        orderedRoute: orderedRoute,
+        totalKm: minTotalDist
+    };
 }
 
 function optimizeShoppingRoute(scroll = true) {
     const cart = getUnifiedCart();
     const cartStoreIds = Object.keys(cart).filter(sId => cart[sId]?.items?.length > 0);
 
-    // If there are cart items and user hasn't customized the selection, prioritize cart stores
-    if (cartStoreIds.length > 0 && (selectedRouteStoreIds.size === 0 || selectedRouteStoreIds.size === businessesData.length)) {
+    // Prioritize stores where user has cart items
+    if (cartStoreIds.length > 0) {
         selectedRouteStoreIds = new Set(cartStoreIds);
     }
 
     if (selectedRouteStoreIds.size === 0) {
-        if (cartStoreIds.length > 0) {
-            selectedRouteStoreIds = new Set(cartStoreIds);
-        } else {
-            alert('Por favor agrega productos a tu carrito o selecciona al menos una tienda para calcular tu ruta.');
-            toggleManualStoreSelector(true);
-            return;
-        }
+        alert('Tu carrito peatonal está vacío. Agrega productos al carrito o pulsa "Cargar 3 Productos de Prueba" para trazar la ruta más corta.');
+        goToCartRoutePlanner();
+        return;
     }
 
     const startPoint = routeOrigin || (userCoords 
-        ? { lat: userCoords.lat, lng: userCoords.lng, name: 'Mi Ubicación Actual' }
+        ? { lat: userCoords.lat, lng: userCoords.lng, name: 'Tu Ubicación Actual' }
         : { lat: ZACATECAS_CENTER[0], lng: ZACATECAS_CENTER[1], name: 'Plaza de Armas (Centro)' });
 
-    let unvisited = businessesData.filter(b => selectedRouteStoreIds.has(String(b.id)));
-    let orderedRoute = [];
-    let currentPoint = { lat: startPoint.lat, lng: startPoint.lng };
-    let totalKm = 0;
+    const storesToVisit = businessesData.filter(b => selectedRouteStoreIds.has(String(b.id)));
 
-    while (unvisited.length > 0) {
-        let bestIndex = 0;
-        let bestDistance = Infinity;
+    // Calculate exact shortest route from startPoint
+    const { orderedRoute, totalKm } = computeExactShortestRoute(startPoint, storesToVisit);
 
-        for (let i = 0; i < unvisited.length; i++) {
-            const sLat = parseFloat(unvisited[i].latitude) || 22.7753;
-            const sLng = parseFloat(unvisited[i].longitude) || -102.5724;
-            const d = calculateDistanceKm(currentPoint.lat, currentPoint.lng, sLat, sLng);
-            if (d < bestDistance) {
-                bestDistance = d;
-                bestIndex = i;
-            }
-        }
-
-        const nextStore = unvisited[bestIndex];
-        unvisited.splice(bestIndex, 1);
-
-        totalKm += bestDistance;
-        const storeCartItems = cart[nextStore.id]?.items || [];
-
-        orderedRoute.push({
-            store: nextStore,
-            legDistanceKm: bestDistance,
-            accumulatedKm: totalKm,
-            cartItems: storeCartItems
-        });
-
-        currentPoint = {
-            lat: parseFloat(nextStore.latitude) || 22.7753,
-            lng: parseFloat(nextStore.longitude) || -102.5724
-        };
-    }
+    // Attach cart items for each store
+    orderedRoute.forEach(leg => {
+        leg.cartItems = cart[leg.store.id]?.items || [];
+    });
 
     window.__currentOrderedRoute = orderedRoute;
 
@@ -6234,13 +6605,20 @@ function renderRouteOnMap(startPoint, orderedRoute) {
 
     const startIcon = L.divIcon({
         className: 'route-start-pin',
-        html: `<div style="background: #2563eb; color: #fff; width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 800; border: 3px solid #fff; box-shadow: 0 4px 12px rgba(37,99,235,.5);">🏁</div>`,
-        iconSize: [34, 34],
-        iconAnchor: [17, 34],
-        popupAnchor: [0, -32]
+        html: `<div style="background: #2563eb; color: #fff; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 17px; font-weight: 800; border: 3px solid #fff; box-shadow: 0 4px 14px rgba(37,99,235,.6); animation: pulseGps 2s infinite;">🏁</div>`,
+        iconSize: [36, 36],
+        iconAnchor: [18, 36],
+        popupAnchor: [0, -34]
     });
-    const startMarker = L.marker([startPoint.lat, startPoint.lng], { icon: startIcon }).addTo(map);
-    startMarker.bindPopup(`<strong>Punto de Partida:</strong><br>${startPoint.name}`);
+    const startMarker = L.marker([startPoint.lat, startPoint.lng], {
+        icon: startIcon,
+        draggable: true
+    }).addTo(map);
+    startMarker.bindPopup(`<strong>Punto de Partida (Arrastrable):</strong><br>${startPoint.name}<br><small style="color:#555;">💡 Arrastra este pin en el mapa si deseas cambiar tu ubicación</small>`);
+    startMarker.on('dragend', function(e) {
+        const newPos = e.target.getLatLng();
+        setCustomMapOrigin(newPos.lat, newPos.lng);
+    });
     currentRouteMarkers.push(startMarker);
 
     orderedRoute.forEach((leg, index) => {
@@ -6479,6 +6857,7 @@ function resetMapRoute() {
 function initCartRouteSystem() {
     renderCartForRoute();
     updateHeaderCartBadge();
+    autoDetectUserLocation();
 
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('action') === 'cart_route' || urlParams.get('action') === 'route') {
