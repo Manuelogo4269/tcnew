@@ -2113,6 +2113,360 @@
             z-index: 10;
         }
 
+        /* SMART SHOPPING ROUTE OPTIMIZER STYLES */
+        .route-optimizer-box {
+            margin-top: 18px;
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 22px 24px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.04);
+        }
+        .route-opt-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 18px;
+            flex-wrap: wrap;
+        }
+        .route-opt-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            color: var(--accent);
+            background: rgba(200, 109, 99, 0.12);
+            padding: 4px 10px;
+            border-radius: 999px;
+            margin-bottom: 6px;
+        }
+        .route-opt-title {
+            font-size: 18px;
+            font-weight: 800;
+            margin: 0 0 6px;
+            color: var(--ink);
+        }
+        .route-opt-desc {
+            font-size: 13px;
+            color: var(--muted);
+            margin: 0;
+            max-width: 720px;
+            line-height: 1.45;
+        }
+        .route-opt-actions-top {
+            display: flex;
+            gap: 8px;
+        }
+        .btn-opt-select-all, .btn-opt-clear {
+            font-size: 12px;
+            font-weight: 700;
+            padding: 7px 12px;
+            border-radius: 10px;
+            border: 1px solid var(--line);
+            background: var(--bg);
+            color: var(--ink);
+            cursor: pointer;
+            transition: all .2s ease;
+        }
+        .btn-opt-select-all:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        .btn-opt-clear:hover {
+            border-color: #ef4444;
+            color: #ef4444;
+        }
+        .route-stores-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+        .route-store-chip {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            background: var(--bg);
+            border: 1.5px solid var(--card-border);
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all .2s cubic-bezier(0.4, 0, 0.2, 1);
+            user-select: none;
+            position: relative;
+        }
+        .route-store-chip input[type="checkbox"] {
+            display: none;
+        }
+        .route-chip-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            color: #fff;
+            flex-shrink: 0;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+        }
+        .route-chip-info {
+            flex: 1;
+            min-width: 0;
+        }
+        .route-chip-info strong {
+            display: block;
+            font-size: 12.5px;
+            font-weight: 700;
+            color: var(--ink);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .route-chip-info small {
+            display: block;
+            font-size: 11px;
+            color: var(--muted);
+        }
+        .route-chip-check {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 1.5px solid var(--line);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 800;
+            color: transparent;
+            transition: all .2s ease;
+        }
+        .route-store-chip.selected {
+            border-color: var(--accent);
+            background: rgba(200, 109, 99, 0.08);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(200, 109, 99, 0.15);
+        }
+        .route-store-chip.selected .route-chip-check {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+        }
+        .route-opt-trigger-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .btn-calculate-route {
+            background: linear-gradient(135deg, var(--accent) 0%, #a8544c 100%);
+            color: #fff;
+            border: none;
+            padding: 12px 22px;
+            border-radius: 12px;
+            font-size: 13.5px;
+            font-weight: 800;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 16px rgba(200, 109, 99, 0.35);
+            transition: all .25s ease;
+        }
+        .btn-calculate-route:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 22px rgba(200, 109, 99, 0.45);
+        }
+        .btn-route-gps-origin {
+            background: var(--bg);
+            color: var(--ink);
+            border: 1.5px solid var(--line);
+            padding: 11px 18px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all .2s ease;
+        }
+        .btn-route-gps-origin:hover {
+            border-color: #2563eb;
+            color: #2563eb;
+        }
+        .route-itinerary-card {
+            margin-top: 20px;
+            background: var(--bg);
+            border: 1.5px solid var(--accent);
+            border-radius: 16px;
+            padding: 20px;
+            animation: fadeInItinerary .35s ease-out;
+        }
+        @keyframes fadeInItinerary {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .itinerary-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            border-bottom: 1px dashed var(--line);
+            padding-bottom: 14px;
+        }
+        .itinerary-tag {
+            font-size: 10.5px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            color: #10b981;
+            background: rgba(16, 185, 129, 0.12);
+            padding: 3px 8px;
+            border-radius: 6px;
+            display: inline-block;
+            margin-bottom: 4px;
+        }
+        .itinerary-header h4 {
+            font-size: 16px;
+            font-weight: 800;
+            margin: 0;
+            color: var(--ink);
+        }
+        .itinerary-metrics {
+            display: flex;
+            gap: 12px;
+        }
+        .metric-box {
+            background: var(--card);
+            padding: 8px 14px;
+            border-radius: 10px;
+            border: 1px solid var(--card-border);
+            text-align: center;
+        }
+        .metric-label {
+            display: block;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+        .metric-val {
+            display: block;
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--accent);
+        }
+        .itinerary-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+        .itinerary-stop {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 10px 14px;
+            background: var(--card);
+            border-radius: 12px;
+            border: 1px solid var(--card-border);
+            position: relative;
+        }
+        .stop-number-badge {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 800;
+            flex-shrink: 0;
+            box-shadow: 0 3px 8px rgba(200, 109, 99, 0.35);
+        }
+        .stop-info {
+            flex: 1;
+        }
+        .stop-title {
+            font-size: 13.5px;
+            font-weight: 800;
+            color: var(--ink);
+            margin-bottom: 2px;
+        }
+        .stop-meta {
+            font-size: 11.5px;
+            color: var(--muted);
+            line-height: 1.4;
+        }
+        .stop-distance-pill {
+            font-size: 10.5px;
+            font-weight: 700;
+            color: #2563eb;
+            background: rgba(37, 99, 235, 0.1);
+            padding: 2px 7px;
+            border-radius: 6px;
+            margin-top: 4px;
+            display: inline-block;
+        }
+        .itinerary-actions-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .btn-itinerary-gmaps {
+            background: #1a73e8;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-size: 12.5px;
+            font-weight: 800;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all .2s ease;
+        }
+        .btn-itinerary-gmaps:hover {
+            background: #1557b0;
+            color: #fff;
+        }
+        .btn-itinerary-wa {
+            background: #25d366;
+            color: #fff;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-size: 12.5px;
+            font-weight: 800;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-itinerary-reset {
+            background: transparent;
+            border: 1px solid var(--line);
+            color: var(--muted);
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .btn-itinerary-reset:hover {
+            color: var(--ink);
+            border-color: var(--ink);
+        }
+
         /* STORE CARD LOCATION SPECIFICS */
         .store-location-chip {
             display: flex;
@@ -3541,6 +3895,59 @@
         <!-- Leaflet Map Container -->
         <div class="zac-map-section">
             <div id="zacatecasMap" class="zac-map-box"></div>
+
+            <!-- Smart Shopping Route Optimizer Panel -->
+            <div class="route-optimizer-box" id="routeOptimizerPanel">
+                <div class="route-opt-header">
+                    <div>
+                        <span class="route-opt-badge">⚡ RUTA INTELIGENTE DE COMPRAS</span>
+                        <h3 style="font-size: 18px; font-weight: 800; margin: 4px 0; color: var(--ink);">Planificador de Compras en Zacatecas Centro</h3>
+                        <p style="font-size: 13px; color: var(--muted); margin: 0;">Selecciona las tiendas que deseas visitar para comprar. El sistema calculará automáticamente la <strong>ruta peatonal más corta y eficiente</strong> por las calles del Centro Histórico.</p>
+                    </div>
+                    <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+                        <button type="button" class="btn-route-gps-origin" onclick="selectAllStoresForRoute()" style="padding: 6px 12px; font-size: 12px;">✦ Seleccionar Todas</button>
+                        <button type="button" class="btn-route-gps-origin" onclick="clearRouteSelection()" style="padding: 6px 12px; font-size: 12px;">↺ Limpiar</button>
+                    </div>
+                </div>
+
+                <div class="route-stores-selector" id="routeStoresSelector">
+                    @foreach($businesses as $b)
+                        <div class="route-store-chip selected" 
+                             id="routeChip_{{ $b['id'] }}"
+                             data-store-id="{{ $b['id'] }}" 
+                             onclick="toggleStoreRouteSelection('{{ $b['id'] }}', this)">
+                            <div class="route-chip-icon" style="background: {{ $b['primary_color'] ?? '#c86d63' }};">
+                                {{ match($b['business_category'] ?? '') {
+                                    'Moda y Lujo' => '👗',
+                                    'Bebidas y Alimentos' => '☕',
+                                    'Joyería y Platería', 'Platería y Joyería' => '💍',
+                                    'Artesanías y Recuerdos', 'Arte y Souvenirs' => '🏺',
+                                    'Librería y Cultura', 'Libros y Café' => '📚',
+                                    'Cantinas Tradicionales', 'Gastronomía y Tradición' => '🍷',
+                                    default => '🏬'
+                                } }}
+                            </div>
+                            <div class="route-chip-info">
+                                <strong>{{ $b['store_name'] }}</strong>
+                                <small>{{ $b['neighborhood_zone'] ?? 'Centro Histórico' }}</small>
+                            </div>
+                            <div class="route-chip-check">✓</div>
+                        </div>
+                    @endforeach
+                </div>
+
+                <div class="route-opt-trigger-row">
+                    <button type="button" class="btn-calculate-route" id="btnCalculateRoute" onclick="optimizeShoppingRoute()">
+                        <span>🗺️</span> Calcular Ruta Recomendada
+                    </button>
+                    <button type="button" class="btn-route-gps-origin" id="btnRouteUseGps" onclick="requestUserLocationForRoute()">
+                        <span>📍</span> <span id="routeOriginLabel">Origen: Plaza de Armas (Centro)</span>
+                    </button>
+                </div>
+
+                <!-- Itinerary Result Output -->
+                <div id="routeItineraryResult" style="display: none;"></div>
+            </div>
         </div>
 
         <!-- Category Filter Pills for Businesses -->
@@ -4945,6 +5352,324 @@ function sortCardsByProximity(originLat, originLng) {
     // Sort cards in DOM from closest to furthest
     cards.sort((a, b) => parseFloat(a.dataset.distance) - parseFloat(b.dataset.distance));
     cards.forEach(c => grid.appendChild(c));
+}
+
+// ========================================================
+// SMART SHOPPING ROUTE OPTIMIZER (ZACATECAS CENTRO)
+// ========================================================
+let selectedRouteStoreIds = new Set(businessesData.map(b => String(b.id)));
+let currentRoutePolyline = null;
+let currentRouteMarkers = [];
+let routeOrigin = null;
+
+function toggleStoreRouteSelection(storeId, el) {
+    storeId = String(storeId);
+    if (selectedRouteStoreIds.has(storeId)) {
+        selectedRouteStoreIds.delete(storeId);
+        el.classList.remove('selected');
+    } else {
+        selectedRouteStoreIds.add(storeId);
+        el.classList.add('selected');
+    }
+}
+
+function selectAllStoresForRoute() {
+    businessesData.forEach(b => {
+        selectedRouteStoreIds.add(String(b.id));
+        const el = document.getElementById('routeChip_' + b.id);
+        if (el) el.classList.add('selected');
+    });
+}
+
+function clearRouteSelection() {
+    selectedRouteStoreIds.clear();
+    businessesData.forEach(b => {
+        const el = document.getElementById('routeChip_' + b.id);
+        if (el) el.classList.remove('selected');
+    });
+    resetMapRoute();
+}
+
+function requestUserLocationForRoute() {
+    if (!navigator.geolocation) {
+        alert('Tu dispositivo no soporta geolocalización GPS.');
+        return;
+    }
+    const lbl = document.getElementById('routeOriginLabel');
+    if (lbl) lbl.textContent = 'Obteniendo GPS...';
+
+    navigator.geolocation.getCurrentPosition(
+        (pos) => {
+            userCoords = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+            routeOrigin = { lat: pos.coords.latitude, lng: pos.coords.longitude, name: 'Mi Ubicación Actual' };
+            if (lbl) lbl.textContent = `Origen: Mi Ubicación (${userCoords.lat.toFixed(4)}, ${userCoords.lng.toFixed(4)})`;
+            showToast('📍 Origen configurado en tu ubicación actual');
+            if (selectedRouteStoreIds.size > 0) {
+                optimizeShoppingRoute();
+            }
+        },
+        (err) => {
+            routeOrigin = { lat: ZACATECAS_CENTER[0], lng: ZACATECAS_CENTER[1], name: 'Plaza de Armas (Centro)' };
+            if (lbl) lbl.textContent = 'Origen: Plaza de Armas (Centro)';
+            showToast('⚠️ No se pudo obtener GPS, usando Plaza de Armas');
+        },
+        { enableHighAccuracy: true, timeout: 8000 }
+    );
+}
+
+function optimizeShoppingRoute() {
+    if (selectedRouteStoreIds.size === 0) {
+        alert('Por favor selecciona al menos una tienda para calcular tu ruta de compras.');
+        return;
+    }
+
+    const startPoint = routeOrigin || (userCoords 
+        ? { lat: userCoords.lat, lng: userCoords.lng, name: 'Mi Ubicación Actual' }
+        : { lat: ZACATECAS_CENTER[0], lng: ZACATECAS_CENTER[1], name: 'Plaza de Armas (Centro)' });
+
+    let unvisited = businessesData.filter(b => selectedRouteStoreIds.has(String(b.id)));
+    let orderedRoute = [];
+    let currentPoint = { lat: startPoint.lat, lng: startPoint.lng };
+    let totalKm = 0;
+
+    while (unvisited.length > 0) {
+        let bestIndex = 0;
+        let bestDistance = Infinity;
+
+        for (let i = 0; i < unvisited.length; i++) {
+            const sLat = parseFloat(unvisited[i].latitude) || 22.7753;
+            const sLng = parseFloat(unvisited[i].longitude) || -102.5724;
+            const d = calculateDistanceKm(currentPoint.lat, currentPoint.lng, sLat, sLng);
+            if (d < bestDistance) {
+                bestDistance = d;
+                bestIndex = i;
+            }
+        }
+
+        const nextStore = unvisited[bestIndex];
+        unvisited.splice(bestIndex, 1);
+
+        totalKm += bestDistance;
+        orderedRoute.push({
+            store: nextStore,
+            legDistanceKm: bestDistance,
+            accumulatedKm: totalKm
+        });
+
+        currentPoint = {
+            lat: parseFloat(nextStore.latitude) || 22.7753,
+            lng: parseFloat(nextStore.longitude) || -102.5724
+        };
+    }
+
+    renderRouteOnMap(startPoint, orderedRoute);
+    renderRouteItineraryUI(startPoint, orderedRoute, totalKm);
+
+    const mapSection = document.getElementById('zacatecasMap');
+    if (mapSection) {
+        mapSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+}
+
+function renderRouteOnMap(startPoint, orderedRoute) {
+    if (!map) return;
+
+    if (currentRoutePolyline) {
+        map.removeLayer(currentRoutePolyline);
+        currentRoutePolyline = null;
+    }
+    currentRouteMarkers.forEach(m => map.removeLayer(m));
+    currentRouteMarkers = [];
+
+    const latLngs = [[startPoint.lat, startPoint.lng]];
+
+    const startIcon = L.divIcon({
+        className: 'route-start-pin',
+        html: `<div style="background: #2563eb; color: #fff; width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 800; border: 3px solid #fff; box-shadow: 0 4px 12px rgba(37,99,235,.5);">🏁</div>`,
+        iconSize: [34, 34],
+        iconAnchor: [17, 34],
+        popupAnchor: [0, -32]
+    });
+    const startMarker = L.marker([startPoint.lat, startPoint.lng], { icon: startIcon }).addTo(map);
+    startMarker.bindPopup(`<strong>Punto de Partida:</strong><br>${startPoint.name}`);
+    currentRouteMarkers.push(startMarker);
+
+    orderedRoute.forEach((leg, index) => {
+        const store = leg.store;
+        const sLat = parseFloat(store.latitude) || 22.7753;
+        const sLng = parseFloat(store.longitude) || -102.5724;
+        latLngs.push([sLat, sLng]);
+
+        const stopNum = index + 1;
+        const stopIcon = L.divIcon({
+            className: 'route-stop-pin',
+            html: `<div style="background: ${store.primary_color || '#c86d63'}; color: #fff; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 900; border: 2.5px solid #ffffff; box-shadow: 0 4px 12px rgba(0,0,0,.35);">${stopNum}</div>`,
+            iconSize: [32, 32],
+            iconAnchor: [16, 32],
+            popupAnchor: [0, -30]
+        });
+
+        const stopDistStr = leg.legDistanceKm < 1 
+            ? `${Math.round(leg.legDistanceKm * 1000)} m` 
+            : `${leg.legDistanceKm.toFixed(2)} km`;
+
+        const marker = L.marker([sLat, sLng], { icon: stopIcon }).addTo(map);
+        marker.bindPopup(`
+            <div style="font-family: 'Plus Jakarta Sans', sans-serif; padding: 3px;">
+                <span style="font-size: 10px; font-weight: 800; color: ${store.primary_color || '#c86d63'};">PARADA #${stopNum} (+${stopDistStr})</span>
+                <h4 style="margin: 2px 0 4px; font-size: 14px; font-weight: 800;">${store.store_name}</h4>
+                <p style="margin: 0 0 6px; font-size: 11px; color: #555;">📍 ${store.address}</p>
+                <a href="${store.store_url}" target="_blank" style="display: inline-block; background: #c86d63; color: #fff; padding: 4px 10px; border-radius: 999px; font-size: 11px; font-weight: 700; text-decoration: none;">Ver Catálogo ↗</a>
+            </div>
+        `);
+        currentRouteMarkers.push(marker);
+    });
+
+    currentRoutePolyline = L.polyline(latLngs, {
+        color: '#c86d63',
+        weight: 5,
+        opacity: 0.9,
+        dashArray: '8, 8',
+        lineCap: 'round',
+        lineJoin: 'round'
+    }).addTo(map);
+
+    map.fitBounds(currentRoutePolyline.getBounds(), { padding: [45, 45] });
+}
+
+function renderRouteItineraryUI(startPoint, orderedRoute, totalKm) {
+    const container = document.getElementById('routeItineraryResult');
+    if (!container) return;
+
+    const totalMeters = Math.round(totalKm * 1000);
+    const totalDistStr = totalKm < 1 ? `${totalMeters} metros` : `${totalKm.toFixed(2)} km`;
+    const walkingMinutes = Math.max(1, Math.round((totalKm / 4.2) * 60));
+
+    const originStr = `${startPoint.lat},${startPoint.lng}`;
+    const lastStore = orderedRoute[orderedRoute.length - 1].store;
+    const destStr = `${lastStore.latitude},${lastStore.longitude}`;
+    const intermediateWaypoints = orderedRoute.slice(0, -1).map(leg => `${leg.store.latitude},${leg.store.longitude}`).join('|');
+
+    let gmapsUrl = `https://www.google.com/maps/dir/?api=1&origin=${originStr}&destination=${destStr}&travelmode=walking`;
+    if (intermediateWaypoints) {
+        gmapsUrl += `&waypoints=${encodeURIComponent(intermediateWaypoints)}`;
+    }
+
+    let stopsHtml = `
+        <div class="itinerary-stop" style="background: rgba(37,99,235,0.06); border-color: rgba(37,99,235,0.25);">
+            <div class="stop-number-badge" style="background: #2563eb;">🏁</div>
+            <div class="stop-info">
+                <div class="stop-title">Punto de Partida: ${startPoint.name}</div>
+                <div class="stop-meta">Inicio del recorrido peatonal por el Centro Histórico de Zacatecas</div>
+            </div>
+        </div>
+    `;
+
+    orderedRoute.forEach((leg, idx) => {
+        const store = leg.store;
+        const legDist = leg.legDistanceKm < 1 
+            ? `${Math.round(leg.legDistanceKm * 1000)} m` 
+            : `${leg.legDistanceKm.toFixed(2)} km`;
+        const legTimeMin = Math.max(1, Math.round((leg.legDistanceKm / 4.2) * 60));
+
+        stopsHtml += `
+            <div class="itinerary-stop">
+                <div class="stop-number-badge" style="background: ${store.primary_color || '#c86d63'};">${idx + 1}</div>
+                <div class="stop-info">
+                    <div class="stop-title">${store.store_name}</div>
+                    <div class="stop-meta">
+                        <span>📍 ${store.address}</span><br>
+                        <span style="color:#059669; font-weight:600;">⏰ ${store.opening_hours}</span>
+                    </div>
+                    <div style="display:flex; gap:8px; align-items:center; margin-top:6px; flex-wrap:wrap;">
+                        <span class="stop-distance-pill">🚶‍♂️ +${legDist} (~${legTimeMin} min)</span>
+                        <a href="${store.store_url}" target="_blank" style="font-size:11.5px; font-weight:700; color:var(--accent); text-decoration:underline;">Ver Catálogo ↗</a>
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+
+    container.innerHTML = `
+        <div class="route-itinerary-card">
+            <div class="itinerary-header">
+                <div>
+                    <span class="itinerary-tag">✓ RUTA MÁS CORTA CALCULADA</span>
+                    <h4>Itinerario Óptimo de Compras</h4>
+                    <small style="color:var(--muted); font-size:12px;">Ordenadas de la más cercana a la más lejana para ahorrar pasos</small>
+                </div>
+                <div class="itinerary-metrics">
+                    <div class="metric-box">
+                        <span class="metric-label">Distancia Total</span>
+                        <span class="metric-val">${totalDistStr}</span>
+                    </div>
+                    <div class="metric-box">
+                        <span class="metric-label">Tiempo Estimado</span>
+                        <span class="metric-val">~${walkingMinutes} min</span>
+                    </div>
+                    <div class="metric-box">
+                        <span class="metric-label">Paradas</span>
+                        <span class="metric-val">${orderedRoute.length} tiendas</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="itinerary-timeline">
+                ${stopsHtml}
+            </div>
+
+            <div class="itinerary-actions-row">
+                <a href="${gmapsUrl}" target="_blank" class="btn-itinerary-gmaps">
+                    <span>🗺️</span> Abrir Ruta Paso a Paso en Google Maps ↗
+                </a>
+                <button type="button" class="btn-itinerary-wa" onclick="shareShoppingRouteWhatsApp('${totalDistStr}', ${walkingMinutes}, ${orderedRoute.length})">
+                    <span>💬</span> Compartir Ruta por WhatsApp
+                </button>
+                <button type="button" class="btn-itinerary-reset" onclick="resetMapRoute()">
+                    ↺ Quitar Trazado del Mapa
+                </button>
+            </div>
+        </div>
+    `;
+
+    container.style.display = 'block';
+}
+
+function shareShoppingRouteWhatsApp(distStr, minutes, numStops) {
+    let text = `*🗺️ Ruta de Compras Recomendada en Zacatecas Centro*\n`;
+    text += `• Paradas: ${numStops} tiendas seleccionadas\n`;
+    text += `• Distancia total: ${distStr}\n`;
+    text += `• Tiempo a pie estimado: ~${minutes} min\n\n`;
+    text += `*Orden del recorrido:*\n`;
+
+    const chips = document.querySelectorAll('.route-store-chip.selected');
+    let idx = 1;
+    chips.forEach(chip => {
+        const title = chip.querySelector('strong')?.textContent || '';
+        text += `${idx}. ${title}\n`;
+        idx++;
+    });
+
+    text += `\nPlanificado con Atelier Zacatecas: ${window.location.href.split('#')[0]}`;
+    window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+}
+
+function resetMapRoute() {
+    if (currentRoutePolyline && map) {
+        map.removeLayer(currentRoutePolyline);
+        currentRoutePolyline = null;
+    }
+    currentRouteMarkers.forEach(m => {
+        if (map) map.removeLayer(m);
+    });
+    currentRouteMarkers = [];
+
+    const container = document.getElementById('routeItineraryResult');
+    if (container) container.style.display = 'none';
+
+    if (map) {
+        map.setView(ZACATECAS_CENTER, window.innerWidth < 768 ? 14.5 : 15);
+    }
 }
 
 // ========================================================

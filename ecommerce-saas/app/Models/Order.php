@@ -8,7 +8,24 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Order extends Model
 {
-    protected $fillable = ['user_id', 'status', 'total_amount', 'shipping_address'];
+    protected $fillable = [
+        'folio',
+        'user_id',
+        'customer_name',
+        'customer_email',
+        'customer_phone',
+        'payment_method',
+        'payment_status',
+        'status',
+        'total_amount',
+        'shipping_address',
+        'order_notes',
+    ];
+
+    public static function generateFolio(string $prefix = 'ZAC'): string
+    {
+        return strtoupper($prefix) . '-' . date('Ymd') . '-' . strtoupper(substr(uniqid(), -5));
+    }
 
     protected function casts(): array
     {

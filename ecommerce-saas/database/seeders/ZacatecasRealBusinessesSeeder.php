@@ -657,15 +657,40 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                     ]
                 );
 
-                // Create Administrator User
-                TenantUser::updateOrCreate(
-                    ['email' => $biz['admin_email']],
+                // Create Multiple Users for each Business (Admin, Gerente, Caja, Ventas)
+                $storeUsers = [
                     [
+                        'email' => $biz['admin_email'],
                         'name' => $biz['admin_name'],
-                        'password' => Hash::make('password123'),
-                        'customer_account_id' => null,
-                    ]
-                );
+                        'role_desc' => 'Administrador General',
+                    ],
+                    [
+                        'email' => "gerente@{$biz['id']}.com",
+                        'name' => "Gerente Operativo · {$biz['store_name']}",
+                        'role_desc' => 'Gerencia de Sucursal',
+                    ],
+                    [
+                        'email' => "caja@{$biz['id']}.com",
+                        'name' => "Cajero(a) Principal · {$biz['store_name']}",
+                        'role_desc' => 'Caja y Cobros',
+                    ],
+                    [
+                        'email' => "ventas@{$biz['id']}.com",
+                        'name' => "Asesor(a) Comercial · {$biz['store_name']}",
+                        'role_desc' => 'Atención al Cliente y Mostrador',
+                    ],
+                ];
+
+                foreach ($storeUsers as $u) {
+                    TenantUser::updateOrCreate(
+                        ['email' => $u['email']],
+                        [
+                            'name' => $u['name'],
+                            'password' => Hash::make('password123'),
+                            'customer_account_id' => null,
+                        ]
+                    );
+                }
 
                 // Populate Categories & Products
                 foreach ($biz['categories'] as $catData) {

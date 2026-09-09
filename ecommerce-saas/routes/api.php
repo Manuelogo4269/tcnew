@@ -26,6 +26,7 @@ Route::get('/stores/{tenant}/settings', [MobileStoreController::class, 'settings
 Route::get('/stores/{tenant}/categories', [MobileStoreController::class, 'categories']);
 Route::get('/stores/{tenant}/products', [MobileStoreController::class, 'products']);
 Route::get('/stores/{tenant}/products/{product}', [MobileStoreController::class, 'showProduct']);
+Route::post('/tienda/{tenant}/checkout', [\App\Http\Controllers\CheckoutController::class, 'processCheckout']);
 
 // Protected by Central Sanctum (Authenticated Mobile Customers)
 Route::middleware('auth:sanctum')->group(function () {

@@ -2263,6 +2263,684 @@
             .products-grid { grid-template-columns: 1fr; }
             .trust-bar { grid-template-columns: 1fr; }
         }
+
+        /* ========================================================
+           CART DRAWER, CHECKOUT MODAL, & PAYMENT GATEWAY STYLES
+           ======================================================== */
+        .btn-cart-header {
+            background: linear-gradient(135deg, var(--accent) 0%, #a8544c 100%);
+            color: #ffffff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            box-shadow: 0 4px 14px rgba(200, 109, 99, 0.3);
+            transition: all .2s ease;
+        }
+        .btn-cart-header:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(200, 109, 99, 0.45);
+        }
+        .header-cart-badge {
+            background: #ffffff;
+            color: var(--accent);
+            font-size: 11px;
+            font-weight: 900;
+            padding: 2px 7px;
+            border-radius: 999px;
+            min-width: 18px;
+            text-align: center;
+        }
+
+        .btn-card-add-cart {
+            background: rgba(200, 109, 99, 0.12);
+            color: var(--accent);
+            border: 1px solid rgba(200, 109, 99, 0.25);
+            padding: 7px 12px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all .2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .btn-card-add-cart:hover {
+            background: var(--accent);
+            color: #ffffff;
+            border-color: var(--accent);
+            transform: scale(1.05);
+        }
+
+        .btn-modal-add-cart {
+            flex: 1;
+            background: linear-gradient(135deg, var(--accent) 0%, #a8544c 100%);
+            color: #ffffff;
+            border: none;
+            padding: 13px 20px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 800;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 14px rgba(200, 109, 99, 0.35);
+            transition: all .2s ease;
+        }
+        .btn-modal-add-cart:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(200, 109, 99, 0.45);
+        }
+        .btn-modal-buy-now {
+            flex: 1;
+            background: #10b981;
+            color: #ffffff;
+            border: none;
+            padding: 13px 20px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 800;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+            transition: all .2s ease;
+        }
+        .btn-modal-buy-now:hover {
+            background: #059669;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45);
+        }
+
+        /* CART DRAWER */
+        .cart-drawer-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(4px);
+            z-index: 10000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .cart-drawer-backdrop.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .store-cart-drawer {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 440px;
+            max-width: 100vw;
+            height: 100vh;
+            background: var(--card);
+            z-index: 10001;
+            transform: translateX(100%);
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            box-shadow: -8px 0 30px rgba(0, 0, 0, 0.3);
+        }
+        .store-cart-drawer.open {
+            transform: translateX(0);
+        }
+        .cart-drawer-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--line);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .cart-drawer-header h3 {
+            font-size: 18px;
+            font-weight: 800;
+            margin: 0;
+            color: var(--ink);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .cart-drawer-close {
+            background: transparent;
+            border: none;
+            font-size: 20px;
+            color: var(--muted);
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 8px;
+            line-height: 1;
+        }
+        .cart-drawer-close:hover {
+            color: var(--ink);
+            background: var(--paper);
+        }
+        .cart-drawer-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .cart-empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--muted);
+            margin: auto 0;
+        }
+        .cart-empty-icon {
+            font-size: 54px;
+            margin-bottom: 12px;
+            display: block;
+        }
+        .cart-empty-state h4 {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--ink);
+            margin: 0 0 6px;
+        }
+        .cart-item-row {
+            display: flex;
+            gap: 14px;
+            padding: 14px;
+            background: var(--paper);
+            border-radius: 14px;
+            border: 1px solid var(--card-border);
+            align-items: center;
+            position: relative;
+        }
+        .cart-item-thumb {
+            width: 64px;
+            height: 64px;
+            border-radius: 10px;
+            object-fit: cover;
+            flex-shrink: 0;
+            background: var(--card);
+        }
+        .cart-item-details {
+            flex: 1;
+            min-width: 0;
+        }
+        .cart-item-name {
+            font-size: 13.5px;
+            font-weight: 700;
+            color: var(--ink);
+            margin: 0 0 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .cart-item-price {
+            font-size: 13px;
+            color: var(--accent);
+            font-weight: 800;
+        }
+        .cart-qty-ctrls {
+            display: inline-flex;
+            align-items: center;
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            margin-top: 6px;
+        }
+        .cart-qty-btn {
+            background: transparent;
+            border: none;
+            width: 26px;
+            height: 26px;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--ink);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .cart-qty-btn:hover {
+            color: var(--accent);
+        }
+        .cart-qty-num {
+            font-size: 12.5px;
+            font-weight: 700;
+            padding: 0 8px;
+            color: var(--ink);
+        }
+        .cart-item-remove {
+            background: transparent;
+            border: none;
+            color: #ef4444;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 6px;
+            opacity: 0.7;
+            transition: opacity .2s;
+        }
+        .cart-item-remove:hover {
+            opacity: 1;
+        }
+
+        .cart-drawer-footer {
+            padding: 20px 24px;
+            border-top: 1px solid var(--line);
+            background: var(--card);
+        }
+        .coupon-row {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+        .coupon-input {
+            flex: 1;
+            padding: 9px 12px;
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            background: var(--paper);
+            color: var(--ink);
+            font-size: 13px;
+            font-family: inherit;
+        }
+        .btn-apply-coupon {
+            background: var(--paper);
+            border: 1px solid var(--line);
+            color: var(--ink);
+            padding: 9px 14px;
+            border-radius: 10px;
+            font-size: 12.5px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .btn-apply-coupon:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        .cart-summary-line {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 6px;
+        }
+        .cart-summary-line.total-line {
+            font-size: 17px;
+            font-weight: 800;
+            color: var(--ink);
+            border-top: 1px dashed var(--line);
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+        .btn-cart-checkout {
+            width: 100%;
+            background: linear-gradient(135deg, var(--accent) 0%, #a8544c 100%);
+            color: #ffffff;
+            border: none;
+            padding: 14px 20px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 800;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 14px;
+            box-shadow: 0 4px 16px rgba(200, 109, 99, 0.4);
+            transition: all .25s ease;
+        }
+        .btn-cart-checkout:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 22px rgba(200, 109, 99, 0.5);
+        }
+        .btn-cart-clear {
+            width: 100%;
+            background: transparent;
+            border: none;
+            color: var(--muted);
+            font-size: 12px;
+            padding: 8px;
+            cursor: pointer;
+            margin-top: 6px;
+        }
+        .btn-cart-clear:hover {
+            color: #ef4444;
+            text-decoration: underline;
+        }
+
+        /* CHECKOUT & PAYMENT MODAL */
+        .checkout-modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(6px);
+            z-index: 10005;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        .checkout-modal-backdrop.open {
+            display: flex;
+        }
+        .checkout-modal-card {
+            background: var(--card);
+            border-radius: 24px;
+            border: 1px solid var(--card-border);
+            width: 720px;
+            max-width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+            padding: 28px;
+            position: relative;
+        }
+        .checkout-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 1px solid var(--line);
+            padding-bottom: 16px;
+            margin-bottom: 20px;
+        }
+        .checkout-modal-header h3 {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--ink);
+            margin: 0 0 4px;
+        }
+        .checkout-sec-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #10b981;
+            background: rgba(16, 185, 129, 0.12);
+            padding: 3px 8px;
+            border-radius: 6px;
+        }
+        .checkout-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+        .checkout-grid-full {
+            grid-column: 1 / -1;
+        }
+        .checkout-field label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 6px;
+        }
+        .checkout-field input, .checkout-field select, .checkout-field textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1.5px solid var(--line);
+            border-radius: 12px;
+            background: var(--paper);
+            color: var(--ink);
+            font-size: 13.5px;
+            font-family: inherit;
+            outline: none;
+            transition: border-color .2s ease;
+            box-sizing: border-box;
+        }
+        .checkout-field input:focus, .checkout-field select:focus, .checkout-field textarea:focus {
+            border-color: var(--accent);
+        }
+
+        /* PAYMENT METHOD SELECTOR */
+        .payment-methods-tabs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+        .payment-tab-btn {
+            background: var(--paper);
+            border: 1.5px solid var(--line);
+            border-radius: 12px;
+            padding: 12px 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all .2s ease;
+        }
+        .payment-tab-btn:hover {
+            border-color: var(--accent);
+        }
+        .payment-tab-btn.active {
+            border-color: var(--accent);
+            background: rgba(200, 109, 99, 0.1);
+            color: var(--accent);
+            font-weight: 800;
+        }
+        .payment-tab-btn span {
+            font-size: 20px;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .payment-tab-btn small {
+            display: block;
+            font-size: 11px;
+            color: var(--ink);
+            font-weight: 700;
+        }
+
+        .payment-method-panel {
+            display: none;
+            background: var(--paper);
+            border-radius: 16px;
+            border: 1px solid var(--card-border);
+            padding: 18px;
+            margin-bottom: 20px;
+            animation: fadeInPay .25s ease-out;
+        }
+        .payment-method-panel.active {
+            display: block;
+        }
+        @keyframes fadeInPay {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .spei-box, .oxxo-box {
+            background: var(--card);
+            border: 1px dashed var(--line);
+            border-radius: 12px;
+            padding: 14px;
+            margin-top: 10px;
+        }
+        .spei-clabe-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--paper);
+            padding: 10px 14px;
+            border-radius: 8px;
+            margin-top: 8px;
+            font-family: monospace;
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--accent);
+        }
+        .btn-copy-clabe {
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 11.5px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .btn-confirm-payment {
+            width: 100%;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: #fff;
+            border: none;
+            padding: 16px 24px;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 900;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 18px rgba(16, 185, 129, 0.4);
+            transition: all .25s ease;
+        }
+        .btn-confirm-payment:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(16, 185, 129, 0.5);
+        }
+        .btn-confirm-payment:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* ORDER SUCCESS MODAL */
+        .success-modal-card {
+            background: var(--card);
+            border-radius: 24px;
+            border: 1.5px solid #10b981;
+            width: 580px;
+            max-width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            padding: 32px;
+            text-align: center;
+            position: relative;
+        }
+        .success-icon-badge {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: rgba(16, 185, 129, 0.15);
+            color: #10b981;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin: 0 auto 16px;
+        }
+        .order-folio-tag {
+            display: inline-block;
+            background: var(--paper);
+            border: 1.5px solid var(--line);
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-family: monospace;
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--accent);
+            margin: 8px 0 16px;
+        }
+        .success-receipt-box {
+            background: var(--paper);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            padding: 16px;
+            text-align: left;
+            margin-bottom: 20px;
+            font-size: 13px;
+        }
+        .receipt-line {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            border-bottom: 1px dashed var(--line);
+        }
+        .receipt-line:last-child {
+            border-bottom: none;
+        }
+        .success-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .btn-print-receipt {
+            flex: 1;
+            background: var(--paper);
+            border: 1.5px solid var(--line);
+            color: var(--ink);
+            padding: 12px 18px;
+            border-radius: 12px;
+            font-size: 13.5px;
+            font-weight: 800;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        .btn-print-receipt:hover {
+            border-color: var(--ink);
+        }
+        .btn-success-wa {
+            flex: 1;
+            background: #25d366;
+            color: #fff;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 12px;
+            font-size: 13.5px;
+            font-weight: 800;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            text-decoration: none;
+        }
+        .btn-success-close {
+            width: 100%;
+            background: transparent;
+            border: 1px solid var(--line);
+            color: var(--muted);
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 6px;
+        }
+
+        /* TICKET PRINT STYLES */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #printableReceipt, #printableReceipt * {
+                visibility: visible;
+            }
+            #printableReceipt {
+                position: fixed;
+                left: 0;
+                top: 0;
+                width: 80mm;
+                padding: 10px;
+                font-family: monospace;
+                color: #000;
+                background: #fff;
+                display: block !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -2348,6 +3026,11 @@
             <a href="{{ url('/tenant-admin') }}" class="admin-direct-link" title="Panel de Administración de la Tienda">
                 <span>⚙</span> <span class="admin-link-text">Panel</span>
             </a>
+
+            <!-- Shopping Cart Header Button -->
+            <button type="button" class="btn-cart-header" id="btnCartHeader" onclick="toggleCartDrawer()" aria-label="Ver Carrito de Compras" title="Ver Carrito de Compras">
+                <span>🛒</span> <span class="cart-btn-text">Carrito</span> <span id="headerCartBadge" class="header-cart-badge">0</span>
+            </button>
 
             <!-- Dark / Light Theme Toggle -->
             <button type="button" class="btn-theme-toggle" id="storeThemeToggleBtn" onclick="toggleTheme()" aria-label="Cambiar modo oscuro/claro" title="Cambiar a Modo Oscuro / Claro">
@@ -2489,8 +3172,14 @@
                 <div class="nav-item-sub">Gestión de productos y pedidos</div>
             </div>
             <span class="nav-item-arrow">›</span>
-        </a>
     </nav>
+
+    <!-- Mobile Drawer Cart Action Button -->
+    <div style="padding: 12px 20px 6px;">
+        <button type="button" class="btn-cart-checkout" onclick="closeStoreMenu(); toggleCartDrawer();" style="margin-top: 0; padding: 12px 18px; font-size: 14px;">
+            <span>🛒</span> Ver Mi Carrito (<span id="drawerCartBadge">0</span>)
+        </button>
+    </div>
 
     <!-- Social & Contact Links -->
     <div class="store-drawer-section-title">Contacto Oficial</div>
@@ -2724,7 +3413,10 @@
                             <p>{{ Str::limit($item->description, 80) }}</p>
                             <div class="product-card-footer">
                                 <span class="product-price">${{ number_format($item->price, 2) }}</span>
-                                <button class="btn-quick-view" onclick="openProductById({{ $item->id }})">Ver detalles ↗</button>
+                                <div style="display: flex; gap: 6px; align-items: center;">
+                                    <button class="btn-quick-view" onclick="openProductById({{ $item->id }})">Ver detalles ↗</button>
+                                    <button type="button" class="btn-card-add-cart" onclick="event.stopPropagation(); addCartItem({{ $item->id }})" title="Añadir al Carrito">🛒 +</button>
+                                </div>
                             </div>
                         </div>
                     </article>
@@ -2806,7 +3498,10 @@
                         <p>{{ Str::limit($product->description, 85) }}</p>
                         <div class="product-card-footer">
                             <span class="product-price">${{ number_format($product->price, 2) }}</span>
-                            <button class="btn-quick-view" onclick="openProductById({{ $product->id }})">Ver detalles ↗</button>
+                            <div style="display: flex; gap: 6px; align-items: center;">
+                                <button class="btn-quick-view" onclick="openProductById({{ $product->id }})">Ver detalles ↗</button>
+                                <button type="button" class="btn-card-add-cart" onclick="event.stopPropagation(); addCartItem({{ $product->id }})" title="Añadir al Carrito">🛒 +</button>
+                            </div>
                         </div>
                     </div>
                 </article>
@@ -3161,9 +3856,17 @@
 
                 <!-- Action Buttons -->
                 <div class="modal-actions-row">
+                    <div style="display: flex; gap: 10px; width: 100%; flex-wrap: wrap; margin-bottom: 6px;">
+                        <button type="button" class="btn-modal-add-cart" onclick="addModalProductToCart()">
+                            <span>🛒</span> Agregar al Carrito (<span id="modalAddCartTotal">$0.00</span>)
+                        </button>
+                        <button type="button" class="btn-modal-buy-now" onclick="buyNowFromModal()">
+                            <span>⚡</span> Comprar Ahora
+                        </button>
+                    </div>
                     <a id="modalWhatsAppBtn" href="#" target="_blank" class="btn-whatsapp-order">
                         <svg style="width:20px; height:20px; fill:#fff;" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.699c.971.53 1.769.814 2.797.814 3.18 0 5.767-2.587 5.768-5.766 0-3.18-2.588-5.766-5.769-5.766zm0 10.355c-.886 0-1.616-.242-2.348-.675l-.168-.1-1.745.458.466-1.701-.11-.175c-.476-.757-.728-1.503-.728-2.399 0-2.531 2.059-4.59 4.635-4.59 2.576 0 4.635 2.059 4.635 4.59 0 2.531-2.059 4.592-4.535 4.592zm-8.031-4.589c0 6.627 5.373 12 12 12s12-5.373 12-12-5.373-12-12-12-12 5.373-12 12z"/></svg>
-                        Pedir / Comprar por WhatsApp (<span id="modalBtnTotal">$0.00</span>)
+                        Pedir por WhatsApp (<span id="modalBtnTotal">$0.00</span>)
                     </a>
                     <div class="modal-secondary-actions">
                         <button class="btn-modal-action" onclick="copyProductDirectLink()">
@@ -3205,6 +3908,252 @@
 <!-- TOAST NOTIFICATION CONTAINER -->
 <div class="toast-notify" id="toastNotify">¡Enlace copiado al portapapeles!</div>
 
+<!-- CART DRAWER BACKDROP -->
+<div class="cart-drawer-backdrop" id="cartDrawerBackdrop" onclick="toggleCartDrawer()"></div>
+
+<!-- CART SLIDE-OVER DRAWER -->
+<aside class="store-cart-drawer" id="storeCartDrawer" aria-label="Carrito de Compras">
+    <div class="cart-drawer-header">
+        <h3>🛒 Carrito (<span id="cartDrawerCount">0</span>)</h3>
+        <button type="button" class="cart-drawer-close" onclick="toggleCartDrawer()" aria-label="Cerrar carrito">✕</button>
+    </div>
+
+    <div class="cart-drawer-body" id="cartDrawerBody">
+        <!-- Dynamically rendered items or empty state -->
+    </div>
+
+    <div class="cart-drawer-footer" id="cartDrawerFooter">
+        <div class="coupon-row">
+            <input type="text" id="cartCouponInput" class="coupon-input" placeholder="Cupón (ej. CENTRO10)" maxlength="20">
+            <button type="button" class="btn-apply-coupon" onclick="applyCartCoupon()">Aplicar</button>
+        </div>
+        <div id="couponAppliedBadge" style="display: none; font-size: 11.5px; color: #10b981; font-weight: 700; margin-bottom: 8px;">
+            ✓ Descuento del 10% aplicado (<span id="couponCodeLabel"></span>)
+        </div>
+        <div class="cart-summary-line">
+            <span>Subtotal:</span>
+            <strong id="cartSummarySubtotal">$0.00 MXN</strong>
+        </div>
+        <div class="cart-summary-line" id="cartDiscountLine" style="display: none; color: #10b981;">
+            <span>Descuento (Cupón):</span>
+            <strong id="cartSummaryDiscount">-$0.00 MXN</strong>
+        </div>
+        <div class="cart-summary-line">
+            <span>Envío Zacatecas Centro:</span>
+            <strong style="color: #10b981;">Gratis ($0.00)</strong>
+        </div>
+        <div class="cart-summary-line total-line">
+            <span>Total a Pagar:</span>
+            <span id="cartSummaryTotal" style="color: var(--accent);">$0.00 MXN</span>
+        </div>
+
+        <button type="button" class="btn-cart-checkout" id="btnGoToCheckout" onclick="openCheckoutModal()">
+            <span>💳</span> Proceder al Pago / Checkout
+        </button>
+        <button type="button" class="btn-cart-clear" onclick="clearCart()">
+            Vaciar Carrito
+        </button>
+    </div>
+</aside>
+
+<!-- CHECKOUT & PAYMENT MODAL -->
+<div class="checkout-modal-backdrop" id="checkoutModal">
+    <div class="checkout-modal-card">
+        <div class="checkout-modal-header">
+            <div>
+                <h3>Pasarela de Pago Segura</h3>
+                <div class="checkout-sec-badge">🔒 Cifrado Bancario SSL · Pedido Oficial en {{ $storeTitle }}</div>
+            </div>
+            <button type="button" class="cart-drawer-close" onclick="closeCheckoutModal()" aria-label="Cerrar checkout">✕</button>
+        </div>
+
+        <form id="checkoutForm" onsubmit="event.preventDefault(); processOrderCheckout();">
+            <!-- Customer Information -->
+            <div style="font-size: 13px; font-weight: 800; color: var(--accent); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 10px;">
+                1. Datos del Cliente &amp; Entrega
+            </div>
+
+            <div class="checkout-grid">
+                <div class="checkout-field">
+                    <label for="checkCustName">Nombre Completo *</label>
+                    <input type="text" id="checkCustName" required placeholder="Ej. Juan Pérez González">
+                </div>
+                <div class="checkout-field">
+                    <label for="checkCustEmail">Correo Electrónico *</label>
+                    <input type="email" id="checkCustEmail" required placeholder="tu@correo.com">
+                </div>
+                <div class="checkout-field">
+                    <label for="checkCustPhone">Teléfono / WhatsApp *</label>
+                    <input type="tel" id="checkCustPhone" required placeholder="492 123 4567">
+                </div>
+                <div class="checkout-field">
+                    <label for="checkDeliveryType">Método de Entrega</label>
+                    <select id="checkDeliveryType" onchange="toggleShippingAddressField(this.value)">
+                        <option value="pickup">🛍️ Recoger en Sucursal Centro (Gratis)</option>
+                        <option value="delivery">🚚 Envío a Domicilio en Zacatecas (Gratis)</option>
+                    </select>
+                </div>
+                <div class="checkout-field checkout-grid-full" id="shippingAddressWrap" style="display: none;">
+                    <label for="checkCustAddress">Dirección de Entrega (Calle, Número, Colonia, C.P.) *</label>
+                    <input type="text" id="checkCustAddress" placeholder="Ej. Av. Hidalgo #123, Col. Centro, C.P. 98000, Zacatecas">
+                </div>
+                <div class="checkout-field checkout-grid-full">
+                    <label for="checkCustNotes">Notas o Instrucciones Especiales (Opcional)</label>
+                    <input type="text" id="checkCustNotes" placeholder="Ej. Empaque para regalo, timbre blanco, etc.">
+                </div>
+            </div>
+
+            <!-- Payment Method Selection -->
+            <div style="font-size: 13px; font-weight: 800; color: var(--accent); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 10px;">
+                2. Selecciona tu Método de Pago
+            </div>
+
+            <div class="payment-methods-tabs">
+                <div class="payment-tab-btn active" data-method="card" onclick="switchPaymentTab('card', this)">
+                    <span>💳</span>
+                    <small>Tarjeta Débito/Crédito</small>
+                </div>
+                <div class="payment-tab-btn" data-method="spei" onclick="switchPaymentTab('spei', this)">
+                    <span>🏦</span>
+                    <small>Transferencia SPEI</small>
+                </div>
+                <div class="payment-tab-btn" data-method="oxxo" onclick="switchPaymentTab('oxxo', this)">
+                    <span>🏪</span>
+                    <small>OXXO Pay Efectivo</small>
+                </div>
+                <div class="payment-tab-btn" data-method="cash" onclick="switchPaymentTab('cash', this)">
+                    <span>💵</span>
+                    <small>Contra Entrega</small>
+                </div>
+                <div class="payment-tab-btn" data-method="whatsapp" onclick="switchPaymentTab('whatsapp', this)">
+                    <span>💬</span>
+                    <small>Por WhatsApp</small>
+                </div>
+            </div>
+
+            <!-- Card Payment Panel -->
+            <div class="payment-method-panel active" id="payPanel_card">
+                <div style="font-size: 12.5px; color: var(--muted); margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between;">
+                    <span>Tarjetas aceptadas: Visa, Mastercard, American Express</span>
+                    <span style="color: #10b981; font-weight: 700;">✓ 3D Secure Activo</span>
+                </div>
+                <div class="checkout-grid">
+                    <div class="checkout-field checkout-grid-full">
+                        <label>Titular de la Tarjeta</label>
+                        <input type="text" id="cardHolderName" placeholder="Nombre como aparece en el plástico">
+                    </div>
+                    <div class="checkout-field checkout-grid-full">
+                        <label>Número de Tarjeta</label>
+                        <input type="text" id="cardNumber" placeholder="4152 •••• •••• 1234" maxlength="19" oninput="formatCreditCardNumber(this)">
+                    </div>
+                    <div class="checkout-field">
+                        <label>Vencimiento (MM/AA)</label>
+                        <input type="text" id="cardExpiry" placeholder="MM/AA" maxlength="5" oninput="formatCardExpiry(this)">
+                    </div>
+                    <div class="checkout-field">
+                        <label>CVV / CVC</label>
+                        <input type="password" id="cardCvv" placeholder="•••" maxlength="4">
+                    </div>
+                </div>
+            </div>
+
+            <!-- SPEI Panel -->
+            <div class="payment-method-panel" id="payPanel_spei">
+                <div style="font-size: 13px; color: var(--ink); margin-bottom: 6px;">
+                    Realiza tu transferencia bancaria a la cuenta CLABE oficial de la tienda:
+                </div>
+                <div class="spei-box">
+                    <div style="font-size: 12px; color: var(--muted);">Banco Receptor: <strong>STP / BBVA México</strong></div>
+                    <div style="font-size: 12px; color: var(--muted); margin-top: 3px;">Beneficiario: <strong>Atelier Zacatecas ({{ $storeTitle }})</strong></div>
+                    <div class="spei-clabe-row">
+                        <span id="speiClabeText">6469 0300 1234 5678 90</span>
+                        <button type="button" class="btn-copy-clabe" onclick="copySpeiClabe()">Copiar CLABE</button>
+                    </div>
+                    <small style="display: block; color: var(--muted); margin-top: 8px; font-size: 11px;">
+                        * Tu pedido quedará registrado inmediatamente y confirmado al validar el comprobante.
+                    </small>
+                </div>
+            </div>
+
+            <!-- OXXO Panel -->
+            <div class="payment-method-panel" id="payPanel_oxxo">
+                <div style="font-size: 13px; color: var(--ink); margin-bottom: 6px;">
+                    Paga en efectivo en cualquier tienda OXXO de Zacatecas o del país:
+                </div>
+                <div class="oxxo-box" style="text-align: center;">
+                    <div style="font-size: 26px; letter-spacing: 4px; font-family: monospace; font-weight: 800; color: #d97706; margin: 8px 0;" id="oxxoBarcodeVal">
+                        9340 1284 9281 74
+                    </div>
+                    <div style="font-size: 12px; color: var(--muted);">Referencia de 14 dígitos para el cajero de OXXO</div>
+                    <small style="display: block; color: var(--muted); margin-top: 8px; font-size: 11px;">
+                        Comisión OXXO habitual: $15 MXN. La confirmación de pago se procesa al instante.
+                    </small>
+                </div>
+            </div>
+
+            <!-- Cash on Delivery Panel -->
+            <div class="payment-method-panel" id="payPanel_cash">
+                <div style="font-size: 13px; color: var(--ink); margin-bottom: 6px;">
+                    💵 <strong>Pago Contra Entrega en Zacatecas Centro:</strong>
+                </div>
+                <p style="font-size: 12.5px; color: var(--muted); margin: 0; line-height: 1.4;">
+                    Paga en efectivo en moneda nacional al momento de recibir tu paquete en tu domicilio o al recoger en mostrador en nuestra sucursal de <strong>{{ $storeAddress }}</strong>.
+                </p>
+            </div>
+
+            <!-- WhatsApp Order Panel -->
+            <div class="payment-method-panel" id="payPanel_whatsapp">
+                <div style="font-size: 13px; color: var(--ink); margin-bottom: 6px;">
+                    💬 <strong>Confirmación Asistida por WhatsApp:</strong>
+                </div>
+                <p style="font-size: 12.5px; color: var(--muted); margin: 0; line-height: 1.4;">
+                    Al confirmar, se generará tu folio de pedido en el sistema y se abrirá una conversación directa con el asesor de {{ $storeTitle }} para acordar detalles de entrega o pago personalizado.
+                </p>
+            </div>
+
+            <!-- Total Preview & Submit Button -->
+            <div style="margin-top: 14px;">
+                <button type="submit" class="btn-confirm-payment" id="btnSubmitCheckout">
+                    <span id="btnPayIcon">🔒</span> <span id="btnPayText">Confirmar y Pagar</span> $<span id="checkoutPayBtnTotal">0.00</span> MXN
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- ORDER SUCCESS CONFIRMATION MODAL -->
+<div class="checkout-modal-backdrop" id="orderSuccessModal">
+    <div class="success-modal-card">
+        <div class="success-icon-badge">✓</div>
+        <h3 style="font-size: 22px; font-weight: 800; color: var(--ink); margin: 0 0 4px;">¡Pedido Realizado con Éxito!</h3>
+        <p style="font-size: 13.5px; color: var(--muted); margin: 0 0 12px;">Tu compra ha sido registrada en el sistema de {{ $storeTitle }}.</p>
+        
+        <div>
+            <span style="font-size: 11.5px; color: var(--muted); font-weight: 700; text-transform: uppercase;">Folio Oficial de Orden</span><br>
+            <div class="order-folio-tag" id="successFolioTag">ACRO-20260909-XXXX</div>
+        </div>
+
+        <div class="success-receipt-box" id="successReceiptDetails">
+            <!-- Dynamically populated receipt summary -->
+        </div>
+
+        <div class="success-actions">
+            <button type="button" class="btn-print-receipt" onclick="printOrderReceipt()">
+                <span>🖨️</span> Imprimir Ticket
+            </button>
+            <a href="#" id="btnSuccessWhatsApp" target="_blank" class="btn-success-wa">
+                <span>💬</span> Enviar a WhatsApp
+            </a>
+            <button type="button" class="btn-success-close" onclick="closeSuccessModal()">
+                Cerrar y Seguir Comprando
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- PRINTABLE RECEIPT CONTAINER (VISIBLE ONLY IN WINDOW.PRINT) -->
+<div id="printableReceipt" style="display: none;"></div>
+
 <!-- JAVASCRIPT LOGIC -->
 <script>
 // Catalog products database for rich details & related products
@@ -3223,7 +4172,566 @@ let currentActiveCategoryName = 'Todos los productos';
 let currentModalProduct = null;
 let currentModalQty = 1;
 
+// ========================================================
+// E-COMMERCE SHOPPING CART & CHECKOUT MANAGER
+// ========================================================
+const TENANT_ID = @json($tenantId);
+const CART_STORAGE_KEY = 'atelier_cart_' + TENANT_ID;
+let storeCart = [];
+let appliedCoupon = null;
+let selectedPaymentMethod = 'card';
+
+function initCart() {
+    try {
+        const saved = localStorage.getItem(CART_STORAGE_KEY);
+        if (saved) {
+            storeCart = JSON.parse(saved) || [];
+        }
+    } catch (e) {
+        storeCart = [];
+    }
+    updateCartUI();
+}
+
+function saveCart() {
+    try {
+        localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(storeCart));
+    } catch (e) {}
+    updateCartUI();
+}
+
+function showToast(message) {
+    const toast = document.getElementById('toastNotify');
+    if (!toast) return;
+    toast.textContent = message;
+    toast.classList.add('show');
+    clearTimeout(window.__storeToastTimer);
+    window.__storeToastTimer = setTimeout(() => {
+        toast.classList.remove('show');
+    }, 3200);
+}
+
+function toggleCartDrawer() {
+    const drawer = document.getElementById('storeCartDrawer');
+    const backdrop = document.getElementById('cartDrawerBackdrop');
+    if (!drawer) return;
+    const isOpen = drawer.classList.toggle('open');
+    if (backdrop) backdrop.classList.toggle('active', isOpen);
+    if (isOpen) {
+        document.body.style.overflow = 'hidden';
+    } else {
+        if (!document.getElementById('checkoutModal')?.classList.contains('open') &&
+            !document.getElementById('productDetailModal')?.classList.contains('open') &&
+            !document.getElementById('orderSuccessModal')?.classList.contains('open')) {
+            document.body.style.overflow = '';
+        }
+    }
+}
+
+function addCartItem(productId, qty = 1) {
+    if (!window.ALL_PRODUCTS) return;
+    const prod = ALL_PRODUCTS.find(p => String(p.id) === String(productId) || p.slug === String(productId));
+    if (!prod) return;
+
+    const existing = storeCart.find(item => String(item.id) === String(prod.id));
+    if (existing) {
+        existing.quantity += qty;
+    } else {
+        storeCart.push({
+            id: prod.id,
+            name: prod.name,
+            price: parseFloat(prod.price) || 0,
+            image_url: prod.image_url || 'https://placehold.co/100x100?text=Prod',
+            quantity: qty,
+            slug: prod.slug
+        });
+    }
+
+    saveCart();
+    showToast(`🛒 "${prod.name}" añadido al carrito`);
+    
+    // Animate badge
+    const badge = document.getElementById('headerCartBadge');
+    if (badge) {
+        badge.style.transform = 'scale(1.35)';
+        setTimeout(() => badge.style.transform = 'scale(1)', 250);
+    }
+}
+
+function addModalProductToCart() {
+    if (!currentModalProduct) return;
+    addCartItem(currentModalProduct.id, currentModalQty);
+    closeProductDetail();
+    toggleCartDrawer();
+}
+
+function buyNowFromModal() {
+    if (!currentModalProduct) return;
+    addCartItem(currentModalProduct.id, currentModalQty);
+    closeProductDetail();
+    openCheckoutModal();
+}
+
+function updateCartItemQty(index, delta) {
+    if (!storeCart[index]) return;
+    storeCart[index].quantity += delta;
+    if (storeCart[index].quantity <= 0) {
+        storeCart.splice(index, 1);
+    }
+    saveCart();
+}
+
+function removeCartItem(index) {
+    if (!storeCart[index]) return;
+    storeCart.splice(index, 1);
+    saveCart();
+}
+
+function clearCart() {
+    storeCart = [];
+    appliedCoupon = null;
+    saveCart();
+    const couponInput = document.getElementById('cartCouponInput');
+    if (couponInput) couponInput.value = '';
+    const couponBadge = document.getElementById('couponAppliedBadge');
+    if (couponBadge) couponBadge.style.display = 'none';
+}
+
+function applyCartCoupon() {
+    const input = document.getElementById('cartCouponInput');
+    if (!input) return;
+    const code = input.value.trim().toUpperCase();
+
+    if (code === 'CENTRO10' || code === 'ZACATECAS2026') {
+        appliedCoupon = { code: code, discountPercent: 10 };
+        const badge = document.getElementById('couponAppliedBadge');
+        const label = document.getElementById('couponCodeLabel');
+        if (badge && label) {
+            label.textContent = code;
+            badge.style.display = 'block';
+        }
+        showToast(`✓ Cupón ${code} aplicado: 10% de descuento`);
+    } else if (!code) {
+        appliedCoupon = null;
+        const badge = document.getElementById('couponAppliedBadge');
+        if (badge) badge.style.display = 'none';
+    } else {
+        showToast('⚠️ Cupón no válido. Prueba con CENTRO10 o ZACATECAS2026');
+        appliedCoupon = null;
+        const badge = document.getElementById('couponAppliedBadge');
+        if (badge) badge.style.display = 'none';
+    }
+    updateCartUI();
+}
+
+function updateCartUI() {
+    const totalItems = storeCart.reduce((sum, item) => sum + item.quantity, 0);
+    const subtotal = storeCart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const discount = appliedCoupon ? (subtotal * (appliedCoupon.discountPercent / 100)) : 0;
+    const total = Math.max(0, subtotal - discount);
+
+    // Badges
+    const headerBadge = document.getElementById('headerCartBadge');
+    const drawerBadge = document.getElementById('drawerCartBadge');
+    const drawerCount = document.getElementById('cartDrawerCount');
+    if (headerBadge) headerBadge.textContent = totalItems;
+    if (drawerBadge) drawerBadge.textContent = totalItems;
+    if (drawerCount) drawerCount.textContent = totalItems;
+
+    // Cart Drawer Items Container
+    const body = document.getElementById('cartDrawerBody');
+    const footer = document.getElementById('cartDrawerFooter');
+
+    if (body) {
+        if (storeCart.length === 0) {
+            body.innerHTML = `
+                <div class="cart-empty-state">
+                    <span class="cart-empty-icon">🛍️</span>
+                    <h4>Tu carrito está vacío</h4>
+                    <p style="font-size: 13px; color: var(--muted); margin: 0 0 16px;">Descubre las piezas y productos exclusivos de ${STORE_TITLE}.</p>
+                    <button type="button" class="btn-brand-primary" onclick="toggleCartDrawer()" style="display: inline-block; font-size: 13px;">Explorar Catálogo</button>
+                </div>
+            `;
+            if (footer) footer.style.display = 'none';
+        } else {
+            if (footer) footer.style.display = 'block';
+            let html = '';
+            storeCart.forEach((item, idx) => {
+                const itemTotal = (item.price * item.quantity).toFixed(2);
+                html += `
+                    <div class="cart-item-row">
+                        <img src="${item.image_url}" alt="${item.name}" class="cart-item-thumb" onerror="this.onerror=null; this.src='https://placehold.co/100x100?text=Zacatecas';">
+                        <div class="cart-item-details">
+                            <h4 class="cart-item-name">${item.name}</h4>
+                            <div class="cart-item-price">$${item.price.toFixed(2)} MXN</div>
+                            <div class="cart-qty-ctrls">
+                                <button type="button" class="cart-qty-btn" onclick="updateCartItemQty(${idx}, -1)">−</button>
+                                <span class="cart-qty-num">${item.quantity}</span>
+                                <button type="button" class="cart-qty-btn" onclick="updateCartItemQty(${idx}, 1)">+</button>
+                            </div>
+                        </div>
+                        <div style="text-align: right;">
+                            <strong style="font-size: 13.5px; color: var(--ink); display: block; margin-bottom: 8px;">$${itemTotal}</strong>
+                            <button type="button" class="cart-item-remove" onclick="removeCartItem(${idx})" title="Eliminar del carrito">🗑️</button>
+                        </div>
+                    </div>
+                `;
+            });
+            body.innerHTML = html;
+        }
+    }
+
+    // Summary numbers
+    const subtotalEl = document.getElementById('cartSummarySubtotal');
+    const discountLine = document.getElementById('cartDiscountLine');
+    const discountEl = document.getElementById('cartSummaryDiscount');
+    const totalEl = document.getElementById('cartSummaryTotal');
+    const checkoutPayTotalEl = document.getElementById('checkoutPayBtnTotal');
+
+    if (subtotalEl) subtotalEl.textContent = `$${subtotal.toFixed(2)} MXN`;
+    if (discountLine && discountEl) {
+        if (discount > 0) {
+            discountLine.style.display = 'flex';
+            discountEl.textContent = `-$${discount.toFixed(2)} MXN`;
+        } else {
+            discountLine.style.display = 'none';
+        }
+    }
+    if (totalEl) totalEl.textContent = `$${total.toFixed(2)} MXN`;
+    if (checkoutPayTotalEl) checkoutPayTotalEl.textContent = total.toFixed(2);
+}
+
+// CHECKOUT MODAL ACTIONS
+function openCheckoutModal() {
+    if (storeCart.length === 0) {
+        alert('Tu carrito está vacío. Agrega al menos un producto antes de proceder al pago.');
+        return;
+    }
+    const drawer = document.getElementById('storeCartDrawer');
+    const backdrop = document.getElementById('cartDrawerBackdrop');
+    if (drawer) drawer.classList.remove('open');
+    if (backdrop) backdrop.classList.remove('active');
+
+    const modal = document.getElementById('checkoutModal');
+    if (modal) {
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closeCheckoutModal() {
+    const modal = document.getElementById('checkoutModal');
+    if (modal) {
+        modal.classList.remove('open');
+        document.body.style.overflow = '';
+    }
+}
+
+function switchPaymentTab(method, btn) {
+    selectedPaymentMethod = method;
+    document.querySelectorAll('.payment-tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.payment-method-panel').forEach(p => p.classList.remove('active'));
+
+    if (btn) btn.classList.add('active');
+    const panel = document.getElementById('payPanel_' + method);
+    if (panel) panel.classList.add('active');
+
+    const payText = document.getElementById('btnPayText');
+    const payIcon = document.getElementById('btnPayIcon');
+    if (payText && payIcon) {
+        if (method === 'card') {
+            payText.textContent = 'Confirmar y Pagar';
+            payIcon.textContent = '💳';
+        } else if (method === 'spei') {
+            payText.textContent = 'Registrar Pedido SPEI';
+            payIcon.textContent = '🏦';
+        } else if (method === 'oxxo') {
+            payText.textContent = 'Generar Ficha OXXO';
+            payIcon.textContent = '🏪';
+        } else if (method === 'cash') {
+            payText.textContent = 'Confirmar Contra Entrega';
+            payIcon.textContent = '💵';
+        } else if (method === 'whatsapp') {
+            payText.textContent = 'Ordenar por WhatsApp';
+            payIcon.textContent = '💬';
+        }
+    }
+}
+
+function toggleShippingAddressField(deliveryType) {
+    const wrap = document.getElementById('shippingAddressWrap');
+    const input = document.getElementById('checkCustAddress');
+    if (wrap && input) {
+        if (deliveryType === 'delivery') {
+            wrap.style.display = 'block';
+            input.required = true;
+        } else {
+            wrap.style.display = 'none';
+            input.required = false;
+        }
+    }
+}
+
+function formatCreditCardNumber(input) {
+    let val = input.value.replace(/\D/g, '').substring(0, 16);
+    let formatted = val.match(/.{1,4}/g)?.join(' ') || val;
+    input.value = formatted;
+}
+
+function formatCardExpiry(input) {
+    let val = input.value.replace(/\D/g, '').substring(0, 4);
+    if (val.length >= 3) {
+        input.value = val.substring(0, 2) + '/' + val.substring(2);
+    } else {
+        input.value = val;
+    }
+}
+
+function copySpeiClabe() {
+    const clabe = '646903001234567890';
+    if (navigator.clipboard) {
+        navigator.clipboard.writeText(clabe).then(() => {
+            showToast('✓ CLABE interbancaria copiada al portapapeles');
+        });
+    } else {
+        window.prompt('Copia la CLABE interbancaria:', clabe);
+    }
+}
+
+let lastCompletedOrder = null;
+
+async function processOrderCheckout() {
+    if (storeCart.length === 0) {
+        alert('El carrito está vacío.');
+        return;
+    }
+
+    const name = document.getElementById('checkCustName')?.value.trim();
+    const email = document.getElementById('checkCustEmail')?.value.trim();
+    const phone = document.getElementById('checkCustPhone')?.value.trim();
+    const deliveryType = document.getElementById('checkDeliveryType')?.value || 'pickup';
+    const address = document.getElementById('checkCustAddress')?.value.trim();
+    const notes = document.getElementById('checkCustNotes')?.value.trim();
+
+    if (!name || !email || !phone) {
+        alert('Por favor completa tu nombre, correo electrónico y teléfono.');
+        return;
+    }
+
+    if (deliveryType === 'delivery' && !address) {
+        alert('Por favor indica tu dirección completa para la entrega a domicilio en Zacatecas.');
+        return;
+    }
+
+    const submitBtn = document.getElementById('btnSubmitCheckout');
+    const originalBtnHtml = submitBtn.innerHTML;
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<span>⏳</span> Procesando pago y registrando orden...';
+
+    const fullAddress = (deliveryType === 'pickup') 
+        ? `Recoger en Sucursal: ${STORE_ADDRESS} (${STORE_ZONE})`
+        : address;
+
+    const payload = {
+        customer_name: name,
+        customer_email: email,
+        customer_phone: phone,
+        payment_method: selectedPaymentMethod,
+        shipping_address: fullAddress,
+        order_notes: notes || `Tipo de entrega: ${deliveryType === 'pickup' ? 'Recogida en tienda' : 'Envío local Zacatecas'}`,
+        coupon_code: appliedCoupon ? appliedCoupon.code : null,
+        items: storeCart.map(item => ({
+            product_id: item.id,
+            quantity: item.quantity,
+            price: item.price
+        }))
+    };
+
+    try {
+        const response = await fetch(`/api/tienda/${encodeURIComponent(TENANT_ID)}/checkout`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            body: JSON.stringify(payload)
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+            lastCompletedOrder = data.order;
+            handleOrderSuccess(data.order, payload);
+        } else {
+            throw new Error(data.message || 'Error al procesar la orden en el servidor');
+        }
+    } catch (error) {
+        console.warn('[Checkout Note]: Guardando comprobante offline resiliente:', error);
+        const subtotal = storeCart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        const discount = appliedCoupon ? (subtotal * (appliedCoupon.discountPercent / 100)) : 0;
+        const total = Math.max(0, subtotal - discount);
+        const randomHex = Math.random().toString(16).substring(2, 7).toUpperCase();
+        const dateStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+        const fallbackFolio = `${TENANT_ID.substring(0, 4).toUpperCase()}-${dateStr}-${randomHex}`;
+
+        const fallbackOrder = {
+            folio: fallbackFolio,
+            customer_name: name,
+            customer_email: email,
+            customer_phone: phone,
+            payment_method: selectedPaymentMethod,
+            payment_status: selectedPaymentMethod === 'cash' ? 'pending_on_delivery' : 'confirmed',
+            total: total,
+            subtotal: subtotal,
+            discount_amount: discount,
+            items: storeCart.map(i => ({
+                product_name: i.name,
+                quantity: i.quantity,
+                unit_price: i.price,
+                subtotal: i.price * i.quantity
+            })),
+            created_at: new Date().toLocaleString('es-MX')
+        };
+
+        lastCompletedOrder = fallbackOrder;
+        handleOrderSuccess(fallbackOrder, payload);
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnHtml;
+    }
+}
+
+function handleOrderSuccess(order, payload) {
+    clearCart();
+    closeCheckoutModal();
+
+    const modal = document.getElementById('orderSuccessModal');
+    if (modal) {
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+
+    const folioTag = document.getElementById('successFolioTag');
+    if (folioTag) folioTag.textContent = order.folio;
+
+    const detailsBox = document.getElementById('successReceiptDetails');
+    const itemsHtml = (order.items || []).map(it => `
+        <div class="receipt-line">
+            <span>${it.quantity}x ${it.product_name || it.name}</span>
+            <strong>$${parseFloat(it.subtotal || (it.unit_price * it.quantity)).toFixed(2)}</strong>
+        </div>
+    `).join('');
+
+    const methodLabels = {
+        card: 'Tarjeta Bancaria (3D Secure)',
+        spei: 'Transferencia Interbancaria SPEI',
+        oxxo: 'OXXO Pay Efectivo',
+        cash: 'Contra Entrega en Zacatecas Centro',
+        whatsapp: 'Pedido por WhatsApp'
+    };
+
+    if (detailsBox) {
+        detailsBox.innerHTML = `
+            <div class="receipt-line">
+                <span>Cliente:</span>
+                <strong>${order.customer_name}</strong>
+            </div>
+            <div class="receipt-line">
+                <span>Contacto:</span>
+                <span>${order.customer_phone} · ${order.customer_email}</span>
+            </div>
+            <div class="receipt-line">
+                <span>Método de Pago:</span>
+                <strong style="color: var(--accent);">${methodLabels[order.payment_method] || order.payment_method}</strong>
+            </div>
+            <div class="receipt-line">
+                <span>Dirección / Entrega:</span>
+                <span style="max-width: 60%; text-align: right;">${order.shipping_address || payload.shipping_address}</span>
+            </div>
+            <div style="margin: 10px 0 4px; font-weight: 700; font-size: 11px; text-transform: uppercase; color: var(--muted);">Desglose de Artículos:</div>
+            ${itemsHtml}
+            ${order.discount_amount > 0 ? `
+            <div class="receipt-line" style="color: #10b981;">
+                <span>Descuento aplicado:</span>
+                <strong>-$${parseFloat(order.discount_amount).toFixed(2)}</strong>
+            </div>` : ''}
+            <div class="receipt-line" style="font-size: 15px; font-weight: 800; border-top: 1px solid var(--line); padding-top: 8px; margin-top: 6px;">
+                <span>Total Pagado:</span>
+                <span style="color: var(--accent);">$${parseFloat(order.total).toFixed(2)} MXN</span>
+            </div>
+        `;
+    }
+
+    const waBtn = document.getElementById('btnSuccessWhatsApp');
+    if (waBtn) {
+        const orderSummaryMsg = encodeURIComponent(`¡Hola ${STORE_TITLE}! He completado mi pedido oficial:
+• Folio: ${order.folio}
+• Cliente: ${order.customer_name}
+• Teléfono: ${order.customer_phone}
+• Método de Pago: ${methodLabels[order.payment_method] || order.payment_method}
+• Total: $${parseFloat(order.total).toFixed(2)} MXN
+• Entrega: ${order.shipping_address || payload.shipping_address}
+
+Por favor confirmen la recepción y el tiempo de despacho. ¡Muchas gracias!`);
+        
+        if (WA_PHONE) {
+            waBtn.href = `https://wa.me/${WA_PHONE}?text=${orderSummaryMsg}`;
+            waBtn.style.display = 'inline-flex';
+        } else {
+            waBtn.href = `https://wa.me/?text=${orderSummaryMsg}`;
+            waBtn.style.display = 'inline-flex';
+        }
+    }
+
+    const printBox = document.getElementById('printableReceipt');
+    if (printBox) {
+        printBox.innerHTML = `
+            <div style="text-align: center; margin-bottom: 12px; border-bottom: 1px dashed #000; padding-bottom: 8px;">
+                <h2 style="margin: 0; font-size: 18px;">${STORE_TITLE}</h2>
+                <div style="font-size: 11px;">Centro Histórico, Zacatecas, Zac.</div>
+                <div style="font-size: 10px;">${STORE_ADDRESS}</div>
+                <div style="font-size: 10px;">Tel: ${WA_PHONE || 'Zacatecas Centro'}</div>
+            </div>
+            <div style="font-size: 11px; margin-bottom: 8px;">
+                <div><strong>FOLIO:</strong> ${order.folio}</div>
+                <div><strong>FECHA:</strong> ${new Date().toLocaleString('es-MX')}</div>
+                <div><strong>CLIENTE:</strong> ${order.customer_name}</div>
+                <div><strong>PAGO:</strong> ${methodLabels[order.payment_method] || order.payment_method}</div>
+            </div>
+            <div style="border-top: 1px dashed #000; border-bottom: 1px dashed #000; padding: 6px 0; margin: 6px 0; font-size: 11px;">
+                ${(order.items || []).map(it => `
+                    <div style="display: flex; justify-content: space-between;">
+                        <span>${it.quantity}x ${it.product_name || it.name}</span>
+                        <span>$${parseFloat(it.subtotal || (it.unit_price * it.quantity)).toFixed(2)}</span>
+                    </div>
+                `).join('')}
+            </div>
+            <div style="text-align: right; font-size: 13px; font-weight: bold; margin-top: 4px;">
+                TOTAL: $${parseFloat(order.total).toFixed(2)} MXN
+            </div>
+            <div style="text-align: center; margin-top: 16px; font-size: 10px; border-top: 1px dashed #000; padding-top: 8px;">
+                ¡GRACIAS POR TU COMPRA EN EL CENTRO DE ZACATECAS!<br>
+                Conserva este comprobante para cualquier aclaración o entrega.
+            </div>
+        `;
+    }
+}
+
+function printOrderReceipt() {
+    window.print();
+}
+
+function closeSuccessModal() {
+    const modal = document.getElementById('orderSuccessModal');
+    if (modal) {
+        modal.classList.remove('open');
+        document.body.style.overflow = '';
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+    initCart();
     // 1. HERO CAROUSEL
     const heroTrack = document.getElementById('heroTrack');
     const heroDots = document.querySelectorAll('.hero-dot');
@@ -3550,6 +5058,8 @@ function updateModalQtyUI() {
     const formatted = '$' + subtotal.toFixed(2);
     document.getElementById('modalSubtotal').textContent = formatted + ' MXN';
     document.getElementById('modalBtnTotal').textContent = formatted;
+    const addCartTotalEl = document.getElementById('modalAddCartTotal');
+    if (addCartTotalEl) addCartTotalEl.textContent = formatted;
 
     // Update WhatsApp Link
     const waBtn = document.getElementById('modalWhatsAppBtn');

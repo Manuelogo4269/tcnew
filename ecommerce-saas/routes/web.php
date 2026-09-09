@@ -57,6 +57,8 @@ foreach ($centralDomains as $domain) {
             return view('tenant.store', compact('storeName', 'tenantId', 'settings', 'categories', 'products', 'featuredProducts', 'officialStores'));
         })->name('central.tenant.store');
 
+        Route::post('/api/tienda/{tenant}/checkout', [\App\Http\Controllers\CheckoutController::class, 'processCheckout'])->name('central.tenant.checkout');
+
         Route::get('/login', [CentralAuthController::class, 'showLogin'])->name('login');
         Route::post('/login', [CentralAuthController::class, 'login'])->name('login.submit');
         Route::post('/register', [CentralAuthController::class, 'register'])->name('register.submit');
@@ -122,4 +124,6 @@ Route::get('/offline.html', function () {
         'Cache-Control' => 'no-cache',
     ]);
 });
+
+Route::post('/api/tienda/{tenant}/checkout', [\App\Http\Controllers\CheckoutController::class, 'processCheckout']);
 

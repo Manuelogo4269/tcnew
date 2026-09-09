@@ -24,12 +24,28 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        // 2. Global Mobile Customer (for Sanctum App Mobile)
-        $globalCustomer = CustomerAccount::updateOrCreate(
+        // 2. Global Customers (for Marketplace & Sanctum App Mobile)
+        CustomerAccount::updateOrCreate(
             ['email' => 'juan@gmail.com'],
             [
-                'name' => 'Juan Pérez',
-                'password' => Hash::make('password'),
+                'name' => 'Juan Pérez (Cliente Local Centro)',
+                'password' => Hash::make('password123'),
+            ]
+        );
+
+        CustomerAccount::updateOrCreate(
+            ['email' => 'maria@gmail.com'],
+            [
+                'name' => 'María Fernández (Compradora Frecuente)',
+                'password' => Hash::make('password123'),
+            ]
+        );
+
+        CustomerAccount::updateOrCreate(
+            ['email' => 'turista@gmail.com'],
+            [
+                'name' => 'Alejandro Ruiz (Turista Zacatecas)',
+                'password' => Hash::make('password123'),
             ]
         );
 
