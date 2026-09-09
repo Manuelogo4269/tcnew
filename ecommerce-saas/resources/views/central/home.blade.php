@@ -5513,7 +5513,7 @@
             <a href="#cercanas" onclick="switchMainTab('map')" style="color: var(--accent); font-weight: 700;">📍 Tiendas Cercanas</a>
             <a href="#empresas" onclick="switchMainTab('stores')">Empresas</a>
             <a href="#buscar" onclick="switchMainTab('feed')">Búsqueda Global</a>
-            <a href="#planes" onclick="switchMainTab('plans')">💎 Planes de Renta</a>
+            <a href="{{ url('/planes') }}">💎 Planes de Renta</a>
             <a href="{{ url('/admin') }}" target="_blank">Super Admin</a>
         </nav>
 
@@ -5523,9 +5523,9 @@
                 <span class="central-cart-badge" id="centralCartBadge">0</span>
             </button>
 
-            <button type="button" class="btn-rent-nav" onclick="openRentModal('crecimiento', 'annual')">
+            <a href="{{ url('/planes') }}" class="btn-rent-nav">
                 <span>✨</span> <span class="rent-btn-long-text">Rentar Tienda</span>
-            </button>
+            </a>
 
             @if($user)
                 <!-- Usuario Autenticado -->
@@ -5697,9 +5697,9 @@
         </div>
 
         <!-- Rent CTA Button in Drawer -->
-        <button type="button" class="btn-rent-drawer" onclick="closeMobileMenu(); openRentModal('crecimiento', 'annual')">
+        <a href="{{ url('/planes') }}" class="btn-rent-drawer" onclick="closeMobileMenu()">
             ✨ <span data-i18n="btn_rent_cta">Rentar Tienda Online (-20% Anual)</span>
-        </button>
+        </a>
 
         <div class="drawer-brand-footer">
             <span>Atelier Zacatecas · Cantera Rosa &amp; Plata</span>
@@ -5722,9 +5722,9 @@
             <button type="button" class="main-tab-btn" id="tabBtnStores" onclick="switchMainTab('stores')">
                 <span>🏬</span> Directorio <span class="tab-badge">{{ count($allBusinesses) }}</span>
             </button>
-            <button type="button" class="main-tab-btn" id="tabBtnPlans" onclick="switchMainTab('plans')">
-                <span>💎</span> Planes
-            </button>
+            <a href="{{ url('/planes') }}" class="main-tab-btn" id="tabBtnPlans" style="text-decoration: none;">
+                <span>💎</span> Planes ↗
+            </a>
         </div>
     </nav>
 
@@ -6439,113 +6439,6 @@
     </section>
     </div> <!-- /#panelStores -->
 
-    <!-- TAB 4: PLANES DE RENTA -->
-    <div id="panelPlans" class="tab-panel-content" style="display: none;">
-    <!-- ============================================== -->
-    <!-- SECTION: PLANES Y PRECIOS DE RENTA SAAS        -->
-    <!-- ============================================== -->
-    <section class="portal-section plans-section" id="planes">
-        <div class="section-header" style="text-align: center; max-width: 820px; margin: 0 auto 20px;">
-            <div class="section-eyebrow" style="justify-content: center;">Renta tu Tienda SaaS B2B</div>
-            <h2 class="section-title">Planes de Renta para Empresas</h2>
-            <p style="color: var(--muted); font-size: 15px; margin-top: 10px; line-height: 1.6;">
-                Digitaliza tu marca con una tienda e-commerce completamente autónoma: base de datos SQLite aislada en modo WAL de alta velocidad, subdominio personalizado, panel privado Filament v3 y <strong>0% comisiones por venta</strong>.
-            </p>
-
-            <!-- INTERACTIVE BILLING CYCLE TOGGLE -->
-            <div class="billing-toggle-container">
-                <div class="billing-toggle-box">
-                    <button type="button" class="billing-toggle-btn active" id="btnMonthly" onclick="switchBillingCycle('monthly')">
-                        📅 Facturación Mensual
-                    </button>
-                    <button type="button" class="billing-toggle-btn" id="btnAnnual" onclick="switchBillingCycle('annual')">
-                        💎 Facturación Anual
-                    </button>
-                </div>
-                <div class="annual-badge-pill" id="annualSavingsBadge">
-                    <span>🎉 Ahorra 20% anual (2 meses gratis de renta)</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- PLANS CARDS GRID -->
-        <div class="plans-grid">
-            @foreach($subscriptionPlans as $plan)
-                <div class="plan-card {{ $plan->is_popular ? 'plan-card-popular' : '' }}" id="card-plan-{{ $plan->slug }}">
-                    @if($plan->badge)
-                        <div class="plan-popular-badge">{{ $plan->badge }}</div>
-                    @endif
-
-                    <div>
-                        <div class="plan-header">
-                            <h3 class="plan-name">{{ $plan->name }}</h3>
-                            <p class="plan-tagline">{{ $plan->tagline }}</p>
-                        </div>
-
-                        <div class="plan-price-wrapper">
-                            <!-- Dynamic Monthly Price Display -->
-                            <div class="price-display price-monthly-box" id="price-monthly-{{ $plan->slug }}" style="display: block;">
-                                <span class="price-currency">$</span>
-                                <span class="price-amount">{{ number_format($plan->monthly_price, 0) }}</span>
-                                <span class="price-period">USD / mes</span>
-                                <div class="price-subnote">Facturación mes a mes</div>
-                            </div>
-
-                            <!-- Dynamic Annual Price Display -->
-                            <div class="price-display price-annual-box" id="price-annual-{{ $plan->slug }}" style="display: none;">
-                                <span class="price-currency">$</span>
-                                <span class="price-amount">{{ number_format($plan->annual_price_per_month, 0) }}</span>
-                                <span class="price-period">USD / mes</span>
-                                <div class="price-subnote" style="color: #047857; font-weight: 700;">
-                                    Facturado anual: ${{ number_format($plan->annual_total, 0) }} USD (Ahorras ${{ number_format($plan->annual_savings, 0) }} USD/año)
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="plan-divider"></div>
-
-                        <!-- Highlight Meta -->
-                        <div class="plan-highlights">
-                            <div class="highlight-item">
-                                <span class="hl-icon">📦</span>
-                                <span>{{ $plan->product_limit ? "Hasta {$plan->product_limit} productos activos" : 'Productos y categorías ILIMITADOS' }}</span>
-                            </div>
-                            <div class="highlight-item">
-                                <span class="hl-icon">🌐</span>
-                                <span>{{ $plan->has_custom_domain ? 'Subdominio + Dominio propio' : 'Subdominio exclusivo incluido' }}</span>
-                            </div>
-                            <div class="highlight-item">
-                                <span class="hl-icon">🏷️</span>
-                                <span>0% de comisiones por tus ventas</span>
-                            </div>
-                        </div>
-
-                        <!-- Features List -->
-                        <ul class="plan-features-list">
-                            @foreach($plan->features ?? [] as $feat)
-                                <li>
-                                    <svg class="check-icon" width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
-                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                                    </svg>
-                                    <span>{{ $feat }}</span>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
-
-                    <div class="plan-footer">
-                        <button type="button" 
-                                class="btn-plan-cta {{ $plan->is_popular ? 'btn-popular' : '' }}"
-                                onclick="openRentModal('{{ $plan->slug }}', currentBillingCycle)">
-                            Rentar {{ $plan->name }} <span>→</span>
-                        </button>
-                    </div>
-                </div>
-            @endforeach
-        </div>
-    </section>
-    </div> <!-- /#panelPlans -->
-
     <!-- FLOATING STICKY ROUTE CART BAR (VISIBLE WHEN ITEMS IN CART) -->
     <div class="floating-route-cart-bar" id="floatingRouteCartBar" onclick="goToCartRoutePlanner()" style="display: none;">
         <div class="floating-cart-inner">
@@ -6848,107 +6741,6 @@
             </div>
         </div>
     </div>
-</div>
-
-<!-- MODAL: RENTA TU TIENDA ONLINE -->
-<div class="modal-backdrop" id="rentModal">
-    <div class="auth-modal-card rent-modal-card">
-        <button class="modal-close-x" onclick="closeRentModal()" aria-label="Cerrar modal">✕</button>
-
-        <div class="rent-modal-header">
-            <span class="rent-modal-pill">✦ Alta Rápida de Empresa</span>
-            <h3 class="auth-modal-title">Renta tu Tienda Virtual</h3>
-            <p class="auth-modal-subtitle">Tu catálogo e infraestructura multi-tenant quedarán configurados en segundos.</p>
-        </div>
-
-        <form action="{{ route('central.rent.tenant') }}" method="POST" id="rentForm" onsubmit="handleRentSubmit()">
-            @csrf
-
-            <!-- Plan & Billing Selector in Modal -->
-            <div class="rent-summary-box">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                    <strong id="modalPlanLabel" style="font-size: 15px; color: var(--ink);">Plan Crecimiento</strong>
-                    <span id="modalCycleLabel" class="rent-cycle-tag">💎 Anual (-20% Ahorro)</span>
-                </div>
-                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                    <select name="plan_slug" id="modalPlanSelect" class="rent-select" onchange="updateModalSummary()">
-                        @foreach($subscriptionPlans as $p)
-                            <option value="{{ $p->slug }}" 
-                                    data-name="{{ $p->name }}" 
-                                    data-monthly="{{ $p->monthly_price }}" 
-                                    data-annual="{{ $p->annual_price_per_month }}" 
-                                    data-total="{{ $p->annual_total }}"
-                                    data-savings="{{ $p->annual_savings }}"
-                                    {{ $p->slug === 'crecimiento' ? 'selected' : '' }}>
-                                {{ $p->name }} (${{ number_format($p->monthly_price, 0) }}/m o ${{ number_format($p->annual_price_per_month, 0) }}/m anual)
-                            </option>
-                        @endforeach
-                    </select>
-                    <select name="billing_cycle" id="modalCycleSelect" class="rent-select" onchange="updateModalSummary()">
-                        <option value="annual" selected>💎 Anual (-20% Ahorro)</option>
-                        <option value="monthly">📅 Mensual</option>
-                    </select>
-                </div>
-                <div id="modalPriceSummary" style="margin-top: 10px; font-size: 12px; color: var(--muted); font-weight: 600;">
-                    Total a pagar: $372 USD / año ($31 USD/mes) · ¡Ahorras $96 USD!
-                </div>
-            </div>
-
-            <!-- Company Details -->
-            <div class="auth-field">
-                <label for="rentCompanyName">Nombre de tu Empresa o Marca *</label>
-                <input type="text" name="company_name" id="rentCompanyName" placeholder="Ej. Zapatería Verona" required oninput="autoGenerateSubdomain(this.value)">
-            </div>
-
-            <div class="auth-field">
-                <label for="rentSubdomain">Subdominio para tu Tienda *</label>
-                <div class="subdomain-input-wrap">
-                    <input type="text" name="subdomain" id="rentSubdomain" placeholder="verona" required pattern="[a-z0-9-]+" minlength="3" maxlength="30" oninput="updateSubdomainPreview(this.value)">
-                    <span class="subdomain-suffix">.localhost:8000</span>
-                </div>
-                <div class="subdomain-preview-text" id="subdomainLivePreview">
-                    🌐 Tu tienda estará en: <strong>http://verona.localhost:8000</strong>
-                </div>
-            </div>
-
-            <div class="auth-field">
-                <label for="rentCategory">Giro o Categoría del Negocio</label>
-                <select name="business_category" id="rentCategory" class="rent-select" style="width: 100%;">
-                    <option value="Moda y Lujo">👗 Moda, Lujo & Accesorios</option>
-                    <option value="Tecnología y Gadgets">💻 Tecnología, Audio & Dispositivos</option>
-                    <option value="Bebidas y Alimentos">🥤 Bebidas, Refrescos & Gourmet</option>
-                    <option value="Hogar y Decoración">🏺 Hogar, Mobiliario & Diseño</option>
-                    <option value="Salud y Belleza">🌿 Belleza, Cuidado & Fragancias</option>
-                    <option value="Comercio General" selected>🏬 Tienda Departamental / General</option>
-                </select>
-            </div>
-
-            <!-- Owner Credentials -->
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
-                <div class="auth-field">
-                    <label for="rentOwnerName">Nombre del Propietario *</label>
-                    <input type="text" name="owner_name" id="rentOwnerName" placeholder="Carlos Mendoza" required>
-                </div>
-                <div class="auth-field">
-                    <label for="rentOwnerEmail">Correo de Administrador *</label>
-                    <input type="email" name="owner_email" id="rentOwnerEmail" placeholder="admin@verona.com" required>
-                </div>
-            </div>
-
-            <div class="auth-field">
-                <label for="rentOwnerPassword">Contraseña del Panel Admin *</label>
-                <input type="password" name="owner_password" id="rentOwnerPassword" placeholder="Mínimo 6 caracteres" minlength="6" required>
-                <small style="font-size: 11px; color: var(--muted); display: block; margin-top: 4px;">Usarás este correo y contraseña para entrar a tu panel de control Filament.</small>
-            </div>
-
-            <button type="submit" class="btn-submit-email-auth" id="btnRentSubmit" style="background: linear-gradient(135deg, #d47a6f 0%, #ba584d 100%); margin-top: 14px; border: 1px solid rgba(255, 255, 255, 0.25); box-shadow: 0 4px 14px rgba(200, 109, 99, 0.4);">
-                🚀 Confirmar Renta y Activar Tienda Ahora
-            </button>
-            <div id="rentLoadingState" style="display: none; text-align: center; margin-top: 14px; font-size: 13px; font-weight: 700; color: var(--accent);">
-                ⏳ Creando base de datos SQLite aislada y configurando catálogo... Por favor espera unos segundos.
-            </div>
-        </form>
-</div>
 </div>
 
 <!-- CENTRAL PRODUCT DETAIL QUICK VIEW MODAL -->
@@ -7533,7 +7325,11 @@ function focusGlobalSearch() {
 
 // MAIN TAB SWITCHER (PARATI, MAPA, TIENDAS, PLANES)
 function switchMainTab(tabName, shouldScroll = true) {
-    const tabs = ['feed', 'map', 'stores', 'plans'];
+    if (tabName === 'plans') {
+        window.location.href = "{{ url('/planes') }}";
+        return;
+    }
+    const tabs = ['feed', 'map', 'stores'];
     if (!tabs.includes(tabName)) tabName = 'feed';
 
     tabs.forEach(t => {
@@ -7658,108 +7454,15 @@ document.addEventListener('DOMContentLoaded', () => {
     switchBillingCycle('annual');
 });
 
-// RENTAL MODAL HANDLERS
-let hasCustomSubdomain = false;
-
+// RENTAL MODAL HANDLERS (REDIRECTS TO DEDICATED /planes PAGE)
 function openRentModal(planSlug = 'crecimiento', cycle = null) {
-    const modal = document.getElementById('rentModal');
-    if (!modal) return;
-
-    if (cycle) {
-        currentBillingCycle = cycle;
-    }
-
-    const planSelect = document.getElementById('modalPlanSelect');
-    const cycleSelect = document.getElementById('modalCycleSelect');
-
-    if (planSelect && planSlug) {
-        planSelect.value = planSlug;
-    }
-    if (cycleSelect) {
-        cycleSelect.value = currentBillingCycle;
-    }
-
-    updateModalSummary();
-    modal.classList.add('open');
+    window.location.href = "{{ url('/planes') }}";
 }
 
 function closeRentModal() {
-    const modal = document.getElementById('rentModal');
-    if (modal) modal.classList.remove('open');
+    // No-op
 }
 
-function updateModalSummary() {
-    const planSelect = document.getElementById('modalPlanSelect');
-    const cycleSelect = document.getElementById('modalCycleSelect');
-    const planLabel = document.getElementById('modalPlanLabel');
-    const cycleLabel = document.getElementById('modalCycleLabel');
-    const priceSummary = document.getElementById('modalPriceSummary');
-
-    if (!planSelect || !cycleSelect) return;
-
-    const selectedOption = planSelect.options[planSelect.selectedIndex];
-    if (!selectedOption) return;
-
-    const planName = selectedOption.getAttribute('data-name');
-    const monthlyPrice = parseFloat(selectedOption.getAttribute('data-monthly') || 0);
-    const annualMonthly = parseFloat(selectedOption.getAttribute('data-annual') || 0);
-    const annualTotal = parseFloat(selectedOption.getAttribute('data-total') || 0);
-    const savings = parseFloat(selectedOption.getAttribute('data-savings') || 0);
-    const isAnnual = cycleSelect.value === 'annual';
-
-    if (planLabel) planLabel.textContent = planName;
-    if (cycleLabel) {
-        cycleLabel.textContent = isAnnual ? '💎 Anual (-20% Ahorro)' : '📅 Mensual';
-        cycleLabel.style.background = isAnnual ? '#d1fae5' : '#e0e7ff';
-        cycleLabel.style.color = isAnnual ? '#059669' : '#3730a3';
-    }
-
-    if (priceSummary) {
-        if (isAnnual) {
-            priceSummary.innerHTML = `Total de la renta: <strong>$${annualTotal.toFixed(0)} USD / año</strong> ($${annualMonthly.toFixed(0)} USD/mes) · <span style="color: #059669;">¡Ahorras $${savings.toFixed(0)} USD al año!</span>`;
-        } else {
-            priceSummary.innerHTML = `Total de la renta: <strong>$${monthlyPrice.toFixed(0)} USD / mes</strong> (Facturación recurrente mensual)`;
-        }
-    }
-}
-
-function autoGenerateSubdomain(companyName) {
-    if (hasCustomSubdomain) return;
-    const subInput = document.getElementById('rentSubdomain');
-    if (!subInput) return;
-
-    const clean = companyName
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .replace(/[^a-z0-9]/g, "");
-
-    subInput.value = clean.substring(0, 25);
-    updateSubdomainPreview(subInput.value);
-}
-
-function updateSubdomainPreview(val) {
-    const clean = val.toLowerCase().replace(/[^a-z0-9-]/g, '');
-    const preview = document.getElementById('subdomainLivePreview');
-    if (preview) {
-        preview.innerHTML = `🌐 Tu tienda estará en: <strong>http://${clean || 'mi-tienda'}.localhost:8000</strong>`;
-    }
-}
-
-document.getElementById('rentSubdomain')?.addEventListener('focus', () => {
-    hasCustomSubdomain = true;
-});
-
-function handleRentSubmit() {
-    const btn = document.getElementById('btnRentSubmit');
-    const loading = document.getElementById('rentLoadingState');
-    if (btn) {
-        btn.disabled = true;
-        btn.style.opacity = '0.6';
-    }
-    if (loading) loading.style.display = 'block';
-    return true;
-}
 
 // Close modals when clicking backdrop
 window.addEventListener('click', (e) => {
@@ -9796,7 +9499,7 @@ document.addEventListener('DOMContentLoaded', () => {
     } else if (initialHash === '#empresas' || urlParams.has('categoria')) {
         switchMainTab('stores', false);
     } else if (initialHash === '#planes') {
-        switchMainTab('plans', false);
+        window.location.href = "{{ url('/planes') }}";
     } else {
         const savedTab = sessionStorage.getItem('active_portal_tab');
         if (savedTab && ['feed', 'map', 'stores', 'plans'].includes(savedTab)) {

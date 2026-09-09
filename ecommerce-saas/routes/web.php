@@ -16,9 +16,7 @@ $centralDomains = array_values(array_unique(array_filter([
 foreach ($centralDomains as $domain) {
     Route::domain($domain)->group(function () {
         Route::get('/', [CentralPortalController::class, 'index'])->name('central.home');
-        Route::get('/planes', function () {
-            return redirect()->to('/#planes');
-        })->name('central.plans');
+        Route::get('/planes', [CentralPortalController::class, 'showPlans'])->name('central.plans');
         Route::post('/rentar-tienda', [CentralPortalController::class, 'registerTenant'])->name('central.rent.tenant');
         Route::get('/api/global-search', [CentralPortalController::class, 'apiSearch'])->name('central.api.search');
         Route::get('/api/reviews', [CentralPortalController::class, 'getReviews'])->name('central.api.reviews.index');

@@ -17,8 +17,15 @@ class TenantSubscriptionPlansTest extends TestCase
 
     public function test_central_portal_displays_subscription_plans_and_pricing(): void
     {
-        $response = $this->withServerVariables(['HTTP_HOST' => 'localhost:8000'])
+        // 1. Central Portal Home links to /planes
+        $portalResponse = $this->withServerVariables(['HTTP_HOST' => 'localhost:8000'])
             ->get('/');
+        $portalResponse->assertStatus(200);
+        $portalResponse->assertSee('/planes');
+
+        // 2. Dedicated /planes page displays all subscription plans and pricing
+        $response = $this->withServerVariables(['HTTP_HOST' => 'localhost:8000'])
+            ->get('/planes');
 
         $response->assertStatus(200);
         $response->assertSee('Planes de Renta para Empresas');

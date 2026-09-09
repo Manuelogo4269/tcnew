@@ -606,4 +606,11 @@ class CentralPortalController extends Controller
             'reviews_count' => $newCount,
         ]);
     }
+
+    public function showPlans(Request $request)
+    {
+        $subscriptionPlans = \App\Models\SubscriptionPlan::where('is_active', true)->orderBy('sort_order')->get();
+        return view('central.plans', compact('subscriptionPlans'));
+    }
 }
+
