@@ -1,6 +1,6 @@
 // Atelier Zacatecas - Service Worker PWA con Auto-Actualización Automática
 // Identificador de versión: cada cambio aquí provoca una auto-actualización inmediata en teléfonos y navegadores
-const CACHE_NAME = 'atelier-zacatecas-v2.3.0';
+const CACHE_NAME = 'atelier-zacatecas-v2.4.0';
 
 // Recursos estáticos esenciales para funcionamiento offline
 const STATIC_ASSETS = [

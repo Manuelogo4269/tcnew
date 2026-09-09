@@ -191,6 +191,68 @@
             background: #15181f;
             border-color: rgba(255, 255, 255, 0.1);
         }
+        [data-theme="dark"] .store-drawer-header {
+            background: #0b0d11;
+            border-bottom-color: rgba(255, 255, 255, 0.08);
+        }
+        [data-theme="dark"] .btn-store-drawer-close {
+            background: #1e232e;
+            border-color: rgba(255, 255, 255, 0.12);
+            color: #f3f4f6;
+        }
+        [data-theme="dark"] .drawer-location-card {
+            background: #0b0d11;
+            border-color: rgba(255, 255, 255, 0.08);
+        }
+        [data-theme="dark"] .drawer-location-address {
+            color: #f3f4f6;
+        }
+        [data-theme="dark"] .drawer-location-hours {
+            color: #9ca3af;
+        }
+        [data-theme="dark"] .drawer-nav-item {
+            background: #0b0d11;
+            border-color: rgba(255, 255, 255, 0.08);
+            color: #f3f4f6;
+        }
+        [data-theme="dark"] .drawer-nav-item:hover {
+            background: #1e232e;
+            border-color: var(--accent);
+        }
+        [data-theme="dark"] .nav-item-title {
+            color: #f3f4f6;
+        }
+        [data-theme="dark"] .nav-item-sub {
+            color: #9ca3af;
+        }
+        [data-theme="dark"] .drawer-social-btn {
+            background: #0b0d11;
+            border-color: rgba(255, 255, 255, 0.08);
+        }
+        [data-theme="dark"] .drawer-footer-actions {
+            background: #0b0d11;
+            border-top-color: rgba(255, 255, 255, 0.08);
+        }
+        [data-theme="dark"] .btn-theme-toggle-drawer {
+            background: #1e232e;
+            border-color: rgba(255, 255, 255, 0.12);
+            color: #f3f4f6;
+        }
+        [data-theme="dark"] .btn-share-drawer {
+            background: #1e232e;
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        [data-theme="dark"] .btn-store-menu {
+            background: #15181f;
+            border-color: rgba(255, 255, 255, 0.12);
+        }
+        [data-theme="dark"] .btn-store-menu .bar {
+            background: #f3f4f6;
+        }
+        [data-theme="dark"] .store-menu-label {
+            color: #f3f4f6;
+        }
         [data-theme="dark"] .store-mobile-nav a {
             color: #f3f4f6;
         }
@@ -1634,84 +1696,396 @@
             color: var(--muted);
         }
 
-        /* MOBILE DRAWER & HAMBURGER FOR STORE */
+        /* MOBILE DRAWER & HAMBURGER FOR STORE (Modern Pill Style & Slide-Over) */
         .btn-store-menu {
             display: none;
-            width: 38px;
-            height: 38px;
-            border-radius: 10px;
+            height: 40px;
+            padding: 0 13px;
+            border-radius: 12px;
             background: var(--paper);
-            border: 1px solid var(--line);
-            flex-direction: column;
+            border: 1.5px solid var(--line);
             align-items: center;
             justify-content: center;
-            gap: 5px;
+            gap: 8px;
             cursor: pointer;
-            padding: 8px;
             transition: all .2s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            flex-shrink: 0;
+        }
+        .btn-store-menu:hover {
+            border-color: var(--accent);
+            background: var(--card);
+            transform: translateY(-1px);
+        }
+        .btn-store-menu-bars {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            width: 18px;
         }
         .btn-store-menu .bar {
-            width: 18px;
+            width: 100%;
             height: 2px;
             background: var(--ink);
             border-radius: 2px;
             transition: all .25s ease;
         }
         .btn-store-menu.active .bar:nth-child(1) {
-            transform: translateY(7px) rotate(45deg);
+            transform: translateY(6px) rotate(45deg);
         }
         .btn-store-menu.active .bar:nth-child(2) {
             opacity: 0;
         }
         .btn-store-menu.active .bar:nth-child(3) {
-            transform: translateY(-7px) rotate(-45deg);
+            transform: translateY(-6px) rotate(-45deg);
+        }
+        .store-menu-label {
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--ink);
+            letter-spacing: -0.01em;
         }
 
+        /* Backdrop overlay for store drawer */
+        .store-drawer-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(17, 18, 16, 0.65);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 9998;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .store-drawer-backdrop.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Slide-over Mobile Navigation Drawer for Store */
         .store-mobile-drawer {
-            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: min(340px, 86vw);
+            height: 100dvh;
+            max-height: 100vh;
             background: var(--card);
-            border-bottom: 1px solid var(--line);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 72px;
-            z-index: 999;
-            animation: slideDown .25s ease-out;
-        }
-        .store-mobile-drawer.open {
-            display: block;
-        }
-        .store-mobile-nav {
+            border-left: 1px solid var(--card-border);
+            box-shadow: -12px 0 45px rgba(0, 0, 0, 0.28);
+            z-index: 9999;
             display: flex;
             flex-direction: column;
-            padding: 16px 20px;
-            gap: 8px;
+            transform: translateX(100%);
+            transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
-        .store-mobile-nav a {
+        .store-mobile-drawer.open {
+            transform: translateX(0);
+        }
+
+        /* Drawer Header */
+        .store-drawer-header {
             display: flex;
             align-items: center;
-            gap: 10px;
-            padding: 10px 12px;
-            border-radius: 10px;
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--ink);
-            transition: background .2s ease;
-        }
-        .store-mobile-nav a:hover {
+            justify-content: space-between;
+            padding: 18px 20px;
+            border-bottom: 1px solid var(--line);
             background: var(--paper);
+            position: sticky;
+            top: 0;
+            z-index: 2;
+        }
+        .store-drawer-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 0;
+        }
+        .store-drawer-badge {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1.5px solid var(--card-border);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            display: grid;
+            place-items: center;
+            background: var(--accent);
+            color: #ffffff;
+            font-weight: 800;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        .store-drawer-badge img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .store-drawer-title-box {
+            min-width: 0;
+        }
+        .store-drawer-title-box strong {
+            display: block;
+            font-size: 14.5px;
+            font-weight: 800;
+            color: var(--ink);
+            line-height: 1.2;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .store-drawer-title-box small {
+            display: block;
+            font-size: 10.5px;
+            color: var(--accent);
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+        }
+        .btn-store-drawer-close {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 1px solid var(--line);
+            background: var(--card);
+            color: var(--ink);
+            font-size: 16px;
+            cursor: pointer;
+            display: grid;
+            place-items: center;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+        .btn-store-drawer-close:hover {
+            background: var(--accent);
+            color: #ffffff;
+            border-color: var(--accent);
+            transform: scale(1.08);
+        }
+
+        /* Store Location Info Box in Drawer */
+        .drawer-location-card {
+            margin: 12px 14px 4px;
+            padding: 12px 14px;
+            background: var(--paper);
+            border-radius: 14px;
+            border: 1px solid var(--line);
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .drawer-location-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        .drawer-location-address {
+            font-size: 12.5px;
+            color: var(--ink);
+            font-weight: 600;
+            line-height: 1.35;
+        }
+        .drawer-location-hours {
+            font-size: 11px;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .drawer-location-maps-link {
+            font-size: 11.5px;
+            font-weight: 700;
+            color: #2563eb;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 2px;
+        }
+        .drawer-location-maps-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Navigation list cards */
+        .store-drawer-section-title {
+            padding: 14px 20px 6px;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--muted);
+        }
+        .store-drawer-nav-list {
+            display: flex;
+            flex-direction: column;
+            padding: 4px 14px;
+            gap: 8px;
+        }
+        .drawer-nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 14px;
+            border-radius: 14px;
+            background: var(--paper);
+            border: 1px solid var(--line);
+            text-decoration: none;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            color: var(--ink);
+        }
+        .drawer-nav-item:hover, .drawer-nav-item:active {
+            border-color: var(--accent);
+            transform: translateX(3px);
+            background: var(--card);
+            box-shadow: 0 4px 14px rgba(0,0,0, 0.06);
+        }
+        .nav-item-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        .nav-item-text {
+            flex: 1;
+            min-width: 0;
+        }
+        .nav-item-title {
+            font-size: 13.5px;
+            font-weight: 700;
+            color: var(--ink);
+            line-height: 1.3;
+        }
+        .nav-item-sub {
+            font-size: 11px;
+            color: var(--muted);
+            margin-top: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .nav-item-arrow {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--muted);
+            opacity: 0.6;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+        .drawer-nav-item:hover .nav-item-arrow {
+            color: var(--accent);
+            opacity: 1;
+            transform: translateX(2px);
+        }
+
+        /* Drawer Social Links Grid */
+        .drawer-social-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            padding: 4px 14px;
+        }
+        .drawer-social-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 12px;
+            border-radius: 12px;
+            border: 1px solid var(--line);
+            background: var(--paper);
+            font-size: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all .2s ease;
+        }
+        .drawer-social-btn:hover {
+            transform: translateY(-1px);
+        }
+        .drawer-social-wa { color: #16a34a; }
+        .drawer-social-wa:hover { border-color: #16a34a; background: rgba(22, 163, 74, 0.08); }
+        .drawer-social-fb { color: #1877f2; }
+        .drawer-social-fb:hover { border-color: #1877f2; background: rgba(24, 119, 242, 0.08); }
+        .drawer-social-ig { color: #e1306c; }
+        .drawer-social-ig:hover { border-color: #e1306c; background: rgba(225, 48, 108, 0.08); }
+        .drawer-social-web { color: var(--accent); }
+        .drawer-social-web:hover { border-color: var(--accent); background: rgba(200, 109, 99, 0.08); }
+
+        /* Drawer Footer Actions */
+        .drawer-footer-actions {
+            margin-top: auto;
+            padding: 16px 14px 24px;
+            border-top: 1px solid var(--line);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background: var(--paper);
+        }
+        .btn-theme-toggle-drawer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 11px 16px;
+            border-radius: 12px;
+            border: 1px solid var(--line);
+            background: var(--card);
+            color: var(--ink);
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .btn-theme-toggle-drawer:hover {
+            border-color: var(--accent);
             color: var(--accent);
         }
-        .drawer-divider {
-            height: 1px;
-            background: var(--line);
-            margin: 4px 0;
-        }
-        .btn-drawer-admin {
-            background: var(--ink) !important;
-            color: #ffffff !important;
+        .btn-share-drawer {
+            display: flex;
+            align-items: center;
             justify-content: center;
-            border-radius: 999px !important;
-            font-weight: 700 !important;
+            gap: 8px;
+            width: 100%;
+            padding: 11px 16px;
+            border-radius: 12px;
+            border: 1.5px solid var(--accent);
+            background: var(--card);
+            color: var(--accent);
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .btn-share-drawer:hover {
+            background: var(--accent);
+            color: #ffffff;
+        }
+        .drawer-brand-footer {
+            text-align: center;
+            margin-top: 4px;
+        }
+        .drawer-brand-footer span {
+            display: block;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--muted);
+        }
+        .drawer-brand-footer small {
+            display: block;
+            font-size: 10px;
+            color: var(--muted);
+            opacity: 0.75;
+            margin-top: 2px;
         }
 
         @media (max-width: 900px) {
@@ -1723,18 +2097,85 @@
             .modal-related-grid { grid-template-columns: repeat(2, 1fr); }
             .specs-grid { grid-template-columns: 1fr; }
             .nav-menu { display: none; }
-            .btn-store-menu { display: flex; }
+            .btn-store-menu { display: inline-flex; }
+        }
+
+        @media (max-width: 768px) {
+            .shell { width: calc(100% - 24px); }
+            .site-header {
+                padding-top: max(6px, env(safe-area-inset-top));
+            }
+            .nav-shell {
+                min-height: 58px;
+                gap: 8px;
+            }
+            .brand-link {
+                min-width: 0;
+                gap: 8px;
+                flex-shrink: 1;
+            }
+            .brand-logo {
+                height: 36px;
+                max-width: 100px;
+            }
+            .brand-badge-circle {
+                width: 36px;
+                height: 36px;
+                font-size: 17px;
+            }
+            .brand-info {
+                min-width: 0;
+            }
+            .brand-info strong {
+                font-size: 14.5px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-width: 170px;
+                display: block;
+            }
+            .brand-info small { display: none; }
+
+            /* Clean up top header in mobile: brand on left, theme and menu drawer on right */
+            .btn-official-website,
+            .official-stores-dropdown-wrap,
+            .social-circle-btn,
+            .admin-direct-link,
+            .btn-share-header {
+                display: none !important;
+            }
+            .nav-actions {
+                gap: 6px;
+                flex-shrink: 0;
+            }
+            .btn-theme-toggle {
+                width: 36px;
+                height: 36px;
+                font-size: 15px;
+            }
+            .btn-store-menu {
+                display: inline-flex;
+                height: 36px;
+                padding: 0 10px;
+                gap: 5px;
+                border-radius: 999px;
+            }
+            .btn-store-menu-bars {
+                width: 15px;
+                height: 11px;
+            }
+            .store-menu-label {
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 540px) {
+            .store-menu-label { display: none; }
+            .btn-store-menu { width: 36px; height: 36px; padding: 0; justify-content: center; }
+            .brand-info strong { max-width: 130px; }
         }
 
         @media (max-width: 650px) {
-            .shell { width: calc(100% - 24px); }
-            .brand-info small { display: none; }
-            .brand-info strong { font-size: 15px; }
-            .btn-official-website { display: none; }
-            .btn-stores-dropdown-toggle .btn-stores-text { display: none; }
-            .admin-direct-link .admin-link-text { display: none; }
-            .admin-direct-link { padding: 8px 10px; }
-
             .hero-slide { padding: 30px 16px; min-height: 360px; }
             .hero-slide h2 { font-size: clamp(24px, 6vw, 36px); margin-bottom: 12px; }
             .hero-slide p { font-size: 13.5px; margin-bottom: 20px; }
@@ -1915,53 +2356,183 @@
             </button>
 
             <!-- Web Share Button -->
-            <button type="button" class="btn-theme-toggle" onclick="shareStorePage()" aria-label="Compartir tienda" title="Compartir Tienda">
+            <button type="button" class="btn-theme-toggle btn-share-header" onclick="shareStorePage()" aria-label="Compartir tienda" title="Compartir Tienda">
                 <span>📤</span>
             </button>
 
             <!-- Mobile Store Hamburger Toggle -->
             <button type="button" class="btn-store-menu" id="storeMenuToggle" onclick="toggleStoreMenu()" aria-label="Abrir Menú">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
+                <div class="btn-store-menu-bars">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+                <span class="store-menu-label">Menú</span>
             </button>
         </div>
     </div>
 </header>
 
-<!-- STORE MOBILE DRAWER -->
-<div class="store-mobile-drawer" id="storeMobileDrawer">
-    <nav class="store-mobile-nav">
-        <a href="#inicio" onclick="toggleStoreMenu()"><span>🏠</span> Inicio</a>
-        <a href="#categorias" onclick="toggleStoreMenu()"><span>🏷️</span> Categorías</a>
-        <a href="#destacados" onclick="toggleStoreMenu()"><span>🔥</span> Tendencias de la Semana</a>
-        <a href="#catalogo" onclick="toggleStoreMenu()"><span>🛍️</span> Catálogo de Productos</a>
-        <a href="#negocios" onclick="toggleStoreMenu()"><span>🏢</span> Red de Tiendas Oficiales</a>
-        <a href="#contacto" onclick="toggleStoreMenu()"><span>💬</span> Contacto & Sucursal</a>
-        <a href="{{ url('/') }}" target="_blank"><span>📍</span> Portal Zacatecas Centro ↗</a>
-        <div style="display: flex; gap: 8px; justify-content: center; padding: 10px 0;">
-            @if(!empty($settings?->facebook_url))
-                <a href="{{ $settings->facebook_url }}" target="_blank" class="social-circle-btn" style="color: #1877f2;" title="Facebook">FB</a>
-            @endif
-            @if(!empty($settings?->instagram_url))
-                <a href="{{ $settings->instagram_url }}" target="_blank" class="social-circle-btn" style="color: #e1306c;" title="Instagram">IG</a>
-            @endif
-            @if(!empty($settings?->whatsapp_number))
-                @php $drawerWa = preg_replace('/[^0-9]/', '', $settings->whatsapp_number); @endphp
-                <a href="https://wa.me/{{ $drawerWa }}?text={{ urlencode('¡Hola! Me comunico desde la tienda ' . $storeTitle) }}" target="_blank" class="social-circle-btn" style="color: #25d366;" title="WhatsApp">WA</a>
-            @endif
-            @if(!empty($officialUrl))
-                <a href="{{ $officialUrl }}" target="_blank" class="social-circle-btn" style="color: var(--accent);" title="Sitio Web">🌐</a>
-            @endif
+<!-- BACKDROP OVERLAY FOR STORE MOBILE DRAWER -->
+<div class="store-drawer-backdrop" id="storeDrawerBackdrop" onclick="closeStoreMenu()"></div>
+
+<!-- SLIDE-OVER MOBILE NAVIGATION DRAWER FOR STORE -->
+<aside class="store-mobile-drawer" id="storeMobileDrawer" aria-label="Menú Móvil de la Tienda">
+    <!-- Drawer Header -->
+    <div class="store-drawer-header">
+        <div class="store-drawer-brand">
+            <div class="store-drawer-badge">
+                @if(!empty($settings?->logo_url))
+                    <img src="{{ $settings->logo_url }}" alt="{{ $storeTitle }}">
+                @else
+                    <span>{{ str($storeTitle)->substr(0, 1) }}</span>
+                @endif
+            </div>
+            <div class="store-drawer-title-box">
+                <strong>{{ $storeTitle }}</strong>
+                <small>Zacatecas Centro · Tienda Oficial</small>
+            </div>
         </div>
-        <div class="drawer-divider"></div>
+        <button type="button" class="btn-store-drawer-close" onclick="closeStoreMenu()" aria-label="Cerrar menú">
+            ✕
+        </button>
+    </div>
+
+    <!-- Store Physical Location & Hours Card -->
+    <div class="drawer-location-card">
+        <div class="drawer-location-tag">
+            <span>📍</span> {{ $storeZone }}
+        </div>
+        <div class="drawer-location-address">
+            {{ $storeAddress }}
+        </div>
+        <div class="drawer-location-hours">
+            <span>🕒</span> {{ $storeHours }}
+        </div>
+        @if(!empty($storeMapsUrl))
+            <a href="{{ $storeMapsUrl }}" target="_blank" class="drawer-location-maps-link">
+                <span>🗺️</span> Cómo llegar en Google Maps ↗
+            </a>
+        @endif
+    </div>
+
+    <!-- Navigation Options -->
+    <div class="store-drawer-section-title">Navegación de la Tienda</div>
+    <nav class="store-drawer-nav-list">
+        <a href="#inicio" class="drawer-nav-item" onclick="closeStoreMenu()">
+            <div class="nav-item-icon" style="background: rgba(200, 109, 99, 0.15); color: var(--accent);">🏠</div>
+            <div class="nav-item-text">
+                <div class="nav-item-title">Inicio &amp; Portada</div>
+                <div class="nav-item-sub">Catálogo y novedades de {{ $storeTitle }}</div>
+            </div>
+            <span class="nav-item-arrow">›</span>
+        </a>
+
+        <a href="#categorias" class="drawer-nav-item" onclick="closeStoreMenu()">
+            <div class="nav-item-icon" style="background: rgba(59, 130, 246, 0.15); color: #3b82f6;">🏷️</div>
+            <div class="nav-item-text">
+                <div class="nav-item-title">Categorías</div>
+                <div class="nav-item-sub">Explora por departamento</div>
+            </div>
+            <span class="nav-item-arrow">›</span>
+        </a>
+
+        <a href="#destacados" class="drawer-nav-item" onclick="closeStoreMenu()">
+            <div class="nav-item-icon" style="background: rgba(245, 158, 11, 0.15); color: #f59e0b;">🔥</div>
+            <div class="nav-item-text">
+                <div class="nav-item-title">Tendencias</div>
+                <div class="nav-item-sub">Lo más destacado de la semana</div>
+            </div>
+            <span class="nav-item-arrow">›</span>
+        </a>
+
+        <a href="#catalogo" class="drawer-nav-item" onclick="closeStoreMenu()">
+            <div class="nav-item-icon" style="background: rgba(16, 185, 129, 0.15); color: #10b981;">🛍️</div>
+            <div class="nav-item-text">
+                <div class="nav-item-title">Catálogo Completo</div>
+                <div class="nav-item-sub">Todos los productos con buscador</div>
+            </div>
+            <span class="nav-item-arrow">›</span>
+        </a>
+
+        <a href="#negocios" class="drawer-nav-item" onclick="closeStoreMenu()">
+            <div class="nav-item-icon" style="background: rgba(139, 92, 246, 0.15); color: #8b5cf6;">🏢</div>
+            <div class="nav-item-text">
+                <div class="nav-item-title">Red de Tiendas Oficiales</div>
+                <div class="nav-item-sub">Explora otros comercios de Zacatecas</div>
+            </div>
+            <span class="nav-item-arrow">›</span>
+        </a>
+
+        <a href="#contacto" class="drawer-nav-item" onclick="closeStoreMenu()">
+            <div class="nav-item-icon" style="background: rgba(236, 72, 153, 0.15); color: #ec4899;">💬</div>
+            <div class="nav-item-text">
+                <div class="nav-item-title">Contacto &amp; Sucursal</div>
+                <div class="nav-item-sub">Atención directa y horarios</div>
+            </div>
+            <span class="nav-item-arrow">›</span>
+        </a>
+
+        <a href="{{ url('/') }}" target="_blank" class="drawer-nav-item" onclick="closeStoreMenu()">
+            <div class="nav-item-icon" style="background: rgba(200, 109, 99, 0.15); color: #c86d63;">📍</div>
+            <div class="nav-item-text">
+                <div class="nav-item-title">Portal Zacatecas Centro ↗</div>
+                <div class="nav-item-sub">Directorio general y mapa interactivo</div>
+            </div>
+            <span class="nav-item-arrow">›</span>
+        </a>
+
+        <a href="{{ url('/tenant-admin') }}" class="drawer-nav-item" onclick="closeStoreMenu()">
+            <div class="nav-item-icon" style="background: rgba(30, 41, 59, 0.15); color: var(--ink);">⚙️</div>
+            <div class="nav-item-text">
+                <div class="nav-item-title">Panel Administrativo</div>
+                <div class="nav-item-sub">Gestión de productos y pedidos</div>
+            </div>
+            <span class="nav-item-arrow">›</span>
+        </a>
+    </nav>
+
+    <!-- Social & Contact Links -->
+    <div class="store-drawer-section-title">Contacto Oficial</div>
+    <div class="drawer-social-grid">
+        @if(!empty($settings?->whatsapp_number))
+            @php $drawerWa = preg_replace('/[^0-9]/', '', $settings->whatsapp_number); @endphp
+            <a href="https://wa.me/{{ $drawerWa }}?text={{ urlencode('¡Hola! Me comunico desde la tienda ' . $storeTitle) }}" target="_blank" class="drawer-social-btn drawer-social-wa">
+                <span>💬</span> WhatsApp
+            </a>
+        @endif
+        @if(!empty($settings?->facebook_url))
+            <a href="{{ $settings->facebook_url }}" target="_blank" class="drawer-social-btn drawer-social-fb">
+                <span>📘</span> Facebook
+            </a>
+        @endif
+        @if(!empty($settings?->instagram_url))
+            <a href="{{ $settings->instagram_url }}" target="_blank" class="drawer-social-btn drawer-social-ig">
+                <span>📷</span> Instagram
+            </a>
+        @endif
+        @if(!empty($officialUrl))
+            <a href="{{ $officialUrl }}" target="_blank" class="drawer-social-btn drawer-social-web">
+                <span>🌐</span> Sitio Web
+            </a>
+        @endif
+    </div>
+
+    <!-- Drawer Footer Actions -->
+    <div class="drawer-footer-actions">
         <button type="button" class="btn-theme-toggle-drawer" onclick="toggleTheme()">
             <span class="theme-text-light">🌙 Cambiar a Modo Oscuro</span>
             <span class="theme-text-dark" style="display: none;">☀️ Cambiar a Modo Claro</span>
         </button>
-        <a href="{{ url('/tenant-admin') }}" class="btn-drawer-admin"><span>⚙</span> Ingresar al Panel Administrativo</a>
-    </nav>
-</div>
+        <button type="button" class="btn-share-drawer" onclick="shareStorePage()">
+            <span>📤</span> Compartir Esta Tienda
+        </button>
+        <div class="drawer-brand-footer">
+            <span>Atelier Zacatecas · {{ $storeTitle }}</span>
+            <small>Cantera Rosa &amp; Plata · PWA Offline Ready</small>
+        </div>
+    </div>
+</aside>
 
 <main class="shell" id="inicio">
 
@@ -3147,13 +3718,43 @@ function copyCurrentStoreLink() {
     });
 }
 
-// Mobile Store Menu Toggle
+// Mobile Store Navigation Drawer Toggle, Open & Close
 function toggleStoreMenu() {
     const drawer = document.getElementById('storeMobileDrawer');
-    const toggle = document.getElementById('storeMenuToggle');
-    if (drawer) drawer.classList.toggle('open');
-    if (toggle) toggle.classList.toggle('active');
+    const isOpen = drawer && drawer.classList.contains('open');
+    if (isOpen) {
+        closeStoreMenu();
+    } else {
+        openStoreMenu();
+    }
 }
+
+function openStoreMenu() {
+    const drawer = document.getElementById('storeMobileDrawer');
+    const backdrop = document.getElementById('storeDrawerBackdrop');
+    const toggle = document.getElementById('storeMenuToggle');
+    if (drawer) drawer.classList.add('open');
+    if (backdrop) backdrop.classList.add('active');
+    if (toggle) toggle.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeStoreMenu() {
+    const drawer = document.getElementById('storeMobileDrawer');
+    const backdrop = document.getElementById('storeDrawerBackdrop');
+    const toggle = document.getElementById('storeMenuToggle');
+    if (drawer) drawer.classList.remove('open');
+    if (backdrop) backdrop.classList.remove('active');
+    if (toggle) toggle.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+// Close store mobile drawer on Escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        closeStoreMenu();
+    }
+});
 
 // ========================================================
 // PWA AUTO-UPDATE MANAGER (ACTUALIZACIÓN AUTOMÁTICA EN TIENDAS)
