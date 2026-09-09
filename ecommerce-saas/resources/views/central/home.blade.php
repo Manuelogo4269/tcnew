@@ -6085,9 +6085,14 @@ function dismissPwaBanner() {
 // ========================================================
 if ('serviceWorker' in navigator) {
     let isRefreshing = false;
+    let hadController = Boolean(navigator.serviceWorker.controller);
 
-    // Cuando el nuevo Service Worker toma el control, recargar suavemente para mostrar los cambios
+    // Cuando el nuevo Service Worker toma el control, solo recargar si ya había un controller anterior
     navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (!hadController) {
+            hadController = true;
+            return;
+        }
         if (!isRefreshing) {
             isRefreshing = true;
             console.log('[PWA] Nueva versión de la app activada. Recargando con los cambios más recientes...');
@@ -6099,7 +6104,7 @@ if ('serviceWorker' in navigator) {
     navigator.serviceWorker.addEventListener('message', (event) => {
         if (event.data && event.data.type === 'SW_UPDATED') {
             console.log('[PWA] Actualización exitosa a versión:', event.data.version);
-            if (!isRefreshing) {
+            if (!isRefreshing && hadController) {
                 isRefreshing = true;
                 window.location.reload();
             }

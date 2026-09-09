@@ -1,130 +1,136 @@
-// Atelier Zacatecas - Service Worker PWA con Auto-Actualización Automática
-// Identificador de versión: cada cambio aquí provoca una auto-actualización inmediata en teléfonos y navegadores
-const CACHE_NAME = 'atelier-zacatecas-v2.7.0';
+// Atelier Zacatecas - Service Worker PWA Ultrarrápido con Resiliencia Offline
+// Versión 3.0.0: Precachea la página principal y soporta Render spin-up con timeout fallback
+const CACHE_NAME = 'atelier-zacatecas-v3.0.0';
 
-// Recursos estáticos esenciales para funcionamiento offline
+// Recursos estáticos iniciales
 const STATIC_ASSETS = [
+    '/',
+    '/?source=pwa',
     '/manifest.json',
     '/offline.html',
     '/app-icons/icon.svg',
     '/app-icons/icon-192.png',
     '/app-icons/icon-512.png',
+    '/app-icons/icon-maskable-512.png',
     '/app-icons/apple-touch-icon.png'
 ];
 
-// ========================================================
-// 1. INSTALACIÓN: No esperar, activar inmediatamente (skipWaiting)
-// ========================================================
+// 1. INSTALACIÓN: Guardar assets iniciales tolerando fallos de red
 self.addEventListener('install', (event) => {
-    // Forzar activación inmediata sin esperar a que se cierren pestañas o la app
     self.skipWaiting();
 
     event.waitUntil(
         caches.open(CACHE_NAME).then((cache) => {
-            return cache.addAll(STATIC_ASSETS).catch((err) => {
-                console.warn('[SW Atelier] Precaching parcial de assets:', err);
-            });
+            return Promise.allSettled(
+                STATIC_ASSETS.map((url) =>
+                    fetch(url, { cache: 'no-cache' })
+                        .then((res) => {
+                            if (res.ok) return cache.put(url, res);
+                        })
+                        .catch((err) => console.warn('[SW Atelier] Fallo al precachear:', url, err))
+                )
+            );
         })
     );
 });
 
-// ========================================================
-// 2. ACTIVACIÓN: Purgar cachés viejas y tomar control de clientes
-// ========================================================
+// 2. ACTIVACIÓN: Purgar cachés viejas y tomar control
 self.addEventListener('activate', (event) => {
     event.waitUntil(
         caches.keys().then((keys) => {
             return Promise.all(
                 keys.filter((key) => key !== CACHE_NAME).map((key) => {
-                    console.log('[SW Atelier] Eliminando versión de caché anterior:', key);
+                    console.log('[SW Atelier] Eliminando versión anterior:', key);
                     return caches.delete(key);
                 })
             );
-        }).then(() => {
-            // Tomar control inmediato de todas las pestañas y ventanas de la PWA
-            return self.clients.claim();
-        }).then(() => {
-            // Notificar a todos los clientes abiertos que la app se ha actualizado
-            return self.clients.matchAll({ type: 'window' }).then((clients) => {
-                clients.forEach((client) => {
-                    client.postMessage({ type: 'SW_UPDATED', version: CACHE_NAME });
-                });
-            });
-        })
+        }).then(() => self.clients.claim())
     );
 });
 
-// ========================================================
-// 3. MENSAJES: Escuchar órdenes directas de actualización
-// ========================================================
+// 3. MENSAJES: Forzar actualización
 self.addEventListener('message', (event) => {
     if (event.data && (event.data.type === 'SKIP_WAITING' || event.data === 'skipWaiting')) {
         self.skipWaiting();
     }
 });
 
-// ========================================================
-// 4. PETICIONES (FETCH): NETWORK-FIRST para navegación HTML
-// ========================================================
+// 4. FETCH: Network-first con fallback a caché para HTML, Stale-while-revalidate para estáticos
 self.addEventListener('fetch', (event) => {
     const request = event.request;
-    
-    // Solo gestionar peticiones GET
-    if (request.method !== 'GET') return;
 
-    // Solo nuestro propio dominio/origen
-    if (!request.url.startsWith(self.location.origin)) {
+    // Solo solicitudes GET del mismo origen
+    if (request.method !== 'GET' || !request.url.startsWith(self.location.origin)) {
         return;
     }
 
-    // A. NAVEGACIÓN Y PÁGINAS HTML: NETWORK-FIRST
-    // Cada vez que el usuario abre la app o navega, SIEMPRE pide primero la versión más nueva al servidor.
-    // Solo si el usuario no tiene conexión (offline), recurre a la copia guardada en caché.
     const isHtmlNavigation = request.mode === 'navigate' || 
                             request.destination === 'document' || 
                             (request.headers.get('accept') && request.headers.get('accept').includes('text/html'));
 
     if (isHtmlNavigation) {
         event.respondWith(
-            fetch(request)
-                .then((networkResponse) => {
-                    if (networkResponse && networkResponse.status === 200) {
-                        const responseClone = networkResponse.clone();
-                        caches.open(CACHE_NAME).then((cache) => {
-                            cache.put(request, responseClone);
+            new Promise((resolve) => {
+                let resolved = false;
+
+                // Timeout de 3.5 segundos: si Render está despertando o la señal es débil,
+                // responde de inmediato con la copia guardada en caché para no congelar la pantalla.
+                const timeoutId = setTimeout(() => {
+                    if (!resolved) {
+                        caches.match(request, { ignoreSearch: true }).then((cached) => {
+                            if (cached && !resolved) {
+                                resolved = true;
+                                resolve(cached);
+                            }
                         });
                     }
-                    return networkResponse;
-                })
-                .catch(() => {
-                    // Si no hay red, servir la última copia offline o la página offline nativa
-                    return caches.match(request).then((cachedResponse) => {
-                        if (cachedResponse) return cachedResponse;
-                        return caches.match('/').then((homeResponse) => {
-                            if (homeResponse) return homeResponse;
-                            return caches.match('/offline.html');
-                        });
+                }, 3500);
+
+                fetch(request)
+                    .then((networkResponse) => {
+                        clearTimeout(timeoutId);
+                        if (networkResponse && networkResponse.status === 200) {
+                            const clone = networkResponse.clone();
+                            caches.open(CACHE_NAME).then((cache) => cache.put(request, clone));
+                        }
+                        if (!resolved) {
+                            resolved = true;
+                            resolve(networkResponse);
+                        }
+                    })
+                    .catch(() => {
+                        clearTimeout(timeoutId);
+                        if (!resolved) {
+                            resolved = true;
+                            caches.match(request, { ignoreSearch: true })
+                                .then((cached) => {
+                                    if (cached) return cached;
+                                    return caches.match('/', { ignoreSearch: true });
+                                })
+                                .then((home) => {
+                                    if (home) return home;
+                                    return caches.match('/offline.html');
+                                })
+                                .then((fallback) => resolve(fallback || new Response('Offline', { status: 503 })));
+                        }
                     });
-                })
+            })
         );
         return;
     }
 
-    // B. RECURSOS ESTÁTICOS (CSS, JS, IMÁGENES, FUENTES, SVG): STALE-WHILE-REVALIDATE
-    // Sirve rápidamente desde caché si existe, pero revalida y actualiza en segundo plano
+    // RECURSOS ESTÁTICOS (CSS, JS, IMÁGENES, FUENTES): Stale-While-Revalidate
     event.respondWith(
-        caches.match(request).then((cachedResponse) => {
-            const fetchPromise = fetch(request).then((networkResponse) => {
+        caches.match(request, { ignoreSearch: true }).then((cachedResponse) => {
+            const networkFetch = fetch(request).then((networkResponse) => {
                 if (networkResponse && networkResponse.status === 200) {
-                    const responseClone = networkResponse.clone();
-                    caches.open(CACHE_NAME).then((cache) => {
-                        cache.put(request, responseClone);
-                    });
+                    const clone = networkResponse.clone();
+                    caches.open(CACHE_NAME).then((cache) => cache.put(request, clone));
                 }
                 return networkResponse;
             }).catch(() => null);
 
-            return cachedResponse || fetchPromise;
+            return cachedResponse || networkFetch;
         })
     );
 });

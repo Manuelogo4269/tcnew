@@ -2,6 +2,7 @@
   "name": "Atelier Zacatecas — Tiendas Centro Histórico",
   "short_name": "Atelier ZAC",
   "description": "Marketplace oficial y directorio de comercios de la Zona Centro de Zacatecas. Catálogos en línea, ubicación de sucursales y pedidos por WhatsApp.",
+  "id": "/?source=pwa",
   "start_url": "/?source=pwa",
   "scope": "/",
   "display": "standalone",
