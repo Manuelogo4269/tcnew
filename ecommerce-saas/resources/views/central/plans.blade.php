@@ -669,6 +669,9 @@
             </div>
 
             <div class="header-actions">
+                <a href="{{ url('/admin') }}" target="_blank" class="btn-superadmin-header" style="display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: 999px; background: rgba(99, 102, 241, 0.12); color: #6366f1; border: 1px solid rgba(99, 102, 241, 0.25); text-decoration: none; font-size: 13px; font-weight: 700; transition: all .2s ease;">
+                    <span>⚙️</span> <span>Super Admin</span>
+                </a>
                 <button type="button" class="btn-theme-toggle" onclick="toggleTheme()" aria-label="Cambiar tema">
                     <span class="theme-icon-light">🌙</span>
                     <span class="theme-icon-dark" style="display: none;">☀️</span>
@@ -938,8 +941,14 @@
 
     <!-- FOOTER -->
     <footer class="plans-footer">
+        <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 12px; font-weight: 700; font-size: 13.5px;">
+            <a href="{{ url('/') }}" style="color: var(--accent);">← Volver al Directorio de Zacatecas</a>
+            <span style="color: var(--line);">|</span>
+            <a href="{{ url('/admin') }}" target="_blank" style="color: var(--ink);">⚙️ Panel Super Admin</a>
+            <span style="color: var(--line);">|</span>
+            <a href="{{ url('/admin/tenants') }}" target="_blank" style="color: var(--ink);">🏢 Gestión de Empresas</a>
+        </div>
         <p>&copy; {{ date('Y') }} Atelier Zacatecas · Plataforma SaaS Multi-Empresa. Todos los derechos reservados.</p>
-        <p style="margin-top: 6px;"><a href="{{ url('/') }}">← Volver al Directorio y Mapa de Zacatecas Centro</a></p>
     </footer>
 
     <script>

@@ -705,19 +705,7 @@
             transition: all .2s ease;
         }
         .btn-auth-login:hover { border-color: var(--accent); color: var(--accent); }
-        .btn-admin-panel {
-            padding: 9px 18px;
-            border-radius: 999px;
-            background: var(--ink);
-            color: #ffffff;
-            font-size: 13px;
-            font-weight: 700;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            transition: transform .2s ease;
-        }
-        .btn-admin-panel:hover { transform: translateY(-2px); }
+        
 
         /* User Profile Pill in Header */
         .user-profile-pill {
@@ -3850,9 +3838,7 @@
             .portal-brand small { display: none; }
             
             /* Clean up top header in mobile: brand on left, theme and menu drawer on right */
-            .btn-rent-nav,
-            .btn-admin-panel,
-            .btn-lang-toggle,
+                        .btn-lang-toggle,
             .btn-share-header,
             .btn-auth-login,
             .user-profile-pill {
@@ -5477,24 +5463,6 @@
     </div>
 @endif
 
-@if(session('success_store_created'))
-    @php $newStore = session('success_store_created'); @endphp
-    <div class="alert-banner store-created-banner" style="background: #ecfdf5; border-bottom: 2px solid #10b981; padding: 18px 24px; color: #064e3b; text-align: center;">
-        <div style="font-size: 16px; font-weight: 800; margin-bottom: 4px;">🎉 ¡Felicitaciones! Tu tienda "{{ $newStore['name'] }}" ha sido dada de alta y activada en la plataforma.</div>
-        <div style="font-size: 13.5px; margin-bottom: 12px; color: #047857;">
-            Plan contratado: <strong>{{ $newStore['plan_name'] }}</strong> ({{ $newStore['billing_cycle'] }}) · Usuario admin: <strong>{{ $newStore['owner_email'] }}</strong>
-        </div>
-        <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
-            <a href="{{ $newStore['admin_url'] }}" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 20px; border-radius: 999px; background: #059669; color: #fff; font-weight: 700; font-size: 13px; text-decoration: none; box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);">
-                🚀 Ingresar al Panel de tu Tienda
-            </a>
-            <a href="{{ $newStore['store_url'] }}" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 20px; border-radius: 999px; background: #fff; border: 1.5px solid #059669; color: #059669; font-weight: 700; font-size: 13px; text-decoration: none;">
-                🛍️ Ver tu Tienda Pública Online
-            </a>
-        </div>
-    </div>
-@endif
-
 <!-- HEADER -->
 <header class="portal-header">
     <div class="shell header-inner">
@@ -5513,8 +5481,6 @@
             <a href="#cercanas" onclick="switchMainTab('map')" style="color: var(--accent); font-weight: 700;">📍 Tiendas Cercanas</a>
             <a href="#empresas" onclick="switchMainTab('stores')">Empresas</a>
             <a href="#buscar" onclick="switchMainTab('feed')">Búsqueda Global</a>
-            <a href="{{ url('/planes') }}">💎 Planes de Renta</a>
-            <a href="{{ url('/admin') }}" target="_blank">Super Admin</a>
         </nav>
 
         <div class="portal-auth-actions">
@@ -5523,9 +5489,7 @@
                 <span class="central-cart-badge" id="centralCartBadge">0</span>
             </button>
 
-            <a href="{{ url('/planes') }}" class="btn-rent-nav">
-                <span>✨</span> <span class="rent-btn-long-text">Rentar Tienda</span>
-            </a>
+            
 
             @if($user)
                 <!-- Usuario Autenticado -->
@@ -5546,9 +5510,7 @@
                 </button>
             @endif
 
-            <a href="{{ url('/admin') }}" target="_blank" class="btn-admin-panel" title="Panel Central Multi-Tenant">
-                <span>⚙</span> <span class="admin-btn-text">Central</span>
-            </a>
+            
 
             <!-- Language Toggle (ES / EN) -->
             <button type="button" class="btn-lang-toggle" onclick="toggleLanguage()" title="Cambiar idioma / Change language">
@@ -5659,23 +5621,9 @@
             <span class="nav-item-arrow">›</span>
         </a>
 
-        <a href="#planes" class="drawer-nav-item" onclick="closeMobileMenu(); switchMainTab('plans');">
-            <div class="nav-item-icon" style="background: rgba(245, 158, 11, 0.15); color: #f59e0b;">💎</div>
-            <div class="nav-item-text">
-                <div class="nav-item-title" data-i18n="nav_planes">Planes de Renta de Tiendas</div>
-                <div class="nav-item-sub" data-i18n="nav_planes_sub">Abre tu sucursal en línea hoy</div>
-            </div>
-            <span class="nav-item-arrow">›</span>
-        </a>
+        
 
-        <a href="{{ url('/admin') }}" target="_blank" class="drawer-nav-item" onclick="closeMobileMenu()">
-            <div class="nav-item-icon" style="background: rgba(139, 92, 246, 0.15); color: #8b5cf6;">⚙️</div>
-            <div class="nav-item-text">
-                <div class="nav-item-title" data-i18n="nav_admin">Panel Super Admin Central</div>
-                <div class="nav-item-sub" data-i18n="nav_admin_sub">Administración multi-tenant del sistema</div>
-            </div>
-            <span class="nav-item-arrow">↗</span>
-        </a>
+        
     </nav>
 
     <!-- Quick Action Controls & Buttons -->
@@ -5697,9 +5645,7 @@
         </div>
 
         <!-- Rent CTA Button in Drawer -->
-        <a href="{{ url('/planes') }}" class="btn-rent-drawer" onclick="closeMobileMenu()">
-            ✨ <span data-i18n="btn_rent_cta">Rentar Tienda Online (-20% Anual)</span>
-        </a>
+        
 
         <div class="drawer-brand-footer">
             <span>Atelier Zacatecas · Cantera Rosa &amp; Plata</span>
@@ -5722,9 +5668,7 @@
             <button type="button" class="main-tab-btn" id="tabBtnStores" onclick="switchMainTab('stores')">
                 <span>🏬</span> Directorio <span class="tab-badge">{{ count($allBusinesses) }}</span>
             </button>
-            <a href="{{ url('/planes') }}" class="main-tab-btn" id="tabBtnPlans" style="text-decoration: none;">
-                <span>💎</span> Planes ↗
-            </a>
+            
         </div>
     </nav>
 
@@ -5792,11 +5736,11 @@
                 <span class="hero-action-arrow">➔</span>
             </button>
 
-            <a href="#planes" class="hero-action-card" onclick="switchMainTab('plans')">
-                <div class="hero-action-icon" style="background: rgba(168, 85, 247, 0.12); color: #a855f7;">✨</div>
+            <a href="#mas-visitados" class="hero-action-card" onclick="switchMainTab('feed')">
+                <div class="hero-action-icon" style="background: rgba(245, 158, 11, 0.12); color: #f59e0b;">⭐</div>
                 <div class="hero-action-text">
-                    <strong>Renta tu Tienda</strong>
-                    <p>Digitaliza tu marca con 0% de comisiones</p>
+                    <strong>Reseñas y Opiniones</strong>
+                    <p>Calificaciones reales de productos locales</p>
                 </div>
                 <span class="hero-action-arrow">➔</span>
             </a>
@@ -6480,11 +6424,10 @@
                 </ul>
             </div>
             <div>
-                <h4>Administración</h4>
+                <h4>Para Empresas</h4>
                 <ul>
-                    <li><a href="{{ url('/admin') }}" target="_blank">Panel Super Admin</a></li>
-                    <li><a href="{{ url('/admin/tenants') }}" target="_blank">Gestión de Empresas</a></li>
-                    <li><a href="javascript:void(0)" onclick="openAuthModal('login')">Inicio de Sesión</a></li>
+                    <li><a href="{{ url('/planes') }}">Planes de Renta y Registro ↗</a></li>
+                    <li><a href="javascript:void(0)" onclick="openAuthModal('login')">Acceso Clientes</a></li>
                 </ul>
             </div>
         </div>
@@ -9335,10 +9278,8 @@ const i18nDictionary = {
         nav_empresas_sub: "Bitácora oficial de comercios locales",
         nav_buscar: "Búsqueda Global de Productos",
         nav_buscar_sub: "Catálogo completo de todas las tiendas",
-        nav_planes: "Planes de Renta de Tiendas",
-        nav_planes_sub: "Abre tu sucursal en línea hoy",
-        nav_admin: "Panel Super Admin Central",
-        nav_admin_sub: "Administración multi-tenant del sistema",
+
+
         label_walking: "Distancia a pie:",
         radius_all: "✦ Todo el Centro",
         radius_200: "⚡ Menos de 200 m (2 min)",
@@ -9351,7 +9292,7 @@ const i18nDictionary = {
         social_label: "Redes & Contacto",
         enter_store: "Entrar a la Tienda",
         btn_share: "Compartir",
-        btn_rent_cta: "Rentar Tienda Online (-20% Anual)",
+
         open_now: "Abierto Ahora",
         closed: "Cerrado",
         lang_switch_label: "ES",
@@ -9368,10 +9309,8 @@ const i18nDictionary = {
         nav_empresas_sub: "Official log of local merchants",
         nav_buscar: "Global Product Search",
         nav_buscar_sub: "Full catalog across all stores",
-        nav_planes: "Store Rental Plans",
-        nav_planes_sub: "Launch your online branch today",
-        nav_admin: "Super Admin Panel",
-        nav_admin_sub: "Multi-tenant system management",
+
+
         label_walking: "Walking distance:",
         radius_all: "✦ All Downtown",
         radius_200: "⚡ Under 200 m (2 min)",
@@ -9384,7 +9323,7 @@ const i18nDictionary = {
         social_label: "Social & Contact",
         enter_store: "Visit Store",
         btn_share: "Share",
-        btn_rent_cta: "Rent Online Store (-20% Annual)",
+
         open_now: "Open Now",
         closed: "Closed",
         lang_switch_label: "EN",

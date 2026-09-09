@@ -162,5 +162,20 @@ class CentralPortalAndAuthTest extends TestCase
             'auth_provider' => 'google',
         ]);
     }
+
+    public function test_home_portal_does_not_display_super_admin_and_relocated_to_plans(): void
+    {
+        $homeResponse = $this->get('http://localhost/');
+        $homeResponse->assertStatus(200);
+        $homeResponse->assertDontSee('Super Admin');
+        $homeResponse->assertDontSee('btn-admin-panel');
+        $homeResponse->assertDontSee('Panel Super Admin Central');
+        $homeResponse->assertDontSee('http://localhost/admin');
+
+        $plansResponse = $this->get('http://localhost/planes');
+        $plansResponse->assertStatus(200);
+        $plansResponse->assertSee('Super Admin');
+        $plansResponse->assertSee('http://localhost/admin');
+    }
 }
 
