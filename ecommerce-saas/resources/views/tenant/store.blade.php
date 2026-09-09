@@ -83,13 +83,13 @@
     <meta property="og:site_name" content="Atelier Zacatecas Centro">
     <meta property="og:title" content="{{ $storeTitle }} — Zacatecas Centro">
     <meta property="og:description" content="{{ $settings?->tagline ?? 'Tienda oficial en el Centro Histórico de Zacatecas. Catálogo en línea y pedidos directos por WhatsApp.' }}">
-    <meta property="og:image" content="{{ !empty($settings?->logo_url) ? $settings->logo_url : url('/icons/icon-512.png') }}">
+    <meta property="og:image" content="{{ !empty($settings?->logo_url) ? $settings->logo_url : url('/app-icons/icon-512.png') }}">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{{ $storeTitle }} — Zacatecas Centro">
     <meta name="twitter:description" content="{{ $settings?->tagline ?? 'Tienda oficial en el Centro Histórico de Zacatecas. Catálogo en línea y pedidos directos por WhatsApp.' }}">
-    <meta name="twitter:image" content="{{ !empty($settings?->logo_url) ? $settings->logo_url : url('/icons/icon-512.png') }}">
+    <meta name="twitter:image" content="{{ !empty($settings?->logo_url) ? $settings->logo_url : url('/app-icons/icon-512.png') }}">
 
     <!-- PWA Requirements for Mobile (Android & iOS) -->
     <link rel="manifest" href="/manifest.json">
@@ -97,11 +97,11 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="{{ $storeTitle }}">
-    <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png">
-    <link rel="icon" type="image/png" sizes="512x512" href="/icons/icon-512.png">
-    <link rel="apple-touch-icon" href="/icons/icon-192.png">
-    <link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192.png">
-    <link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/app-icons/icon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/app-icons/icon-512.png">
+    <link rel="apple-touch-icon" href="/app-icons/icon-192.png">
+    <link rel="apple-touch-icon" sizes="192x192" href="/app-icons/icon-192.png">
+    <link rel="apple-touch-icon" sizes="512x512" href="/app-icons/icon-512.png">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2956,7 +2956,8 @@
     <div class="shell nav-shell">
         <a class="brand-link" href="{{ url('/') }}">
             @if(!empty($settings?->logo_url))
-                <img src="{{ $settings->logo_url }}" alt="{{ $storeTitle }}" class="brand-logo">
+                <img src="{{ $settings->logo_url }}" alt="{{ $storeTitle }}" class="brand-logo" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='grid';">
+                <span class="brand-badge-circle" style="display: none;">{{ str($storeTitle)->substr(0, 1) }}</span>
             @else
                 <span class="brand-badge-circle">{{ str($storeTitle)->substr(0, 1) }}</span>
             @endif
@@ -3066,7 +3067,8 @@
         <div class="store-drawer-brand">
             <div class="store-drawer-badge">
                 @if(!empty($settings?->logo_url))
-                    <img src="{{ $settings->logo_url }}" alt="{{ $storeTitle }}">
+                    <img src="{{ $settings->logo_url }}" alt="{{ $storeTitle }}" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='grid';">
+                    <span style="display: none;">{{ str($storeTitle)->substr(0, 1) }}</span>
                 @else
                     <span>{{ str($storeTitle)->substr(0, 1) }}</span>
                 @endif

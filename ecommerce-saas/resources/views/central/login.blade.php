@@ -185,8 +185,9 @@
 </head>
 <body>
     <div class="card">
-        <div class="brand-badge" style="padding: 0; overflow: hidden; background: transparent; border: 1.5px solid #cbd5e1;">
-            <img src="/icons/icon.svg" alt="Minimapa Zacatecas" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+        <div class="brand-badge" style="padding: 0; overflow: hidden; background: linear-gradient(135deg, #c86d63, #b45b51); border: 1.5px solid #cbd5e1; display: grid; place-items: center; position: relative;">
+            <img src="/app-icons/icon.svg" alt="Minimapa Zacatecas" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px; display: block;" onerror="this.onerror=null; this.src='/icons/icon.svg'; this.onerror=function(){this.style.display='none'; this.nextElementSibling.style.display='grid';};">
+            <span style="display: none; width: 100%; height: 100%; place-items: center; font-size: 24px; color: #fff;">🏛️</span>
         </div>
         <h1>Iniciar Sesión</h1>
         <p>Accede con Google, Facebook o tu correo electrónico para comprar en las tiendas oficiales.</p>

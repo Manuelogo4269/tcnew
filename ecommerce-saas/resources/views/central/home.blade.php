@@ -22,7 +22,7 @@
     <meta property="og:site_name" content="Atelier Zacatecas">
     <meta property="og:title" content="Atelier Zacatecas — Tiendas y Comercios de Zacatecas Centro">
     <meta property="og:description" content="Explora comercios emblemáticos en la Ciudad de Cantera Rosa y Plata: Café Acrópolis, Gorditas Doña Julia, Platería Rosa de Plata y más. Mapa interactivo y pedidos por WhatsApp.">
-    <meta property="og:image" content="{{ url('/icons/icon-512.png') }}">
+    <meta property="og:image" content="{{ url('/app-icons/icon-512.png') }}">
     <meta property="og:image:width" content="512">
     <meta property="og:image:height" content="512">
     <meta property="og:url" content="{{ url('/') }}">
@@ -30,7 +30,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Atelier Zacatecas — Tiendas y Comercios de Zacatecas Centro">
     <meta name="twitter:description" content="Directorio oficial de comercios en el Centro Histórico de Zacatecas. Mapa interactivo, catálogo y pedidos directos.">
-    <meta name="twitter:image" content="{{ url('/icons/icon-512.png') }}">
+    <meta name="twitter:image" content="{{ url('/app-icons/icon-512.png') }}">
 
     <!-- PWA Requirements for Mobile (Android Chrome, iOS Safari & Desktop) -->
     <link rel="manifest" href="/manifest.json">
@@ -39,12 +39,12 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Atelier ZAC">
     <meta name="theme-color" content="#c86d63">
-    <link rel="icon" type="image/svg+xml" href="/icons/icon.svg">
-    <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png">
-    <link rel="icon" type="image/png" sizes="512x512" href="/icons/icon-512.png">
-    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
-    <link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192.png">
-    <link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512.png">
+    <link rel="icon" type="image/svg+xml" href="/app-icons/icon.svg">
+    <link rel="icon" type="image/png" sizes="192x192" href="/app-icons/icon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/app-icons/icon-512.png">
+    <link rel="apple-touch-icon" href="/app-icons/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="192x192" href="/app-icons/icon-192.png">
+    <link rel="apple-touch-icon" sizes="512x512" href="/app-icons/icon-512.png">
 
     <!-- Leaflet CSS & JS for Interactive Zacatecas Map -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
@@ -3460,8 +3460,9 @@
         <button type="button" onclick="closePwaModal()" style="position: absolute; top: 18px; right: 18px; background: #f3f4f6; border: none; border-radius: 50%; width: 34px; height: 34px; cursor: pointer; font-size: 16px; display: grid; place-items: center;">✕</button>
         
         <div style="text-align: center; margin-bottom: 20px;">
-            <div style="width: 72px; height: 72px; border-radius: 18px; margin: 0 auto 12px; box-shadow: 0 8px 22px rgba(200,109,99,0.35); overflow: hidden; border: 2.5px solid #cbd5e1;">
-                <img src="/icons/icon-192.png" alt="Zacatecas Centro Minimapa" style="width: 100%; height: 100%; object-fit: cover;">
+            <div style="width: 72px; height: 72px; border-radius: 18px; margin: 0 auto 12px; box-shadow: 0 8px 22px rgba(200,109,99,0.35); overflow: hidden; border: 2.5px solid #cbd5e1; display: grid; place-items: center; background: linear-gradient(135deg, #c86d63, #b45b51);">
+                <img src="/app-icons/icon-192.png" alt="Zacatecas Centro Minimapa" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.onerror=null; this.src='/icons/icon-192.png'; this.onerror=function(){this.style.display='none'; this.nextElementSibling.style.display='grid';};">
+                <span style="display: none; font-size: 32px; color: #fff;">🏛️</span>
             </div>
             <h3 style="font-size: 20px; font-weight: 800; margin-bottom: 4px; color: #111210;">Instalar Atelier Zacatecas</h3>
             <p style="font-size: 13px; color: #6b7280;">Aplicación oficial de comercios en el Centro Histórico de Zacatecas.</p>
@@ -3528,8 +3529,9 @@
 <header class="portal-header">
     <div class="shell header-inner">
         <a href="{{ url('/') }}" class="portal-brand">
-            <div class="brand-badge" style="padding: 0; overflow: hidden; background: transparent; border: 1.5px solid #cbd5e1; width: 38px; height: 38px; border-radius: 10px; display: grid; place-items: center; box-shadow: 0 2px 8px rgba(0,0,0,0.12);">
-                <img src="/icons/icon.svg" alt="Minimapa Zacatecas Centro" style="width: 100%; height: 100%; object-fit: cover; border-radius: 9px;">
+            <div class="brand-badge" style="padding: 0; overflow: hidden; background: linear-gradient(135deg, #c86d63, #b45b51); border: 1.5px solid #cbd5e1; width: 38px; height: 38px; border-radius: 10px; display: grid; place-items: center; box-shadow: 0 2px 8px rgba(0,0,0,0.12); position: relative;">
+                <img src="/app-icons/icon.svg" alt="Minimapa Zacatecas Centro" style="width: 100%; height: 100%; object-fit: cover; border-radius: 9px; display: block;" onerror="this.onerror=null; this.src='/icons/icon.svg'; this.onerror=function(){this.style.display='none'; this.nextElementSibling.style.display='grid';};">
+                <span style="display: none; width: 100%; height: 100%; place-items: center; font-size: 18px; color: #fff;">🏛️</span>
             </div>
             <div class="brand-text">
                 <strong>Atelier Zacatecas</strong>
@@ -3610,8 +3612,9 @@
     <!-- Header inside drawer -->
     <div class="drawer-header">
         <div class="drawer-brand">
-            <div class="drawer-logo-badge">
-                <img src="/icons/icon.svg" alt="Minimapa Zacatecas Centro">
+            <div class="drawer-logo-badge" style="display: grid; place-items: center; overflow: hidden; background: linear-gradient(135deg, #c86d63, #b45b51); position: relative;">
+                <img src="/app-icons/icon.svg" alt="Minimapa Zacatecas Centro" style="width: 100%; height: 100%; object-fit: cover; display: block;" onerror="this.onerror=null; this.src='/icons/icon.svg'; this.onerror=function(){this.style.display='none'; this.nextElementSibling.style.display='grid';};">
+                <span style="display: none; width: 100%; height: 100%; place-items: center; font-size: 18px; color: #fff;">🏛️</span>
             </div>
             <div>
                 <strong>Atelier Zacatecas</strong>

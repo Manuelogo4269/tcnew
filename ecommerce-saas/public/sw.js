@@ -1,15 +1,15 @@
 // Atelier Zacatecas - Service Worker PWA con Auto-Actualización Automática
 // Identificador de versión: cada cambio aquí provoca una auto-actualización inmediata en teléfonos y navegadores
-const CACHE_NAME = 'atelier-zacatecas-v2.6.0';
+const CACHE_NAME = 'atelier-zacatecas-v2.7.0';
 
 // Recursos estáticos esenciales para funcionamiento offline
 const STATIC_ASSETS = [
     '/manifest.json',
     '/offline.html',
-    '/icons/icon.svg',
-    '/icons/icon-192.png',
-    '/icons/icon-512.png',
-    '/icons/apple-touch-icon.png'
+    '/app-icons/icon.svg',
+    '/app-icons/icon-192.png',
+    '/app-icons/icon-512.png',
+    '/app-icons/apple-touch-icon.png'
 ];
 
 // ========================================================

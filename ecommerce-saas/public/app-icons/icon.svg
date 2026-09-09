@@ -1,0 +1,211 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <!-- Background Gradient: Deep Slate & Silver Mine Atmosphere -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#191e2b"/>
+      <stop offset="50%" stop-color="#121620"/>
+      <stop offset="100%" stop-color="#0b0e14"/>
+    </linearGradient>
+
+    <!-- Rosa Cantera Gradient: Authentic Pink Quarry Stone of Zacatecas -->
+    <linearGradient id="canteraGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e28c81"/>
+      <stop offset="40%" stop-color="#cf7166"/>
+      <stop offset="100%" stop-color="#b15146"/>
+    </linearGradient>
+
+    <linearGradient id="canteraLightGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f0a89f"/>
+      <stop offset="100%" stop-color="#cf7166"/>
+    </linearGradient>
+
+    <linearGradient id="canteraDarkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#b6574c"/>
+      <stop offset="100%" stop-color="#88362d"/>
+    </linearGradient>
+
+    <!-- Plata Ley .925 (Sterling Silver) Gradient -->
+    <linearGradient id="plataGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="35%" stop-color="#e8edf2"/>
+      <stop offset="70%" stop-color="#cbd5e1"/>
+      <stop offset="100%" stop-color="#94a3b8"/>
+    </linearGradient>
+
+    <!-- Road Silver Flow Gradient -->
+    <linearGradient id="roadPlata" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f8fafc"/>
+      <stop offset="50%" stop-color="#e2e8f0"/>
+      <stop offset="100%" stop-color="#94a3b8"/>
+    </linearGradient>
+
+    <!-- Glow filters -->
+    <filter id="silverGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+
+    <filter id="canteraGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#cf7166" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+
+  <!-- ============================================== -->
+  <!-- 1. ICON BASE (SQUIRCLE WITH SILVER TRIM)       -->
+  <!-- ============================================== -->
+  <rect width="512" height="512" rx="118" fill="url(#bgGrad)"/>
+  
+  <!-- Outer Filigree Silver Border -->
+  <rect x="14" y="14" width="484" height="484" rx="106" fill="none" stroke="url(#plataGrad)" stroke-width="3.5" opacity="0.85"/>
+  <rect x="22" y="22" width="468" height="468" rx="98" fill="none" stroke="rgba(203, 213, 225, 0.2)" stroke-width="1.5"/>
+
+  <!-- Topographic Mountain Curves (Cerro de la Bufa & Minero) -->
+  <g opacity="0.18" stroke="url(#plataGrad)" stroke-width="1.5" fill="none">
+    <path d="M 30,120 Q 140,80 260,110 T 480,90"/>
+    <path d="M 20,150 Q 160,110 290,140 T 490,130"/>
+    <path d="M 30,180 Q 180,150 320,175 T 490,165"/>
+  </g>
+
+  <!-- ============================================== -->
+  <!-- 2. MINI-MAPA DE ZACATECAS CENTRO HISTÓRICO      -->
+  <!-- ============================================== -->
+  <g transform="translate(10, -5)">
+
+    <!-- MAP GRID: COLONIAL CITY BLOCKS (CANTERA ROSA FACETED BLOCKS) -->
+    <!-- Block NW: Portal de Rosales / Jardín Independencia -->
+    <path d="M 75,145 L 155,130 L 175,200 L 95,215 Z" fill="url(#canteraGrad)" rx="8" opacity="0.9"/>
+    <path d="M 78,148 L 152,134 L 171,197 L 98,211 Z" fill="none" stroke="#f6c2bc" stroke-width="1" opacity="0.4"/>
+
+    <!-- Block North: Mercado González Ortega / Teatro Calderón -->
+    <path d="M 185,115 L 265,100 L 285,165 L 205,180 Z" fill="url(#canteraLightGrad)" rx="8" opacity="0.95"/>
+    <path d="M 188,118 L 262,104 L 281,162 L 208,176 Z" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.4"/>
+
+    <!-- Block NE: Palacio de Gobierno / Congreso -->
+    <path d="M 298,90 L 395,75 L 420,155 L 320,170 Z" fill="url(#canteraGrad)" rx="9" opacity="0.9"/>
+
+    <!-- Block West: Rinconada y Plazuela de Santo Domingo -->
+    <path d="M 60,240 L 140,225 L 160,310 L 80,325 Z" fill="url(#canteraDarkGrad)" rx="8" opacity="0.9"/>
+
+    <!-- Block Center-West: Callejón del Santero / Portal de Rosales Sur -->
+    <path d="M 172,215 L 225,205 L 245,285 L 190,295 Z" fill="url(#canteraGrad)" rx="7" opacity="0.92"/>
+
+    <!-- Block Center-East: Plaza de Armas Esplanade & Palacio -->
+    <path d="M 335,185 L 430,170 L 410,270 L 315,285 Z" fill="url(#canteraLightGrad)" rx="9" opacity="0.95"/>
+
+    <!-- Block South: Tacuba & Allende Commercial Grid -->
+    <path d="M 180,320 L 270,305 L 255,385 L 165,395 Z" fill="url(#canteraGrad)" rx="8" opacity="0.88"/>
+    <path d="M 285,300 L 385,285 L 365,370 L 270,380 Z" fill="url(#canteraDarkGrad)" rx="8" opacity="0.9"/>
+    <path d="M 75,345 L 150,335 L 135,405 L 60,410 Z" fill="url(#canteraLightGrad)" rx="8" opacity="0.85"/>
+
+    <!-- ========================================== -->
+    <!-- MAP STREET NETWORK (CALLES EN PLATA BRILLANTE) -->
+    <!-- ========================================== -->
+    <!-- AV. HIDALGO (The Historic Spine of Zacatecas Centro) -->
+    <path d="M 160,80 Q 185,150 178,210 T 168,320 T 155,430" 
+          fill="none" stroke="url(#roadPlata)" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" opacity="0.95"/>
+    <path d="M 160,80 Q 185,150 178,210 T 168,320 T 155,430" 
+          fill="none" stroke="#ffffff" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M 160,80 Q 185,150 178,210 T 168,320 T 155,430" 
+          fill="none" stroke="#c86d63" stroke-width="2" stroke-dasharray="6,8" opacity="0.8"/>
+
+    <!-- CALLE TACUBA & ALLENDE (Diagonal artery to Plaza de Armas) -->
+    <path d="M 175,205 Q 230,195 295,180 T 440,165" 
+          fill="none" stroke="url(#roadPlata)" stroke-width="18" stroke-linecap="round" opacity="0.95"/>
+    <path d="M 175,205 Q 230,195 295,180 T 440,165" 
+          fill="none" stroke="#ffffff" stroke-width="12" stroke-linecap="round"/>
+
+    <!-- AV. JUÁREZ / CALLE DR. HIERRO (Cross streets) -->
+    <path d="M 85,230 L 440,175" fill="none" stroke="url(#roadPlata)" stroke-width="12" opacity="0.85"/>
+    <path d="M 80,330 L 400,280" fill="none" stroke="url(#roadPlata)" stroke-width="14" opacity="0.85"/>
+    <path d="M 275,100 L 245,400" fill="none" stroke="url(#roadPlata)" stroke-width="12" opacity="0.8"/>
+    <path d="M 315,85 L 290,390" fill="none" stroke="url(#roadPlata)" stroke-width="10" opacity="0.75"/>
+
+    <!-- PLAZA DE ARMAS / ATRIO DE LA CATEDRAL (Plata Esplanade) -->
+    <rect x="250" y="170" width="70" height="55" rx="8" fill="#e2e8f0" stroke="url(#plataGrad)" stroke-width="2" opacity="0.9"/>
+    <!-- Plaza Details: Fountain & Cobblestone dots -->
+    <circle cx="285" cy="197" r="8" fill="#c86d63" stroke="#ffffff" stroke-width="2"/>
+    <circle cx="285" cy="197" r="3" fill="#ffffff"/>
+
+    <!-- PLAZUELA GOITIA (Secondary colonial square) -->
+    <rect x="135" y="145" width="40" height="40" rx="6" fill="#cbd5e1" stroke="#ffffff" stroke-width="1.5" opacity="0.85"/>
+    <circle cx="155" cy="165" r="4" fill="#c86d63"/>
+
+    <!-- STREET LABELS IN SILVER -->
+    <text x="132" y="275" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="9" font-weight="800" fill="#ffffff" letter-spacing="1.5" transform="rotate(78 132,275)">AV. HIDALGO</text>
+    <text x="245" y="188" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="8" font-weight="800" fill="#64748b" letter-spacing="1.5">PLAZA DE ARMAS</text>
+    <text x="315" y="240" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="9" font-weight="800" fill="#ffffff" letter-spacing="1" transform="rotate(-7 315,240)">TACUBA</text>
+
+    <!-- ============================================== -->
+    <!-- 3. EPIC CATHEDRAL PIN MARKER (CENTRO DE ZACATECAS) -->
+    <!-- ============================================== -->
+    <!-- Radar Pulse Ring in Sterling Silver -->
+    <circle cx="285" cy="197" r="54" fill="none" stroke="url(#plataGrad)" stroke-width="2.5" opacity="0.5" filter="url(#silverGlow)"/>
+    <circle cx="285" cy="197" r="38" fill="none" stroke="#c86d63" stroke-width="2" stroke-dasharray="4,4" opacity="0.7"/>
+
+    <!-- Map Pin Shadow & Body in Cantera Rosa -->
+    <g filter="url(#canteraGlow)">
+      <!-- Location Pin in Rosa Cantera -->
+      <path d="M 285,120 C 255,120 230,145 230,176 C 230,215 285,268 285,268 C 285,268 340,215 340,176 C 340,145 315,120 285,120 Z" 
+            fill="url(#canteraGrad)" stroke="url(#plataGrad)" stroke-width="4"/>
+
+      <!-- Inner Silver Medallion -->
+      <circle cx="285" cy="172" r="30" fill="url(#plataGrad)"/>
+      <circle cx="285" cy="172" r="26" fill="#181d26"/>
+
+      <!-- Stylized Silhouette: Catedral Basílica de Zacatecas (Twin Towers & Arch) in Silver & Rosa Cantera -->
+      <!-- Left Bell Tower -->
+      <rect x="267" y="158" width="7" height="26" rx="1.5" fill="url(#plataGrad)"/>
+      <path d="M 266,158 L 270.5,148 L 275,158 Z" fill="#e28c81"/>
+      <circle cx="270.5" cy="147" r="1.5" fill="#ffffff"/>
+
+      <!-- Right Bell Tower -->
+      <rect x="296" y="158" width="7" height="26" rx="1.5" fill="url(#plataGrad)"/>
+      <path d="M 295,158 L 299.5,148 L 304,158 Z" fill="#e28c81"/>
+      <circle cx="299.5" cy="147" r="1.5" fill="#ffffff"/>
+
+      <!-- Central Baroque Portal & Rose Window -->
+      <path d="M 276,166 Q 285,160 294,166 L 294,184 L 276,184 Z" fill="url(#canteraGrad)"/>
+      <!-- Rose Window / Rosetón de Cantera -->
+      <circle cx="285" cy="170" r="4.5" fill="#ffffff" stroke="#b15146" stroke-width="1.5"/>
+      <!-- Portal Archway -->
+      <path d="M 281,184 Q 285,178 289,184 Z" fill="#181d26"/>
+    </g>
+
+    <!-- Compass Rose (Rosa de los Vientos en Plata) Top-Right -->
+    <g transform="translate(425, 75)" opacity="0.85">
+      <circle cx="0" cy="0" r="22" fill="#181d26" stroke="url(#plataGrad)" stroke-width="1.5"/>
+      <!-- 4 Points -->
+      <polygon points="0,-18 4,-4 18,0 4,4 0,18 -4,4 -18,0 -4,-4" fill="url(#plataGrad)"/>
+      <polygon points="0,-18 4,-4 0,0 -4,-4" fill="#c86d63"/>
+      <text x="0" y="-22" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="10" font-weight="900" fill="#ffffff" text-anchor="middle">N</text>
+    </g>
+  </g>
+
+  <!-- ============================================== -->
+  <!-- 4. BOTTOM BRANDING RIBBON: CANTERA Y PLATA      -->
+  <!-- ============================================== -->
+  <!-- Silver Plaque Base -->
+  <g transform="translate(0, -5)">
+    <rect x="76" y="422" width="360" height="66" rx="20" fill="#151922" stroke="url(#plataGrad)" stroke-width="2.5" filter="url(#canteraGlow)"/>
+    
+    <!-- Top accent bar in Cantera Rosa -->
+    <path d="M 96,422 L 416,422" stroke="url(#canteraGrad)" stroke-width="4" stroke-linecap="round"/>
+
+    <!-- Silver & Cantera Typography -->
+    <text x="256" y="452" 
+          font-family="'Playfair Display', Georgia, serif" 
+          font-size="24" 
+          font-weight="700" 
+          fill="url(#plataGrad)" 
+          text-anchor="middle" 
+          letter-spacing="5">ZACATECAS</text>
+
+    <text x="256" y="473" 
+          font-family="'Plus Jakarta Sans', system-ui, sans-serif" 
+          font-size="10.5" 
+          font-weight="800" 
+          fill="#e28c81" 
+          text-anchor="middle" 
+          letter-spacing="3.5">CENTRO HISTÓRICO · CANTERA &amp; PLATA</text>
+  </g>
+</svg>

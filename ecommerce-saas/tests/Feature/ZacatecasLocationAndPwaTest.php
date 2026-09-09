@@ -79,4 +79,18 @@ class ZacatecasLocationAndPwaTest extends TestCase
         $response->assertSee('Café Acrópolis');
         $response->assertSee('acropolis');
     }
+
+    public function test_logo_and_pwa_icons_are_accessible_and_rendered_properly(): void
+    {
+        // Central portal should reference app-icons/icon.svg
+        $response = $this->get('http://localhost/');
+        $response->assertStatus(200);
+        $response->assertSee('/app-icons/icon.svg');
+
+        // Check that app-icons are physically present in public path
+        $this->assertFileExists(public_path('app-icons/icon.svg'));
+        $this->assertFileExists(public_path('app-icons/icon-192.png'));
+        $this->assertFileExists(public_path('app-icons/icon-512.png'));
+    }
 }
+
