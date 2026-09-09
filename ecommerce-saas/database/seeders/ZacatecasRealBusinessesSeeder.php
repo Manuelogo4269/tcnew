@@ -687,7 +687,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                         ['email' => $u['email']],
                         [
                             'name' => $u['name'],
-                            'password' => Hash::make('password123'),
+                            'password' => Hash::make('password'),
                             'customer_account_id' => null,
                         ]
                     );
