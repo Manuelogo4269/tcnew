@@ -177,5 +177,14 @@ class CentralPortalAndAuthTest extends TestCase
         $plansResponse->assertSee('Super Admin');
         $plansResponse->assertSee('http://localhost/admin');
     }
+
+    public function test_home_portal_does_not_display_static_search_chips(): void
+    {
+        $response = $this->get('http://localhost/');
+        $response->assertStatus(200);
+        $response->assertDontSee('Búsquedas de Zacatecas:');
+        $response->assertDontSee('popular-tags-row');
+        $response->assertSee('userSearchHistoryContainer');
+    }
 }
 

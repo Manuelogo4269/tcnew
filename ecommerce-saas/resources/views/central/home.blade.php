@@ -829,28 +829,65 @@
             transform: translateY(-1px);
         }
 
-        .popular-tags-row {
-            display: flex;
+        .search-history-row {
+            display: none;
             align-items: center;
             justify-content: center;
             gap: 8px;
             flex-wrap: wrap;
-            margin-top: 16px;
-            font-size: 12px;
+            margin-top: 14px;
+            font-size: 12.5px;
             color: var(--muted);
         }
-        .popular-tag {
-            padding: 4px 10px;
+        .search-history-label {
+            font-weight: 600;
+            color: var(--muted);
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .search-history-chips {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        .search-history-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 11px;
             border-radius: 999px;
             background: var(--card);
             border: 1px solid var(--card-border);
             color: var(--ink);
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 600;
             cursor: pointer;
             transition: all .2s ease;
         }
-        .popular-tag:hover {
+        .search-history-chip:hover {
             border-color: var(--accent);
             color: var(--accent);
+            background: var(--accent-soft);
+            transform: translateY(-1px);
+        }
+        .btn-clear-search-history {
+            background: transparent;
+            border: 1px solid var(--card-border);
+            color: var(--muted);
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 3px 9px;
+            border-radius: 999px;
+            transition: all .2s ease;
+        }
+        .btn-clear-search-history:hover {
+            border-color: #ef4444;
+            color: #ef4444;
+            background: rgba(239, 68, 68, 0.08);
         }
 
         /* LIVE AJAX SEARCH DROPDOWN */
@@ -5695,15 +5732,11 @@
                 <!-- Dynamically populated via AJAX -->
             </div>
 
-            <!-- POPULAR QUICK SEARCH TAGS -->
-            <div class="popular-tags-row">
-                <span>Búsquedas de Zacatecas:</span>
-                <a href="{{ url('/?q=Café') }}" class="popular-tag">☕ Café Acrópolis</a>
-                <a href="{{ url('/?q=Gordita') }}" class="popular-tag">🌮 Gorditas Doña Julia</a>
-                <a href="{{ url('/?q=Plata') }}" class="popular-tag">💎 Rosa de Plata</a>
-                <a href="{{ url('/?q=Dulce') }}" class="popular-tag">🍬 El Serranito</a>
-                <a href="{{ url('/?q=Mezcal') }}" class="popular-tag">🍷 Las Quince Letras</a>
-                <a href="{{ url('/?q=Libro') }}" class="popular-tag">📚 Librería André-a</a>
+            <!-- USER SEARCH HISTORY (SOLO SE MUESTRA SI EL USUARIO TIENE HISTORIAL DE BÚSQUEDA) -->
+            <div class="search-history-row" id="userSearchHistoryContainer">
+                <span class="search-history-label">🕒 Búsquedas recientes:</span>
+                <div class="search-history-chips" id="userSearchHistoryChips"></div>
+                <button type="button" class="btn-clear-search-history" onclick="clearUserSearchHistory()" title="Borrar historial de búsqueda">✕ Limpiar</button>
             </div>
         </div>
 
@@ -7566,6 +7599,83 @@ function switchAuthTab(view) {
     if (fbEl) fbEl.style.display = view === 'facebookChooser' ? 'block' : 'none';
 }
 
+// ========================================================
+// USER SEARCH HISTORY (PERSISTENTE EN LOCALSTORAGE)
+// ========================================================
+const SEARCH_HISTORY_KEY = 'atelier_user_search_history';
+
+function getUserSearchHistory() {
+    try {
+        const raw = localStorage.getItem(SEARCH_HISTORY_KEY);
+        return raw ? JSON.parse(raw) : [];
+    } catch (e) {
+        return [];
+    }
+}
+
+function saveUserSearchQuery(query) {
+    if (!query || typeof query !== 'string') return;
+    const clean = query.trim();
+    if (clean.length < 2) return;
+
+    let history = getUserSearchHistory();
+    history = history.filter(item => item.toLowerCase() !== clean.toLowerCase());
+    history.unshift(clean);
+    history = history.slice(0, 8);
+
+    try {
+        localStorage.setItem(SEARCH_HISTORY_KEY, JSON.stringify(history));
+    } catch (e) {}
+
+    renderUserSearchHistory();
+}
+
+function clearUserSearchHistory() {
+    try {
+        localStorage.removeItem(SEARCH_HISTORY_KEY);
+    } catch (e) {}
+    renderUserSearchHistory();
+}
+
+function renderUserSearchHistory() {
+    const container = document.getElementById('userSearchHistoryContainer');
+    const chipsBox = document.getElementById('userSearchHistoryChips');
+    if (!container || !chipsBox) return;
+
+    const history = getUserSearchHistory();
+    if (!history || history.length === 0) {
+        container.style.display = 'none';
+        chipsBox.innerHTML = '';
+        return;
+    }
+
+    container.style.display = 'flex';
+    chipsBox.innerHTML = history.map(term => {
+        const safeTerm = term.replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        const searchUrl = "{{ url('/') }}?q=" + encodeURIComponent(term);
+        return `<a href="${searchUrl}" class="search-history-chip" title="Buscar de nuevo: ${safeTerm}">🔍 ${safeTerm}</a>`;
+    }).join('');
+}
+
+// Auto-record searches from form submit or initial page load
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('globalSearchForm');
+    if (form) {
+        form.addEventListener('submit', () => {
+            const input = document.getElementById('globalSearchInput');
+            if (input && input.value) {
+                saveUserSearchQuery(input.value);
+            }
+        });
+    }
+
+    @if(!empty($searchQuery))
+        saveUserSearchQuery(@json($searchQuery));
+    @endif
+
+    renderUserSearchHistory();
+});
+
 // LIVE INSTANT SEARCH ACROSS ALL STORES
 const searchInput = document.getElementById('globalSearchInput');
 const liveDropdown = document.getElementById('liveSearchDropdown');
@@ -7590,7 +7700,7 @@ if (searchInput && liveDropdown) {
                         let html = `<div style="padding: 6px 12px; font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--line);">Productos encontrados en todas las tiendas (${data.count}):</div>`;
                         data.results.forEach(item => {
                             html += `
-                                <a href="${item.url}" target="_blank" class="live-search-item">
+                                <a href="${item.url}" target="_blank" class="live-search-item" onclick="saveUserSearchQuery('${query.replace(/'/g, "\\'")}')">
                                     <div style="display: flex; align-items: center; gap: 12px;">
                                         <img src="${item.image_url || 'https://placehold.co/100x100?text=Prod'}" class="live-search-thumb" alt="${item.name}">
                                         <div class="live-search-details">
