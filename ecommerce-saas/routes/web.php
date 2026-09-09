@@ -21,6 +21,7 @@ foreach ($centralDomains as $domain) {
         Route::get('/api/global-search', [CentralPortalController::class, 'apiSearch'])->name('central.api.search');
         Route::get('/api/reviews', [CentralPortalController::class, 'getReviews'])->name('central.api.reviews.index');
         Route::post('/api/reviews', [CentralPortalController::class, 'storeReview'])->name('central.api.reviews.store');
+        Route::get('/api/walking-route', [CentralPortalController::class, 'getWalkingRoute'])->name('central.api.walking_route');
 
         // Direct Mobile / LAN Storefront Route (No custom DNS required on mobile devices)
         Route::get('/tienda/{tenant}', function (string $tenantId) {

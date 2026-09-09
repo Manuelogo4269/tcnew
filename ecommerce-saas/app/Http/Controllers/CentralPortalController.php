@@ -612,5 +612,48 @@ class CentralPortalController extends Controller
         $subscriptionPlans = \App\Models\SubscriptionPlan::where('is_active', true)->orderBy('sort_order')->get();
         return view('central.plans', compact('subscriptionPlans'));
     }
+
+    /**
+     * Proxy to OSRM pedestrian street-by-street routing for Zacatecas Centro Histórico.
+     */
+    public function getWalkingRoute(Request $request)
+    {
+        $coords = trim((string) $request->query('coords', ''));
+        if (empty($coords)) {
+            return response()->json(['code' => 'InvalidCoords', 'message' => 'Parámetro coords requerido.'], 400);
+        }
+
+        // Cache successful routes for 30 minutes for blazing speed and zero redundant external calls
+        $cacheKey = 'walking_route_osrm_' . md5($coords);
+        $result = \Illuminate\Support\Facades\Cache::remember($cacheKey, 1800, function () use ($coords) {
+            $url = "https://router.project-osrm.org/route/v1/walking/{$coords}?overview=full&geometries=geojson";
+            try {
+                $response = \Illuminate\Support\Facades\Http::withoutVerifying()
+                    ->withHeaders([
+                        'User-Agent' => 'AtelierZacatecas-Marketplace/2.0 (recorrido-centro@atelierzacatecas.com)',
+                        'Accept' => 'application/json',
+                    ])
+                    ->timeout(6)
+                    ->get($url);
+
+                if ($response->successful()) {
+                    $json = $response->json();
+                    if (($json['code'] ?? '') === 'Ok') {
+                        return $json;
+                    }
+                }
+            } catch (\Throwable $e) {
+                // Ignore and return fallback
+            }
+
+            return null;
+        });
+
+        if ($result) {
+            return response()->json($result);
+        }
+
+        return response()->json(['code' => 'Fallback', 'message' => 'No se pudo trazar la ruta por calles en este momento.'], 200);
+    }
 }
 

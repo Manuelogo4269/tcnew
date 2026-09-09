@@ -3943,8 +3943,40 @@
                 display: flex !important;
             }
 
+            /* Barra de carrito y ruta: ubicada sobre la barra de navegación del teléfono sin encimarse */
+            .floating-route-cart-bar {
+                bottom: calc(68px + env(safe-area-inset-bottom, 0px)) !important;
+                width: calc(100% - 20px) !important;
+                left: 10px !important;
+                right: 10px !important;
+                transform: none !important;
+                max-width: none !important;
+                padding: 10px 14px !important;
+                border-radius: 16px !important;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+                z-index: 9985 !important;
+            }
+            .floating-cart-inner {
+                gap: 8px !important;
+            }
+            .floating-cart-info strong {
+                font-size: 12.5px !important;
+            }
+            .floating-cart-info small {
+                display: none !important;
+            }
+            .floating-cart-total {
+                font-size: 13px !important;
+                font-weight: 800 !important;
+            }
+            .btn-floating-route-cta {
+                padding: 7px 12px !important;
+                font-size: 11.5px !important;
+                white-space: nowrap !important;
+            }
+
             body {
-                padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)) !important;
+                padding-bottom: calc(135px + env(safe-area-inset-bottom, 0px)) !important;
             }
         }
 
@@ -5398,36 +5430,6 @@
             background: rgba(245, 158, 11, 0.2);
             transform: translateY(-1px);
         }
-        /* FLOATING RETURN HOME PILL (VISIBLE ON MOBILE SCROLL & STANDALONE PWA) */
-        .pwa-floating-home-pill {
-            position: fixed;
-            bottom: 74px;
-            left: 16px;
-            display: inline-flex;
-            align-items: center;
-            gap: 7px;
-            padding: 10px 16px;
-            border-radius: 999px;
-            background: rgba(32, 33, 30, 0.88);
-            color: #ffffff;
-            border: 1.5px solid rgba(255, 255, 255, 0.2);
-            font-size: 13px;
-            font-weight: 800;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.16);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            z-index: 9980;
-            cursor: pointer;
-            transition: transform .2s ease, opacity .2s ease;
-        }
-        [data-theme="dark"] .pwa-floating-home-pill {
-            background: rgba(255, 255, 255, 0.92);
-            color: #111210;
-            border-color: rgba(255, 255, 255, 0.4);
-        }
-        .pwa-floating-home-pill:active {
-            transform: scale(0.96);
-        }
         @media (min-width: 769px) {
             /* En la página web de escritorio: quita la barra inferior móvil (Inicio, Tiendas, Mapa GPS, Mi Ruta, Buscar) */
             .mobile-bottom-nav {
@@ -5436,9 +5438,6 @@
             /* Muestra las pestañas principales (Más Visitados, Mapa & Cercanía, Directorio) en la página web */
             .main-tab-nav-wrapper {
                 display: block !important;
-            }
-            .pwa-floating-home-pill {
-                display: none !important;
             }
         }
     </style>
@@ -6862,12 +6861,6 @@
         <span class="bottom-nav-label">Buscar</span>
     </button>
 </nav>
-
-<!-- FLOATING RETURN HOME PILL -->
-<button type="button" class="pwa-floating-home-pill" id="pwaFloatingHomePill" onclick="goToPortalHome()" aria-label="Volver al Inicio" title="Volver al Inicio">
-    <span class="pwa-pill-icon">🏠</span>
-    <span class="pwa-pill-text">Inicio Zacatecas</span>
-</button>
 
 <!-- JAVASCRIPT FOR LIVE SEARCH & MODAL -->
 <script>
@@ -8848,16 +8841,66 @@ function renderRouteOnMap(startPoint, orderedRoute) {
         currentRouteMarkers.push(marker);
     });
 
+    // Recopilar waypoints en orden de recorrido
+    const waypoints = [
+        { lat: startPoint.lat, lng: startPoint.lng },
+        ...orderedRoute.map(leg => ({
+            lat: parseFloat(leg.store.latitude) || 22.7753,
+            lng: parseFloat(leg.store.longitude) || -102.5724
+        }))
+    ];
+
+    // Trazado inicial inmediato (línea directa de respaldo mientras carga)
     currentRoutePolyline = L.polyline(latLngs, {
         color: '#c86d63',
-        weight: 5,
-        opacity: 0.9,
-        dashArray: '8, 8',
+        weight: 4,
+        opacity: 0.5,
+        dashArray: '6, 6',
         lineCap: 'round',
         lineJoin: 'round'
     }).addTo(map);
 
     map.fitBounds(currentRoutePolyline.getBounds(), { padding: [45, 45] });
+
+    // Consultar trazado peatonal real por las calles de Zacatecas Centro (sin atravesar edificios)
+    const coordsStr = waypoints.map(p => `${p.lng.toFixed(6)},${p.lat.toFixed(6)}`).join(';');
+    fetch(`{{ url('/api/walking-route') }}?coords=${encodeURIComponent(coordsStr)}`)
+        .then(res => res.json())
+        .then(data => {
+            if (data && data.code === 'Ok' && data.routes && data.routes.length > 0) {
+                const streetCoords = data.routes[0].geometry.coordinates.map(c => [c[1], c[0]]);
+                if (currentRoutePolyline) {
+                    map.removeLayer(currentRoutePolyline);
+                }
+                currentRoutePolyline = L.polyline(streetCoords, {
+                    color: '#c86d63',
+                    weight: 6,
+                    opacity: 0.95,
+                    lineCap: 'round',
+                    lineJoin: 'round'
+                }).addTo(map);
+
+                map.fitBounds(currentRoutePolyline.getBounds(), { padding: [45, 45] });
+
+                const realDistKm = data.routes[0].distance / 1000;
+                const realMeters = Math.round(data.routes[0].distance);
+                const realDistStr = realDistKm < 1 ? `${realMeters} m (por calles)` : `${realDistKm.toFixed(2)} km (por calles)`;
+                const realMinutes = Math.max(1, Math.round((data.routes[0].duration || (realDistKm / 4.2 * 3600)) / 60));
+
+                const distEl = document.getElementById('itineraryTotalDist');
+                if (distEl) distEl.textContent = realDistStr;
+                const timeEl = document.getElementById('itineraryTotalTime');
+                if (timeEl) timeEl.textContent = `~${realMinutes} min`;
+                const tagEl = document.getElementById('itineraryRoutingType');
+                if (tagEl) {
+                    tagEl.innerHTML = '🚶‍♂️ RUTA REAL POR CALLES Y CALLEJONES';
+                    tagEl.style.background = '#059669';
+                }
+            }
+        })
+        .catch(err => {
+            console.warn('Fallback a línea directa:', err);
+        });
 }
 
 function renderRouteItineraryUI(startPoint, orderedRoute, totalKm) {
@@ -8943,18 +8986,18 @@ function renderRouteItineraryUI(startPoint, orderedRoute, totalKm) {
         <div class="route-itinerary-card">
             <div class="itinerary-header">
                 <div>
-                    <span class="itinerary-tag">✓ RUTA CALCULADA</span>
+                    <span class="itinerary-tag" id="itineraryRoutingType">🚶‍♂️ RUTA PEATONAL POR CALLES</span>
                     <h4>Itinerario de Compras</h4>
-                    <small style="color:var(--muted); font-size:12px;">Ordenadas para minimizar tu recorrido por el Centro</small>
+                    <small style="color:var(--muted); font-size:12px;">Recorrido siguiendo las calles y callejones del Centro Histórico</small>
                 </div>
                 <div class="itinerary-metrics">
                     <div class="metric-box">
                         <span class="metric-label">Distancia Total</span>
-                        <span class="metric-val">${totalDistStr}</span>
+                        <span class="metric-val" id="itineraryTotalDist">${totalDistStr}</span>
                     </div>
                     <div class="metric-box">
                         <span class="metric-label">Tiempo Estimado</span>
-                        <span class="metric-val">~${walkingMinutes} min</span>
+                        <span class="metric-val" id="itineraryTotalTime">~${walkingMinutes} min</span>
                     </div>
                     <div class="metric-box">
                         <span class="metric-label">Paradas</span>

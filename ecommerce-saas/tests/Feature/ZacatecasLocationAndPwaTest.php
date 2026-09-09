@@ -101,7 +101,6 @@ class ZacatecasLocationAndPwaTest extends TestCase
         $portalResponse->assertSee('mobileBottomNav');
         $portalResponse->assertSee('bnavFeed');
         $portalResponse->assertSee('goToPortalHome');
-        $portalResponse->assertSee('pwaFloatingHomePill');
         $portalResponse->assertSee('Volver al Inicio de Zacatecas');
 
         // 2. Tenant Storefront Return to Home Controls

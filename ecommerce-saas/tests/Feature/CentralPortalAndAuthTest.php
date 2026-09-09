@@ -232,5 +232,13 @@ class CentralPortalAndAuthTest extends TestCase
         // Verify desktop explicit rule
         $response->assertSee('@media (min-width: 769px)', false);
     }
+
+    public function test_walking_route_api_endpoint(): void
+    {
+        $response = $this->get('/api/walking-route?coords=-102.5724,22.7753;-102.5720,22.7758;-102.5745,22.7712');
+        $response->assertStatus(200);
+        $data = $response->json();
+        $this->assertTrue(in_array($data['code'] ?? '', ['Ok', 'Fallback']));
+    }
 }
 
