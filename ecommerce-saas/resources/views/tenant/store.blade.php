@@ -3952,6 +3952,9 @@
         <button type="button" class="btn-cart-checkout" id="btnGoToCheckout" onclick="openCheckoutModal()">
             <span>💳</span> Proceder al Pago / Checkout
         </button>
+        <a href="{{ url('/?action=cart_route&store=' . $tenantId) }}" class="btn-cart-view-route" style="display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 12px; border-radius: 12px; background: rgba(200, 109, 99, 0.12); color: var(--accent); font-weight: 700; font-size: 13px; text-decoration: none; border: 1.5px solid var(--accent); margin-top: 8px; transition: all .2s ease;">
+            <span>🚶‍♂️</span> Ver Ruta en el Mapa para Visitar/Recoger
+        </a>
         <button type="button" class="btn-cart-clear" onclick="clearCart()">
             Vaciar Carrito
         </button>
@@ -4198,8 +4201,25 @@ function initCart() {
 function saveCart() {
     try {
         localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(storeCart));
+        syncTenantCartToGlobalRegistry(TENANT_ID, @json($storeTitle), storeCart);
     } catch (e) {}
     updateCartUI();
+}
+
+function syncTenantCartToGlobalRegistry(storeId, storeName, items) {
+    try {
+        let registry = JSON.parse(localStorage.getItem('atelier_unified_cart') || '{}');
+        if (!items || items.length === 0) {
+            delete registry[storeId];
+        } else {
+            registry[storeId] = {
+                store_id: storeId,
+                store_name: storeName,
+                items: items
+            };
+        }
+        localStorage.setItem('atelier_unified_cart', JSON.stringify(registry));
+    } catch (e) {}
 }
 
 function showToast(message) {

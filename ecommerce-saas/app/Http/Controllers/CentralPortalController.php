@@ -30,6 +30,9 @@ class CentralPortalController extends Controller
                         ->take(3)
                         ->get()
                         ->map(fn ($p) => [
+                            'id' => (string) $p->id,
+                            'store_id' => (string) $t->id,
+                            'store_name' => $settings?->store_name ?? str($t->id)->replace(['-', '_'], ' ')->title()->toString(),
                             'name' => $p->name,
                             'price' => (float) $p->price,
                             'image_url' => $p->image_url,

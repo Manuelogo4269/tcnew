@@ -15,12 +15,16 @@ class TenantCheckoutAndRouteOptimizerTest extends TestCase
         $response->assertStatus(200);
 
         $response->assertSee('routeOptimizerPanel');
-        $response->assertSee('RUTA INTELIGENTE DE COMPRAS');
-        $response->assertSee('Planificador de Compras en Zacatecas Centro');
+        $response->assertSee('RUTA INTELIGENTE SEGÚN TU CARRITO');
+        $response->assertSee('Ruta Peatonal para Ver Productos en Tiendas Físicas');
+        $response->assertSee('cartRouteItemsContainer');
+        $response->assertSee('btnCentralCart');
         $response->assertSee('btnCalculateRoute');
         $response->assertSee('Calcular Ruta Recomendada');
         $response->assertSee('routeStoresSelector');
         $response->assertSee('optimizeShoppingRoute');
+        $response->assertSee('loadSampleCartForRouteDemo');
+        $response->assertSee('addCurrentModalProductToRouteCart');
     }
 
     public function test_tenant_storefront_displays_cart_drawer_and_checkout_modal(): void
@@ -33,6 +37,8 @@ class TenantCheckoutAndRouteOptimizerTest extends TestCase
 
         $response->assertSee('storeCartDrawer');
         $response->assertSee('cartDrawerBackdrop');
+        $response->assertSee('btn-cart-view-route');
+        $response->assertSee('action=cart_route');
         $response->assertSee('btnGoToCheckout');
         $response->assertSee('Proceder al Pago / Checkout');
 

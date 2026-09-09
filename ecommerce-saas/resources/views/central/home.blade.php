@@ -2467,6 +2467,300 @@
             border-color: var(--ink);
         }
 
+        /* CART-DRIVEN ROUTE OPTIMIZER STYLES */
+        .btn-central-cart {
+            padding: 8px 14px;
+            border-radius: 999px;
+            background: var(--bg);
+            color: var(--ink);
+            font-size: 13px;
+            font-weight: 700;
+            border: 1.5px solid var(--line);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all .2s ease;
+            position: relative;
+        }
+        .btn-central-cart:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-1px);
+        }
+        .central-cart-badge {
+            background: var(--accent);
+            color: #fff;
+            border-radius: 999px;
+            padding: 1px 7px;
+            font-size: 11px;
+            font-weight: 800;
+        }
+        .cart-route-items-container {
+            margin-bottom: 16px;
+        }
+        .cart-route-card {
+            background: var(--bg);
+            border: 1.5px solid rgba(200, 109, 99, 0.35);
+            border-radius: 16px;
+            padding: 18px 20px;
+            margin-bottom: 14px;
+        }
+        .cart-route-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 14px;
+            border-bottom: 1px dashed var(--line);
+            padding-bottom: 12px;
+        }
+        .cart-badge-count {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(200, 109, 99, 0.12);
+            color: var(--accent);
+            font-size: 12.5px;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 8px;
+        }
+        .cart-subtotal-text {
+            font-size: 13.5px;
+            color: var(--ink);
+        }
+        .cart-store-group {
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 12px 14px;
+            margin-bottom: 10px;
+        }
+        .cart-store-group-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .cart-store-info strong {
+            font-size: 13px;
+            color: var(--ink);
+            display: block;
+        }
+        .cart-store-info small {
+            font-size: 11px;
+            color: var(--muted);
+        }
+        .cart-store-products-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .cart-prod-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--bg);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            padding: 6px 10px;
+        }
+        .cart-prod-row img {
+            width: 38px;
+            height: 38px;
+            border-radius: 6px;
+            object-fit: cover;
+        }
+        .cart-prod-meta {
+            flex: 1;
+            min-width: 0;
+        }
+        .cart-prod-name {
+            font-size: 12.5px;
+            font-weight: 700;
+            color: var(--ink);
+            display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .cart-prod-price {
+            font-size: 11.5px;
+            color: var(--muted);
+        }
+        .cart-prod-qty-ctrl {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .cart-prod-qty-ctrl button {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            border: 1px solid var(--line);
+            background: var(--card);
+            color: var(--ink);
+            cursor: pointer;
+            display: grid;
+            place-items: center;
+            font-size: 12px;
+            font-weight: 700;
+        }
+        .cart-prod-qty-ctrl button:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        .cart-prod-qty-ctrl span {
+            font-size: 12px;
+            font-weight: 700;
+            min-width: 16px;
+            text-align: center;
+        }
+        .cart-prod-qty-ctrl .btn-del-item {
+            border-color: transparent;
+            background: transparent;
+            font-size: 13px;
+            cursor: pointer;
+        }
+        .cart-prod-qty-ctrl .btn-del-item:hover {
+            color: #ef4444;
+        }
+        .cart-route-empty {
+            background: var(--bg);
+            border: 1.5px dashed var(--line);
+            border-radius: 16px;
+            padding: 24px 20px;
+            text-align: center;
+        }
+        .cart-empty-icon {
+            font-size: 36px;
+            margin-bottom: 6px;
+        }
+        .cart-route-empty h4 {
+            font-size: 16px;
+            font-weight: 800;
+            margin: 0 0 4px;
+            color: var(--ink);
+        }
+        .cart-route-empty p {
+            font-size: 12.5px;
+            color: var(--muted);
+            margin: 0 auto;
+            max-width: 480px;
+            line-height: 1.45;
+        }
+        .btn-seed-sample-cart {
+            background: linear-gradient(135deg, var(--accent) 0%, #ba584d 100%);
+            color: #fff;
+            border: none;
+            padding: 9px 16px;
+            border-radius: 10px;
+            font-size: 12.5px;
+            font-weight: 800;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 12px rgba(200, 109, 99, 0.3);
+            transition: all .2s ease;
+        }
+        .btn-seed-sample-cart:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 18px rgba(200, 109, 99, 0.4);
+        }
+        .btn-explore-stores-scroll {
+            background: var(--card);
+            border: 1px solid var(--line);
+            color: var(--ink);
+            padding: 9px 14px;
+            border-radius: 10px;
+            font-size: 12.5px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all .2s ease;
+        }
+        .btn-explore-stores-scroll:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        .btn-add-cart-route-modal {
+            background: rgba(200, 109, 99, 0.12);
+            color: var(--accent);
+            border: 1.5px solid var(--accent);
+            padding: 12px 18px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all .2s ease;
+            width: 100%;
+            margin-top: 8px;
+        }
+        .btn-add-cart-route-modal:hover {
+            background: var(--accent);
+            color: #fff;
+        }
+        .itinerary-cart-box {
+            background: rgba(200, 109, 99, 0.06);
+            border: 1px solid rgba(200, 109, 99, 0.2);
+            border-radius: 10px;
+            padding: 8px 12px;
+            margin-top: 8px;
+        }
+        .itinerary-cart-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11.5px;
+            font-weight: 800;
+            color: var(--accent);
+            margin-bottom: 6px;
+        }
+        .itinerary-cart-list {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .itinerary-cart-list li {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11.5px;
+            color: var(--ink);
+        }
+        .itinerary-prod-thumb {
+            width: 22px;
+            height: 22px;
+            border-radius: 4px;
+            object-fit: cover;
+        }
+        .itinerary-prod-info {
+            flex: 1;
+        }
+        .itinerary-prod-total {
+            font-weight: 700;
+            color: var(--ink);
+        }
+        .route-chip-cart-badge {
+            background: var(--accent);
+            color: #fff;
+            border-radius: 999px;
+            font-size: 9.5px;
+            font-weight: 800;
+            padding: 1px 6px;
+            margin-left: auto;
+        }
+
         /* STORE CARD LOCATION SPECIFICS */
         .store-location-chip {
             display: flex;
@@ -3548,6 +3842,11 @@
         </nav>
 
         <div class="portal-auth-actions">
+            <button type="button" class="btn-central-cart" id="btnCentralCart" onclick="goToCartRoutePlanner()" title="Ver productos en mi Carrito Peatonal y calcular ruta">
+                <span>🛒</span> <span class="central-cart-label">Carrito Peatonal</span>
+                <span class="central-cart-badge" id="centralCartBadge">0</span>
+            </button>
+
             <button type="button" class="btn-rent-nav" onclick="openRentModal('crecimiento', 'annual')">
                 <span>✨</span> <span class="rent-btn-long-text">Rentar Tienda</span>
             </button>
@@ -3648,6 +3947,15 @@
     <!-- Navigation Options (The 5 requested sections) -->
     <div class="drawer-section-title">Navegación del Portal</div>
     <nav class="mobile-nav-list">
+        <a href="#routeOptimizerPanel" class="drawer-nav-item" onclick="closeMobileMenu(); goToCartRoutePlanner();">
+            <div class="nav-item-icon" style="background: rgba(200, 109, 99, 0.15); color: #c86d63;">🛒</div>
+            <div class="nav-item-text">
+                <div class="nav-item-title">Mi Carrito Peatonal (<span id="drawerCartBadge">0</span>)</div>
+                <div class="nav-item-sub">Ruta de compras para ver productos en tiendas</div>
+            </div>
+            <span class="nav-item-arrow">›</span>
+        </a>
+
         <a href="#cercanas" class="drawer-nav-item" onclick="closeMobileMenu()">
             <div class="nav-item-icon" style="background: rgba(200, 109, 99, 0.15); color: #c86d63;">📍</div>
             <div class="nav-item-text">
@@ -3790,6 +4098,8 @@
                         <article class="search-product-card">
                             <div class="search-product-thumb" style="cursor: pointer;"
                                 onclick='openCentralProductModal({
+                                    id: @json((string)$item["id"]),
+                                    store_id: @json((string)$item["store_id"]),
                                     name: @json($item["name"]),
                                     price: {{ (float)$item["price"] }},
                                     image_url: @json($item["image_url"] ?? ""),
@@ -3811,6 +4121,8 @@
                             <div class="search-product-body">
                                 <span style="font-size: 11px; font-weight: 700; color: var(--accent); text-transform: uppercase; margin-bottom: 4px;">{{ $item['category_name'] }}</span>
                                 <h3 style="cursor: pointer;" onclick='openCentralProductModal({
+                                    id: @json((string)$item["id"]),
+                                    store_id: @json((string)$item["store_id"]),
                                     name: @json($item["name"]),
                                     price: {{ (float)$item["price"] }},
                                     image_url: @json($item["image_url"] ?? ""),
@@ -3903,19 +4215,32 @@
             <div class="route-optimizer-box" id="routeOptimizerPanel">
                 <div class="route-opt-header">
                     <div>
-                        <span class="route-opt-badge">⚡ RUTA INTELIGENTE DE COMPRAS</span>
-                        <h3 style="font-size: 18px; font-weight: 800; margin: 4px 0; color: var(--ink);">Planificador de Compras en Zacatecas Centro</h3>
-                        <p style="font-size: 13px; color: var(--muted); margin: 0;">Selecciona las tiendas que deseas visitar para comprar. El sistema calculará automáticamente la <strong>ruta peatonal más corta y eficiente</strong> por las calles del Centro Histórico.</p>
+                        <span class="route-opt-badge">⚡ RUTA INTELIGENTE SEGÚN TU CARRITO</span>
+                        <h3 style="font-size: 18px; font-weight: 800; margin: 4px 0; color: var(--ink);">Ruta Peatonal para Ver Productos en Tiendas Físicas</h3>
+                        <p style="font-size: 13px; color: var(--muted); margin: 0;">Calcula la <strong>ruta peatonal más corta y eficiente</strong> por las calles de cantera de Zacatecas Centro para visitar y comprar en las tiendas los productos que tienes en tu carrito.</p>
                     </div>
                     <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
-                        <button type="button" class="btn-route-gps-origin" onclick="selectAllStoresForRoute()" style="padding: 6px 12px; font-size: 12px;">✦ Seleccionar Todas</button>
-                        <button type="button" class="btn-route-gps-origin" onclick="clearRouteSelection()" style="padding: 6px 12px; font-size: 12px;">↺ Limpiar</button>
+                        <button type="button" class="btn-opt-clear" onclick="clearCartRouteItems()" id="btnClearRouteCart" style="display: none;">🗑️ Vaciar Carrito</button>
+                        <button type="button" class="btn-opt-select-all" onclick="toggleManualStoreSelector()" id="btnToggleManualStores"><span>⚙</span> Ver Catálogo de Tiendas ▾</button>
                     </div>
                 </div>
 
-                <div class="route-stores-selector" id="routeStoresSelector">
+                <!-- Live Cart Items for Route Container -->
+                <div id="cartRouteItemsContainer" class="cart-route-items-container">
+                    <!-- Dynamically rendered by renderCartForRoute() -->
+                </div>
+
+                <!-- Manual Stores Selector (Collapsible) -->
+                <div class="route-stores-selector" id="routeStoresSelector" style="display: none; margin-top: 14px;">
+                    <div style="width: 100%; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;">
+                        <small style="color: var(--muted); font-size: 12px; font-weight: 700;">Selección manual de tiendas para agregar a la ruta:</small>
+                        <div style="display: flex; gap: 6px;">
+                            <button type="button" class="btn-route-gps-origin" onclick="selectAllStoresForRoute()" style="padding: 4px 10px; font-size: 11px;">✦ Todas</button>
+                            <button type="button" class="btn-route-gps-origin" onclick="clearRouteSelection()" style="padding: 4px 10px; font-size: 11px;">↺ Ninguna</button>
+                        </div>
+                    </div>
                     @foreach($businesses as $b)
-                        <div class="route-store-chip selected" 
+                        <div class="route-store-chip" 
                              id="routeChip_{{ $b['id'] }}"
                              data-store-id="{{ $b['id'] }}" 
                              onclick="toggleStoreRouteSelection('{{ $b['id'] }}', this)">
@@ -3939,7 +4264,7 @@
                     @endforeach
                 </div>
 
-                <div class="route-opt-trigger-row">
+                <div class="route-opt-trigger-row" style="margin-top: 16px;">
                     <button type="button" class="btn-calculate-route" id="btnCalculateRoute" onclick="optimizeShoppingRoute()">
                         <span>🗺️</span> Calcular Ruta Recomendada
                     </button>
@@ -4058,6 +4383,8 @@
                                     @foreach(collect($company['sample_products'])->take(3) as $prod)
                                         <a href="{{ $prod['url'] }}" class="preview-thumb-box" title="{{ $prod['name'] }}"
                                             onclick='event.preventDefault(); openCentralProductModal({
+                                                id: @json($prod["id"] ?? (string)\Illuminate\Support\Str::slug($prod["name"])),
+                                                store_id: @json($company["id"]),
                                                 name: @json($prod["name"]),
                                                 price: {{ (float)$prod["price"] }},
                                                 image_url: @json($prod["image_url"] ?? ""),
@@ -4678,6 +5005,9 @@
 
                 <!-- Action Buttons -->
                 <div class="modal-actions-row">
+                    <button type="button" id="centralModalAddCartBtn" class="btn-add-cart-route-modal" onclick="addCurrentModalProductToRouteCart()">
+                        <span>🛒</span> Añadir a mi Carrito para Ruta Peatonal
+                    </button>
                     <a id="centralModalWaBtn" href="#" target="_blank" class="btn-whatsapp-order">
                         <svg style="width:20px; height:20px; fill:#fff;" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.699c.971.53 1.769.814 2.797.814 3.18 0 5.767-2.587 5.768-5.766 0-3.18-2.588-5.766-5.769-5.766zm0 10.355c-.886 0-1.616-.242-2.348-.675l-.168-.1-1.745.458.466-1.701-.11-.175c-.476-.757-.728-1.503-.728-2.399 0-2.531 2.059-4.59 4.635-4.59 2.576 0 4.635 2.059 4.635 4.59 0 2.531-2.059 4.592-4.535 4.592zm-8.031-4.589c0 6.627 5.373 12 12 12s12-5.373 12-12-5.373-12-12-12-12 5.373-12 12z"/></svg>
                         Pedir por WhatsApp (<span id="centralModalBtnPrice">$0.00</span>)
@@ -4867,8 +5197,23 @@ if (centralProdModalEl) {
     });
 }
 
+let currentCentralProduct = null;
+
+function addCurrentModalProductToRouteCart() {
+    if (!currentCentralProduct) return;
+    addGlobalCartItem(currentCentralProduct);
+    closeCentralProductModal();
+    showToast(`🛒 "${currentCentralProduct.name}" añadido a tu carrito para la ruta`);
+    renderCartForRoute();
+    const routeBox = document.getElementById('routeOptimizerPanel');
+    if (routeBox) {
+        routeBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+}
+
 function openCentralProductModal(item) {
     if (!item) return;
+    currentCentralProduct = item;
     const modal = document.getElementById('centralProductModal');
     if (!modal) return;
 
@@ -5358,12 +5703,393 @@ function sortCardsByProximity(originLat, originLng) {
 }
 
 // ========================================================
-// SMART SHOPPING ROUTE OPTIMIZER (ZACATECAS CENTRO)
+// SMART SHOPPING ROUTE OPTIMIZER (ZACATECAS CENTRO) - DRIVEN BY SHOPPING CART
 // ========================================================
-let selectedRouteStoreIds = new Set(businessesData.map(b => String(b.id)));
+let selectedRouteStoreIds = new Set();
 let currentRoutePolyline = null;
 let currentRouteMarkers = [];
 let routeOrigin = null;
+
+function matchCategoryIcon(category) {
+    switch(category) {
+        case 'Moda y Lujo': return '👗';
+        case 'Bebidas y Alimentos': return '☕';
+        case 'Joyería y Platería':
+        case 'Platería y Joyería': return '💍';
+        case 'Artesanías y Recuerdos':
+        case 'Arte y Souvenirs': return '🏺';
+        case 'Librería y Cultura':
+        case 'Libros y Café': return '📚';
+        case 'Cantinas Tradicionales':
+        case 'Gastronomía y Tradición': return '🍷';
+        default: return '🏬';
+    }
+}
+
+// UNIFIED CART STORAGE FOR PHYSICAL SHOPPING ROUTE
+function getUnifiedCart() {
+    let registry = {};
+    try {
+        registry = JSON.parse(localStorage.getItem('atelier_unified_cart') || '{}');
+    } catch (e) {
+        registry = {};
+    }
+
+    // Also scan any tenant-specific localStorage keys (e.g. atelier_cart_acropolis)
+    try {
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (key && key.startsWith('atelier_cart_') && key !== 'atelier_cart_') {
+                const tenantId = key.replace('atelier_cart_', '');
+                const items = JSON.parse(localStorage.getItem(key) || '[]');
+                if (Array.isArray(items) && items.length > 0) {
+                    const storeObj = businessesData.find(b => String(b.id) === String(tenantId));
+                    const storeName = storeObj ? storeObj.store_name : (tenantId.charAt(0).toUpperCase() + tenantId.slice(1));
+                    registry[tenantId] = {
+                        store_id: tenantId,
+                        store_name: storeName,
+                        address: storeObj?.address || 'Centro Histórico, Zacatecas',
+                        items: items
+                    };
+                }
+            }
+        }
+    } catch (err) {}
+
+    return registry;
+}
+
+function saveUnifiedCart(cart) {
+    try {
+        localStorage.setItem('atelier_unified_cart', JSON.stringify(cart));
+        businessesData.forEach(b => {
+            const key = 'atelier_cart_' + b.id;
+            if (cart[b.id] && cart[b.id].items && cart[b.id].items.length > 0) {
+                localStorage.setItem(key, JSON.stringify(cart[b.id].items));
+            } else {
+                localStorage.removeItem(key);
+            }
+        });
+    } catch (e) {}
+    updateHeaderCartBadge();
+}
+
+function addGlobalCartItem(prod) {
+    const cart = getUnifiedCart();
+    let storeId = prod.store_id || '';
+    if (!storeId && prod.store_name) {
+        const found = businessesData.find(b => b.store_name === prod.store_name || String(b.id) === String(prod.store_id));
+        if (found) storeId = found.id;
+    }
+    if (!storeId) {
+        storeId = businessesData[0]?.id || 'acropolis';
+    }
+    const storeObj = businessesData.find(b => String(b.id) === String(storeId));
+    const storeName = storeObj ? storeObj.store_name : (prod.store_name || 'Comercio Zacatecas');
+
+    if (!cart[storeId]) {
+        cart[storeId] = {
+            store_id: storeId,
+            store_name: storeName,
+            address: storeObj?.address || 'Centro Histórico, Zacatecas',
+            items: []
+        };
+    }
+
+    const prodId = prod.id || prod.slug || prod.name;
+    const existing = cart[storeId].items.find(it => String(it.id) === String(prodId));
+    if (existing) {
+        existing.quantity = (parseInt(existing.quantity) || 1) + 1;
+    } else {
+        cart[storeId].items.push({
+            id: prodId,
+            name: prod.name,
+            price: parseFloat(prod.price) || 0,
+            quantity: 1,
+            image_url: prod.image_url || 'https://placehold.co/100x100?text=Zac',
+            slug: prod.slug || ''
+        });
+    }
+
+    saveUnifiedCart(cart);
+}
+
+function updateRouteCartQty(storeId, prodId, delta) {
+    const cart = getUnifiedCart();
+    if (!cart[storeId] || !cart[storeId].items) return;
+    const item = cart[storeId].items.find(it => String(it.id) === String(prodId));
+    if (!item) return;
+
+    item.quantity = (parseInt(item.quantity) || 1) + delta;
+    if (item.quantity <= 0) {
+        cart[storeId].items = cart[storeId].items.filter(it => String(it.id) !== String(prodId));
+    }
+    if (cart[storeId].items.length === 0) {
+        delete cart[storeId];
+    }
+    saveUnifiedCart(cart);
+    renderCartForRoute();
+    if (currentRoutePolyline) {
+        optimizeShoppingRoute(false);
+    }
+}
+
+function removeRouteCartItem(storeId, prodId) {
+    const cart = getUnifiedCart();
+    if (!cart[storeId] || !cart[storeId].items) return;
+    cart[storeId].items = cart[storeId].items.filter(it => String(it.id) !== String(prodId));
+    if (cart[storeId].items.length === 0) {
+        delete cart[storeId];
+    }
+    saveUnifiedCart(cart);
+    renderCartForRoute();
+    if (currentRoutePolyline) {
+        optimizeShoppingRoute(false);
+    }
+}
+
+function clearCartRouteItems() {
+    localStorage.removeItem('atelier_unified_cart');
+    businessesData.forEach(b => localStorage.removeItem('atelier_cart_' + b.id));
+    saveUnifiedCart({});
+    renderCartForRoute();
+    resetMapRoute();
+    showToast('🗑️ Carrito vaciado con éxito');
+}
+
+function loadSampleCartForRouteDemo() {
+    const sampleItems = {
+        'acropolis': {
+            store_id: 'acropolis',
+            store_name: 'Café Acrópolis',
+            address: 'Av. Hidalgo 101, Centro Histórico',
+            items: [
+                {
+                    id: 'cafe-platero',
+                    name: 'Café Platero Especial',
+                    price: 95.00,
+                    quantity: 1,
+                    image_url: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=200&q=80',
+                    slug: 'cafe-platero'
+                },
+                {
+                    id: 'pay-zarzamora',
+                    name: 'Pay Tradicional de Zarzamora',
+                    price: 85.00,
+                    quantity: 2,
+                    image_url: 'https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&w=200&q=80',
+                    slug: 'pay-zarzamora'
+                }
+            ]
+        },
+        'donajulia': {
+            store_id: 'donajulia',
+            store_name: 'Gorditas Doña Julia',
+            address: 'Calle Allende 204, Centro Histórico',
+            items: [
+                {
+                    id: 'gorditas-chicharron',
+                    name: 'Gorditas Tradicionales Rellenas (Orden)',
+                    price: 80.00,
+                    quantity: 1,
+                    image_url: 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=200&q=80',
+                    slug: 'gorditas-chicharron'
+                }
+            ]
+        },
+        'rosadeplata': {
+            store_id: 'rosadeplata',
+            store_name: 'Joyería Rosa de Plata',
+            address: 'Portal de Rosales 12, Centro Histórico',
+            items: [
+                {
+                    id: 'dije-plata-cantera',
+                    name: 'Dije de Plata Ley .925 con Cantera',
+                    price: 480.00,
+                    quantity: 1,
+                    image_url: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=200&q=80',
+                    slug: 'dije-plata-cantera'
+                }
+            ]
+        }
+    };
+    saveUnifiedCart(sampleItems);
+    renderCartForRoute();
+    showToast('✦ 3 productos de prueba cargados en el carrito');
+    optimizeShoppingRoute(true);
+}
+
+function updateHeaderCartBadge(count) {
+    if (typeof count !== 'number') {
+        const cart = getUnifiedCart();
+        count = 0;
+        Object.values(cart).forEach(s => {
+            if (s.items) s.items.forEach(it => count += (parseInt(it.quantity) || 1));
+        });
+    }
+    const badge = document.getElementById('centralCartBadge');
+    if (badge) badge.textContent = count;
+    const drawerBadge = document.getElementById('drawerCartBadge');
+    if (drawerBadge) drawerBadge.textContent = count;
+}
+
+function toggleManualStoreSelector(forceShow) {
+    const el = document.getElementById('routeStoresSelector');
+    if (!el) return;
+    const isHidden = el.style.display === 'none';
+    const show = forceShow !== undefined ? forceShow : isHidden;
+    el.style.display = show ? 'grid' : 'none';
+    const btn = document.getElementById('btnToggleManualStores');
+    if (btn) {
+        btn.innerHTML = show ? '<span>✕</span> Ocultar Catálogo de Tiendas' : '<span>⚙</span> Ver Catálogo de Tiendas ▾';
+    }
+}
+
+function goToCartRoutePlanner() {
+    const panel = document.getElementById('routeOptimizerPanel');
+    if (panel) {
+        panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+}
+
+function renderCartForRoute() {
+    const container = document.getElementById('cartRouteItemsContainer');
+    if (!container) return;
+
+    const cart = getUnifiedCart();
+    const storeIds = Object.keys(cart).filter(sId => cart[sId]?.items?.length > 0);
+
+    let totalItems = 0;
+    let grandTotal = 0;
+    storeIds.forEach(sId => {
+        cart[sId].items.forEach(it => {
+            const q = parseInt(it.quantity) || 1;
+            totalItems += q;
+            grandTotal += (parseFloat(it.price) || 0) * q;
+        });
+    });
+
+    updateHeaderCartBadge(totalItems);
+
+    const clearBtn = document.getElementById('btnClearRouteCart');
+    if (clearBtn) clearBtn.style.display = storeIds.length > 0 ? 'inline-flex' : 'none';
+
+    // Update chips badges and selected state
+    businessesData.forEach(b => {
+        const chip = document.getElementById('routeChip_' + b.id);
+        if (chip) {
+            const storeCart = cart[b.id];
+            let badge = chip.querySelector('.route-chip-cart-badge');
+            if (storeCart && storeCart.items && storeCart.items.length > 0) {
+                const count = storeCart.items.reduce((sum, item) => sum + (parseInt(item.quantity) || 1), 0);
+                if (!badge) {
+                    badge = document.createElement('span');
+                    badge.className = 'route-chip-cart-badge';
+                    chip.appendChild(badge);
+                }
+                badge.textContent = `🛒 ${count}`;
+                chip.classList.add('selected');
+                selectedRouteStoreIds.add(String(b.id));
+            } else {
+                if (badge) badge.remove();
+                if (storeIds.length > 0) {
+                    chip.classList.remove('selected');
+                    selectedRouteStoreIds.delete(String(b.id));
+                }
+            }
+        }
+    });
+
+    if (storeIds.length === 0) {
+        container.innerHTML = `
+            <div class="cart-route-empty">
+                <div class="cart-empty-icon">🛒</div>
+                <h4>Tu carrito peatonal está vacío</h4>
+                <p>Para generar la ruta recomendada hacia las tiendas físicas, agrega productos desde el catálogo o carga un ejemplo con 1 clic:</p>
+                <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 14px;">
+                    <button type="button" class="btn-seed-sample-cart" onclick="loadSampleCartForRouteDemo()">
+                        <span>✦</span> Cargar 3 Productos de Prueba para Ver la Ruta
+                    </button>
+                    <button type="button" class="btn-explore-stores-scroll" onclick="toggleManualStoreSelector(true)">
+                        <span>⚙</span> Seleccionar Tiendas Manualmente ▾
+                    </button>
+                </div>
+            </div>
+        `;
+        return;
+    }
+
+    let storesHtml = '';
+    storeIds.forEach(sId => {
+        const storeGroup = cart[sId];
+        const storeObj = businessesData.find(b => String(b.id) === String(sId));
+        const catIcon = matchCategoryIcon(storeObj?.business_category);
+
+        let prodsHtml = '';
+        let storeSubtotal = 0;
+        storeGroup.items.forEach(it => {
+            const q = parseInt(it.quantity) || 1;
+            const itemSub = (parseFloat(it.price) || 0) * q;
+            storeSubtotal += itemSub;
+            prodsHtml += `
+                <div class="cart-prod-row">
+                    <img src="${it.image_url || 'https://placehold.co/40x40?text=Zac'}" alt="${it.name}" onerror="this.onerror=null; this.src='https://placehold.co/40x40?text=Prod';">
+                    <div class="cart-prod-meta">
+                        <span class="cart-prod-name">${it.name}</span>
+                        <span class="cart-prod-price">$${parseFloat(it.price).toFixed(2)} MXN c/u</span>
+                    </div>
+                    <div class="cart-prod-qty-ctrl">
+                        <button type="button" onclick="updateRouteCartQty('${sId}', '${it.id}', -1)" title="Reducir">−</button>
+                        <span>${q}</span>
+                        <button type="button" onclick="updateRouteCartQty('${sId}', '${it.id}', 1)" title="Aumentar">+</button>
+                        <button type="button" class="btn-del-item" onclick="removeRouteCartItem('${sId}', '${it.id}')" title="Quitar">🗑️</button>
+                    </div>
+                </div>
+            `;
+        });
+
+        storesHtml += `
+            <div class="cart-store-group">
+                <div class="cart-store-group-header">
+                    <div class="cart-store-info">
+                        <strong>${catIcon} ${storeGroup.store_name}</strong>
+                        <small>📍 ${storeGroup.address || storeObj?.address || 'Zacatecas Centro'}</small>
+                    </div>
+                    <span style="font-size: 11.5px; font-weight: 800; color: var(--accent);">
+                        Subtotal tienda: $${storeSubtotal.toFixed(2)} MXN
+                    </span>
+                </div>
+                <div class="cart-store-products-grid">
+                    ${prodsHtml}
+                </div>
+            </div>
+        `;
+    });
+
+    container.innerHTML = `
+        <div class="cart-route-card">
+            <div class="cart-route-card-header">
+                <div class="cart-badge-count">
+                    <span>🛍️</span> ${totalItems} producto(s) en ${storeIds.length} tienda(s)
+                </div>
+                <div class="cart-subtotal-text">
+                    Total a pagar/ver en tiendas: <strong>$${grandTotal.toFixed(2)} MXN</strong>
+                </div>
+            </div>
+            <div style="font-size: 12.5px; color: var(--muted); margin-bottom: 12px;">
+                📍 Sucursales físicas en Zacatecas Centro que contienen tus artículos:
+            </div>
+            <div class="cart-route-stores-list">
+                ${storesHtml}
+            </div>
+            <div style="margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
+                <button type="button" class="btn-calculate-route" onclick="optimizeShoppingRoute(true)" style="padding: 12px 24px; font-size: 14px;">
+                    <span>🚶‍♂️</span> Trazar Ruta Peatonal Recomendada para Ver/Comprar estos Productos
+                </button>
+            </div>
+        </div>
+    `;
+}
 
 function toggleStoreRouteSelection(storeId, el) {
     storeId = String(storeId);
@@ -5408,7 +6134,7 @@ function requestUserLocationForRoute() {
             if (lbl) lbl.textContent = `Origen: Mi Ubicación (${userCoords.lat.toFixed(4)}, ${userCoords.lng.toFixed(4)})`;
             showToast('📍 Origen configurado en tu ubicación actual');
             if (selectedRouteStoreIds.size > 0) {
-                optimizeShoppingRoute();
+                optimizeShoppingRoute(true);
             }
         },
         (err) => {
@@ -5420,10 +6146,23 @@ function requestUserLocationForRoute() {
     );
 }
 
-function optimizeShoppingRoute() {
+function optimizeShoppingRoute(scroll = true) {
+    const cart = getUnifiedCart();
+    const cartStoreIds = Object.keys(cart).filter(sId => cart[sId]?.items?.length > 0);
+
+    // If there are cart items and user hasn't customized the selection, prioritize cart stores
+    if (cartStoreIds.length > 0 && (selectedRouteStoreIds.size === 0 || selectedRouteStoreIds.size === businessesData.length)) {
+        selectedRouteStoreIds = new Set(cartStoreIds);
+    }
+
     if (selectedRouteStoreIds.size === 0) {
-        alert('Por favor selecciona al menos una tienda para calcular tu ruta de compras.');
-        return;
+        if (cartStoreIds.length > 0) {
+            selectedRouteStoreIds = new Set(cartStoreIds);
+        } else {
+            alert('Por favor agrega productos a tu carrito o selecciona al menos una tienda para calcular tu ruta.');
+            toggleManualStoreSelector(true);
+            return;
+        }
     }
 
     const startPoint = routeOrigin || (userCoords 
@@ -5453,10 +6192,13 @@ function optimizeShoppingRoute() {
         unvisited.splice(bestIndex, 1);
 
         totalKm += bestDistance;
+        const storeCartItems = cart[nextStore.id]?.items || [];
+
         orderedRoute.push({
             store: nextStore,
             legDistanceKm: bestDistance,
-            accumulatedKm: totalKm
+            accumulatedKm: totalKm,
+            cartItems: storeCartItems
         });
 
         currentPoint = {
@@ -5465,12 +6207,16 @@ function optimizeShoppingRoute() {
         };
     }
 
+    window.__currentOrderedRoute = orderedRoute;
+
     renderRouteOnMap(startPoint, orderedRoute);
     renderRouteItineraryUI(startPoint, orderedRoute, totalKm);
 
-    const mapSection = document.getElementById('zacatecasMap');
-    if (mapSection) {
-        mapSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    if (scroll) {
+        const mapSection = document.getElementById('zacatecasMap');
+        if (mapSection) {
+            mapSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
     }
 }
 
@@ -5516,13 +6262,30 @@ function renderRouteOnMap(startPoint, orderedRoute) {
             ? `${Math.round(leg.legDistanceKm * 1000)} m` 
             : `${leg.legDistanceKm.toFixed(2)} km`;
 
+        let popupProdsHtml = '';
+        if (leg.cartItems && leg.cartItems.length > 0) {
+            const storeSub = leg.cartItems.reduce((acc, it) => acc + (parseFloat(it.price) || 0) * (parseInt(it.quantity) || 1), 0);
+            popupProdsHtml = `
+                <div style="background: rgba(200,109,99,0.08); border: 1px solid rgba(200,109,99,0.25); border-radius: 8px; padding: 6px; margin: 6px 0;">
+                    <span style="font-size: 10.5px; font-weight: 800; color: #b45b51;">🛍️ Productos a ver en esta tienda (${leg.cartItems.length}):</span>
+                    <ul style="margin: 3px 0 0 14px; padding: 0; font-size: 11px; color: #333; line-height: 1.35;">
+                        ${leg.cartItems.map(i => `<li><strong>${i.quantity}x</strong> ${i.name} ($${((parseFloat(i.price)||0)*(parseInt(i.quantity)||1)).toFixed(2)})</li>`).join('')}
+                    </ul>
+                    <div style="font-size: 11px; font-weight: 800; color: #111; margin-top: 4px; text-align: right;">
+                        Subtotal: $${storeSub.toFixed(2)} MXN
+                    </div>
+                </div>
+            `;
+        }
+
         const marker = L.marker([sLat, sLng], { icon: stopIcon }).addTo(map);
         marker.bindPopup(`
-            <div style="font-family: 'Plus Jakarta Sans', sans-serif; padding: 3px;">
+            <div style="font-family: 'Plus Jakarta Sans', sans-serif; padding: 3px; min-width: 190px;">
                 <span style="font-size: 10px; font-weight: 800; color: ${store.primary_color || '#c86d63'};">PARADA #${stopNum} (+${stopDistStr})</span>
                 <h4 style="margin: 2px 0 4px; font-size: 14px; font-weight: 800;">${store.store_name}</h4>
-                <p style="margin: 0 0 6px; font-size: 11px; color: #555;">📍 ${store.address}</p>
-                <a href="${store.store_url}" target="_blank" style="display: inline-block; background: #c86d63; color: #fff; padding: 4px 10px; border-radius: 999px; font-size: 11px; font-weight: 700; text-decoration: none;">Ver Catálogo ↗</a>
+                <p style="margin: 0 0 4px; font-size: 11px; color: #555;">📍 ${store.address}</p>
+                ${popupProdsHtml}
+                <a href="${store.store_url}" target="_blank" style="display: block; text-align: center; background: #c86d63; color: #fff; padding: 5px 10px; border-radius: 999px; font-size: 11px; font-weight: 700; text-decoration: none; margin-top: 4px;">Ver Tienda Online ↗</a>
             </div>
         `);
         currentRouteMarkers.push(marker);
@@ -5575,6 +6338,31 @@ function renderRouteItineraryUI(startPoint, orderedRoute, totalKm) {
             : `${leg.legDistanceKm.toFixed(2)} km`;
         const legTimeMin = Math.max(1, Math.round((leg.legDistanceKm / 4.2) * 60));
 
+        let cartItemsHtml = '';
+        if (leg.cartItems && leg.cartItems.length > 0) {
+            const storeSub = leg.cartItems.reduce((acc, it) => acc + (parseFloat(it.price) || 0) * (parseInt(it.quantity) || 1), 0);
+            cartItemsHtml = `
+                <div class="itinerary-cart-box">
+                    <div class="itinerary-cart-header">
+                        <span>🛍️ Artículos en tu carrito a ver en esta tienda (${leg.cartItems.length}):</span>
+                        <span class="itinerary-cart-subtotal">$${storeSub.toFixed(2)} MXN</span>
+                    </div>
+                    <ul class="itinerary-cart-list">
+                        ${leg.cartItems.map(p => `
+                            <li>
+                                <img src="${p.image_url || 'https://placehold.co/40x40?text=Zac'}" alt="${p.name}" class="itinerary-prod-thumb" onerror="this.onerror=null; this.src='https://placehold.co/40x40?text=Prod';">
+                                <div class="itinerary-prod-info">
+                                    <strong>${p.name}</strong>
+                                    <span style="color:var(--muted); font-size:11px;">${p.quantity} pza(s) × $${parseFloat(p.price).toFixed(2)}</span>
+                                </div>
+                                <span class="itinerary-prod-total">$${((parseFloat(p.price) || 0) * (parseInt(p.quantity) || 1)).toFixed(2)}</span>
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
+            `;
+        }
+
         stopsHtml += `
             <div class="itinerary-stop">
                 <div class="stop-number-badge" style="background: ${store.primary_color || '#c86d63'};">${idx + 1}</div>
@@ -5584,9 +6372,10 @@ function renderRouteItineraryUI(startPoint, orderedRoute, totalKm) {
                         <span>📍 ${store.address}</span><br>
                         <span style="color:#059669; font-weight:600;">⏰ ${store.opening_hours}</span>
                     </div>
-                    <div style="display:flex; gap:8px; align-items:center; margin-top:6px; flex-wrap:wrap;">
+                    ${cartItemsHtml}
+                    <div style="display:flex; gap:8px; align-items:center; margin-top:8px; flex-wrap:wrap;">
                         <span class="stop-distance-pill">🚶‍♂️ +${legDist} (~${legTimeMin} min)</span>
-                        <a href="${store.store_url}" target="_blank" style="font-size:11.5px; font-weight:700; color:var(--accent); text-decoration:underline;">Ver Catálogo ↗</a>
+                        <a href="${store.store_url}" target="_blank" style="font-size:11.5px; font-weight:700; color:var(--accent); text-decoration:underline;">Ver Tienda Online ↗</a>
                     </div>
                 </div>
             </div>
@@ -5639,21 +6428,32 @@ function renderRouteItineraryUI(startPoint, orderedRoute, totalKm) {
 }
 
 function shareShoppingRouteWhatsApp(distStr, minutes, numStops) {
-    let text = `*🗺️ Ruta de Compras Recomendada en Zacatecas Centro*\n`;
-    text += `• Paradas: ${numStops} tiendas seleccionadas\n`;
-    text += `• Distancia total: ${distStr}\n`;
-    text += `• Tiempo a pie estimado: ~${minutes} min\n\n`;
-    text += `*Orden del recorrido:*\n`;
+    let text = `*🗺️ Mi Ruta de Compras en Zacatecas Centro*\n`;
+    text += `• Distancia total a pie: ${distStr}\n`;
+    text += `• Tiempo estimado de caminata: ~${minutes} min\n`;
+    text += `• Paradas: ${numStops} tiendas a visitar\n\n`;
+    text += `*Itinerario y Productos a Ver:*\n`;
 
-    const chips = document.querySelectorAll('.route-store-chip.selected');
-    let idx = 1;
-    chips.forEach(chip => {
-        const title = chip.querySelector('strong')?.textContent || '';
-        text += `${idx}. ${title}\n`;
-        idx++;
-    });
+    if (window.__currentOrderedRoute && window.__currentOrderedRoute.length > 0) {
+        window.__currentOrderedRoute.forEach((leg, i) => {
+            text += `\n${i + 1}. *${leg.store.store_name}* (📍 ${leg.store.address})`;
+            if (leg.cartItems && leg.cartItems.length > 0) {
+                leg.cartItems.forEach(it => {
+                    text += `\n   • ${it.quantity}x ${it.name} ($${parseFloat(it.price).toFixed(2)} MXN)`;
+                });
+            }
+        });
+    } else {
+        const chips = document.querySelectorAll('.route-store-chip.selected');
+        let idx = 1;
+        chips.forEach(chip => {
+            const title = chip.querySelector('strong')?.textContent || '';
+            text += `${idx}. ${title}\n`;
+            idx++;
+        });
+    }
 
-    text += `\nPlanificado con Atelier Zacatecas: ${window.location.href.split('#')[0]}`;
+    text += `\n\nPlanificado con Atelier Zacatecas: ${window.location.href.split('#')[0]}`;
     window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
 }
 
@@ -5673,6 +6473,30 @@ function resetMapRoute() {
     if (map) {
         map.setView(ZACATECAS_CENTER, window.innerWidth < 768 ? 14.5 : 15);
     }
+}
+
+// INITIALIZE CART-DRIVEN ROUTE SYSTEM
+function initCartRouteSystem() {
+    renderCartForRoute();
+    updateHeaderCartBadge();
+
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('action') === 'cart_route' || urlParams.get('action') === 'route') {
+        const targetStore = urlParams.get('store');
+        if (targetStore) {
+            selectedRouteStoreIds.add(String(targetStore));
+        }
+        setTimeout(() => {
+            goToCartRoutePlanner();
+            optimizeShoppingRoute(true);
+        }, 500);
+    }
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCartRouteSystem);
+} else {
+    initCartRouteSystem();
 }
 
 // ========================================================
