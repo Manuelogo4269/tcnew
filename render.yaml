@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: atelier-zacatecas-saas
+    runtime: docker
+    plan: free
+    region: oregon
+    branch: main
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: APP_NAME
+        value: Atelier Zacatecas
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: APP_KEY
+        generateValue: true
+      - key: DB_CONNECTION
+        value: central
+      - key: CENTRAL_DB_CONNECTION
+        value: central
+      - key: CENTRAL_DB_DATABASE
+        value: database/central.sqlite
