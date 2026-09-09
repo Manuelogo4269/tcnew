@@ -63,4 +63,20 @@ class ZacatecasLocationAndPwaTest extends TestCase
         $response->assertSee('Sucursal / Recogida en Zacatecas Centro');
         $response->assertSee('Ubicación en Google Maps');
     }
+
+    public function test_direct_tienda_route_with_database_session_and_cache(): void
+    {
+        $tenant = Tenant::find('acropolis');
+        if (!$tenant) {
+            $this->markTestSkipped('Tenant acropolis does not exist.');
+        }
+
+        // Enforce database session to test production behavior
+        config(['session.driver' => 'database']);
+
+        $response = $this->get('/tienda/acropolis');
+        $response->assertStatus(200);
+        $response->assertSee('Café Acrópolis');
+        $response->assertSee('acropolis');
+    }
 }

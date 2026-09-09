@@ -21,3 +21,9 @@ services:
         value: central
       - key: CENTRAL_DB_DATABASE
         value: database/central.sqlite
+      - key: SESSION_CONNECTION
+        value: central
+      - key: DB_CACHE_CONNECTION
+        value: central
+      - key: DB_QUEUE_CONNECTION
+        value: central

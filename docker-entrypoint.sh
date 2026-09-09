@@ -8,6 +8,9 @@ sed -i "s/<VirtualHost \*:80>/<VirtualHost \*:${PORT}>/g" /etc/apache2/sites-ava
 export DB_CONNECTION="${DB_CONNECTION:-central}"
 export CENTRAL_DB_CONNECTION="${CENTRAL_DB_CONNECTION:-central}"
 export CENTRAL_DB_DATABASE="${CENTRAL_DB_DATABASE:-database/central.sqlite}"
+export SESSION_CONNECTION="${SESSION_CONNECTION:-central}"
+export DB_CACHE_CONNECTION="${DB_CACHE_CONNECTION:-central}"
+export DB_QUEUE_CONNECTION="${DB_QUEUE_CONNECTION:-central}"
 
 mkdir -p /var/www/html/database
 touch /var/www/html/database/central.sqlite
@@ -18,6 +21,7 @@ if [ -z "$APP_KEY" ]; then
 fi
 
 php artisan migrate --force
+php artisan tenants:migrate --force || true
 php artisan db:seed --force || true
 php artisan storage:link || true
 php artisan config:clear
