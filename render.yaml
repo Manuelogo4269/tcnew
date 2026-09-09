@@ -27,3 +27,9 @@ services:
         value: central
       - key: DB_QUEUE_CONNECTION
         value: central
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+      - key: GOOGLE_REDIRECT_URI
+        value: https://atelier-zacatecas.onrender.com/auth/google/callback

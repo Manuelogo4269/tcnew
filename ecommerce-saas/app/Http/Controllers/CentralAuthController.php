@@ -42,40 +42,41 @@ class CentralAuthController extends Controller
      */
     public function redirectToGoogle(Request $request)
     {
+        // Only for automated test suites running in unit test environment
+        if ($request->has('demo') && app()->runningUnitTests()) {
+            $email = $request->query('email', 'usuario.google@gmail.com');
+            $user = CentralUser::updateOrCreate(
+                ['email' => $email],
+                [
+                    'name' => 'Manuel González (Google)',
+                    'password' => Hash::make('password123'),
+                    'auth_provider' => 'google',
+                    'auth_provider_id' => 'goog_' . substr(md5($email), 0, 12),
+                    'avatar_url' => 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&q=80',
+                ]
+            );
+
+            Auth::guard('web')->login($user, true);
+            $request->session()->regenerate();
+
+            return redirect('/')->with('success', "¡Sesión iniciada con Google!");
+        }
+
         $clientId = config('services.google.client_id');
         $clientSecret = config('services.google.client_secret');
 
-        if (!empty($clientId) && !empty($clientSecret) && !$request->has('demo')) {
-            $redirectUri = url('/auth/google/callback');
-            if (request()->isSecure() || request()->header('X-Forwarded-Proto') === 'https' || str_contains(request()->getHttpHost(), 'onrender.com')) {
-                $redirectUri = preg_replace('/^http:/', 'https:', $redirectUri);
-            }
-            return Socialite::driver('google')->redirectUrl($redirectUri)->redirect();
+        if (empty($clientId) || empty($clientSecret)) {
+            return redirect('/login')->withErrors([
+                'oauth' => 'Las credenciales de Google OAuth no están configuradas.',
+            ]);
         }
 
-        // Seamless development fallback
-        $email = $request->query('email', 'usuario.google@gmail.com');
-        $name = $request->query('name', 'Manuel González (Google)');
+        $redirectUri = url('/auth/google/callback');
+        if (request()->isSecure() || request()->header('X-Forwarded-Proto') === 'https' || str_contains(request()->getHttpHost(), 'onrender.com')) {
+            $redirectUri = preg_replace('/^http:/', 'https:', $redirectUri);
+        }
 
-        $user = CentralUser::updateOrCreate(
-            ['email' => $email],
-            [
-                'name' => $name,
-                'password' => Hash::make(bin2hex(random_bytes(16))),
-                'auth_provider' => 'google',
-                'auth_provider_id' => 'goog_' . substr(md5($email), 0, 12),
-                'avatar_url' => 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&q=80',
-            ]
-        );
-
-        Auth::guard('web')->login($user, true);
-        $request->session()->regenerate();
-
-        $msg = !empty($clientId)
-            ? "¡Sesión iniciada con Google como {$user->name}!"
-            : "¡Sesión iniciada con Google!";
-
-        return redirect('/')->with('success', $msg);
+        return Socialite::driver('google')->redirectUrl($redirectUri)->redirect();
     }
 
     /**
@@ -208,37 +209,41 @@ class CentralAuthController extends Controller
      */
     public function redirectToFacebook(Request $request)
     {
+        // Only for automated test suites running in unit test environment
+        if (app()->runningUnitTests()) {
+            $email = $request->query('email', 'usuario.facebook@facebook.com');
+            $user = CentralUser::updateOrCreate(
+                ['email' => $email],
+                [
+                    'name' => 'Manuel G. (Facebook)',
+                    'password' => Hash::make('password123'),
+                    'auth_provider' => 'facebook',
+                    'auth_provider_id' => 'fb_' . substr(md5($email), 0, 12),
+                    'avatar_url' => 'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?auto=format&fit=crop&w=120&q=80',
+                ]
+            );
+
+            Auth::guard('web')->login($user, true);
+            $request->session()->regenerate();
+
+            return redirect('/')->with('success', "¡Sesión iniciada con Facebook!");
+        }
+
         $clientId = config('services.facebook.client_id');
         $clientSecret = config('services.facebook.client_secret');
 
-        if (!empty($clientId) && !empty($clientSecret) && !$request->has('demo')) {
-            $redirectUri = url('/auth/facebook/callback');
-            return Socialite::driver('facebook')->redirectUrl($redirectUri)->redirect();
+        if (empty($clientId) || empty($clientSecret)) {
+            return redirect('/login')->withErrors([
+                'oauth' => 'Las credenciales de Facebook OAuth no están configuradas en el servidor.',
+            ]);
         }
 
-        // Seamless development fallback
-        $email = $request->query('email', 'usuario.facebook@facebook.com');
-        $name = $request->query('name', 'Manuel G. (Facebook)');
+        $redirectUri = url('/auth/facebook/callback');
+        if (request()->isSecure() || request()->header('X-Forwarded-Proto') === 'https' || str_contains(request()->getHttpHost(), 'onrender.com')) {
+            $redirectUri = preg_replace('/^http:/', 'https:', $redirectUri);
+        }
 
-        $user = CentralUser::updateOrCreate(
-            ['email' => $email],
-            [
-                'name' => $name,
-                'password' => Hash::make(bin2hex(random_bytes(16))),
-                'auth_provider' => 'facebook',
-                'auth_provider_id' => 'fb_' . substr(md5($email), 0, 12),
-                'avatar_url' => 'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?auto=format&fit=crop&w=120&q=80',
-            ]
-        );
-
-        Auth::guard('web')->login($user, true);
-        $request->session()->regenerate();
-
-        $msg = !empty($clientId)
-            ? "¡Sesión iniciada con Facebook como {$user->name}!"
-            : "¡Sesión iniciada con Facebook! (Para producción completa, configura FACEBOOK_CLIENT_ID y FACEBOOK_CLIENT_SECRET en tu archivo .env)";
-
-        return redirect('/')->with('success', $msg);
+        return Socialite::driver('facebook')->redirectUrl($redirectUri)->redirect();
     }
 
     /**
