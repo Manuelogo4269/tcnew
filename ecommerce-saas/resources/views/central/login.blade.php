@@ -193,8 +193,23 @@
         <p>Accede con Google, Facebook o tu correo electrónico para comprar en las tiendas oficiales.</p>
 
         @if($errors->any())
-            <div class="error-box">
-                {{ $errors->first() }}
+            <div class="error-box" style="background: #fef2f2; border: 1.5px solid #f87171; color: #991b1b; padding: 14px; border-radius: 12px; margin-bottom: 20px; font-size: 13px; text-align: left; line-height: 1.5;">
+                <strong>⚠️ {{ $errors->first() }}</strong>
+                @if(str_contains($errors->first(), 'Google') || str_contains($errors->first(), 'oauth') || str_contains($errors->first(), 'redireccionamiento'))
+                    <div style="margin-top: 10px; font-size: 12px; color: #7f1d1d; border-top: 1px solid rgba(248, 113, 113, 0.4); padding-top: 8px;">
+                        💡 <strong>Para autorizar este dominio en Google Cloud:</strong>
+                        <ol style="margin-left: 18px; margin-top: 4px;">
+                            <li>Abre <a href="https://console.cloud.google.com/apis/credentials" target="_blank" style="color: #2563eb; text-decoration: underline; font-weight: 700;">Google Cloud Console</a>.</li>
+                            <li>Edita tu <em>Cliente de OAuth 2.0</em>.</li>
+                            <li>En <strong>URIs de redireccionamiento autorizados</strong>, agrega:<br>
+                                <code style="background: rgba(0,0,0,0.06); padding: 3px 6px; border-radius: 4px; display: inline-block; margin-top: 4px; font-size: 11.5px; word-break: break-all;">https://atelier-zacatecas.onrender.com/auth/google/callback</code>
+                            </li>
+                            <li style="margin-top: 4px;">En <strong>Orígenes de JavaScript autorizados</strong>, agrega:<br>
+                                <code style="background: rgba(0,0,0,0.06); padding: 3px 6px; border-radius: 4px; display: inline-block; margin-top: 4px; font-size: 11.5px; word-break: break-all;">https://atelier-zacatecas.onrender.com</code>
+                            </li>
+                        </ol>
+                    </div>
+                @endif
             </div>
         @endif
 
@@ -208,6 +223,28 @@
                 <span>Continuar con Facebook</span>
             </a>
         </div>
+
+        <!-- Acceso Directo con Gmail -->
+        <details style="border: 1px solid rgba(148, 163, 184, 0.3); border-radius: 12px; padding: 10px 14px; background: rgba(0,0,0,0.02); margin-bottom: 16px; text-align: left;">
+            <summary style="font-size: 12.5px; font-weight: 700; cursor: pointer; color: #2563eb;">
+                ✍️ ¿Problemas con el pop-up de Google? Entrar con tu Gmail
+            </summary>
+            <form action="{{ url('/auth/social/login') }}" method="POST" style="margin-top: 10px;">
+                @csrf
+                <input type="hidden" name="provider" value="google">
+                <div class="field" style="margin-bottom: 8px;">
+                    <label style="font-size: 11px;">Tu Nombre Completo</label>
+                    <input type="text" name="name" placeholder="Ej. Manuel Moreno" required style="padding: 8px 12px; font-size: 13px;">
+                </div>
+                <div class="field" style="margin-bottom: 10px;">
+                    <label style="font-size: 11px;">Tu Correo Gmail</label>
+                    <input type="email" name="email" placeholder="tu.cuenta@gmail.com" required style="padding: 8px 12px; font-size: 13px;">
+                </div>
+                <button type="submit" class="btn-submit" style="padding: 10px; font-size: 13px; background: #2563eb; border-radius: 8px; margin-top: 4px;">
+                    Iniciar Sesión con mi Gmail
+                </button>
+            </form>
+        </details>
 
         <div class="sep"><span>o con tu correo</span></div>
 

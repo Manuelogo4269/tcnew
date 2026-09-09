@@ -17,6 +17,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'api/*',
             'api/tienda/*',
             'api/tienda/*/checkout',
+            'auth/google/token',
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

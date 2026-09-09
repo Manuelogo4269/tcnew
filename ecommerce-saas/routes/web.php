@@ -66,6 +66,7 @@ foreach ($centralDomains as $domain) {
         // Google OAuth Routes (Laravel Socialite)
         Route::get('/auth/google', [CentralAuthController::class, 'redirectToGoogle'])->name('auth.google');
         Route::get('/auth/google/callback', [CentralAuthController::class, 'handleGoogleCallback'])->name('auth.google.callback');
+        Route::post('/auth/google/token', [CentralAuthController::class, 'handleGoogleToken'])->name('auth.google.token');
 
         // Facebook OAuth Routes (Laravel Socialite)
         Route::get('/auth/facebook', [CentralAuthController::class, 'redirectToFacebook'])->name('auth.facebook');

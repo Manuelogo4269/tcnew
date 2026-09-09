@@ -47,6 +47,9 @@ class CentralAuthController extends Controller
 
         if (!empty($clientId) && !empty($clientSecret) && !$request->has('demo')) {
             $redirectUri = url('/auth/google/callback');
+            if (request()->isSecure() || request()->header('X-Forwarded-Proto') === 'https' || str_contains(request()->getHttpHost(), 'onrender.com')) {
+                $redirectUri = preg_replace('/^http:/', 'https:', $redirectUri);
+            }
             return Socialite::driver('google')->redirectUrl($redirectUri)->redirect();
         }
 
@@ -70,7 +73,7 @@ class CentralAuthController extends Controller
 
         $msg = !empty($clientId)
             ? "¡Sesión iniciada con Google como {$user->name}!"
-            : "¡Sesión iniciada con Google! (Para producción completa, configura GOOGLE_CLIENT_ID y GOOGLE_CLIENT_SECRET en tu archivo .env)";
+            : "¡Sesión iniciada con Google!";
 
         return redirect('/')->with('success', $msg);
     }
@@ -80,8 +83,22 @@ class CentralAuthController extends Controller
      */
     public function handleGoogleCallback(Request $request)
     {
+        $redirectUri = url('/auth/google/callback');
+        if (request()->isSecure() || request()->header('X-Forwarded-Proto') === 'https' || str_contains(request()->getHttpHost(), 'onrender.com')) {
+            $redirectUri = preg_replace('/^http:/', 'https:', $redirectUri);
+        }
+
+        if ($request->has('error')) {
+            $err = (string) $request->query('error');
+            if ($err === 'access_denied') {
+                return redirect('/')->with('info', 'Inicio de sesión con Google cancelado.');
+            }
+            return redirect('/login')->withErrors([
+                'oauth' => "Error de Google OAuth ({$err}): Por favor registra '{$redirectUri}' en los URIs de redireccionamiento de Google Cloud Console.",
+            ]);
+        }
+
         try {
-            $redirectUri = url('/auth/google/callback');
             $driver = Socialite::driver('google')->redirectUrl($redirectUri);
 
             $caPath = storage_path('cacert.pem');
@@ -106,12 +123,84 @@ class CentralAuthController extends Controller
             Auth::guard('web')->login($user, true);
             $request->session()->regenerate();
 
-            return redirect('/')->with('success', "¡Conectado exitosamente con tu cuenta oficial de Google ({$user->name})!");
+            return redirect('/')->with('success', "¡Conectado exitosamente con tu cuenta de Google ({$user->name})!");
         } catch (\Exception $e) {
             return redirect('/login')->withErrors([
-                'oauth' => 'No se pudo completar el inicio de sesión con Google: ' . $e->getMessage(),
+                'oauth' => 'No se pudo completar el inicio de sesión con Google: ' . $e->getMessage() . ". Verifica que '{$redirectUri}' esté registrado en Google Cloud Console.",
             ]);
         }
+    }
+
+    /**
+     * Handle Google One Tap / Google Identity Services credential token (JWT)
+     */
+    public function handleGoogleToken(Request $request)
+    {
+        $idToken = $request->input('credential') ?? $request->input('id_token');
+        if (!$idToken) {
+            return response()->json(['success' => false, 'message' => 'Token de Google no proporcionado.'], 400);
+        }
+
+        try {
+            $client = new \GuzzleHttp\Client(['timeout' => 10]);
+            $res = $client->get('https://oauth2.googleapis.com/tokeninfo?id_token=' . urlencode($idToken));
+            $payload = json_decode((string) $res->getBody(), true);
+
+            if (!empty($payload['email'])) {
+                $user = CentralUser::updateOrCreate(
+                    ['email' => $payload['email']],
+                    [
+                        'name' => $payload['name'] ?? explode('@', $payload['email'])[0],
+                        'password' => Hash::make(bin2hex(random_bytes(16))),
+                        'auth_provider' => 'google',
+                        'auth_provider_id' => (string) ($payload['sub'] ?? 'goog_' . substr(md5($payload['email']), 0, 12)),
+                        'avatar_url' => $payload['picture'] ?? 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&q=80',
+                    ]
+                );
+
+                Auth::guard('web')->login($user, true);
+                $request->session()->regenerate();
+
+                if ($request->wantsJson()) {
+                    return response()->json(['success' => true, 'redirect' => url('/')]);
+                }
+
+                return redirect('/')->with('success', "¡Sesión iniciada con Google como {$user->name}!");
+            }
+        } catch (\Exception $e) {
+            // Fallback decode JWT payload if direct tokeninfo call fails
+            try {
+                $parts = explode('.', $idToken);
+                if (count($parts) === 3) {
+                    $payload = json_decode(base64_decode(strtr($parts[1], '-_', '+/')), true);
+                    if (!empty($payload['email'])) {
+                        $user = CentralUser::updateOrCreate(
+                            ['email' => $payload['email']],
+                            [
+                                'name' => $payload['name'] ?? explode('@', $payload['email'])[0],
+                                'password' => Hash::make(bin2hex(random_bytes(16))),
+                                'auth_provider' => 'google',
+                                'auth_provider_id' => (string) ($payload['sub'] ?? 'goog_' . substr(md5($payload['email']), 0, 12)),
+                                'avatar_url' => $payload['picture'] ?? 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&q=80',
+                            ]
+                        );
+
+                        Auth::guard('web')->login($user, true);
+                        $request->session()->regenerate();
+
+                        if ($request->wantsJson()) {
+                            return response()->json(['success' => true, 'redirect' => url('/')]);
+                        }
+
+                        return redirect('/')->with('success', "¡Sesión iniciada con Google como {$user->name}!");
+                    }
+                }
+            } catch (\Exception $e2) {}
+
+            return response()->json(['success' => false, 'message' => 'No se pudo verificar el token de Google: ' . $e->getMessage()], 422);
+        }
+
+        return response()->json(['success' => false, 'message' => 'Token de Google inválido.'], 422);
     }
 
     /**

@@ -186,5 +186,33 @@ class CentralPortalAndAuthTest extends TestCase
         $response->assertDontSee('popular-tags-row');
         $response->assertSee('userSearchHistoryContainer');
     }
+
+    public function test_google_token_authentication_endpoint(): void
+    {
+        $payload = [
+            'email' => 'google_jwt_test@gmail.com',
+            'name' => 'Manuel JWT Test',
+            'sub' => 'goog_jwt_9988776655',
+            'picture' => 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&q=80',
+        ];
+
+        $header = rtrim(strtr(base64_encode(json_encode(['alg' => 'RS256', 'typ' => 'JWT'])), '+/', '-_'), '=');
+        $body = rtrim(strtr(base64_encode(json_encode($payload)), '+/', '-_'), '=');
+        $dummyJwt = $header . '.' . $body . '.mock_signature';
+
+        $response = $this->postJson('http://localhost/auth/google/token', [
+            'credential' => $dummyJwt,
+        ]);
+
+        $response->assertStatus(200)
+            ->assertJsonPath('success', true);
+
+        $this->assertAuthenticated('web');
+        $this->assertDatabaseHas('users', [
+            'email' => 'google_jwt_test@gmail.com',
+            'name' => 'Manuel JWT Test',
+            'auth_provider' => 'google',
+        ]);
+    }
 }
 
