@@ -3932,6 +3932,20 @@
             .pwa-install-inner { flex-direction: column; text-align: center; gap: 10px; }
             .floating-pwa-badge { display: none !important; }
             .btn-back-to-top { bottom: 20px; right: 16px; left: auto; width: 42px; height: 42px; }
+
+            /* Para el teléfono: quita las opciones de arriba (Más Visitados, Mapa & Cercanía, Directorio) ya que están en la barra inferior */
+            .main-tab-nav-wrapper {
+                display: none !important;
+            }
+
+            /* Muestra la barra inferior de navegación en el teléfono */
+            .mobile-bottom-nav {
+                display: flex !important;
+            }
+
+            body {
+                padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)) !important;
+            }
         }
 
         @media (max-width: 540px) {
@@ -4562,7 +4576,7 @@
             height: 62px;
             background: var(--card);
             border-top: 1px solid var(--line);
-            display: flex;
+            display: none; /* Oculto en la página web de escritorio */
             align-items: center;
             justify-content: space-around;
             z-index: 9990;
@@ -4622,7 +4636,7 @@
             border: 1.5px solid var(--card);
         }
         body {
-            padding-bottom: 74px;
+            padding-bottom: 0; /* Sin espacio extra en la página web de escritorio */
         }
 
         /* 5. TIKTOK / INSTAGRAM STORIES VIEWER MODAL */
@@ -5414,9 +5428,17 @@
         .pwa-floating-home-pill:active {
             transform: scale(0.96);
         }
-        @media (min-width: 900px) {
+        @media (min-width: 769px) {
+            /* En la página web de escritorio: quita la barra inferior móvil (Inicio, Tiendas, Mapa GPS, Mi Ruta, Buscar) */
+            .mobile-bottom-nav {
+                display: none !important;
+            }
+            /* Muestra las pestañas principales (Más Visitados, Mapa & Cercanía, Directorio) en la página web */
+            .main-tab-nav-wrapper {
+                display: block !important;
+            }
             .pwa-floating-home-pill {
-                display: none;
+                display: none !important;
             }
         }
     </style>
@@ -7251,9 +7273,22 @@ function switchMainTab(tabName, shouldScroll = true) {
     }
 
     if (shouldScroll) {
-        const targetEl = document.getElementById('mainTabNavWrapper') || document.getElementById('productosPopulares');
-        if (targetEl) {
-            targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        const isMobile = window.innerWidth <= 768;
+        if (isMobile) {
+            if (tabName === 'feed') {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else if (tabName === 'map') {
+                const mapEl = document.getElementById('panelMap');
+                if (mapEl) mapEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else if (tabName === 'stores') {
+                const storesEl = document.getElementById('panelStores');
+                if (storesEl) storesEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        } else {
+            const targetEl = document.getElementById('mainTabNavWrapper') || document.getElementById('productosPopulares');
+            if (targetEl) {
+                targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
         }
     }
 

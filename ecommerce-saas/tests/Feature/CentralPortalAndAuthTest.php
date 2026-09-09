@@ -214,5 +214,23 @@ class CentralPortalAndAuthTest extends TestCase
             'auth_provider' => 'google',
         ]);
     }
+
+    public function test_navigation_responsive_visibility_phone_vs_web(): void
+    {
+        $response = $this->get('http://localhost/');
+        $response->assertStatus(200);
+
+        // Verify mobile-bottom-nav is hidden on desktop web by default
+        $response->assertSee('.mobile-bottom-nav {', false);
+        $response->assertSee('display: none; /* Oculto en la página web de escritorio */', false);
+
+        // Verify top segmented tabs are hidden on phone
+        $response->assertSee('@media (max-width: 768px)', false);
+        $response->assertSee('.main-tab-nav-wrapper {', false);
+        $response->assertSee('display: none !important;', false);
+
+        // Verify desktop explicit rule
+        $response->assertSee('@media (min-width: 769px)', false);
+    }
 }
 
