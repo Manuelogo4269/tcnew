@@ -116,3 +116,10 @@ Route::get('/sw.js', function () {
     ]);
 });
 
+Route::get('/offline.html', function () {
+    return response(file_get_contents(public_path('offline.html')), 200, [
+        'Content-Type' => 'text/html; charset=UTF-8',
+        'Cache-Control' => 'no-cache',
+    ]);
+});
+

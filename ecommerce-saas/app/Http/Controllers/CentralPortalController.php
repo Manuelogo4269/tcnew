@@ -61,6 +61,33 @@ class CentralPortalController extends Controller
                         'categories_count' => $categoriesCount,
                         'sample_products' => $sampleProducts,
                         'store_url' => $storeUrl,
+                        'rating' => match($t->id) {
+                            'acropolis' => 4.9,
+                            'donajulia' => 4.9,
+                            'rosadeplata' => 4.8,
+                            'elserranito' => 4.8,
+                            'quinceletras' => 4.9,
+                            'libreriaandrea' => 4.8,
+                            default => 4.8,
+                        },
+                        'reviews_count' => match($t->id) {
+                            'acropolis' => 425,
+                            'donajulia' => 512,
+                            'rosadeplata' => 194,
+                            'elserranito' => 288,
+                            'quinceletras' => 640,
+                            'libreriaandrea' => 145,
+                            default => 120,
+                        },
+                        'tradition_badge' => match($t->id) {
+                            'acropolis' => 'Tradición de más de 80 años',
+                            'donajulia' => 'Gorditas emblemáticas del centro',
+                            'rosadeplata' => 'Plata pura Ley .925 garantizada',
+                            'elserranito' => 'Nieves artesanales tradicionales',
+                            'quinceletras' => 'Museo y cantina histórica zacatecana',
+                            'libreriaandrea' => 'Librería cultural zacatecana',
+                            default => 'Comercio certificado del centro',
+                        },
                     ];
                 });
 

@@ -16,6 +16,21 @@
         })();
     </script>
     <title>Atelier Marketplace — Tiendas y Comercios de Zacatecas Centro</title>
+    <meta name="description" content="Directorio y marketplace oficial de comercios en el Centro Histórico de Zacatecas. Explora tiendas emblemáticas, productos típicos, mapa interactivo con GPS y pedidos por WhatsApp con sucursal física.">
+
+    <!-- Open Graph & Social Cards (WhatsApp, Facebook, Telegram, Twitter) -->
+    <meta property="og:site_name" content="Atelier Zacatecas">
+    <meta property="og:title" content="Atelier Zacatecas — Tiendas y Comercios de Zacatecas Centro">
+    <meta property="og:description" content="Explora comercios emblemáticos en la Ciudad de Cantera Rosa y Plata: Café Acrópolis, Gorditas Doña Julia, Platería Rosa de Plata y más. Mapa interactivo y pedidos por WhatsApp.">
+    <meta property="og:image" content="{{ url('/icons/icon-512.png') }}">
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512">
+    <meta property="og:url" content="{{ url('/') }}">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Atelier Zacatecas — Tiendas y Comercios de Zacatecas Centro">
+    <meta name="twitter:description" content="Directorio oficial de comercios en el Centro Histórico de Zacatecas. Mapa interactivo, catálogo y pedidos directos.">
+    <meta name="twitter:image" content="{{ url('/icons/icon-512.png') }}">
 
     <!-- PWA Requirements for Mobile (Android Chrome, iOS Safari & Desktop) -->
     <link rel="manifest" href="/manifest.json">
@@ -342,6 +357,47 @@
             background: #f3f4f6;
         }
         [data-theme="dark"] .mobile-menu-label {
+            color: #f3f4f6;
+        }
+        [data-theme="dark"] .tradition-pill {
+            background: rgba(220, 126, 116, 0.15);
+            color: var(--accent);
+            border-color: rgba(220, 126, 116, 0.3);
+        }
+        [data-theme="dark"] .rating-score {
+            color: #f3f4f6;
+        }
+        [data-theme="dark"] .store-open-badge.status-open {
+            background: rgba(16, 185, 129, 0.18);
+            color: #34d399;
+            border-color: rgba(16, 185, 129, 0.35);
+        }
+        [data-theme="dark"] .store-open-badge.status-closed {
+            background: rgba(239, 68, 68, 0.18);
+            color: #f87171;
+            border-color: rgba(239, 68, 68, 0.35);
+        }
+        [data-theme="dark"] .radius-pill {
+            background: #1e232e;
+            border-color: rgba(255, 255, 255, 0.12);
+            color: #cbd5e1;
+        }
+        [data-theme="dark"] .radius-pill:hover,
+        [data-theme="dark"] .radius-pill.active {
+            background: var(--accent);
+            color: #ffffff;
+            border-color: var(--accent);
+        }
+        [data-theme="dark"] .btn-back-to-top {
+            background: #151820;
+            border-color: rgba(255, 255, 255, 0.14);
+            color: var(--accent);
+        }
+        [data-theme="dark"] .btn-share-header,
+        [data-theme="dark"] .btn-share-card,
+        [data-theme="dark"] .btn-lang-toggle {
+            background: #151820;
+            border-color: rgba(255, 255, 255, 0.14);
             color: #f3f4f6;
         }
         /* Map in Dark Mode: Clean Night Grayscale with High Contrast Roads & Labels */
@@ -1868,6 +1924,253 @@
             align-self: flex-start;
         }
 
+        /* REPUTATION, RATINGS & TRADITION CHIPS */
+        .store-rating-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            margin: 4px 0 6px;
+        }
+        .stars-gold {
+            color: #f59e0b;
+            font-size: 13px;
+            letter-spacing: 1px;
+        }
+        .rating-score {
+            font-weight: 800;
+            color: var(--ink);
+        }
+        .reviews-count {
+            color: var(--muted);
+            font-size: 11px;
+        }
+        .tradition-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 999px;
+            background: rgba(200, 109, 99, 0.1);
+            color: var(--accent);
+            border: 1px solid rgba(200, 109, 99, 0.25);
+            margin-bottom: 8px;
+            align-self: flex-start;
+        }
+
+        /* REAL-TIME OPEN / CLOSED STATUS BADGES */
+        .store-open-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 999px;
+            margin-bottom: 8px;
+            align-self: flex-start;
+        }
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .store-open-badge.status-open {
+            background: #ecfdf5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+        }
+        .store-open-badge.status-open .status-dot {
+            background: #10b981;
+            box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.25);
+            animation: pulseDot 2s infinite;
+        }
+        .store-open-badge.status-closed {
+            background: #fef2f2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+        .store-open-badge.status-closed .status-dot {
+            background: #ef4444;
+        }
+        @keyframes pulseDot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.3); }
+        }
+
+        /* WALKING RADIUS FILTER PILLS */
+        .walking-radius-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            padding-top: 10px;
+            border-top: 1px dashed var(--line);
+        }
+        .radius-pill {
+            padding: 5px 12px;
+            border-radius: 999px;
+            background: var(--paper);
+            border: 1px solid var(--line);
+            font-size: 11.5px;
+            font-weight: 700;
+            color: var(--muted);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .radius-pill:hover, .radius-pill.active {
+            background: var(--ink);
+            color: #ffffff;
+            border-color: var(--ink);
+        }
+        .filter-only-open {
+            margin-left: auto;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 12px;
+            border-radius: 999px;
+            font-size: 11.5px;
+            font-weight: 700;
+            cursor: pointer;
+            border: 1px solid #10b981;
+            background: #ecfdf5;
+            color: #065f46;
+            transition: all 0.2s ease;
+        }
+        .filter-only-open.active {
+            background: #059669;
+            color: #ffffff;
+        }
+
+        /* FLOATING BACK TO TOP BUTTON */
+        .btn-back-to-top {
+            position: fixed;
+            bottom: 24px;
+            left: 24px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--card);
+            border: 1.5px solid var(--card-border);
+            color: var(--accent);
+            font-size: 20px;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.14);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 998;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(12px);
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .btn-back-to-top.visible {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+        .btn-back-to-top:hover {
+            background: var(--accent);
+            color: #ffffff;
+            border-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 28px rgba(200, 109, 99, 0.35);
+        }
+
+        /* WEB SHARE BUTTONS */
+        .btn-share-header {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid var(--line);
+            background: var(--card);
+            color: var(--ink);
+            font-size: 16px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all .2s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            flex-shrink: 0;
+        }
+        .btn-share-header:hover {
+            transform: scale(1.08);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        .btn-share-card {
+            background: var(--paper);
+            border: 1px solid var(--line);
+            color: var(--ink);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .btn-share-card:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: var(--card);
+        }
+
+        /* LANGUAGE SELECTOR PILL */
+        .btn-lang-toggle {
+            height: 38px;
+            padding: 0 12px;
+            border-radius: 999px;
+            border: 1px solid var(--line);
+            background: var(--card);
+            color: var(--ink);
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+            flex-shrink: 0;
+        }
+        .btn-lang-toggle:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* TOAST NOTIFICATION */
+        .toast-popup {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: #111210;
+            color: #ffffff;
+            border: 1px solid var(--accent);
+            padding: 10px 22px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 700;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            z-index: 10002;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .toast-popup.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
         /* PWA MOBILE INSTALL BAR & FLOATING BADGE */
         .pwa-install-bar {
             display: none;
@@ -2539,6 +2842,16 @@
                 <span>⚙</span> <span class="admin-btn-text">Central</span>
             </a>
 
+            <!-- Language Toggle (ES / EN) -->
+            <button type="button" class="btn-lang-toggle" onclick="toggleLanguage()" title="Cambiar idioma / Change language">
+                <span>🌐</span> <span class="lang-label-text">ES</span>
+            </button>
+
+            <!-- Web Share Button -->
+            <button type="button" class="btn-share-header" onclick="sharePortal()" title="Compartir portal por WhatsApp / Redes" aria-label="Compartir">
+                <span>📤</span>
+            </button>
+
             <!-- Dark / Light Theme Toggle -->
             <button type="button" class="btn-theme-toggle" id="themeToggleBtn" onclick="toggleTheme()" aria-label="Cambiar modo oscuro/claro" title="Cambiar a Modo Oscuro / Claro">
                 <span class="theme-icon-light">🌙</span>
@@ -2604,8 +2917,8 @@
         <a href="#cercanas" class="drawer-nav-item" onclick="closeMobileMenu()">
             <div class="nav-item-icon" style="background: rgba(200, 109, 99, 0.15); color: #c86d63;">📍</div>
             <div class="nav-item-text">
-                <div class="nav-item-title">Tiendas Cercanas</div>
-                <div class="nav-item-sub">Zacatecas Centro Histórico &amp; Mapa</div>
+                <div class="nav-item-title" data-i18n="nav_cercanas">Tiendas Cercanas</div>
+                <div class="nav-item-sub" data-i18n="nav_cercanas_sub">Zacatecas Centro Histórico &amp; Mapa</div>
             </div>
             <span class="nav-item-arrow">›</span>
         </a>
@@ -2613,8 +2926,8 @@
         <a href="#empresas" class="drawer-nav-item" onclick="closeMobileMenu()">
             <div class="nav-item-icon" style="background: rgba(59, 130, 246, 0.15); color: #3b82f6;">🏢</div>
             <div class="nav-item-text">
-                <div class="nav-item-title">Directorio de Empresas</div>
-                <div class="nav-item-sub">Bitácora oficial de comercios locales</div>
+                <div class="nav-item-title" data-i18n="nav_empresas">Directorio de Empresas</div>
+                <div class="nav-item-sub" data-i18n="nav_empresas_sub">Bitácora oficial de comercios locales</div>
             </div>
             <span class="nav-item-arrow">›</span>
         </a>
@@ -2622,8 +2935,8 @@
         <a href="#buscar" class="drawer-nav-item" onclick="closeMobileMenu()">
             <div class="nav-item-icon" style="background: rgba(16, 185, 129, 0.15); color: #10b981;">🔍</div>
             <div class="nav-item-text">
-                <div class="nav-item-title">Búsqueda Global de Productos</div>
-                <div class="nav-item-sub">Catálogo completo de todas las tiendas</div>
+                <div class="nav-item-title" data-i18n="nav_buscar">Búsqueda Global de Productos</div>
+                <div class="nav-item-sub" data-i18n="nav_buscar_sub">Catálogo completo de todas las tiendas</div>
             </div>
             <span class="nav-item-arrow">›</span>
         </a>
@@ -2631,8 +2944,8 @@
         <a href="#planes" class="drawer-nav-item" onclick="closeMobileMenu()">
             <div class="nav-item-icon" style="background: rgba(245, 158, 11, 0.15); color: #f59e0b;">💎</div>
             <div class="nav-item-text">
-                <div class="nav-item-title">Planes de Renta de Tiendas</div>
-                <div class="nav-item-sub">Abre tu sucursal en línea hoy</div>
+                <div class="nav-item-title" data-i18n="nav_planes">Planes de Renta de Tiendas</div>
+                <div class="nav-item-sub" data-i18n="nav_planes_sub">Abre tu sucursal en línea hoy</div>
             </div>
             <span class="nav-item-arrow">›</span>
         </a>
@@ -2640,8 +2953,8 @@
         <a href="{{ url('/admin') }}" target="_blank" class="drawer-nav-item" onclick="closeMobileMenu()">
             <div class="nav-item-icon" style="background: rgba(139, 92, 246, 0.15); color: #8b5cf6;">⚙️</div>
             <div class="nav-item-text">
-                <div class="nav-item-title">Panel Super Admin Central</div>
-                <div class="nav-item-sub">Administración multi-tenant del sistema</div>
+                <div class="nav-item-title" data-i18n="nav_admin">Panel Super Admin Central</div>
+                <div class="nav-item-sub" data-i18n="nav_admin_sub">Administración multi-tenant del sistema</div>
             </div>
             <span class="nav-item-arrow">↗</span>
         </a>
@@ -2655,9 +2968,19 @@
             <span class="theme-text-dark" style="display: none;">☀️ Cambiar a Modo Claro</span>
         </button>
 
+        <!-- Language and Share in Drawer -->
+        <div style="display: flex; gap: 8px;">
+            <button type="button" class="btn-theme-toggle-drawer" style="flex: 1;" onclick="toggleLanguage()">
+                <span>🌐</span> <span class="lang-drawer-text">Español (ES)</span>
+            </button>
+            <button type="button" class="btn-theme-toggle-drawer" style="flex: 1;" onclick="sharePortal()">
+                <span>📤</span> <span data-i18n="btn_share">Compartir</span>
+            </button>
+        </div>
+
         <!-- Rent CTA Button in Drawer -->
         <button type="button" class="btn-rent-drawer" onclick="closeMobileMenu(); openRentModal('crecimiento', 'annual')">
-            ✨ Rentar Tienda Online (-20% Anual)
+            ✨ <span data-i18n="btn_rent_cta">Rentar Tienda Online (-20% Anual)</span>
         </button>
 
         <div class="drawer-brand-footer">
@@ -2794,6 +3117,21 @@
                 <button type="button" class="zone-pill" onclick="filterByZone('Av. Juárez', this)">🏬 Av. Juárez</button>
                 <button type="button" class="zone-pill" onclick="filterByZone('Portal de Rosales', this)">☕ Portal de Rosales</button>
             </div>
+
+            <!-- Walking Distance Radius Filter Pills & Open Now Toggle -->
+            <div class="walking-radius-row">
+                <span style="font-size: 11.5px; font-weight: 700; color: var(--muted); display: flex; align-items: center; gap: 4px;">
+                    <span>🚶‍♂️</span> <span data-i18n="label_walking">Distancia a pie:</span>
+                </span>
+                <button type="button" class="radius-pill active" onclick="filterByDistance(999, this)" data-i18n="radius_all">✦ Todo el Centro</button>
+                <button type="button" class="radius-pill" onclick="filterByDistance(0.2, this)" data-i18n="radius_200">⚡ Menos de 200 m (2 min)</button>
+                <button type="button" class="radius-pill" onclick="filterByDistance(0.5, this)" data-i18n="radius_500">🚶‍♀️ Menos de 500 m (5 min)</button>
+                <button type="button" class="radius-pill" onclick="filterByDistance(1.0, this)" data-i18n="radius_1k">🏃‍♂️ Menos de 1 km</button>
+
+                <button type="button" class="filter-only-open" id="btnToggleOnlyOpen" onclick="toggleFilterOnlyOpen(this)">
+                    <span>🟢</span> <span data-i18n="btn_only_open">Solo Abiertos Ahora</span>
+                </button>
+            </div>
         </div>
 
         <!-- Leaflet Map Container -->
@@ -2838,7 +3176,8 @@
                      data-lat="{{ $company['latitude'] }}" 
                      data-lng="{{ $company['longitude'] }}" 
                      data-zone="{{ $company['neighborhood_zone'] }}"
-                     data-name="{{ $company['store_name'] }}">
+                     data-name="{{ $company['store_name'] }}"
+                     data-hours="{{ $company['opening_hours'] }}">
                     <div>
                         <div class="company-header">
                             <div class="company-badge-logo" style="background: {{ $company['primary_color'] }};">
@@ -2856,6 +3195,19 @@
 
                         <div class="company-info">
                             <h3>{{ $company['store_name'] }}</h3>
+
+                            <!-- Star Rating & Tradition Badge -->
+                            <div class="store-rating-row">
+                                <span class="stars-gold">★★★★★</span>
+                                <span class="rating-num">{{ number_format($company['rating'] ?? 4.9, 1) }}</span>
+                                <span class="rating-count">({{ $company['reviews_count'] ?? 180 }} <span data-i18n="reviews">reseñas</span>)</span>
+                            </div>
+                            @if(!empty($company['tradition_badge']))
+                                <div>
+                                    <span class="tradition-pill">{{ $company['tradition_badge'] }}</span>
+                                </div>
+                            @endif
+
                             <p>{{ $company['tagline'] }}</p>
 
                             <!-- Physical Location in Zacatecas Centro -->
@@ -2868,8 +3220,16 @@
                                     <span>🧭</span> <em>Ref: {{ $company['location_reference'] }}</em>
                                 </div>
                             @endif
-                            <div style="font-size: 11.5px; color: #059669; font-weight: 700; margin-bottom: 14px; display: flex; align-items: center; gap: 5px;">
-                                <span>⏰</span> {{ $company['opening_hours'] }}
+
+                            <!-- Real-time dynamic Open / Closed status -->
+                            <div style="font-size: 11.5px; color: #059669; font-weight: 700; margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap;">
+                                <div style="display: flex; align-items: center; gap: 5px;">
+                                    <span>⏰</span> <span class="hours-text">{{ $company['opening_hours'] }}</span>
+                                </div>
+                                <span class="store-open-badge badge-closed" id="badge-open-{{ $company['id'] }}">
+                                    <span class="dot"></span>
+                                    <span class="status-text">...</span>
+                                </span>
                             </div>
                         </div>
 
@@ -2877,8 +3237,8 @@
                         @if(count($company['sample_products']) > 0)
                             <div class="company-preview-strip">
                                 <div class="preview-strip-label">
-                                    <span>Artículos destacados</span>
-                                    <span>{{ $company['products_count'] }} productos</span>
+                                    <span data-i18n="featured_items">Artículos destacados</span>
+                                    <span>{{ $company['products_count'] }} <span data-i18n="products_count_label">productos</span></span>
                                 </div>
                                 <div class="preview-products-grid">
                                     @foreach(collect($company['sample_products'])->take(3) as $prod)
@@ -2894,7 +3254,7 @@
                         <!-- Redes Sociales y Enlaces Oficiales -->
                         @if(!empty($company['whatsapp_number']) || !empty($company['facebook_url']) || !empty($company['instagram_url']) || !empty($company['official_website_url']) || !empty($company['maps_url']))
                             <div class="company-social-bar">
-                                <span class="company-social-label">Redes & Contacto</span>
+                                <span class="company-social-label" data-i18n="social_label">Redes & Contacto</span>
                                 <div class="company-social-links">
                                     @if(!empty($company['whatsapp_number']))
                                         @php $compWa = preg_replace('/[^0-9]/', '', $company['whatsapp_number']); @endphp
@@ -2934,8 +3294,11 @@
 
                     <div class="company-actions-footer">
                         <a href="{{ $company['store_url'] }}" target="_blank" class="btn-visit-company">
-                            Entrar a la Tienda <span>↗</span>
+                            <span data-i18n="enter_store">Entrar a la Tienda</span> <span>↗</span>
                         </a>
+                        <button type="button" class="btn-share-card" onclick="shareStore('{{ addslashes($company['store_name']) }}', '{{ $company['store_url'] }}', '{{ addslashes($company['tagline']) }}')" title="Compartir comercio" aria-label="Compartir {{ $company['store_name'] }}">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+                        </button>
                     </div>
                 </div>
             @empty
@@ -3435,8 +3798,16 @@
                 ⏳ Creando base de datos SQLite aislada y configurando catálogo... Por favor espera unos segundos.
             </div>
         </form>
-    </div>
 </div>
+</div>
+
+<!-- Floating Back to Top Button -->
+<button type="button" class="btn-back-to-top" id="btnBackToTop" onclick="scrollToTop()" title="Volver arriba" aria-label="Volver arriba">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+</button>
+
+<!-- Global Toast Notification -->
+<div class="toast-popup" id="toastPopup" role="status" aria-live="polite"></div>
 
 <!-- JAVASCRIPT FOR LIVE SEARCH & MODAL -->
 <script>
@@ -3843,19 +4214,33 @@ function renderStoreMarkers(stores) {
         });
 
         const waClean = store.whatsapp_number ? store.whatsapp_number.replace(/[^0-9]/g, '') : '';
-        const waBtn = waClean ? `<a href="https://wa.me/${waClean}?text=${encodeURIComponent('¡Hola! Me comunico desde el portal de Zacatecas para ' + store.store_name)}" target="_blank" style="background: #25d366; color: #fff; padding: 5px 8px; border-radius: 999px; font-size: 11px; font-weight: 700; text-decoration: none;" title="WhatsApp">WA</a>` : '';
-        const fbBtn = store.facebook_url ? `<a href="${store.facebook_url}" target="_blank" style="background: #1877f2; color: #fff; padding: 5px 8px; border-radius: 999px; font-size: 11px; font-weight: 700; text-decoration: none;" title="Facebook">FB</a>` : '';
-        const igBtn = store.instagram_url ? `<a href="${store.instagram_url}" target="_blank" style="background: #e1306c; color: #fff; padding: 5px 8px; border-radius: 999px; font-size: 11px; font-weight: 700; text-decoration: none;" title="Instagram">IG</a>` : '';
+        const waBtn = waClean ? `<a href="https://wa.me/${waClean}?text=${encodeURIComponent('¡Hola! Me comunico desde el portal de Zacatecas para ' + store.store_name)}" target="_blank" style="background: #25d366; color: #fff; padding: 5px 9px; border-radius: 999px; font-size: 11px; font-weight: 700; text-decoration: none;" title="WhatsApp">WA</a>` : '';
+        const fbBtn = store.facebook_url ? `<a href="${store.facebook_url}" target="_blank" style="background: #1877f2; color: #fff; padding: 5px 9px; border-radius: 999px; font-size: 11px; font-weight: 700; text-decoration: none;" title="Facebook">FB</a>` : '';
+        const igBtn = store.instagram_url ? `<a href="${store.instagram_url}" target="_blank" style="background: #e1306c; color: #fff; padding: 5px 9px; border-radius: 999px; font-size: 11px; font-weight: 700; text-decoration: none;" title="Instagram">IG</a>` : '';
+
+        const openStatus = checkStoreOpen(store.opening_hours);
+        const openBadgeHtml = openStatus.isOpen 
+            ? `<span style="display:inline-flex; align-items:center; gap:4px; font-size:10.5px; font-weight:700; color:#059669; background:rgba(16,185,129,0.12); padding:2px 7px; border-radius:999px;"><span style="width:6px; height:6px; border-radius:50%; background:#10b981;"></span> ${openStatus.label}</span>`
+            : `<span style="display:inline-flex; align-items:center; gap:4px; font-size:10.5px; font-weight:700; color:#dc2626; background:rgba(239,68,68,0.12); padding:2px 7px; border-radius:999px;"><span style="width:6px; height:6px; border-radius:50%; background:#ef4444;"></span> ${openStatus.label}</span>`;
+
+        const traditionHtml = store.tradition_badge 
+            ? `<div style="font-size:10px; font-weight:700; color:#c86d63; margin-bottom:4px; display:inline-block; background:rgba(200,109,99,0.1); padding:2px 6px; border-radius:6px;">🏛️ ${store.tradition_badge}</div>` 
+            : '';
 
         const popupContent = `
-            <div style="font-family: 'Plus Jakarta Sans', sans-serif; min-width: 200px; padding: 4px;">
-                <span style="font-size: 10px; font-weight: 800; text-transform: uppercase; color: ${store.primary_color || 'var(--accent)'}; letter-spacing: .06em;">${store.business_category}</span>
-                <h4 style="font-size: 15px; margin: 2px 0 4px; font-weight: 800;">${store.store_name}</h4>
+            <div style="font-family: 'Plus Jakarta Sans', sans-serif; min-width: 220px; padding: 4px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px; gap:8px;">
+                    <span style="font-size: 10px; font-weight: 800; text-transform: uppercase; color: ${store.primary_color || 'var(--accent)'}; letter-spacing: .06em;">${store.business_category}</span>
+                    ${openBadgeHtml}
+                </div>
+                <h4 style="font-size: 15px; margin: 2px 0 3px; font-weight: 800;">${store.store_name}</h4>
+                <div style="font-size:11px; color:#d97706; font-weight:700; margin-bottom:4px;">★ ${Number(store.rating || 4.9).toFixed(1)} <span style="color:#6b7280; font-weight:500;">(${store.reviews_count || 180} ${currentLang === 'en' ? 'reviews' : 'reseñas'})</span></div>
+                ${traditionHtml}
                 <p style="font-size: 11.5px; color: #555; margin: 0 0 6px; line-height: 1.35;">📍 ${store.address}</p>
                 <div style="font-size: 11px; color: #059669; font-weight: 700; margin-bottom: 8px;">⏰ ${store.opening_hours}</div>
                 <div style="display: flex; gap: 6px; flex-wrap: wrap;">
-                    <a href="${store.store_url}" target="_blank" style="flex: 1; text-align: center; background: #111210; color: #fff; padding: 5px 8px; border-radius: 999px; font-size: 11px; font-weight: 700; text-decoration: none;">Ver Tienda ↗</a>
-                    <a href="${store.maps_url}" target="_blank" style="background: #f3f4f6; color: #111; padding: 5px 8px; border-radius: 999px; font-size: 11px; font-weight: 700; text-decoration: none;">Mapa</a>
+                    <a href="${store.store_url}" target="_blank" style="flex: 1; text-align: center; background: #c86d63; color: #fff; padding: 6px 10px; border-radius: 999px; font-size: 11px; font-weight: 700; text-decoration: none;">${currentLang === 'en' ? 'Visit Store ↗' : 'Ver Tienda ↗'}</a>
+                    <a href="${store.maps_url}" target="_blank" style="background: #f3f4f6; color: #111; padding: 6px 10px; border-radius: 999px; font-size: 11px; font-weight: 700; text-decoration: none;">Mapa</a>
                     ${waBtn}
                     ${fbBtn}
                     ${igBtn}
@@ -3908,7 +4293,7 @@ function requestUserLocation() {
 
             if (btn) {
                 btn.classList.add('active');
-                btn.innerHTML = '<span>✓</span> Ubicación GPS Activa';
+                btn.innerHTML = '<span>✓</span> ' + (i18nDictionary[currentLang] || i18nDictionary.es).gps_active;
                 btn.disabled = false;
             }
             if (statusText) {
@@ -3945,7 +4330,7 @@ function requestUserLocation() {
             const fallbackLat = 22.7753;
             const fallbackLng = -102.5724;
             if (statusText) {
-                statusText.textContent = 'Permiso GPS no concedido. Calculando distancias desde Plaza de Armas (Centro Histórico).';
+                statusText.textContent = (i18nDictionary[currentLang] || i18nDictionary.es).gps_default_notice;
             }
             sortCardsByProximity(fallbackLat, fallbackLng);
         },
@@ -3978,18 +4363,165 @@ function sortCardsByProximity(originLat, originLng) {
     cards.forEach(c => grid.appendChild(c));
 }
 
-// FILTER BY ZONE
-function filterByZone(zoneName, btnEl) {
-    // Update active pill
-    document.querySelectorAll('.zone-pill').forEach(b => b.classList.remove('active'));
+// ========================================================
+// REAL-TIME OPERATING HOURS PARSER (ZACATECAS TIMEZONE UTC-6)
+// ========================================================
+function getZacatecasNow() {
+    try {
+        const parts = new Intl.DateTimeFormat('en-US', {
+            timeZone: 'America/Mexico_City',
+            weekday: 'short',
+            hour: 'numeric',
+            minute: 'numeric',
+            hour12: false
+        }).formatToParts(new Date());
+        
+        let weekday = '', hour = 0, minute = 0;
+        parts.forEach(p => {
+            if (p.type === 'weekday') weekday = p.value;
+            if (p.type === 'hour') hour = parseInt(p.value, 10);
+            if (p.type === 'minute') minute = parseInt(p.value, 10);
+        });
+        if (hour === 24) hour = 0;
+        return { weekday, minutesNow: hour * 60 + minute };
+    } catch(e) {
+        const d = new Date();
+        const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        return { weekday: days[d.getDay()], minutesNow: d.getHours() * 60 + d.getMinutes() };
+    }
+}
+
+function parseTimeToMinutes(h, m, ampm) {
+    let hours = parseInt(h, 10);
+    const mins = parseInt(m || 0, 10);
+    ampm = (ampm || '').toUpperCase();
+    if (ampm === 'PM' && hours < 12) hours += 12;
+    if (ampm === 'AM' && hours === 12) hours = 0;
+    return hours * 60 + mins;
+}
+
+function checkStoreOpen(hoursStr) {
+    const dict = i18nDictionary[currentLang] || i18nDictionary.es;
+    if (!hoursStr) return { isOpen: true, label: dict.open_now };
+
+    const { weekday, minutesNow } = getZacatecasNow();
+    const isSunday = (weekday === 'Sun');
+    const segments = hoursStr.split('|');
+
+    for (let segment of segments) {
+        segment = segment.trim();
+        let applies = false;
+        const lower = segment.toLowerCase();
+
+        if (lower.includes('domingo') && !lower.includes('lunes a domingo')) {
+            if (isSunday) applies = true;
+        } else if (lower.includes('lunes a sábado') || lower.includes('lunes a sabado')) {
+            if (!isSunday) applies = true;
+        } else if (lower.includes('lunes a domingo') || lower.includes('todos los días')) {
+            applies = true;
+        } else {
+            applies = true;
+        }
+
+        if (applies) {
+            const timeMatch = segment.match(/(\d{1,2}):(\d{2})\s*(AM|PM)\s*-\s*(\d{1,2}):(\d{2})\s*(AM|PM)/i);
+            if (timeMatch) {
+                const startMin = parseTimeToMinutes(timeMatch[1], timeMatch[2], timeMatch[3]);
+                const endMin = parseTimeToMinutes(timeMatch[4], timeMatch[5], timeMatch[6]);
+                if (minutesNow >= startMin && minutesNow < endMin) {
+                    return { isOpen: true, label: dict.open_now };
+                }
+            }
+        }
+    }
+
+    return { isOpen: false, label: dict.closed };
+}
+
+function updateAllStoresOpenStatus() {
+    const cards = document.querySelectorAll('.company-card');
+    cards.forEach(card => {
+        const hours = card.dataset.hours || '';
+        const id = card.dataset.companyId;
+        const status = checkStoreOpen(hours);
+        card.dataset.isOpen = status.isOpen ? '1' : '0';
+
+        const badge = document.getElementById(`badge-open-${id}`);
+        if (badge) {
+            badge.className = `store-open-badge ${status.isOpen ? 'badge-open' : 'badge-closed'}`;
+            const statusTextEl = badge.querySelector('.status-text');
+            if (statusTextEl) {
+                statusTextEl.textContent = status.label;
+            }
+        }
+    });
+}
+
+// ========================================================
+// COMBINED FILTERS: DISTANCE RADIUS, ZONE & OPEN NOW
+// ========================================================
+let activeRadiusKm = null;
+let onlyOpenFilterActive = false;
+let currentZoneFilter = 'all';
+
+function filterByDistance(maxKm, btnEl) {
+    if (maxKm >= 900) {
+        activeRadiusKm = null;
+    } else {
+        activeRadiusKm = parseFloat(maxKm);
+    }
+
+    document.querySelectorAll('.radius-pill').forEach(b => b.classList.remove('active'));
     if (btnEl) btnEl.classList.add('active');
 
+    ensureDistancesCalculated();
+    applyAllFilters();
+}
+
+function toggleFilterOnlyOpen(btnEl) {
+    onlyOpenFilterActive = !onlyOpenFilterActive;
+    if (btnEl) {
+        btnEl.classList.toggle('active', onlyOpenFilterActive);
+    }
+    applyAllFilters();
+}
+
+function ensureDistancesCalculated() {
+    const grid = document.getElementById('companiesGrid');
+    if (!grid) return;
+    const firstCard = grid.querySelector('.company-card');
+    if (!firstCard || !firstCard.dataset.distance) {
+        const originLat = userCoords ? userCoords.lat : 22.7753;
+        const originLng = userCoords ? userCoords.lng : -102.5724;
+        sortCardsByProximity(originLat, originLng);
+        if (!userCoords) {
+            const dict = i18nDictionary[currentLang] || i18nDictionary.es;
+            showToast(dict.gps_default_notice);
+        }
+    }
+}
+
+function filterByZone(zoneName, btnEl) {
+    currentZoneFilter = zoneName || 'all';
+    document.querySelectorAll('.zone-pill').forEach(b => b.classList.remove('active'));
+    if (btnEl) btnEl.classList.add('active');
+    applyAllFilters();
+}
+
+function applyAllFilters() {
     const cards = document.querySelectorAll('.company-card');
     let visibleStores = [];
 
     cards.forEach(card => {
-        const cardZone = card.dataset.zone || '';
-        if (zoneName === 'all' || cardZone.toLowerCase().includes(zoneName.toLowerCase())) {
+        const cardZone = (card.dataset.zone || '').toLowerCase();
+        const dist = parseFloat(card.dataset.distance || '0');
+        const isOpen = card.dataset.isOpen === '1';
+
+        const matchZone = (currentZoneFilter === 'all' || cardZone.includes(currentZoneFilter.toLowerCase()));
+        const matchRadius = (!activeRadiusKm || dist <= activeRadiusKm);
+        const matchOpen = (!onlyOpenFilterActive || isOpen);
+
+        if (matchZone && matchRadius && matchOpen) {
             card.style.display = 'flex';
             const companyId = card.dataset.companyId;
             const foundStore = businessesData.find(b => String(b.id) === String(companyId));
@@ -3999,11 +4531,199 @@ function filterByZone(zoneName, btnEl) {
         }
     });
 
-    // Re-render map markers for visible stores
-    renderStoreMarkers(visibleStores.length > 0 ? visibleStores : businessesData);
-    if (visibleStores.length > 0 && map) {
+    renderStoreMarkers(visibleStores.length > 0 ? visibleStores : (onlyOpenFilterActive || activeRadiusKm ? [] : businessesData));
+    if (visibleStores.length > 0 && map && currentZoneFilter !== 'all') {
         const first = visibleStores[0];
         map.panTo([parseFloat(first.latitude) || 22.7753, parseFloat(first.longitude) || -102.5724]);
+    }
+}
+
+// ========================================================
+// NATIVE WEB SHARE & CLIPBOARD TOAST
+// ========================================================
+function showToast(message) {
+    const toast = document.getElementById('toastPopup');
+    if (!toast) return;
+    toast.textContent = message;
+    toast.classList.add('show');
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(() => {
+        toast.classList.remove('show');
+    }, 3200);
+}
+
+function copyToClipboard(text, successMessage) {
+    const dict = i18nDictionary[currentLang] || i18nDictionary.es;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+            showToast(successMessage || dict.copied_portal);
+        }).catch(() => {
+            fallbackPromptCopy(text);
+        });
+    } else {
+        fallbackPromptCopy(text);
+    }
+}
+
+function fallbackPromptCopy(text) {
+    window.prompt(currentLang === 'en' ? 'Copy link:' : 'Copia el enlace:', text);
+}
+
+function sharePortal() {
+    const dict = i18nDictionary[currentLang] || i18nDictionary.es;
+    const shareData = {
+        title: 'Atelier Zacatecas · Tiendas del Centro Histórico',
+        text: currentLang === 'en' 
+            ? 'Discover heritage stores, authentic silver, local handcrafts & dining in Zacatecas Downtown.'
+            : 'Explora platerías, artesanías, cafés y tiendas emblemáticas en el Centro de Zacatecas.',
+        url: window.location.href.split('#')[0]
+    };
+    if (navigator.share) {
+        navigator.share(shareData).catch(err => {
+            if (err.name !== 'AbortError') {
+                copyToClipboard(shareData.url, dict.copied_portal);
+            }
+        });
+    } else {
+        copyToClipboard(shareData.url, dict.copied_portal);
+    }
+}
+
+function shareStore(name, url, tagline) {
+    const dict = i18nDictionary[currentLang] || i18nDictionary.es;
+    const shareData = {
+        title: `${name} · Zacatecas Centro`,
+        text: `${name}: ${tagline || ''} · Zacatecas Centro Histórico`,
+        url: url
+    };
+    if (navigator.share) {
+        navigator.share(shareData).catch(err => {
+            if (err.name !== 'AbortError') {
+                copyToClipboard(url, dict.copied_store);
+            }
+        });
+    } else {
+        copyToClipboard(url, dict.copied_store);
+    }
+}
+
+// ========================================================
+// FLOATING BACK TO TOP BUTTON
+// ========================================================
+function initBackToTop() {
+    const btn = document.getElementById('btnBackToTop');
+    if (!btn) return;
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 400) {
+            btn.classList.add('visible');
+        } else {
+            btn.classList.remove('visible');
+        }
+    }, { passive: true });
+}
+
+function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ========================================================
+// BILINGUAL i18n SUPPORT (ESPAÑOL 🇲🇽 / ENGLISH 🇺🇸)
+// ========================================================
+const i18nDictionary = {
+    es: {
+        nav_cercanas: "Tiendas Cercanas",
+        nav_cercanas_sub: "Zacatecas Centro Histórico & Mapa",
+        nav_empresas: "Directorio de Empresas",
+        nav_empresas_sub: "Bitácora oficial de comercios locales",
+        nav_buscar: "Búsqueda Global de Productos",
+        nav_buscar_sub: "Catálogo completo de todas las tiendas",
+        nav_planes: "Planes de Renta de Tiendas",
+        nav_planes_sub: "Abre tu sucursal en línea hoy",
+        nav_admin: "Panel Super Admin Central",
+        nav_admin_sub: "Administración multi-tenant del sistema",
+        label_walking: "Distancia a pie:",
+        radius_all: "✦ Todo el Centro",
+        radius_200: "⚡ Menos de 200 m (2 min)",
+        radius_500: "🚶‍♀️ Menos de 500 m (5 min)",
+        radius_1k: "🏃‍♂️ Menos de 1 km",
+        btn_only_open: "Solo Abiertos Ahora",
+        reviews: "reseñas",
+        featured_items: "Artículos destacados",
+        products_count_label: "productos",
+        social_label: "Redes & Contacto",
+        enter_store: "Entrar a la Tienda",
+        btn_share: "Compartir",
+        btn_rent_cta: "Rentar Tienda Online (-20% Anual)",
+        open_now: "Abierto Ahora",
+        closed: "Cerrado",
+        lang_switch_label: "ES",
+        lang_drawer_label: "Español (ES)",
+        copied_portal: "¡Enlace del portal copiado al portapapeles!",
+        copied_store: "¡Enlace del comercio copiado!",
+        gps_active: "Ubicación GPS Activa",
+        gps_default_notice: "Calculado desde Plaza de Armas. Activa tu GPS para distancia exacta."
+    },
+    en: {
+        nav_cercanas: "Nearby Stores",
+        nav_cercanas_sub: "Zacatecas Downtown & Map",
+        nav_empresas: "Business Directory",
+        nav_empresas_sub: "Official log of local merchants",
+        nav_buscar: "Global Product Search",
+        nav_buscar_sub: "Full catalog across all stores",
+        nav_planes: "Store Rental Plans",
+        nav_planes_sub: "Launch your online branch today",
+        nav_admin: "Super Admin Panel",
+        nav_admin_sub: "Multi-tenant system management",
+        label_walking: "Walking distance:",
+        radius_all: "✦ All Downtown",
+        radius_200: "⚡ Under 200 m (2 min)",
+        radius_500: "🚶‍♀️ Under 500 m (5 min)",
+        radius_1k: "🏃‍♂️ Under 1 km",
+        btn_only_open: "Open Now Only",
+        reviews: "reviews",
+        featured_items: "Featured items",
+        products_count_label: "products",
+        social_label: "Social & Contact",
+        enter_store: "Visit Store",
+        btn_share: "Share",
+        btn_rent_cta: "Rent Online Store (-20% Annual)",
+        open_now: "Open Now",
+        closed: "Closed",
+        lang_switch_label: "EN",
+        lang_drawer_label: "English (US)",
+        copied_portal: "Portal link copied to clipboard!",
+        copied_store: "Store link copied!",
+        gps_active: "GPS Location Active",
+        gps_default_notice: "Calculated from Plaza de Armas. Enable GPS for exact distance."
+    }
+};
+
+let currentLang = localStorage.getItem('portal_lang') || 'es';
+
+function toggleLanguage() {
+    currentLang = currentLang === 'es' ? 'en' : 'es';
+    localStorage.setItem('portal_lang', currentLang);
+    applyLanguage(currentLang);
+}
+
+function applyLanguage(lang) {
+    currentLang = lang || 'es';
+    const dict = i18nDictionary[currentLang] || i18nDictionary.es;
+
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (dict[key]) {
+            el.textContent = dict[key];
+        }
+    });
+
+    document.querySelectorAll('.lang-label-text').forEach(el => el.textContent = dict.lang_switch_label);
+    document.querySelectorAll('.lang-drawer-text').forEach(el => el.textContent = dict.lang_drawer_label);
+
+    updateAllStoresOpenStatus();
+
+    if (map) {
+        applyAllFilters();
     }
 }
 
@@ -4061,11 +4781,17 @@ function updateThemeIcons(theme) {
     document.querySelectorAll('.theme-text-dark').forEach(el => el.style.display = theme === 'dark' ? 'inline-flex' : 'none');
 }
 
-// Initialize map & theme icons on DOMContentLoaded
+// Initialize map, theme icons, language, hours, back-to-top on DOMContentLoaded
 document.addEventListener('DOMContentLoaded', () => {
     initZacatecasMap();
     const activeTheme = document.documentElement.getAttribute('data-theme') || 'light';
     updateThemeIcons(activeTheme);
+    initBackToTop();
+    applyLanguage(currentLang);
+    updateAllStoresOpenStatus();
+
+    // Auto-update hours status every 60 seconds
+    setInterval(updateAllStoresOpenStatus, 60000);
 });
 </script>
 

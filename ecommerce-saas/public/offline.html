@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sin Conexión — Atelier Zacatecas</title>
+    <link rel="icon" type="image/svg+xml" href="/icons/icon.svg">
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+    <meta name="theme-color" content="#c86d63">
+    <style>
+        :root {
+            --accent: #c86d63;
+            --accent-hover: #b1554a;
+            --ink: #181d26;
+            --muted: #64748b;
+            --paper: #fbf8f6;
+            --card: #ffffff;
+            --card-border: #e2e8f0;
+        }
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --ink: #f8fafc;
+                --muted: #94a3b8;
+                --paper: #0c0e12;
+                --card: #151820;
+                --card-border: rgba(255, 255, 255, 0.1);
+            }
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: var(--paper);
+            color: var(--ink);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            text-align: center;
+        }
+        .offline-card {
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            border-radius: 28px;
+            padding: 40px 28px;
+            max-width: 440px;
+            width: 100%;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            animation: fadeIn 0.4s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .icon-wrap {
+            width: 84px;
+            height: 84px;
+            margin: 0 auto 20px;
+            border-radius: 22px;
+            overflow: hidden;
+            border: 2.5px solid var(--accent);
+            box-shadow: 0 8px 24px rgba(200, 109, 99, 0.25);
+            display: grid;
+            place-items: center;
+            background: #ffffff;
+        }
+        .icon-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .offline-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 14px;
+            border-radius: 999px;
+            background: rgba(200, 109, 99, 0.14);
+            color: var(--accent);
+            font-size: 11.5px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 14px;
+        }
+        h1 {
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            letter-spacing: -0.02em;
+        }
+        p {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.55;
+            margin-bottom: 24px;
+        }
+        .offline-tips {
+            background: rgba(0,0,0,0.02);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 14px 16px;
+            margin-bottom: 24px;
+            text-align: left;
+            font-size: 12.5px;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+        .offline-tips strong {
+            color: var(--ink);
+            display: block;
+            margin-bottom: 4px;
+        }
+        .btn-retry {
+            width: 100%;
+            padding: 13px 20px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #d47a6f 0%, #ba584d 100%);
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 800;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(200, 109, 99, 0.35);
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+            margin-bottom: 10px;
+        }
+        .btn-retry:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(200, 109, 99, 0.45);
+        }
+        .btn-home {
+            width: 100%;
+            padding: 12px 20px;
+            border-radius: 999px;
+            background: transparent;
+            color: var(--ink);
+            font-size: 13.5px;
+            font-weight: 700;
+            border: 1px solid var(--card-border);
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.2s ease;
+        }
+        .btn-home:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+    </style>
+</head>
+<body>
+    <div class="offline-card">
+        <div class="icon-wrap">
+            <img src="/icons/icon.svg" alt="Minimapa Zacatecas Centro">
+        </div>
+        <div class="offline-badge">
+            <span>📶 Modo Sin Conexión</span>
+        </div>
+        <h1>Estás sin conexión a internet</h1>
+        <p>No se pudo cargar esta sección. Puedes seguir consultando el contenido y catálogo que ya tienes guardado en tu teléfono.</p>
+        
+        <div class="offline-tips">
+            <strong>💡 Sugerencias útiles:</strong>
+            • Verifica que tus datos móviles o conexión Wi-Fi estén activados.<br>
+            • Si instalaste la PWA, los comercios y mapas visitados siguen disponibles sin señal.
+        </div>
+
+        <button type="button" class="btn-retry" onclick="window.location.reload()">
+            <span>🔄</span> Reintentar Conexión
+        </button>
+        <a href="/" class="btn-home">
+            <span>🏠</span> Volver a Tiendas de Zacatecas
+        </a>
+    </div>
+</body>
+</html>

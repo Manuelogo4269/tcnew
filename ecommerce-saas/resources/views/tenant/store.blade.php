@@ -79,6 +79,18 @@
     </script>
     <title>{{ $storeTitle }} — Zacatecas Centro · Tienda Oficial</title>
 
+    <!-- Open Graph & Social Sharing -->
+    <meta property="og:site_name" content="Atelier Zacatecas Centro">
+    <meta property="og:title" content="{{ $storeTitle }} — Zacatecas Centro">
+    <meta property="og:description" content="{{ $settings?->tagline ?? 'Tienda oficial en el Centro Histórico de Zacatecas. Catálogo en línea y pedidos directos por WhatsApp.' }}">
+    <meta property="og:image" content="{{ !empty($settings?->logo_url) ? $settings->logo_url : url('/icons/icon-512.png') }}">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ $storeTitle }} — Zacatecas Centro">
+    <meta name="twitter:description" content="{{ $settings?->tagline ?? 'Tienda oficial en el Centro Histórico de Zacatecas. Catálogo en línea y pedidos directos por WhatsApp.' }}">
+    <meta name="twitter:image" content="{{ !empty($settings?->logo_url) ? $settings->logo_url : url('/icons/icon-512.png') }}">
+
     <!-- PWA Requirements for Mobile (Android & iOS) -->
     <link rel="manifest" href="/manifest.json">
     <meta name="mobile-web-app-capable" content="yes">
@@ -1773,6 +1785,11 @@
                 <span class="theme-icon-dark" style="display: none;">☀️</span>
             </button>
 
+            <!-- Web Share Button -->
+            <button type="button" class="btn-theme-toggle" onclick="shareStorePage()" aria-label="Compartir tienda" title="Compartir Tienda">
+                <span>📤</span>
+            </button>
+
             <!-- Mobile Store Hamburger Toggle -->
             <button type="button" class="btn-store-menu" id="storeMenuToggle" onclick="toggleStoreMenu()" aria-label="Abrir Menú">
                 <span class="bar"></span>
@@ -3057,6 +3074,24 @@ function updateThemeIcons(theme) {
     document.querySelectorAll('.theme-icon-dark').forEach(el => el.style.display = theme === 'dark' ? 'inline-block' : 'none');
     document.querySelectorAll('.theme-text-light').forEach(el => el.style.display = theme === 'dark' ? 'none' : 'inline-flex');
     document.querySelectorAll('.theme-text-dark').forEach(el => el.style.display = theme === 'dark' ? 'inline-flex' : 'none');
+}
+
+// WEB SHARE API FOR STORE
+function shareStorePage() {
+    const shareData = {
+        title: document.title,
+        text: 'Visita ' + @json($storeTitle) + ' en Zacatecas Centro.',
+        url: window.location.href
+    };
+    if (navigator.share) {
+        navigator.share(shareData).catch(() => {});
+    } else if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(window.location.href).then(() => {
+            alert('¡Enlace de la tienda copiado al portapapeles!');
+        });
+    } else {
+        window.prompt('Copia el enlace de la tienda:', window.location.href);
+    }
 }
 
 document.addEventListener('DOMContentLoaded', () => {

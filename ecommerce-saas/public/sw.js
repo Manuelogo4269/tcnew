@@ -1,10 +1,11 @@
 // Atelier Zacatecas - Service Worker PWA con Auto-Actualización Automática
 // Identificador de versión: cada cambio aquí provoca una auto-actualización inmediata en teléfonos y navegadores
-const CACHE_NAME = 'atelier-zacatecas-v2.1.0';
+const CACHE_NAME = 'atelier-zacatecas-v2.2.0';
 
 // Recursos estáticos esenciales para funcionamiento offline
 const STATIC_ASSETS = [
     '/manifest.json',
+    '/offline.html',
     '/icons/icon.svg',
     '/icons/icon-192.png',
     '/icons/icon-512.png',
@@ -96,10 +97,13 @@ self.addEventListener('fetch', (event) => {
                     return networkResponse;
                 })
                 .catch(() => {
-                    // Si no hay red, servir la última copia offline
+                    // Si no hay red, servir la última copia offline o la página offline nativa
                     return caches.match(request).then((cachedResponse) => {
                         if (cachedResponse) return cachedResponse;
-                        return caches.match('/');
+                        return caches.match('/').then((homeResponse) => {
+                            if (homeResponse) return homeResponse;
+                            return caches.match('/offline.html');
+                        });
                     });
                 })
         );
