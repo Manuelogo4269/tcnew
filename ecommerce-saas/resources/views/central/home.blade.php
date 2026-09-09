@@ -4211,6 +4211,516 @@
             background: #3b82f6;
             color: #fff;
         }
+
+        /* ======================================================== */
+        /* TIKTOK & FACEBOOK / INSTAGRAM STYLE DESIGN SYSTEM         */
+        /* ======================================================== */
+
+        /* 1. STORIES TRAY (HISTORIAS EN VIVO DE ZACATECAS) */
+        .stories-tray-section {
+            padding: 10px 0 6px;
+            margin-bottom: 12px;
+        }
+        .stories-tray-scroll {
+            display: flex;
+            gap: 14px;
+            overflow-x: auto;
+            padding: 4px 2px 10px;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+        }
+        .stories-tray-scroll::-webkit-scrollbar { display: none; }
+        .story-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            padding: 0;
+            flex-shrink: 0;
+            width: 72px;
+            transition: transform .18s ease;
+        }
+        .story-item:hover, .story-item:active {
+            transform: scale(1.06);
+        }
+        .story-ring {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            padding: 2.5px;
+            background: linear-gradient(45deg, #c86d63, #f59e0b, #ec4899, #c86d63);
+            background-size: 200% 200%;
+            animation: storyRingGlow 4s ease infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(200, 109, 99, 0.22);
+        }
+        @keyframes storyRingGlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .story-avatar-box {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: var(--card);
+            border: 2px solid var(--card);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            overflow: hidden;
+        }
+        .story-avatar-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .story-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--ink);
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
+        }
+
+        /* 2. TIKTOK / FACEBOOK MAIN SEGMENTED TABS */
+        .main-tab-nav-wrapper {
+            position: sticky;
+            top: 68px;
+            z-index: 80;
+            background: var(--paper);
+            padding: 6px 0;
+            margin-bottom: 16px;
+            border-bottom: 1px solid var(--line);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .main-tab-switcher {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            overflow-x: auto;
+            scrollbar-width: none;
+            padding: 2px 0;
+        }
+        .main-tab-switcher::-webkit-scrollbar { display: none; }
+        .main-tab-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--muted);
+            background: var(--card);
+            border: 1px solid var(--line);
+            cursor: pointer;
+            transition: all .2s ease;
+            white-space: nowrap;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+        }
+        .main-tab-btn:hover {
+            color: var(--ink);
+            border-color: var(--accent);
+        }
+        .main-tab-btn.active {
+            background: var(--accent);
+            color: #ffffff;
+            border-color: var(--accent);
+            box-shadow: 0 4px 14px rgba(200, 109, 99, 0.28);
+        }
+        .tab-badge {
+            background: rgba(255,255,255,0.25);
+            padding: 1px 7px;
+            border-radius: 999px;
+            font-size: 10.5px;
+        }
+        .main-tab-btn:not(.active) .tab-badge {
+            background: var(--line);
+            color: var(--muted);
+        }
+
+        /* 3. SOCIAL FEED STREAM (TIKTOK / FACEBOOK CARDS) */
+        .social-feed-stream {
+            max-width: 620px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .social-card {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.04);
+            transition: transform .2s ease, box-shadow .2s ease;
+        }
+        .social-card:hover {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+        .social-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+        }
+        .social-card-user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: inherit;
+        }
+        .social-user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: #fff;
+            flex-shrink: 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+        .social-user-info strong {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 13.5px;
+            font-weight: 800;
+            color: var(--ink);
+        }
+        .verified-check {
+            color: #2563eb;
+            font-size: 12px;
+        }
+        .social-user-info small {
+            display: block;
+            font-size: 11px;
+            color: var(--muted);
+        }
+        .social-card-media {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            background: #0b0e14;
+            cursor: pointer;
+            overflow: hidden;
+        }
+        .social-card-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .35s ease;
+        }
+        .social-card-media:hover img {
+            transform: scale(1.03);
+        }
+        .social-price-float {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            background: rgba(18, 22, 32, 0.88);
+            backdrop-filter: blur(8px);
+            color: #ffffff;
+            padding: 5px 12px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 800;
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+        }
+        .social-heart-pop {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 72px;
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.4);
+            transition: all .4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .social-heart-pop.animate {
+            opacity: 1;
+            transform: scale(1.2);
+        }
+        .social-actions-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 16px;
+            border-bottom: 1px solid var(--line);
+        }
+        .social-left-actions {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .btn-social-action {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--ink);
+            padding: 4px;
+            transition: transform .15s ease, color .15s ease;
+        }
+        .btn-social-action:hover {
+            transform: scale(1.08);
+        }
+        .btn-social-action.liked {
+            color: #ef4444;
+        }
+        .btn-social-add-cart {
+            background: var(--accent);
+            color: #ffffff;
+            border: none;
+            padding: 7px 15px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: all .2s ease;
+            box-shadow: 0 2px 8px rgba(200, 109, 99, 0.28);
+        }
+        .btn-social-add-cart:hover {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+        }
+        .social-card-body {
+            padding: 12px 16px 14px;
+        }
+        .social-card-body h4 {
+            font-size: 14.5px;
+            font-weight: 800;
+            color: var(--ink);
+            margin: 0 0 4px;
+        }
+        .social-card-body p {
+            font-size: 12px;
+            color: var(--muted);
+            margin: 0 0 8px;
+            line-height: 1.45;
+        }
+        .social-card-store-link {
+            font-size: 11.5px;
+            font-weight: 700;
+            color: var(--accent);
+            text-decoration: underline;
+        }
+
+        /* 4. NATIVE MOBILE BOTTOM NAVIGATION BAR */
+        .mobile-bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 62px;
+            background: var(--card);
+            border-top: 1px solid var(--line);
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            z-index: 9990;
+            padding-bottom: max(4px, env(safe-area-inset-bottom));
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.06);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+        }
+        [data-theme="dark"] .mobile-bottom-nav {
+            background: rgba(20, 24, 34, 0.96);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        .bottom-nav-tab {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            color: var(--muted);
+            padding: 6px 0;
+            text-decoration: none;
+            position: relative;
+            transition: all .15s ease;
+        }
+        .bottom-nav-tab.active {
+            color: var(--accent);
+            font-weight: 800;
+        }
+        .bottom-nav-icon {
+            font-size: 19px;
+            line-height: 1;
+            transition: transform .15s ease;
+        }
+        .bottom-nav-tab:active .bottom-nav-icon,
+        .bottom-nav-tab.active .bottom-nav-icon {
+            transform: scale(1.15);
+        }
+        .bottom-nav-label {
+            font-size: 10px;
+            font-weight: 700;
+            line-height: 1;
+        }
+        .bottom-nav-badge {
+            position: absolute;
+            top: 3px;
+            right: calc(50% - 18px);
+            background: #ef4444;
+            color: #ffffff;
+            font-size: 9px;
+            font-weight: 900;
+            padding: 1px 5px;
+            border-radius: 999px;
+            border: 1.5px solid var(--card);
+        }
+        body {
+            padding-bottom: 74px;
+        }
+
+        /* 5. TIKTOK / INSTAGRAM STORIES VIEWER MODAL */
+        .story-viewer-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            background: rgba(0, 0, 0, 0.94);
+            backdrop-filter: blur(10px);
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+        .story-viewer-content {
+            position: relative;
+            max-width: 400px;
+            width: 100%;
+            height: 82vh;
+            max-height: 700px;
+            background: #000;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.7);
+            display: flex;
+            flex-direction: column;
+        }
+        .story-progress-bar-wrap {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            right: 12px;
+            z-index: 10;
+            height: 3px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 999px;
+            overflow: hidden;
+        }
+        .story-progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: #ffffff;
+            transition: width 5s linear;
+        }
+        .story-header-bar {
+            position: absolute;
+            top: 22px;
+            left: 14px;
+            right: 14px;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .story-store-brand {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #fff;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+        }
+        .story-store-brand .story-brand-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 1.5px solid #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            background: #c86d63;
+        }
+        .btn-close-story {
+            background: rgba(0,0,0,0.5);
+            border: none;
+            color: #fff;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .story-media-main {
+            flex: 1;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .story-caption-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 30px 18px 24px;
+            background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, transparent 100%);
+            color: #fff;
+            z-index: 10;
+        }
+        .story-caption-overlay h3 {
+            font-size: 18px;
+            font-weight: 800;
+            margin: 0 0 6px;
+        }
+        .story-caption-overlay p {
+            font-size: 12.5px;
+            color: rgba(255,255,255,0.88);
+            margin: 0 0 14px;
+            line-height: 1.4;
+        }
+        .btn-story-cta {
+            display: block;
+            text-align: center;
+            background: #c86d63;
+            color: #fff;
+            padding: 12px 20px;
+            border-radius: 999px;
+            font-weight: 800;
+            text-decoration: none;
+            font-size: 13.5px;
+            box-shadow: 0 4px 14px rgba(200, 109, 99, 0.4);
+        }
     </style>
 </head>
 <body>
@@ -4325,10 +4835,10 @@
         </a>
 
         <nav class="portal-nav-links">
-            <a href="#cercanas" style="color: var(--accent); font-weight: 700;">📍 Tiendas Cercanas</a>
-            <a href="#empresas">Empresas</a>
-            <a href="#buscar">Búsqueda Global</a>
-            <a href="#planes">💎 Planes de Renta</a>
+            <a href="#cercanas" onclick="switchMainTab('map')" style="color: var(--accent); font-weight: 700;">📍 Tiendas Cercanas</a>
+            <a href="#empresas" onclick="switchMainTab('stores')">Empresas</a>
+            <a href="#buscar" onclick="switchMainTab('feed')">Búsqueda Global</a>
+            <a href="#planes" onclick="switchMainTab('plans')">💎 Planes de Renta</a>
             <a href="{{ url('/admin') }}" target="_blank">Super Admin</a>
         </nav>
 
@@ -4447,7 +4957,7 @@
             <span class="nav-item-arrow">›</span>
         </a>
 
-        <a href="#cercanas" class="drawer-nav-item" onclick="closeMobileMenu()">
+        <a href="#cercanas" class="drawer-nav-item" onclick="closeMobileMenu(); switchMainTab('map');">
             <div class="nav-item-icon" style="background: rgba(200, 109, 99, 0.15); color: #c86d63;">📍</div>
             <div class="nav-item-text">
                 <div class="nav-item-title" data-i18n="nav_cercanas">Tiendas Cercanas</div>
@@ -4456,7 +4966,7 @@
             <span class="nav-item-arrow">›</span>
         </a>
 
-        <a href="#empresas" class="drawer-nav-item" onclick="closeMobileMenu()">
+        <a href="#empresas" class="drawer-nav-item" onclick="closeMobileMenu(); switchMainTab('stores');">
             <div class="nav-item-icon" style="background: rgba(59, 130, 246, 0.15); color: #3b82f6;">🏢</div>
             <div class="nav-item-text">
                 <div class="nav-item-title" data-i18n="nav_empresas">Directorio de Empresas</div>
@@ -4465,7 +4975,7 @@
             <span class="nav-item-arrow">›</span>
         </a>
 
-        <a href="#buscar" class="drawer-nav-item" onclick="closeMobileMenu()">
+        <a href="#buscar" class="drawer-nav-item" onclick="closeMobileMenu(); switchMainTab('feed');">
             <div class="nav-item-icon" style="background: rgba(16, 185, 129, 0.15); color: #10b981;">🔍</div>
             <div class="nav-item-text">
                 <div class="nav-item-title" data-i18n="nav_buscar">Búsqueda Global de Productos</div>
@@ -4474,7 +4984,7 @@
             <span class="nav-item-arrow">›</span>
         </a>
 
-        <a href="#planes" class="drawer-nav-item" onclick="closeMobileMenu()">
+        <a href="#planes" class="drawer-nav-item" onclick="closeMobileMenu(); switchMainTab('plans');">
             <div class="nav-item-icon" style="background: rgba(245, 158, 11, 0.15); color: #f59e0b;">💎</div>
             <div class="nav-item-text">
                 <div class="nav-item-title" data-i18n="nav_planes">Planes de Renta de Tiendas</div>
@@ -4525,14 +5035,53 @@
 
 <main class="shell">
 
-    <!-- STICKY QUICK JUMP BAR PARA NAVEGACIÓN INTUITIVA -->
-    <nav class="portal-quick-jump-bar" id="portalQuickJumpBar" aria-label="Navegación rápida de secciones">
-        <a href="#buscar" class="jump-pill active"><span>🔍</span> Buscar</a>
-        <a href="#cercanas" class="jump-pill"><span>📍</span> Mapa &amp; Cercanía</a>
-        <a href="#empresas" class="jump-pill"><span>🏬</span> Tiendas ({{ count($allBusinesses) }})</a>
-        <a href="#zacatecasMap" class="jump-pill" onclick="goToCartRoutePlanner()"><span>🛒</span> Mi Carrito / Ruta</a>
-        <a href="#planes" class="jump-pill"><span>💎</span> Planes de Renta</a>
+    <!-- STORIES TRAY (ESTILO INSTAGRAM / TIKTOK / FACEBOOK STORIES) -->
+    <section class="stories-tray-section" id="storiesTraySection" aria-label="Historias destacadas de Zacatecas">
+        <div class="stories-tray-scroll">
+            @foreach($allBusinesses as $biz)
+                @php
+                    $storeAvatar = !empty($biz['logo_url']) ? $biz['logo_url'] : match($biz['id']) {
+                        'acropolis' => 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=160&q=80',
+                        'donajulia' => 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=160&q=80',
+                        'rosadeplata' => 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=160&q=80',
+                        'elserranito' => 'https://images.unsplash.com/photo-1579954115545-a95591f28bfc?auto=format&fit=crop&w=160&q=80',
+                        'quinceletras' => 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=160&q=80',
+                        'libreriaandrea' => 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=160&q=80',
+                        default => 'https://placehold.co/160x160?text=' . urlencode(substr($biz['store_name'], 0, 2))
+                    };
+                @endphp
+                <button type="button" class="story-item" onclick="openStoryViewer('{{ $biz['id'] }}')" title="Ver historia de {{ $biz['store_name'] }}">
+                    <div class="story-ring">
+                        <div class="story-avatar-box">
+                            <img src="{{ $storeAvatar }}" alt="{{ $biz['store_name'] }}" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/160x160?text=ZAC';">
+                        </div>
+                    </div>
+                    <span class="story-name">{{ Str::limit($biz['store_name'], 10) }}</span>
+                </button>
+            @endforeach
+        </div>
+    </section>
+
+    <!-- SEGMENTED TABS (ESTILO TIKTOK 'PARA TI' / FACEBOOK FEED TABS) -->
+    <nav class="main-tab-nav-wrapper" id="mainTabNavWrapper" aria-label="Secciones principales">
+        <div class="main-tab-switcher">
+            <button type="button" class="main-tab-btn active" id="tabBtnFeed" onclick="switchMainTab('feed')">
+                <span>✦</span> Para Ti
+            </button>
+            <button type="button" class="main-tab-btn" id="tabBtnMap" onclick="switchMainTab('map')">
+                <span>📍</span> Mapa &amp; Cercanía
+            </button>
+            <button type="button" class="main-tab-btn" id="tabBtnStores" onclick="switchMainTab('stores')">
+                <span>🏬</span> Directorio <span class="tab-badge">{{ count($allBusinesses) }}</span>
+            </button>
+            <button type="button" class="main-tab-btn" id="tabBtnPlans" onclick="switchMainTab('plans')">
+                <span>💎</span> Planes
+            </button>
+        </div>
     </nav>
+
+    <!-- TAB 1: PARA TI (FEED SOCIAL Y BÚSQUEDA) -->
+    <div id="panelFeed" class="tab-panel-content">
 
     <!-- HERO WITH MULTI-STORE GLOBAL SEARCH -->
     <section class="portal-hero" id="buscar">
@@ -4568,7 +5117,7 @@
 
         <!-- QUICK INTUITIVE ACTION DECK ("¿QUÉ DESEAS HACER HOY?") -->
         <div class="hero-quick-actions">
-            <a href="#cercanas" class="hero-action-card">
+            <a href="#cercanas" class="hero-action-card" onclick="switchMainTab('map')">
                 <div class="hero-action-icon" style="background: rgba(37, 99, 235, 0.12); color: #2563eb;">📍</div>
                 <div class="hero-action-text">
                     <strong>Mapa &amp; Cercanía</strong>
@@ -4577,7 +5126,7 @@
                 <span class="hero-action-arrow">➔</span>
             </a>
 
-            <a href="#empresas" class="hero-action-card">
+            <a href="#empresas" class="hero-action-card" onclick="switchMainTab('stores')">
                 <div class="hero-action-icon" style="background: rgba(200, 109, 99, 0.12); color: #c86d63;">🏬</div>
                 <div class="hero-action-text">
                     <strong>Directorio Oficial</strong>
@@ -4595,7 +5144,7 @@
                 <span class="hero-action-arrow">➔</span>
             </button>
 
-            <a href="#planes" class="hero-action-card">
+            <a href="#planes" class="hero-action-card" onclick="switchMainTab('plans')">
                 <div class="hero-action-icon" style="background: rgba(168, 85, 247, 0.12); color: #a855f7;">✨</div>
                 <div class="hero-action-text">
                     <strong>Renta tu Tienda</strong>
@@ -4704,6 +5253,130 @@
         </section>
     @endif
 
+    <!-- SOCIAL FEED STREAM (ESTILO TIKTOK / FACEBOOK CARDS) -->
+    <section class="social-feed-stream" aria-label="Feed social de publicaciones y productos destacados">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; padding: 0 4px;">
+            <div>
+                <span class="section-eyebrow" style="color: var(--accent);">✦ Novedades en Zacatecas Centro</span>
+                <h2 style="font-size: 22px; font-weight: 800; margin: 2px 0; color: var(--ink);">Feed de Productos &amp; Comercios</h2>
+                <p style="font-size: 13.5px; color: var(--muted); margin: 0;">Descubre lo más nuevo estilo social: dale ❤️ a lo que te guste y añade a tu carrito directo.</p>
+            </div>
+            <div style="font-size: 12.5px; font-weight: 700; color: var(--accent); background: var(--accent-soft); padding: 6px 14px; border-radius: 999px;">
+                🔥 Tendencias Locales
+            </div>
+        </div>
+
+        @foreach($businesses as $store)
+            @foreach(collect($store['sample_products'])->take(2) as $prod)
+                @php
+                    $postId = 'post-' . $store['id'] . '-' . $prod['id'];
+                    $likeCount = 18 + (($loop->parent->index * 7 + $loop->index * 13) % 43);
+                    $storeWa = preg_replace('/[^0-9]/', '', $store['whatsapp_number'] ?? '4921234567');
+                @endphp
+                <article class="social-card" id="{{ $postId }}">
+                    <!-- Header -->
+                    <div class="social-card-header">
+                        <a href="{{ $store['store_url'] }}" class="social-author-meta">
+                            <div class="social-author-avatar-wrap">
+                                <img src="{{ !empty($store['logo_url']) ? $store['logo_url'] : 'https://placehold.co/80x80?text=' . urlencode(substr($store['store_name'], 0, 2)) }}" alt="{{ $store['store_name'] }}">
+                            </div>
+                            <div class="social-author-info">
+                                <h4>
+                                    {{ $store['store_name'] }}
+                                    <span class="social-verified-badge" title="Comercio Oficial Verificado">✓</span>
+                                </h4>
+                                <div class="social-author-sub">
+                                    <span>{{ $store['business_category'] }}</span> ·
+                                    <span>📍 {{ Str::limit($store['address'], 26) }}</span>
+                                </div>
+                            </div>
+                        </a>
+                        @if(!empty($storeWa))
+                            <a href="https://wa.me/{{ $storeWa }}?text={{ urlencode('¡Hola! Vi este producto en el Feed de Atelier Zacatecas: ' . $prod['name'] . ' (' . $prod['url'] . ')') }}" target="_blank" class="btn-card-wa" title="Preguntar por WhatsApp">
+                                💬 WhatsApp
+                            </a>
+                        @endif
+                    </div>
+
+                    <!-- Media -->
+                    <div class="social-card-media" ondblclick="likeFeedPost('{{ $postId }}', true)">
+                        <img src="{{ !empty($prod['image_url']) ? $prod['image_url'] : 'https://placehold.co/600x600?text=Zacatecas' }}" alt="{{ $prod['name'] }}" loading="lazy">
+                        <span class="social-card-price-tag">${{ number_format($prod['price'], 0) }} MXN</span>
+                        <div class="social-heart-pop" id="heartPop-{{ $postId }}">❤️</div>
+                    </div>
+
+                    <!-- Actions Bar -->
+                    <div class="social-actions-bar">
+                        <div class="social-actions-left">
+                            <button type="button" class="btn-social-action" id="btnLike-{{ $postId }}" onclick="likeFeedPost('{{ $postId }}', false)" title="Me gusta">
+                                <span class="like-icon" id="likeIcon-{{ $postId }}">🤍</span>
+                                <span class="action-count" id="likeCount-{{ $postId }}">{{ $likeCount }}</span>
+                            </button>
+                            <button type="button" class="btn-social-action" onclick='openCentralProductModal({
+                                id: @json($prod["id"]),
+                                store_id: @json($store["id"]),
+                                name: @json($prod["name"]),
+                                price: {{ (float)$prod["price"] }},
+                                image_url: @json($prod["image_url"] ?? ""),
+                                description: @json($prod["description"] ?? ""),
+                                stock: {{ (int)($prod["stock"] ?? 15) }},
+                                url: @json($prod["url"]),
+                                store_name: @json($store["store_name"]),
+                                store_url: @json($store["store_url"]),
+                                address: @json($store["address"]),
+                                hours: @json($store["opening_hours"]),
+                                whatsapp: @json($store["whatsapp_number"] ?? ""),
+                                maps_url: @json($store["maps_url"] ?? "")
+                            })' title="Ver detalles y opiniones">
+                                <span>💬</span>
+                                <span class="action-count">{{ 3 + (($loop->parent->index + $loop->index) % 8) }}</span>
+                            </button>
+                            <button type="button" class="btn-social-action" onclick="shareStore('{{ addslashes($prod['name']) }}', '{{ $prod['url'] }}', '{{ addslashes($store['store_name']) }}')" title="Compartir">
+                                <span>📤</span>
+                            </button>
+                        </div>
+                        <div>
+                            <button type="button" class="btn-feed-add-cart" onclick='quickAddProductToRouteCart({
+                                id: @json($prod["id"]),
+                                store_id: @json($store["id"]),
+                                store_name: @json($store["store_name"]),
+                                name: @json($prod["name"]),
+                                price: {{ (float)$prod["price"] }},
+                                image_url: @json($prod["image_url"] ?? "")
+                            })' title="Añadir a mi Carrito">
+                                + 🛒 Añadir
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Caption & Description -->
+                    <div class="social-card-body">
+                        <div class="social-card-caption">
+                            <strong>{{ $store['store_name'] }}</strong>
+                            <span>{{ $prod['name'] }}</span>
+                            @if(!empty($prod['description']))
+                                <p style="font-size: 13px; color: var(--muted); margin: 6px 0 0; line-height: 1.45;">
+                                    {{ Str::limit($prod['description'], 110) }}
+                                </p>
+                            @endif
+                        </div>
+                    </div>
+
+                    <!-- Footer with CTA -->
+                    <div class="social-card-footer">
+                        <a href="{{ $prod['url'] }}" class="social-view-store-link">
+                            <span>Ver en Tienda Oficial ({{ $store['store_name'] }})</span>
+                            <span>➔</span>
+                        </a>
+                    </div>
+                </article>
+            @endforeach
+        @endforeach
+    </section>
+    </div> <!-- /#panelFeed -->
+
+    <!-- TAB 2: MAPA & CERCANÍA -->
+    <div id="panelMap" class="tab-panel-content" style="display: none;">
     <!-- GUÍA INTUITIVA: CÓMO FUNCIONA EL PORTAL (3 PASOS) -->
     <section class="how-it-works-strip">
         <div class="how-it-works-header">
@@ -4891,7 +5564,12 @@
                 <div id="routeItineraryResult" style="display: none;"></div>
             </div>
         </div>
+    </section>
+    </div> <!-- /#panelMap -->
 
+    <!-- TAB 3: DIRECTORIO DE EMPRESAS -->
+    <div id="panelStores" class="tab-panel-content" style="display: none;">
+    <section class="companies-section" id="seccionDirectorio" style="padding-top: 10px;">
         <!-- Category Filter Pills for Businesses -->
         <div id="empresas" style="padding-top: 16px;">
             <div class="section-intro" style="margin-bottom: 16px;">
@@ -5092,7 +5770,10 @@
             @endforelse
         </div>
     </section>
+    </div> <!-- /#panelStores -->
 
+    <!-- TAB 4: PLANES DE RENTA -->
+    <div id="panelPlans" class="tab-panel-content" style="display: none;">
     <!-- ============================================== -->
     <!-- SECTION: PLANES Y PRECIOS DE RENTA SAAS        -->
     <!-- ============================================== -->
@@ -5196,6 +5877,7 @@
             @endforeach
         </div>
     </section>
+    </div> <!-- /#panelPlans -->
 
     <!-- FLOATING STICKY ROUTE CART BAR (VISIBLE WHEN ITEMS IN CART) -->
     <div class="floating-route-cart-bar" id="floatingRouteCartBar" onclick="goToCartRoutePlanner()" style="display: none;">
@@ -5675,8 +6357,278 @@
 <!-- Global Toast Notification -->
 <div class="toast-popup" id="toastPopup" role="status" aria-live="polite"></div>
 
+<!-- FULLSCREEN STORY VIEWER MODAL (ESTILO INSTAGRAM / TIKTOK / FACEBOOK STORIES) -->
+<div class="story-viewer-modal" id="storyViewerModal" onclick="handleStoryBackdropClick(event)">
+    <div class="story-viewer-content">
+        <!-- Progress Bar -->
+        <div class="story-progress-bar-wrap">
+            <div class="story-progress-bar-fill" id="storyProgressFill"></div>
+        </div>
+
+        <!-- Header -->
+        <div class="story-header-bar">
+            <img src="" alt="" id="storyHeaderLogo" class="story-header-avatar">
+            <div class="story-header-meta">
+                <strong id="storyHeaderName">Tienda</strong>
+                <small id="storyHeaderCategory">Centro Histórico · Zacatecas</small>
+            </div>
+            <button type="button" class="btn-close-story" onclick="closeStoryViewer()" aria-label="Cerrar Historia">✕</button>
+        </div>
+
+        <!-- Story Visual Image -->
+        <img src="" alt="" id="storyHeroImg" style="width: 100%; height: 100%; object-fit: cover;">
+
+        <!-- Story Caption Overlay -->
+        <div class="story-caption-overlay">
+            <span class="story-badge-category" id="storyBadgeCategory" style="display: inline-block; padding: 3px 10px; border-radius: 999px; background: rgba(200, 109, 99, 0.85); color: #fff; font-size: 11px; font-weight: 700; margin-bottom: 8px;">Comercio Oficial</span>
+            <h3 id="storyCaptionTitle">Nombre de la Tienda</h3>
+            <p id="storyCaptionText">Descripción del comercio y productos exclusivos en Zacatecas Centro.</p>
+            <div style="display: flex; gap: 8px;">
+                <a href="#" id="storyCtaLink" target="_blank" class="btn-story-cta" style="flex: 1;">
+                    🛍️ Ver Tienda Oficial
+                </a>
+                <a href="#" id="storyWhatsappLink" target="_blank" class="btn-story-cta" style="background: #25D366; box-shadow: 0 4px 14px rgba(37,211,102,0.4); width: 48px; padding: 12px 0; display: grid; place-items: center;" title="Contactar por WhatsApp">
+                    💬
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- BOTTOM NAVIGATION BAR (ESTILO APP NATIVA / TIKTOK / INSTAGRAM / FACEBOOK) -->
+<nav class="mobile-bottom-nav" id="mobileBottomNav" aria-label="Navegación Móvil Rápida">
+    <button type="button" class="bottom-nav-tab active" id="bnavFeed" onclick="switchMainTab('feed')" aria-label="Inicio">
+        <span class="bottom-nav-icon">🏠</span>
+        <span class="bottom-nav-label">Inicio</span>
+    </button>
+    <button type="button" class="bottom-nav-tab" id="bnavMap" onclick="switchMainTab('map')" aria-label="Mapa">
+        <span class="bottom-nav-icon">📍</span>
+        <span class="bottom-nav-label">Mapa</span>
+    </button>
+    <button type="button" class="bottom-nav-tab" id="bnavRoute" onclick="goToCartRoutePlanner()" aria-label="Ruta">
+        <span class="bottom-nav-icon">🗺️</span>
+        <span class="bottom-nav-label">Ruta</span>
+    </button>
+    <button type="button" class="bottom-nav-tab" id="bnavStores" onclick="switchMainTab('stores')" aria-label="Tiendas">
+        <span class="bottom-nav-icon">🏬</span>
+        <span class="bottom-nav-label">Tiendas</span>
+    </button>
+    <button type="button" class="bottom-nav-tab" id="bnavCart" onclick="goToCartRoutePlanner()" aria-label="Carrito">
+        <span class="bottom-nav-icon">🛒</span>
+        <span class="bottom-nav-badge" id="bottomNavCartBadge" style="display: none;">0</span>
+        <span class="bottom-nav-label">Carrito</span>
+    </button>
+</nav>
+
 <!-- JAVASCRIPT FOR LIVE SEARCH & MODAL -->
 <script>
+// ========================================================
+// TIKTOK & FACEBOOK APP UX: TABS, STORIES & SOCIAL FEED
+// ========================================================
+const storiesCatalog = {
+    @foreach($allBusinesses as $b)
+        @php
+            $stLogo = !empty($b['logo_url']) ? $b['logo_url'] : match($b['id']) {
+                'acropolis' => 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=160&q=80',
+                'donajulia' => 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=160&q=80',
+                'rosadeplata' => 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=160&q=80',
+                'elserranito' => 'https://images.unsplash.com/photo-1579954115545-a95591f28bfc?auto=format&fit=crop&w=160&q=80',
+                'quinceletras' => 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=160&q=80',
+                'libreriaandrea' => 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=160&q=80',
+                default => 'https://placehold.co/160x160?text=' . urlencode(substr($b['store_name'], 0, 2))
+            };
+            $stHero = !empty($b['sample_products'][0]['image_url']) 
+                ? $b['sample_products'][0]['image_url'] 
+                : match($b['id']) {
+                    'acropolis' => 'https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=800&q=80',
+                    'donajulia' => 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=800&q=80',
+                    'rosadeplata' => 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=800&q=80',
+                    'elserranito' => 'https://images.unsplash.com/photo-1501443762994-82bd5dace89a?auto=format&fit=crop&w=800&q=80',
+                    'quinceletras' => 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=800&q=80',
+                    'libreriaandrea' => 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=800&q=80',
+                    default => 'https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=800&q=80'
+                };
+            $stWa = !empty($b['whatsapp_number']) ? preg_replace('/[^0-9]/', '', $b['whatsapp_number']) : '';
+        @endphp
+        '{{ $b['id'] }}': {
+            name: @json($b['store_name']),
+            category: @json($b['business_category']),
+            tagline: @json($b['tagline']),
+            address: @json($b['address']),
+            url: @json($b['store_url']),
+            whatsapp: @json($stWa),
+            logo: @json($stLogo),
+            heroImg: @json($stHero)
+        },
+    @endforeach
+};
+
+let storyTimer = null;
+let currentStoryKey = null;
+
+function openStoryViewer(storeId) {
+    const data = storiesCatalog[storeId];
+    if (!data) return;
+    currentStoryKey = storeId;
+
+    const modal = document.getElementById('storyViewerModal');
+    const headerLogo = document.getElementById('storyHeaderLogo');
+    const headerName = document.getElementById('storyHeaderName');
+    const headerCat = document.getElementById('storyHeaderCategory');
+    const heroImg = document.getElementById('storyHeroImg');
+    const badgeCat = document.getElementById('storyBadgeCategory');
+    const capTitle = document.getElementById('storyCaptionTitle');
+    const capText = document.getElementById('storyCaptionText');
+    const ctaLink = document.getElementById('storyCtaLink');
+    const waLink = document.getElementById('storyWhatsappLink');
+    const fill = document.getElementById('storyProgressFill');
+
+    if (headerLogo) headerLogo.src = data.logo;
+    if (headerName) headerName.textContent = data.name;
+    if (headerCat) headerCat.textContent = data.category + ' · Zacatecas Centro';
+    if (heroImg) heroImg.src = data.heroImg;
+    if (badgeCat) badgeCat.textContent = data.category;
+    if (capTitle) capTitle.textContent = data.name;
+    if (capText) capText.textContent = data.tagline || data.address;
+    if (ctaLink) ctaLink.href = data.url;
+    if (waLink) {
+        if (data.whatsapp) {
+            waLink.href = 'https://wa.me/' + data.whatsapp + '?text=' + encodeURIComponent('¡Hola! Vi la historia de ' + data.name + ' en el portal Atelier Zacatecas.');
+            waLink.style.display = 'grid';
+        } else {
+            waLink.style.display = 'none';
+        }
+    }
+
+    if (fill) {
+        fill.style.transition = 'none';
+        fill.style.width = '0%';
+        setTimeout(() => {
+            fill.style.transition = 'width 5s linear';
+            fill.style.width = '100%';
+        }, 30);
+    }
+
+    if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    if (storyTimer) clearTimeout(storyTimer);
+    storyTimer = setTimeout(() => {
+        closeStoryViewer();
+    }, 5000);
+}
+
+function closeStoryViewer() {
+    if (storyTimer) {
+        clearTimeout(storyTimer);
+        storyTimer = null;
+    }
+    const modal = document.getElementById('storyViewerModal');
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+function handleStoryBackdropClick(event) {
+    if (event.target && event.target.id === 'storyViewerModal') {
+        closeStoryViewer();
+    }
+}
+
+// MAIN TAB SWITCHER (PARATI, MAPA, TIENDAS, PLANES)
+function switchMainTab(tabName, shouldScroll = true) {
+    const tabs = ['feed', 'map', 'stores', 'plans'];
+    if (!tabs.includes(tabName)) tabName = 'feed';
+
+    tabs.forEach(t => {
+        const panelId = 'panel' + t.charAt(0).toUpperCase() + t.slice(1);
+        const btnId = 'tabBtn' + t.charAt(0).toUpperCase() + t.slice(1);
+        const panel = document.getElementById(panelId);
+        const btn = document.getElementById(btnId);
+
+        if (panel) {
+            panel.style.display = (t === tabName) ? 'block' : 'none';
+        }
+        if (btn) {
+            btn.classList.toggle('active', t === tabName);
+        }
+    });
+
+    // Update Bottom Nav Active State
+    const bnavFeed = document.getElementById('bnavFeed');
+    const bnavMap = document.getElementById('bnavMap');
+    const bnavStores = document.getElementById('bnavStores');
+    if (bnavFeed) bnavFeed.classList.toggle('active', tabName === 'feed');
+    if (bnavMap) bnavMap.classList.toggle('active', tabName === 'map');
+    if (bnavStores) bnavStores.classList.toggle('active', tabName === 'stores');
+
+    // Invalidate Leaflet Map Size so tiles re-render properly
+    if (tabName === 'map' && typeof map !== 'undefined' && map) {
+        setTimeout(() => {
+            map.invalidateSize();
+        }, 120);
+    }
+
+    if (shouldScroll) {
+        const targetEl = document.getElementById('mainTabNavWrapper') || document.getElementById('storiesTraySection');
+        if (targetEl) {
+            targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }
+
+    try {
+        sessionStorage.setItem('active_portal_tab', tabName);
+    } catch(e) {}
+}
+
+// SOCIAL FEED: DOUBLE TAP LIKE & HEART POP ANIMATION
+const userLikes = new Set();
+
+function likeFeedPost(postId, isDoubleTap) {
+    const btn = document.getElementById('btnLike-' + postId);
+    const icon = document.getElementById('likeIcon-' + postId);
+    const countEl = document.getElementById('likeCount-' + postId);
+    const heartPop = document.getElementById('heartPop-' + postId);
+
+    const isLiked = userLikes.has(postId);
+
+    if (isDoubleTap) {
+        if (!isLiked) {
+            userLikes.add(postId);
+            if (icon) icon.textContent = '❤️';
+            if (btn) btn.classList.add('liked');
+            if (countEl) countEl.textContent = (parseInt(countEl.textContent) || 0) + 1;
+        }
+        if (heartPop) {
+            heartPop.classList.remove('active');
+            void heartPop.offsetWidth; // trigger reflow
+            heartPop.classList.add('active');
+            setTimeout(() => heartPop.classList.remove('active'), 750);
+        }
+    } else {
+        if (isLiked) {
+            userLikes.delete(postId);
+            if (icon) icon.textContent = '🤍';
+            if (btn) btn.classList.remove('liked');
+            if (countEl) countEl.textContent = Math.max(0, (parseInt(countEl.textContent) || 1) - 1);
+        } else {
+            userLikes.add(postId);
+            if (icon) icon.textContent = '❤️';
+            if (btn) btn.classList.add('liked');
+            if (countEl) countEl.textContent = (parseInt(countEl.textContent) || 0) + 1;
+            if (heartPop) {
+                heartPop.classList.remove('active');
+                void heartPop.offsetWidth;
+                heartPop.classList.add('active');
+                setTimeout(() => heartPop.classList.remove('active'), 750);
+            }
+        }
+    }
+}
+
 // BILLING CYCLE MANAGEMENT (MONTHLY VS ANNUAL)
 let currentBillingCycle = 'annual'; // default to annual with 20% discount
 
@@ -6654,6 +7606,11 @@ function updateHeaderCartBadge(count) {
     if (badge) badge.textContent = count;
     const drawerBadge = document.getElementById('drawerCartBadge');
     if (drawerBadge) drawerBadge.textContent = count;
+    const bottomNavBadge = document.getElementById('bottomNavCartBadge');
+    if (bottomNavBadge) {
+        bottomNavBadge.textContent = count;
+        bottomNavBadge.style.display = count > 0 ? 'inline-flex' : 'none';
+    }
 }
 
 function toggleManualStoreSelector(forceShow) {
@@ -6689,6 +7646,7 @@ function toggleRoutePanel(forceOpen) {
 }
 
 function goToCartRoutePlanner() {
+    switchMainTab('map', false);
     toggleRoutePanel(true);
     const panel = document.getElementById('routeOptimizerPanel');
     if (panel) {
@@ -7831,6 +8789,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Auto-update hours status every 60 seconds
     setInterval(updateAllStoresOpenStatus, 60000);
+
+    // Initial Tab Selection based on Hash or URL
+    const initialHash = window.location.hash;
+    const urlParams = new URLSearchParams(window.location.search);
+    if (initialHash === '#cercanas' || initialHash === '#zacatecasMap') {
+        switchMainTab('map', false);
+    } else if (initialHash === '#empresas' || urlParams.has('categoria')) {
+        switchMainTab('stores', false);
+    } else if (initialHash === '#planes') {
+        switchMainTab('plans', false);
+    } else {
+        const savedTab = sessionStorage.getItem('active_portal_tab');
+        if (savedTab && ['feed', 'map', 'stores', 'plans'].includes(savedTab)) {
+            switchMainTab(savedTab, false);
+        } else {
+            switchMainTab('feed', false);
+        }
+    }
 });
 </script>
 
