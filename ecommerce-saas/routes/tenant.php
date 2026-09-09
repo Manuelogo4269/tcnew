@@ -18,7 +18,7 @@ use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 |
 */
 
-foreach (['{tenant}.localhost', '{tenant}.192.168.0.128.nip.io'] as $domainPattern) {
+foreach (['{tenant}.localhost', '{tenant}.127.0.0.1.nip.io', '{tenant}.192.168.0.128.nip.io', '{tenant}.atelier-zacatecas.onrender.com'] as $domainPattern) {
     Route::domain($domainPattern)->middleware([
         'web',
         InitializeTenancyBySubdomain::class,

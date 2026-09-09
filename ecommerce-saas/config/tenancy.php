@@ -21,7 +21,27 @@ return [
         'localhost',
         '192.168.0.128',
         '192.168.0.128.nip.io',
-        isset($_SERVER['HTTP_HOST']) ? explode(':', $_SERVER['HTTP_HOST'])[0] : null,
+        '127.0.0.1.nip.io',
+        'atelier-zacatecas.onrender.com',
+        parse_url(env('APP_URL', 'http://localhost'), PHP_URL_HOST),
+        (function () {
+            $host = isset($_SERVER['HTTP_HOST']) ? explode(':', $_SERVER['HTTP_HOST'])[0] : null;
+            if (!$host) return null;
+            $baseCentral = [
+                'localhost',
+                '127.0.0.1',
+                '192.168.0.128',
+                '192.168.0.128.nip.io',
+                '127.0.0.1.nip.io',
+                'atelier-zacatecas.onrender.com',
+            ];
+            foreach ($baseCentral as $central) {
+                if (str_ends_with($host, '.' . $central)) {
+                    return null;
+                }
+            }
+            return $host;
+        })(),
     ]))),
 
     /**

@@ -4,14 +4,14 @@ use App\Http\Controllers\CentralAuthController;
 use App\Http\Controllers\CentralPortalController;
 use Illuminate\Support\Facades\Route;
 
-$reqHost = isset($_SERVER['HTTP_HOST']) ? explode(':', $_SERVER['HTTP_HOST'])[0] : 'localhost';
-$centralDomains = array_values(array_unique(array_filter([
+$centralDomains = (array) config('tenancy.central_domains', [
     'localhost',
     '127.0.0.1',
     '192.168.0.128',
     '192.168.0.128.nip.io',
-    $reqHost,
-])));
+    '127.0.0.1.nip.io',
+    'atelier-zacatecas.onrender.com',
+]);
 
 foreach ($centralDomains as $domain) {
     Route::domain($domain)->group(function () {
@@ -57,6 +57,18 @@ foreach ($centralDomains as $domain) {
 
             return view('tenant.store', compact('storeName', 'tenantId', 'settings', 'categories', 'products', 'featuredProducts', 'officialStores'));
         })->name('central.tenant.store');
+
+        // Universal Path-Based Store Management Route (No DNS setup required)
+        Route::get('/tienda/{tenant}/admin', function (string $tenantId) {
+            $tenant = \App\Models\Tenant::where('id', $tenantId)->orWhereRaw('LOWER(id) = ?', [strtolower($tenantId)])->first();
+            if (!$tenant) {
+                abort(404, 'Tienda no encontrada.');
+            }
+
+            session(['tenant_admin_tenant_id' => $tenant->id]);
+
+            return redirect('/tenant-admin');
+        })->name('central.tenant.admin');
 
         Route::post('/api/tienda/{tenant}/checkout', [\App\Http\Controllers\CheckoutController::class, 'processCheckout'])->name('central.tenant.checkout');
 
@@ -128,4 +140,15 @@ Route::get('/offline.html', function () {
 });
 
 Route::post('/api/tienda/{tenant}/checkout', [\App\Http\Controllers\CheckoutController::class, 'processCheckout']);
+
+Route::get('/tienda/{tenant}/admin', function (string $tenantId) {
+    $tenant = \App\Models\Tenant::where('id', $tenantId)->orWhereRaw('LOWER(id) = ?', [strtolower($tenantId)])->first();
+    if (!$tenant) {
+        abort(404, 'Tienda no encontrada.');
+    }
+
+    session(['tenant_admin_tenant_id' => $tenant->id]);
+
+    return redirect('/tenant-admin');
+});
 

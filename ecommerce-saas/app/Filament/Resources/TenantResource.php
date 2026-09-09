@@ -373,13 +373,13 @@ class TenantResource extends Resource
                     ->label('Ver Tienda')
                     ->icon('heroicon-o-arrow-top-right-on-square')
                     ->color('gray')
-                    ->url(fn (Tenant $record): string => 'http://' . strtolower($record->id) . '.localhost:8000')
+                    ->url(fn (Tenant $record): string => url('/tienda/' . strtolower($record->id)))
                     ->openUrlInNewTab(),
                 Tables\Actions\Action::make('visit_admin')
                     ->label('Panel Tienda')
                     ->icon('heroicon-o-cog-6-tooth')
                     ->color('primary')
-                    ->url(fn (Tenant $record): string => 'http://' . strtolower($record->id) . '.localhost:8000/tenant-admin')
+                    ->url(fn (Tenant $record): string => url('/tienda/' . strtolower($record->id) . '/admin'))
                     ->openUrlInNewTab(),
                 Tables\Actions\EditAction::make(),
             ])
