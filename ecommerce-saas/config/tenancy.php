@@ -16,10 +16,13 @@ return [
      *
      * Only relevant if you're using the domain or subdomain identification middleware.
      */
-    'central_domains' => [
+    'central_domains' => array_values(array_unique(array_filter([
         '127.0.0.1',
         'localhost',
-    ],
+        '192.168.0.128',
+        '192.168.0.128.nip.io',
+        isset($_SERVER['HTTP_HOST']) ? explode(':', $_SERVER['HTTP_HOST'])[0] : null,
+    ]))),
 
     /**
      * Tenancy bootstrappers are executed when tenancy is initialized.
@@ -29,7 +32,7 @@ return [
      */
     'bootstrappers' => [
         Stancl\Tenancy\Bootstrappers\DatabaseTenancyBootstrapper::class,
-        Stancl\Tenancy\Bootstrappers\CacheTenancyBootstrapper::class,
+        // Stancl\Tenancy\Bootstrappers\CacheTenancyBootstrapper::class, // Requires tag-compatible store like Redis
         Stancl\Tenancy\Bootstrappers\FilesystemTenancyBootstrapper::class,
         Stancl\Tenancy\Bootstrappers\QueueTenancyBootstrapper::class,
         // Stancl\Tenancy\Bootstrappers\RedisTenancyBootstrapper::class, // Note: phpredis is needed

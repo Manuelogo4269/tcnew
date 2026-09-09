@@ -2,11 +2,15 @@
 
 namespace App\Models;
 
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class TenantUser extends Authenticatable
+class TenantUser extends Authenticatable implements FilamentUser
 {
     use HasApiTokens, Notifiable;
 
@@ -32,12 +36,17 @@ class TenantUser extends Authenticatable
         ];
     }
 
-    public function orders()
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return $this->customer_account_id === null;
+    }
+
+    public function orders(): HasMany
     {
         return $this->hasMany(Order::class, 'user_id');
     }
 
-    public function customerAccount()
+    public function customerAccount(): BelongsTo
     {
         return $this->belongsTo(CustomerAccount::class, 'customer_account_id');
     }

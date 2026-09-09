@@ -58,6 +58,7 @@ class TenantPanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
                 InitializeTenancyBySubdomain::class,
+                \App\Http\Middleware\ApplyTenantThemeToAdmin::class,
                 PreventAccessFromCentralDomains::class,
             ])
             ->authMiddleware([

@@ -3,38 +3,4071 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#171815">
-    <title>Atelier Commerce — comercio que crece contigo</title>
+    <meta name="theme-color" content="#121311">
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    <title>Atelier Marketplace — Tiendas y Comercios de Zacatecas Centro</title>
+
+    <!-- PWA Requirements for Mobile (Android Chrome, iOS Safari & Desktop) -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Atelier ZAC">
+    <meta name="theme-color" content="#c86d63">
+    <link rel="icon" type="image/svg+xml" href="/icons/icon.svg">
+    <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/icons/icon-512.png">
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192.png">
+    <link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512.png">
+
+    <!-- Leaflet CSS & JS for Interactive Zacatecas Map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://images.unsplash.com">
+    <link rel="dns-prefetch" href="https://images.unsplash.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
     <style>
-        :root { --ink:#20211e; --paper:#f4efe7; --cream:#fffaf3; --muted:#aaa99f; --orange:#e2704e; --line:rgba(255,255,255,.16); }
-        * { box-sizing:border-box; } body { margin:0; color:var(--cream); background:var(--ink); font-family:'DM Sans',sans-serif; -webkit-font-smoothing:antialiased; }
-        a { color:inherit; text-decoration:none; } .shell { width:min(1160px,calc(100% - 48px)); margin:auto; }
-        .nav { display:flex; align-items:center; justify-content:space-between; min-height:84px; border-bottom:1px solid var(--line); }
-        .brand { display:flex; align-items:center; gap:12px; font-size:16px; font-weight:700; letter-spacing:-.04em; }.mark { display:grid; width:34px; height:34px; place-items:center; color:var(--ink); background:var(--orange); border-radius:50%; font-family:'Playfair Display',serif; font-size:19px; }
-        .nav-links { display:flex; gap:30px; color:var(--muted); font-size:12px; }.nav-links a:hover { color:#fff; }.nav-button { padding:12px 19px; border:1px solid var(--line); border-radius:999px; font-size:12px; transition:background .2s ease; }.nav-button:hover { background:#fff; color:var(--ink); }
-        .hero { display:grid; grid-template-columns:1.03fr .97fr; gap:70px; align-items:center; min-height:650px; padding:72px 0 100px; }.eyebrow { display:flex; align-items:center; gap:10px; color:#f19b7e; font-size:10px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; }.eyebrow:before { width:27px; height:1px; background:currentColor; content:''; }.hero h1 { max-width:650px; margin:20px 0 26px; font-family:'Playfair Display',serif; font-size:clamp(48px,6.3vw,82px); font-weight:600; letter-spacing:-.07em; line-height:.96; }.hero h1 em { color:var(--orange); font-style:normal; }.hero-copy { max-width:460px; color:var(--muted); font-size:16px; line-height:1.75; }.actions { display:flex; gap:14px; align-items:center; margin-top:34px; }.button { display:inline-flex; align-items:center; gap:12px; padding:15px 21px; border-radius:999px; font-size:12px; font-weight:700; }.button-primary { color:var(--ink); background:var(--cream); }.button-secondary { color:var(--cream); border:1px solid var(--line); }.button span { font-size:17px; }.visual { position:relative; height:470px; }.visual-image { width:84%; height:100%; margin-left:auto; overflow:hidden; border-radius:160px 9px 9px 9px; background:#544e45; }.visual-image img { width:100%; height:100%; object-fit:cover; opacity:.86; }.badge { position:absolute; left:0; bottom:38px; display:grid; width:115px; height:115px; place-items:center; padding:18px; color:var(--ink); background:var(--orange); border-radius:50%; font-size:10px; font-weight:700; line-height:1.4; text-align:center; text-transform:uppercase; transform:rotate(-12deg); }.mini-card { position:absolute; right:-16px; top:32px; padding:18px; color:var(--ink); background:var(--cream); border-radius:10px; box-shadow:0 18px 38px rgba(0,0,0,.2); }.mini-card strong { display:block; font-family:'Playfair Display',serif; font-size:23px; }.mini-card small { color:#77756d; font-size:10px; }
-        .strip { padding:18px 0; color:var(--ink); background:var(--orange); font-size:10px; font-weight:700; letter-spacing:.15em; text-align:center; text-transform:uppercase; }.section { padding:95px 0; color:var(--ink); background:var(--paper); }.section-head { display:flex; align-items:end; justify-content:space-between; margin-bottom:32px; }.section h2 { margin:13px 0 0; font-family:'Playfair Display',serif; font-size:clamp(34px,4vw,52px); letter-spacing:-.06em; line-height:1; }.section-head p { max-width:270px; margin:0; color:#77756d; font-size:12px; line-height:1.65; }.features { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:rgba(32,33,30,.12); border:1px solid rgba(32,33,30,.12); }.feature { min-height:210px; padding:28px; background:var(--paper); }.feature-number { color:var(--orange); font-family:'Playfair Display',serif; font-size:24px; }.feature h3 { margin:21px 0 9px; font-family:'Playfair Display',serif; font-size:22px; }.feature p { max-width:220px; margin:0; color:#77756d; font-size:12px; line-height:1.6; }
-        footer { padding:32px 0; color:var(--muted); background:var(--ink); font-size:11px; }.footer-inner { display:flex; justify-content:space-between; gap:15px; }
-        @media(max-width:760px) { .shell{width:calc(100% - 32px)} .nav-links{display:none}.hero{grid-template-columns:1fr;gap:48px;padding:60px 0 75px}.visual{height:380px}.visual-image{width:88%;}.mini-card{right:0}.section{padding:70px 0}.section-head{display:block}.section-head p{margin-top:20px}.features{grid-template-columns:1fr}.feature{min-height:auto}.footer-inner{display:block;line-height:2} }
+        /* ======================================================== */
+        /* ZACATECAS: CIUDAD DE CANTERA ROSA & CORAZÓN DE PLATA     */
+        /* ======================================================== */
+        :root {
+            --ink: #181d26;
+            --paper: #fbf8f6; /* Matiz suave de cantera pulida y plata */
+            --card: #ffffff;
+            --card-border: rgba(203, 213, 225, 0.75); /* Borde de plata sutil */
+            --muted: #5e6c7e;
+            --line: rgba(148, 163, 184, 0.25);
+            --accent: #c86d63; /* Rosa Cantera de Zacatecas */
+            --accent-hover: #b1554a;
+            --accent-soft: rgba(200, 109, 99, 0.12);
+            --cantera: #c86d63;
+            --cantera-dark: #9e4338;
+            --cantera-light: #faeae7;
+            --plata: #cbd5e1; /* Plata Ley .925 */
+            --plata-pure: #ffffff;
+            --plata-dark: #64748b;
+            --blue: #2563eb;
+            --fb: #1877f2;
+            --glass: rgba(255, 255, 255, 0.95);
+        }
+
+        /* Dark Theme Variables */
+        [data-theme="dark"] {
+            --ink: #f1f5f9; /* Brillo de plata pura */
+            --paper: #0b0e14; /* Pizarra oscura de mina */
+            --card: #141822; /* Carbón plateado */
+            --card-border: rgba(203, 213, 225, 0.16); /* Filigrana de plata */
+            --muted: #94a3b8; /* Plata mate */
+            --line: rgba(203, 213, 225, 0.12);
+            --accent: #dc7e74; /* Rosa cantera luminosa */
+            --accent-hover: #ea9187;
+            --accent-soft: rgba(220, 126, 116, 0.18);
+            --cantera: #dc7e74;
+            --cantera-dark: #b6574c;
+            --cantera-light: #2a1e23;
+            --plata: #cbd5e1;
+            --plata-pure: #ffffff;
+            --plata-dark: #94a3b8;
+            --glass: rgba(20, 24, 34, 0.96);
+        }
+
+        /* Dark Theme Components & Elements */
+        [data-theme="dark"] .portal-header {
+            background: rgba(12, 14, 18, 0.94);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        [data-theme="dark"] .brand-badge {
+            background: var(--accent);
+            color: #ffffff;
+        }
+        [data-theme="dark"] .portal-nav-links a {
+            color: #d1d5db;
+        }
+        [data-theme="dark"] .portal-nav-links a:hover {
+            color: var(--accent);
+        }
+        [data-theme="dark"] .global-search-form {
+            background: #181c24;
+            border-color: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        [data-theme="dark"] .global-search-input {
+            color: #f3f4f6;
+        }
+        [data-theme="dark"] .global-search-input::placeholder {
+            color: #6b7280;
+        }
+        [data-theme="dark"] .live-search-dropdown {
+            background: #15181f;
+            border-color: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+        }
+        [data-theme="dark"] .live-search-item {
+            color: #f3f4f6;
+            border-bottom-color: rgba(255, 255, 255, 0.06);
+        }
+        [data-theme="dark"] .live-search-item:hover {
+            background: #1e232e;
+        }
+        [data-theme="dark"] .category-pill {
+            background: #181c24;
+            color: #d1d5db;
+            border-color: rgba(255, 255, 255, 0.08);
+        }
+        [data-theme="dark"] .category-pill:hover {
+            border-color: var(--accent);
+            color: #ffffff;
+        }
+        [data-theme="dark"] .category-pill.active {
+            background: var(--accent);
+            color: #ffffff;
+            border-color: var(--accent);
+        }
+        [data-theme="dark"] .company-card {
+            background: #15181f;
+            border-color: rgba(255, 255, 255, 0.08);
+        }
+        [data-theme="dark"] .company-card:hover {
+            border-color: rgba(255, 255, 255, 0.16);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+        [data-theme="dark"] .company-product-item {
+            background: #1a1e27;
+        }
+        [data-theme="dark"] .btn-visit-company {
+            background: #222733;
+            color: #f3f4f6;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        [data-theme="dark"] .btn-visit-company:hover {
+            background: var(--accent);
+            color: #ffffff;
+            border-color: var(--accent);
+        }
+        [data-theme="dark"] .social-icon-btn {
+            background: #181c24;
+            border-color: rgba(255, 255, 255, 0.1);
+            color: #cbd5e1;
+        }
+        [data-theme="dark"] .social-icon-btn:hover {
+            border-color: var(--accent);
+            color: #ffffff;
+        }
+        [data-theme="dark"] .social-icon-btn.btn-wa {
+            color: #4ade80;
+            background: rgba(37, 211, 102, 0.12);
+            border-color: rgba(37, 211, 102, 0.25);
+        }
+        [data-theme="dark"] .social-icon-btn.btn-wa:hover {
+            background: #25d366;
+            color: #ffffff;
+        }
+        [data-theme="dark"] .social-icon-btn.btn-fb {
+            color: #60a5fa;
+            background: rgba(24, 119, 242, 0.12);
+            border-color: rgba(24, 119, 242, 0.25);
+        }
+        [data-theme="dark"] .social-icon-btn.btn-fb:hover {
+            background: #1877f2;
+            color: #ffffff;
+        }
+        [data-theme="dark"] .social-icon-btn.btn-ig {
+            color: #f472b6;
+            background: rgba(225, 48, 108, 0.12);
+            border-color: rgba(225, 48, 108, 0.25);
+        }
+        [data-theme="dark"] .social-icon-btn.btn-ig:hover {
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            color: #ffffff;
+        }
+        [data-theme="dark"] .social-icon-btn.btn-web {
+            color: #fb923c;
+            background: rgba(251, 146, 60, 0.12);
+            border-color: rgba(251, 146, 60, 0.25);
+        }
+        [data-theme="dark"] .social-icon-btn.btn-web:hover {
+            background: var(--accent);
+            color: #ffffff;
+        }
+        [data-theme="dark"] .social-icon-btn.btn-map {
+            color: #94a3b8;
+            background: rgba(148, 163, 184, 0.12);
+            border-color: rgba(148, 163, 184, 0.25);
+        }
+        [data-theme="dark"] .social-icon-btn.btn-map:hover {
+            background: #475569;
+            color: #ffffff;
+        }
+        [data-theme="dark"] .plan-card {
+            background: #15181f;
+            border-color: rgba(255, 255, 255, 0.08);
+        }
+        [data-theme="dark"] .plan-card.highlight {
+            background: #191e28;
+            border-color: var(--accent);
+        }
+        [data-theme="dark"] .billing-toggle-wrap {
+            background: #181c24;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        [data-theme="dark"] .auth-modal-card {
+            background: #15181f;
+            color: #f3f4f6;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+        [data-theme="dark"] .modal-close-x {
+            background: #202532;
+            color: #d1d5db;
+        }
+        [data-theme="dark"] .modal-close-x:hover {
+            background: #2d3444;
+            color: #ffffff;
+        }
+        [data-theme="dark"] .auth-field input,
+        [data-theme="dark"] .rent-field input,
+        [data-theme="dark"] .rent-field select {
+            background: #1a1e27;
+            color: #f3f4f6;
+            border-color: rgba(255, 255, 255, 0.12);
+        }
+        [data-theme="dark"] .social-account-item {
+            background: #181c24;
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        [data-theme="dark"] .social-account-item:hover {
+            background: #202532;
+            border-color: var(--accent);
+        }
+        [data-theme="dark"] details {
+            background: #181c24 !important;
+            border-color: rgba(255, 255, 255, 0.1) !important;
+        }
+        [data-theme="dark"] .social-env-notice {
+            background: #0d2818;
+            border-color: #166534;
+            color: #86efac;
+        }
+        [data-theme="dark"] .social-env-notice code {
+            background: #14532d;
+            color: #bbf7d0;
+        }
+        [data-theme="dark"] .portal-footer {
+            background: #08090c;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        [data-theme="dark"] .mobile-drawer-backdrop {
+            background: rgba(0, 0, 0, 0.82);
+        }
+        [data-theme="dark"] .portal-mobile-menu {
+            background: #11141a;
+            border-left-color: rgba(255, 255, 255, 0.1);
+            box-shadow: -12px 0 45px rgba(0, 0, 0, 0.65);
+        }
+        [data-theme="dark"] .drawer-header {
+            background: #161922;
+            border-bottom-color: rgba(255, 255, 255, 0.08);
+        }
+        [data-theme="dark"] .drawer-logo-badge {
+            background: #1e232e;
+            border-color: rgba(255, 255, 255, 0.14);
+        }
+        [data-theme="dark"] .drawer-brand strong {
+            color: #f3f4f6;
+        }
+        [data-theme="dark"] .btn-drawer-close {
+            background: #1e232e;
+            border-color: rgba(255, 255, 255, 0.12);
+            color: #f3f4f6;
+        }
+        [data-theme="dark"] .drawer-user-card,
+        [data-theme="dark"] .drawer-guest-box {
+            background: #161922;
+            border-bottom-color: rgba(255, 255, 255, 0.08);
+        }
+        [data-theme="dark"] .drawer-user-info strong {
+            color: #f3f4f6;
+        }
+        [data-theme="dark"] .btn-drawer-login {
+            background: #1e232e;
+            border-color: rgba(255, 255, 255, 0.12);
+            color: #f3f4f6;
+        }
+        [data-theme="dark"] .drawer-section-title {
+            color: #9ca3af;
+        }
+        [data-theme="dark"] .drawer-nav-item {
+            background: #161922;
+            border-color: rgba(255, 255, 255, 0.08);
+        }
+        [data-theme="dark"] .drawer-nav-item:hover,
+        [data-theme="dark"] .drawer-nav-item:active {
+            background: #1c212d;
+            border-color: var(--accent);
+        }
+        [data-theme="dark"] .nav-item-title {
+            color: #f3f4f6;
+        }
+        [data-theme="dark"] .nav-item-sub {
+            color: #9ca3af;
+        }
+        [data-theme="dark"] .drawer-footer-actions {
+            background: #161922;
+            border-top-color: rgba(255, 255, 255, 0.08);
+        }
+        [data-theme="dark"] .btn-theme-toggle-drawer {
+            background: #1e232e;
+            border-color: rgba(255, 255, 255, 0.12);
+            color: #f3f4f6;
+        }
+        [data-theme="dark"] .btn-mobile-menu {
+            background: #181c24;
+            border-color: rgba(255, 255, 255, 0.14);
+            color: #f3f4f6;
+        }
+        [data-theme="dark"] .btn-mobile-menu .bar {
+            background: #f3f4f6;
+        }
+        [data-theme="dark"] .mobile-menu-label {
+            color: #f3f4f6;
+        }
+        /* Map in Dark Mode: Clean Night Grayscale with High Contrast Roads & Labels */
+        [data-theme="dark"] .leaflet-layer {
+            filter: grayscale(100%) invert(92%) contrast(108%) brightness(88%) !important;
+        }
+        [data-theme="dark"] .leaflet-container {
+            background: #15181f !important;
+        }
+        [data-theme="dark"] .zac-map-box {
+            border-color: rgba(255, 255, 255, 0.12);
+            background: #15181f;
+        }
+        [data-theme="dark"] .leaflet-control-zoom {
+            border: 1px solid rgba(255, 255, 255, 0.15) !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4) !important;
+        }
+        [data-theme="dark"] .leaflet-control-zoom a {
+            background: #1e232e !important;
+            color: #f3f4f6 !important;
+            border-color: rgba(255, 255, 255, 0.12) !important;
+        }
+        [data-theme="dark"] .leaflet-control-zoom a:hover {
+            background: #2b3240 !important;
+            color: #ffffff !important;
+        }
+        [data-theme="dark"] .leaflet-popup-content-wrapper {
+            background: #15181f !important;
+            color: #f3f4f6 !important;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+        }
+        [data-theme="dark"] .leaflet-popup-tip {
+            background: #15181f !important;
+        }
+        [data-theme="dark"] .leaflet-popup-content p {
+            color: #9ca3af !important;
+        }
+        [data-theme="dark"] .leaflet-popup-content a {
+            color: #ffffff !important;
+        }
+
+        /* Proximity & Location GPS Controls in Dark Mode */
+        [data-theme="dark"] .proximity-toolbar {
+            background: #15181f;
+            border-color: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+        }
+        [data-theme="dark"] .btn-use-gps {
+            background: #2563eb !important;
+            color: #ffffff !important;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+        }
+        [data-theme="dark"] .btn-use-gps:hover {
+            background: #1d4ed8 !important;
+            color: #ffffff !important;
+            transform: translateY(-1px);
+        }
+        [data-theme="dark"] .btn-use-gps.active {
+            background: #059669 !important;
+            color: #ffffff !important;
+            box-shadow: 0 4px 14px rgba(5, 150, 105, 0.45);
+        }
+        [data-theme="dark"] .gps-status-indicator {
+            color: #cbd5e1 !important;
+        }
+
+        /* Zone Pills in Dark Mode */
+        [data-theme="dark"] .zone-pill {
+            background: #1e232e;
+            color: #e5e7eb;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+        }
+        [data-theme="dark"] .zone-pill:hover {
+            background: #2b3240;
+            color: #ffffff;
+            border-color: rgba(255, 255, 255, 0.25);
+        }
+        [data-theme="dark"] .zone-pill.active {
+            background: var(--accent) !important;
+            color: #ffffff !important;
+            border-color: var(--accent) !important;
+            box-shadow: 0 4px 14px rgba(249, 115, 22, 0.4);
+        }
+
+        /* Category Filter Pills in Dark Mode */
+        [data-theme="dark"] .filter-pill {
+            background: #1e232e;
+            color: #e5e7eb;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+        [data-theme="dark"] .filter-pill:hover {
+            background: #2b3240;
+            color: #ffffff;
+            border-color: var(--accent);
+        }
+        [data-theme="dark"] .filter-pill.active {
+            background: var(--accent) !important;
+            color: #ffffff !important;
+            border-color: var(--accent) !important;
+            box-shadow: 0 4px 14px rgba(249, 115, 22, 0.4);
+        }
+
+        /* Card location badges in Dark Mode */
+        [data-theme="dark"] .store-location-chip {
+            color: #9ca3af;
+        }
+        [data-theme="dark"] .store-location-chip strong {
+            color: #f3f4f6;
+        }
+        [data-theme="dark"] .distance-badge-pill {
+            background: rgba(5, 150, 105, 0.2);
+            color: #34d399;
+            border: 1px solid rgba(5, 150, 105, 0.3);
+        }
+
+
+        /* Toggle Button Styles */
+        .btn-theme-toggle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid var(--line);
+            background: var(--card);
+            color: var(--ink);
+            font-size: 17px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all .2s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            flex-shrink: 0;
+        }
+        .btn-theme-toggle:hover {
+            transform: scale(1.08);
+            border-color: var(--accent);
+        }
+        .btn-theme-toggle-mobile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid var(--line);
+            background: var(--card);
+            color: var(--ink);
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-bottom: 8px;
+            transition: all .2s ease;
+        }
+        .btn-theme-toggle-mobile:hover {
+            border-color: var(--accent);
+            background: var(--paper);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            color: var(--ink);
+            background: var(--paper);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+        a { color: inherit; text-decoration: none; }
+        h1, h2, h3, h4, .font-heading { font-family: 'Playfair Display', serif; }
+        .shell { width: min(1260px, calc(100% - 48px)); margin: 0 auto; }
+
+        /* Notification Banner / Toast */
+        .alert-banner {
+            padding: 12px 24px;
+            background: #dcfce7;
+            color: #166534;
+            font-size: 13px;
+            font-weight: 600;
+            text-align: center;
+            border-bottom: 1px solid #bbf7d0;
+        }
+        .alert-banner.info { background: #e0f2fe; color: #0369a1; border-color: #bae6fd; }
+
+        /* Sticky Glass Header */
+        .portal-header {
+            position: sticky;
+            top: 0;
+            z-index: 900;
+            background: var(--glass);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--line);
+        }
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 76px;
+            gap: 20px;
+        }
+        .portal-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .brand-badge {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: var(--ink);
+            color: #ffffff;
+            display: grid;
+            place-items: center;
+            font-size: 18px;
+            font-weight: 800;
+        }
+        .brand-text strong { display: block; font-size: 17px; font-weight: 800; letter-spacing: -.02em; }
+        .brand-text small { display: block; font-size: 10.5px; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+
+        .portal-nav-links {
+            display: flex;
+            align-items: center;
+            gap: 26px;
+            font-size: 13.5px;
+            font-weight: 600;
+        }
+        .portal-nav-links a { color: var(--muted); transition: color .2s ease; }
+        .portal-nav-links a:hover, .portal-nav-links a.active { color: var(--accent); }
+
+        .portal-auth-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .btn-auth-login {
+            padding: 9px 18px;
+            border-radius: 999px;
+            border: 1px solid var(--line);
+            background: var(--card);
+            color: var(--ink);
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all .2s ease;
+        }
+        .btn-auth-login:hover { border-color: var(--accent); color: var(--accent); }
+        .btn-admin-panel {
+            padding: 9px 18px;
+            border-radius: 999px;
+            background: var(--ink);
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: transform .2s ease;
+        }
+        .btn-admin-panel:hover { transform: translateY(-2px); }
+
+        /* User Profile Pill in Header */
+        .user-profile-pill {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 5px 12px 5px 6px;
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            border-radius: 999px;
+        }
+        .user-avatar-circle {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .user-info-text { font-size: 12.5px; font-weight: 700; }
+        .user-provider-tag {
+            font-size: 10px;
+            padding: 2px 7px;
+            border-radius: 999px;
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+        .tag-google { background: #fee2e2; color: #dc2626; }
+        .tag-facebook { background: #dbeafe; color: #1d4ed8; }
+        .tag-email { background: #f3f4f6; color: #4b5563; }
+        .btn-logout {
+            color: var(--muted);
+            font-size: 12px;
+            margin-left: 6px;
+            transition: color .2s ease;
+        }
+        .btn-logout:hover { color: #dc2626; }
+
+        /* HERO & GLOBAL MULTI-STORE SEARCH */
+        .portal-hero {
+            padding: 60px 0 45px;
+            text-align: center;
+            background: linear-gradient(180deg, rgba(226, 112, 78, 0.08) 0%, rgba(247, 245, 240, 0) 100%);
+        }
+        .hero-badge-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            border-radius: 999px;
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+        .portal-hero h1 {
+            font-size: clamp(38px, 4.5vw, 60px);
+            line-height: 1.08;
+            letter-spacing: -.03em;
+            margin-bottom: 16px;
+            max-width: 820px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .portal-hero h1 em { color: var(--accent); font-style: normal; }
+        .portal-hero p {
+            font-size: 16px;
+            color: var(--muted);
+            max-width: 640px;
+            margin: 0 auto 34px;
+            line-height: 1.6;
+        }
+
+        /* SEARCH BAR FORM */
+        .global-search-container {
+            max-width: 760px;
+            margin: 0 auto;
+            position: relative;
+        }
+        .global-search-form {
+            display: flex;
+            align-items: center;
+            background: var(--card);
+            border: 2px solid var(--ink);
+            border-radius: 999px;
+            padding: 6px 8px 6px 20px;
+            box-shadow: 0 16px 40px rgba(0,0,0,.08);
+            transition: border-color .2s ease;
+        }
+        .global-search-form:focus-within {
+            border-color: var(--accent);
+        }
+        .global-search-input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 15px;
+            font-family: inherit;
+            color: var(--ink);
+            background: transparent;
+        }
+        .global-search-btn {
+            padding: 13px 26px;
+            border-radius: 999px;
+            background: var(--accent);
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all .2s ease;
+            white-space: nowrap;
+        }
+        .global-search-btn:hover {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+        }
+
+        .popular-tags-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+            font-size: 12px;
+            color: var(--muted);
+        }
+        .popular-tag {
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            color: var(--ink);
+            cursor: pointer;
+            transition: all .2s ease;
+        }
+        .popular-tag:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* LIVE AJAX SEARCH DROPDOWN */
+        .live-search-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            right: 0;
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,.15);
+            padding: 14px;
+            z-index: 1000;
+            display: none;
+            text-align: left;
+            max-height: 420px;
+            overflow-y: auto;
+        }
+        .live-search-dropdown.open { display: block; }
+        .live-search-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 14px;
+            border-radius: 12px;
+            transition: background .2s ease;
+            gap: 14px;
+        }
+        .live-search-item:hover { background: #fdf5f2; }
+        .live-search-thumb {
+            width: 44px;
+            height: 44px;
+            border-radius: 8px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+        .live-search-details strong { display: block; font-size: 13.5px; }
+        .live-search-details small { color: var(--muted); font-size: 11px; }
+        .live-search-price { font-size: 14px; font-weight: 800; color: var(--accent); text-align: right; }
+        .live-search-store-badge {
+            font-size: 10.5px;
+            padding: 2px 7px;
+            border-radius: 999px;
+            background: var(--paper);
+            border: 1px solid var(--line);
+        }
+
+        /* USER AUTH BANNER (ON LOGIN) */
+        .user-welcome-card {
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            border-radius: 18px;
+            padding: 20px 24px;
+            margin: 20px auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            box-shadow: 0 8px 24px rgba(0,0,0,.03);
+            flex-wrap: wrap;
+        }
+        .user-welcome-info { display: flex; align-items: center; gap: 14px; }
+        .user-welcome-avatar { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; }
+        .user-welcome-info strong { font-size: 16px; display: block; }
+        .user-welcome-info span { font-size: 12.5px; color: var(--muted); }
+
+        /* SEARCH RESULTS SECTION (WHEN SEARCH IS ACTIVE) */
+        .search-results-section {
+            margin: 30px auto 60px;
+        }
+        .results-header-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .results-header-bar h2 { font-size: 26px; }
+        .btn-clear-search {
+            padding: 8px 16px;
+            border-radius: 999px;
+            background: var(--card);
+            border: 1px solid var(--line);
+            font-size: 12.5px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        .btn-clear-search:hover { background: var(--accent); color: #ffffff; }
+
+        .search-results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 22px;
+        }
+        .search-product-card {
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            border-radius: 18px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: all .25s ease;
+        }
+        .search-product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 35px rgba(0,0,0,.08);
+            border-color: var(--accent);
+        }
+        .search-product-thumb {
+            position: relative;
+            aspect-ratio: 1;
+            background: #f0ebe4;
+        }
+        .search-product-thumb img { width: 100%; height: 100%; object-fit: cover; }
+        .search-store-badge-float {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            padding: 5px 12px;
+            border-radius: 999px;
+            background: rgba(255,255,255,.94);
+            backdrop-filter: blur(8px);
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--ink);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 10px rgba(0,0,0,.08);
+        }
+        .search-product-body {
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+        .search-product-body h3 { font-size: 16px; margin-bottom: 6px; }
+        .search-product-body p { font-size: 12px; color: var(--muted); margin-bottom: 14px; flex-grow: 1; line-height: 1.5; }
+        .search-product-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 12px;
+            border-top: 1px solid var(--line);
+        }
+        .search-product-price { font-size: 18px; font-weight: 800; color: var(--accent); }
+        .btn-buy-store {
+            padding: 8px 14px;
+            border-radius: 999px;
+            background: var(--ink);
+            color: #ffffff;
+            font-size: 11.5px;
+            font-weight: 700;
+            transition: background .2s ease;
+        }
+        .btn-buy-store:hover { background: var(--accent); }
+
+        /* BUSINESS CATEGORIES SECTION ("MOSTRARA POR CATEGORIAS LAS EMPRESAS") */
+        .companies-section {
+            padding: 50px 0 80px;
+        }
+        .section-intro {
+            margin-bottom: 28px;
+        }
+        .section-eyebrow {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .14em;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+        .section-eyebrow::before { content:''; width: 22px; height: 2px; background: var(--accent); }
+        .section-title { font-size: clamp(28px, 3.5vw, 42px); letter-spacing: -.03em; }
+
+        /* Category Filter Pills */
+        .category-filter-pills {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 6px 2px 18px;
+            margin-bottom: 24px;
+            scrollbar-width: none;
+        }
+        .category-filter-pills::-webkit-scrollbar { display: none; }
+        .filter-pill {
+            padding: 10px 18px;
+            border-radius: 999px;
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            color: var(--ink);
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all .2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .filter-pill:hover { border-color: var(--accent); color: var(--accent); }
+        .filter-pill.active {
+            background: var(--ink);
+            color: #ffffff;
+            border-color: var(--ink);
+        }
+
+        /* ENTERPRISE CARDS GRID */
+        .companies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(370px, 1fr));
+            gap: 28px;
+        }
+        .company-card {
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            border-radius: 22px;
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all .3s ease;
+            position: relative;
+        }
+        .company-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 45px rgba(0,0,0,.07);
+            border-color: var(--accent);
+        }
+        .company-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            gap: 14px;
+        }
+        .company-badge-logo {
+            width: 54px;
+            height: 54px;
+            border-radius: 14px;
+            color: #ffffff;
+            display: grid;
+            place-items: center;
+            font-size: 22px;
+            font-weight: 800;
+            font-family: 'Playfair Display', serif;
+            box-shadow: 0 6px 16px rgba(0,0,0,.12);
+            flex-shrink: 0;
+        }
+        .company-cat-tag {
+            font-size: 11px;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: var(--paper);
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: .06em;
+        }
+        .company-info h3 { font-size: 21px; margin-bottom: 6px; letter-spacing: -.02em; }
+        .company-info p { font-size: 13.5px; color: var(--muted); line-height: 1.55; margin-bottom: 20px; }
+
+        /* Preview Products of Company */
+        .company-preview-strip {
+            margin-bottom: 22px;
+            border-top: 1px solid var(--line);
+            padding-top: 16px;
+        }
+        .preview-strip-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            color: var(--muted);
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .preview-products-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+        .preview-thumb-box {
+            position: relative;
+            aspect-ratio: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #f0ede6;
+            cursor: pointer;
+        }
+        .preview-thumb-box img { width: 100%; height: 100%; object-fit: cover; transition: transform .3s ease; }
+        .preview-thumb-box:hover img { transform: scale(1.1); }
+        .preview-thumb-price {
+            position: absolute;
+            bottom: 4px;
+            left: 4px;
+            background: rgba(0,0,0,.7);
+            color: #ffffff;
+            font-size: 9.5px;
+            font-weight: 700;
+            padding: 2px 5px;
+            border-radius: 4px;
+        }
+
+        /* Company Social & Contact Bar */
+        .company-social-bar {
+            margin-top: 14px;
+            margin-bottom: 14px;
+            padding-top: 12px;
+            border-top: 1px dashed var(--line);
+        }
+        .company-social-label {
+            display: block;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            color: var(--muted);
+            margin-bottom: 8px;
+        }
+        .company-social-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            align-items: center;
+        }
+        .social-icon-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 10px;
+            border-radius: 8px;
+            font-size: 11.5px;
+            font-weight: 600;
+            text-decoration: none;
+            border: 1px solid var(--card-border);
+            background: var(--paper);
+            color: var(--ink);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .social-icon-btn svg {
+            flex-shrink: 0;
+        }
+        .social-icon-btn:hover {
+            transform: translateY(-1.5px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+        }
+        .social-icon-btn.btn-wa {
+            color: #15803d;
+            background: rgba(34, 197, 94, 0.08);
+            border-color: rgba(34, 197, 94, 0.25);
+        }
+        .social-icon-btn.btn-wa:hover {
+            background: #22c55e;
+            color: #ffffff;
+            border-color: #22c55e;
+        }
+        .social-icon-btn.btn-fb {
+            color: #1d4ed8;
+            background: rgba(29, 78, 216, 0.08);
+            border-color: rgba(29, 78, 216, 0.25);
+        }
+        .social-icon-btn.btn-fb:hover {
+            background: #1877f2;
+            color: #ffffff;
+            border-color: #1877f2;
+        }
+        .social-icon-btn.btn-ig {
+            color: #be185d;
+            background: rgba(219, 39, 119, 0.08);
+            border-color: rgba(219, 39, 119, 0.25);
+        }
+        .social-icon-btn.btn-ig:hover {
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            color: #ffffff;
+            border-color: transparent;
+        }
+        .social-icon-btn.btn-web {
+            color: var(--accent);
+            background: rgba(217, 107, 69, 0.08);
+            border-color: rgba(217, 107, 69, 0.25);
+        }
+        .social-icon-btn.btn-web:hover {
+            background: var(--accent);
+            color: #ffffff;
+            border-color: var(--accent);
+        }
+        .social-icon-btn.btn-map {
+            color: #475569;
+            background: rgba(100, 116, 139, 0.08);
+            border-color: rgba(100, 116, 139, 0.25);
+        }
+        .social-icon-btn.btn-map:hover {
+            background: #475569;
+            color: #ffffff;
+            border-color: #475569;
+        }
+
+        /* Company Actions */
+        .company-actions-footer {
+            display: flex;
+            align-items: center;
+            padding-top: 14px;
+            border-top: 1px solid var(--line);
+        }
+        .btn-visit-company {
+            width: 100%;
+            padding: 12px 18px;
+            border-radius: 999px;
+            background: var(--ink);
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 700;
+            text-align: center;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all .2s ease;
+        }
+        .btn-visit-company:hover {
+            background: var(--accent);
+            transform: translateY(-1px);
+        }
+
+        /* AUTH MODAL (GOOGLE, FACEBOOK, CORREO) */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(17, 18, 16, 0.75);
+            backdrop-filter: blur(8px);
+            display: none;
+            place-items: center;
+            padding: 20px;
+        }
+        .modal-backdrop.open { display: grid; }
+        .auth-modal-card {
+            background: var(--card);
+            border-radius: 26px;
+            width: min(440px, 100%);
+            padding: 36px 32px;
+            position: relative;
+            box-shadow: 0 25px 60px rgba(0,0,0,.3);
+        }
+        .modal-close-x {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 1px solid var(--line);
+            background: var(--paper);
+            color: var(--ink);
+            cursor: pointer;
+            display: grid;
+            place-items: center;
+            font-size: 16px;
+        }
+        .auth-modal-title { font-size: 24px; margin-bottom: 8px; text-align: center; }
+        .auth-modal-subtitle { font-size: 13px; color: var(--muted); text-align: center; margin-bottom: 24px; }
+
+        /* Social Auth Buttons */
+        .social-login-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 22px;
+        }
+        .btn-social-auth {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 12px 20px;
+            border-radius: 999px;
+            font-size: 13.5px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all .2s ease;
+            text-decoration: none;
+        }
+        .btn-google-auth {
+            background: #ffffff;
+            color: #1f2937;
+            border: 1.5px solid #e5e7eb;
+            box-shadow: 0 2px 6px rgba(0,0,0,.04);
+        }
+        .btn-google-auth:hover { background: #f9fafb; border-color: #d1d5db; transform: translateY(-1px); }
+        .btn-facebook-auth {
+            background: var(--fb);
+            color: #ffffff;
+            border: none;
+            box-shadow: 0 4px 12px rgba(24, 119, 242, 0.35);
+        }
+        .btn-facebook-auth:hover { background: #166fe5; transform: translateY(-1px); }
+
+        .social-back-btn {
+            background: none;
+            border: none;
+            color: var(--muted);
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 12px;
+            padding: 0;
+            transition: color .2s ease;
+        }
+        .social-back-btn:hover { color: var(--ink); }
+
+        /* Social Account Item & Chooser */
+        .social-account-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            border: 1.5px solid var(--line);
+            border-radius: 14px;
+            background: var(--card);
+            cursor: pointer;
+            transition: all .2s ease;
+            text-align: left;
+            width: 100%;
+        }
+        .social-account-item:hover {
+            border-color: var(--accent);
+            background: var(--paper);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .social-account-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+        .social-account-info strong { display: block; font-size: 13.5px; color: var(--ink); }
+        .social-account-info small { font-size: 11.5px; color: var(--muted); }
+        .social-env-notice {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            color: #166534;
+            border-radius: 12px;
+            padding: 10px 14px;
+            font-size: 11.5px;
+            line-height: 1.45;
+            margin-top: 14px;
+            text-align: left;
+        }
+        .social-env-notice code {
+            background: #dcfce7;
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-size: 10.5px;
+        }
+
+        .auth-separator {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 20px 0;
+            color: var(--muted);
+            font-size: 11.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+        }
+        .auth-separator::before, .auth-separator::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid var(--line);
+        }
+        .auth-separator span { padding: 0 12px; }
+
+        /* Email Auth Form */
+        .auth-field {
+            margin-bottom: 14px;
+            text-align: left;
+        }
+        .auth-field label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+        .auth-field input {
+            width: 100%;
+            padding: 11px 16px;
+            border-radius: 12px;
+            border: 1px solid var(--line);
+            background: var(--paper);
+            color: var(--ink);
+            font-size: 13.5px;
+            outline: none;
+            transition: border-color .2s ease;
+        }
+        .auth-field input:focus { border-color: var(--accent); }
+        .btn-submit-email-auth {
+            width: 100%;
+            padding: 13px;
+            border-radius: 999px;
+            background: var(--ink);
+            color: #ffffff;
+            font-size: 13.5px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background .2s ease;
+        }
+        .btn-submit-email-auth:hover { background: var(--accent); }
+
+        .auth-modal-switch-text {
+            margin-top: 18px;
+            font-size: 12.5px;
+            color: var(--muted);
+            text-align: center;
+        }
+        .auth-modal-switch-text a {
+            color: var(--accent);
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* FOOTER */
+        .portal-footer {
+            padding: 50px 0 30px;
+            background: var(--card);
+            border-top: 1px solid var(--line);
+            font-size: 12.5px;
+            color: var(--muted);
+        }
+        .portal-footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+        .portal-footer h4 { font-size: 14px; margin-bottom: 12px; color: var(--ink); font-weight: 700; }
+        .portal-footer ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+        .portal-footer-bottom {
+            padding-top: 20px;
+            border-top: 1px solid var(--line);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* ======================================================== */
+        /* SAAS RENTAL PLANS & BILLING TOGGLE STYLES               */
+        /* ======================================================== */
+        .btn-rent-nav {
+            padding: 8px 16px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #d47a6f 0%, #ba584d 100%);
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 700;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 14px rgba(200, 109, 99, 0.35);
+            transition: all .2s ease;
+        }
+        .btn-rent-nav:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(200, 109, 99, 0.45);
+        }
+
+        .plans-section {
+            padding: 70px 0 90px;
+            border-top: 1px solid var(--line);
+        }
+        .billing-toggle-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            margin: 28px 0 10px;
+        }
+        .billing-toggle-box {
+            display: inline-flex;
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            border-radius: 999px;
+            padding: 5px;
+            box-shadow: 0 4px 14px rgba(0,0,0,.04);
+            gap: 4px;
+        }
+        .billing-toggle-btn {
+            padding: 9px 24px;
+            border-radius: 999px;
+            border: none;
+            background: transparent;
+            color: var(--muted);
+            font-size: 13.5px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all .25s ease;
+        }
+        .billing-toggle-btn.active {
+            background: var(--ink);
+            color: #ffffff;
+            box-shadow: 0 2px 8px rgba(0,0,0,.15);
+        }
+        .annual-badge-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #047857;
+            background: #d1fae5;
+            padding: 4px 14px;
+            border-radius: 999px;
+            border: 1px solid #a7f3d0;
+            animation: pulse-soft 2s infinite;
+        }
+        @keyframes pulse-soft {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+        }
+
+        /* PLANS GRID */
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 28px;
+            margin-top: 40px;
+            align-items: stretch;
+        }
+        .plan-card {
+            background: var(--card);
+            border: 1.5px solid var(--card-border);
+            border-radius: 26px;
+            padding: 36px 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            transition: all .3s cubic-bezier(.16, 1, .3, 1);
+        }
+        .plan-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 25px 50px rgba(0,0,0,.08);
+            border-color: var(--accent);
+        }
+        .plan-card-popular {
+            border-color: #c86d63;
+            background: linear-gradient(180deg, #ffffff 0%, #fdf6f5 100%);
+            box-shadow: 0 15px 40px rgba(200, 109, 99, 0.15);
+            position: relative;
+        }
+        .plan-popular-badge {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #d47a6f 0%, #ba584d 100%);
+            color: #ffffff;
+            font-size: 11.5px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            padding: 5px 16px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 12px rgba(200, 109, 99, 0.4);
+            white-space: nowrap;
+        }
+        .plan-header { margin-bottom: 20px; }
+        .plan-name { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+        .plan-tagline { font-size: 13.5px; color: var(--muted); line-height: 1.5; min-height: 40px; }
+
+        /* Price Wrapper */
+        .plan-price-wrapper {
+            margin-bottom: 24px;
+            padding: 20px;
+            background: var(--paper);
+            border-radius: 18px;
+            text-align: center;
+        }
+        .price-currency { font-size: 22px; font-weight: 700; color: var(--ink); vertical-align: top; margin-right: 2px; }
+        .price-amount { font-size: 44px; font-weight: 800; color: var(--ink); letter-spacing: -.03em; line-height: 1; }
+        .price-period { font-size: 13px; font-weight: 600; color: var(--muted); margin-left: 4px; }
+        .price-subnote { font-size: 12px; color: var(--muted); margin-top: 6px; font-weight: 500; }
+
+        .plan-divider { height: 1px; background: var(--line); margin: 0 0 22px; }
+
+        /* Highlights */
+        .plan-highlights {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        .highlight-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13.5px;
+            font-weight: 700;
+            color: var(--ink);
+        }
+        .hl-icon { font-size: 16px; }
+
+        /* Features List */
+        .plan-features-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 32px;
+            padding: 0;
+        }
+        .plan-features-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.45;
+        }
+        .check-icon {
+            flex-shrink: 0;
+            margin-top: 2px;
+            color: #059669;
+        }
+
+        /* Plan CTA Button */
+        .btn-plan-cta {
+            width: 100%;
+            padding: 14px 20px;
+            border-radius: 999px;
+            border: 1.5px solid var(--line);
+            background: var(--card);
+            color: var(--ink);
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all .2s ease;
+        }
+        .btn-plan-cta:hover {
+            border-color: var(--ink);
+            background: var(--ink);
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+        .btn-plan-cta.btn-popular {
+            background: linear-gradient(135deg, #d47a6f 0%, #ba584d 100%);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: #ffffff;
+            box-shadow: 0 6px 18px rgba(200, 109, 99, 0.35);
+        }
+        .btn-plan-cta.btn-popular:hover {
+            box-shadow: 0 10px 25px rgba(200, 109, 99, 0.5);
+            transform: translateY(-2px);
+        }
+
+        /* RENTAL MODAL STYLES */
+        .rent-modal-card {
+            width: min(520px, 100%);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .rent-modal-header { text-align: center; margin-bottom: 20px; }
+        .rent-modal-pill {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            color: var(--accent);
+            background: #fff3ee;
+            padding: 4px 12px;
+            border-radius: 999px;
+            margin-bottom: 10px;
+        }
+        .rent-summary-box {
+            background: var(--paper);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 14px 16px;
+            margin-bottom: 18px;
+        }
+        .rent-cycle-tag {
+            font-size: 11.5px;
+            font-weight: 700;
+            color: #059669;
+            background: #d1fae5;
+            padding: 3px 8px;
+            border-radius: 999px;
+        }
+        .rent-select {
+            padding: 9px 12px;
+            border-radius: 10px;
+            border: 1px solid var(--line);
+            background: var(--card);
+            color: var(--ink);
+            font-size: 13px;
+            font-weight: 600;
+            outline: none;
+            flex: 1;
+        }
+        .subdomain-input-wrap {
+            display: flex;
+            align-items: center;
+            background: var(--paper);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .subdomain-input-wrap input {
+            border: none;
+            background: transparent;
+            padding: 11px 14px;
+            font-size: 14px;
+            outline: none;
+            flex: 1;
+            color: var(--ink);
+        }
+        .subdomain-suffix {
+            padding: 0 14px;
+            color: var(--muted);
+            font-size: 13px;
+            font-weight: 600;
+            background: rgba(0,0,0,.03);
+            align-self: stretch;
+            display: flex;
+            align-items: center;
+            border-left: 1px solid var(--line);
+        }
+        .subdomain-preview-text {
+            font-size: 11.5px;
+            color: var(--muted);
+            margin-top: 6px;
+        }
+        .subdomain-preview-text strong { color: var(--accent); }
+
+        /* ======================================================== */
+        /* PWA MOBILE INSTALL BANNER & PROXIMITY TOOLBAR          */
+        /* ======================================================== */
+        .pwa-install-bar {
+            display: none;
+            background: linear-gradient(90deg, #1e1f1c 0%, #111210 100%);
+            color: #ffffff;
+            padding: 12px 20px;
+            border-bottom: 2px solid var(--accent);
+            font-size: 13px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 16px rgba(0,0,0,.3);
+        }
+        .pwa-install-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .pwa-install-btn {
+            background: var(--accent);
+            color: #ffffff;
+            border: none;
+            padding: 7px 16px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 2px 8px rgba(200,109,99,0.4);
+        }
+
+        /* ZACATECAS PROXIMITY & MAP TOOLBAR */
+        .zac-location-hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            color: #ffffff;
+            background: linear-gradient(135deg, #d47a6f 0%, #ba584d 100%);
+            padding: 5px 14px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 12px rgba(200,109,99,0.35);
+            margin-bottom: 12px;
+        }
+
+        .proximity-toolbar {
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 18px 20px;
+            margin: 20px 0 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            box-shadow: 0 6px 20px rgba(0,0,0,.03);
+        }
+        .proximity-actions-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .btn-use-gps {
+            padding: 10px 20px;
+            border-radius: 999px;
+            background: var(--ink);
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all .2s ease;
+        }
+        .btn-use-gps:hover {
+            background: var(--accent);
+            transform: translateY(-1px);
+        }
+        .btn-use-gps.active {
+            background: #059669;
+            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.35);
+        }
+        .gps-status-indicator {
+            font-size: 12.5px;
+            color: var(--muted);
+            font-weight: 600;
+        }
+
+        .zac-zones-pills {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            padding-bottom: 2px;
+        }
+        .zac-zones-pills::-webkit-scrollbar { display: none; }
+        .zone-pill {
+            padding: 6px 14px;
+            border-radius: 999px;
+            background: var(--paper);
+            border: 1px solid var(--line);
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--muted);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all .2s ease;
+        }
+        .zone-pill:hover, .zone-pill.active {
+            background: var(--ink);
+            color: #ffffff;
+            border-color: var(--ink);
+        }
+
+        /* MAP CONTAINER */
+        .zac-map-section {
+            margin: 24px 0 36px;
+        }
+        .zac-map-box {
+            height: 380px;
+            width: 100%;
+            border-radius: 22px;
+            overflow: hidden;
+            border: 1.5px solid var(--card-border);
+            box-shadow: 0 10px 30px rgba(0,0,0,.06);
+            z-index: 10;
+        }
+
+        /* STORE CARD LOCATION SPECIFICS */
+        .store-location-chip {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11.5px;
+            color: var(--muted);
+            margin: 8px 0 12px;
+            font-weight: 600;
+        }
+        .distance-badge-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 3px 10px;
+            border-radius: 999px;
+            background: #d1fae5;
+            color: #065f46;
+            margin-bottom: 8px;
+            align-self: flex-start;
+        }
+
+        /* PWA MOBILE INSTALL BAR & FLOATING BADGE */
+        .pwa-install-bar {
+            display: none;
+            background: linear-gradient(135deg, #111210 0%, #1f221e 100%);
+            color: #ffffff;
+            border-bottom: 2px solid var(--accent);
+            padding: 12px 16px;
+            position: sticky;
+            top: 0;
+            z-index: 9999;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+        }
+        .pwa-install-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .pwa-install-btn {
+            background: linear-gradient(135deg, #d47a6f 0%, #ba584d 100%);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 9px 18px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(200, 109, 99, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all .2s ease;
+        }
+        .pwa-install-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(226, 112, 78, 0.5);
+        }
+        .floating-pwa-badge {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 999;
+            background: #111210;
+            color: #ffffff;
+            border: 1.5px solid var(--accent);
+            padding: 10px 18px;
+            border-radius: 999px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all .25s ease;
+        }
+        .floating-pwa-badge:hover {
+            transform: scale(1.05);
+            background: var(--accent);
+        }
+
+        /* ======================================================== */
+        /* COMPREHENSIVE RESPONSIVE DESIGN (MOBILE & TABLET)        */
+        /* ======================================================== */
+        
+        /* Mobile menu hamburger button (Modern Pill Style) */
+        .btn-mobile-menu {
+            display: none;
+            height: 40px;
+            padding: 0 13px;
+            border-radius: 12px;
+            background: var(--paper);
+            border: 1.5px solid var(--line);
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all .2s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            flex-shrink: 0;
+        }
+        .btn-mobile-menu:hover {
+            border-color: var(--accent);
+            background: var(--card);
+            transform: translateY(-1px);
+        }
+        .btn-mobile-menu-bars {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            width: 18px;
+        }
+        .btn-mobile-menu .bar {
+            width: 100%;
+            height: 2px;
+            background: var(--ink);
+            border-radius: 2px;
+            transition: all .25s ease;
+        }
+        .btn-mobile-menu.active .bar:nth-child(1) {
+            transform: translateY(6px) rotate(45deg);
+        }
+        .btn-mobile-menu.active .bar:nth-child(2) {
+            opacity: 0;
+        }
+        .btn-mobile-menu.active .bar:nth-child(3) {
+            transform: translateY(-6px) rotate(-45deg);
+        }
+        .mobile-menu-label {
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--ink);
+            letter-spacing: -0.01em;
+        }
+
+        /* Backdrop overlay for mobile navigation drawer */
+        .mobile-drawer-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(17, 18, 16, 0.65);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 9998;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .mobile-drawer-backdrop.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Slide-over Mobile Navigation Drawer */
+        .portal-mobile-menu {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: min(340px, 86vw);
+            height: 100dvh;
+            max-height: 100vh;
+            background: var(--card);
+            border-left: 1px solid var(--card-border);
+            box-shadow: -12px 0 45px rgba(0, 0, 0, 0.28);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            transform: translateX(100%);
+            transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .portal-mobile-menu.open {
+            transform: translateX(0);
+        }
+
+        /* Drawer Header */
+        .drawer-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 20px;
+            border-bottom: 1px solid var(--line);
+            background: var(--paper);
+            position: sticky;
+            top: 0;
+            z-index: 2;
+        }
+        .drawer-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .drawer-logo-badge {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1.5px solid var(--card-border);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            display: grid;
+            place-items: center;
+            background: #ffffff;
+            flex-shrink: 0;
+        }
+        .drawer-logo-badge img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .drawer-brand strong {
+            display: block;
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--ink);
+            line-height: 1.2;
+        }
+        .drawer-brand small {
+            display: block;
+            font-size: 10.5px;
+            color: var(--accent);
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+        }
+        .btn-drawer-close {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 1px solid var(--line);
+            background: var(--card);
+            color: var(--ink);
+            font-size: 16px;
+            cursor: pointer;
+            display: grid;
+            place-items: center;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+        .btn-drawer-close:hover {
+            background: var(--accent);
+            color: #ffffff;
+            border-color: var(--accent);
+            transform: scale(1.08);
+        }
+
+        /* User / Guest Status inside Drawer */
+        .drawer-user-card {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 20px;
+            background: var(--paper);
+            border-bottom: 1px solid var(--line);
+        }
+        .drawer-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1.5px solid var(--accent);
+        }
+        .drawer-user-info {
+            flex: 1;
+            min-width: 0;
+        }
+        .drawer-user-info strong {
+            display: block;
+            font-size: 13.5px;
+            font-weight: 700;
+            color: var(--ink);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .drawer-user-badge {
+            font-size: 11px;
+            color: var(--muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: block;
+        }
+        .btn-drawer-logout {
+            font-size: 11.5px;
+            font-weight: 700;
+            color: #dc2626;
+            background: rgba(220, 38, 38, 0.1);
+            padding: 5px 12px;
+            border-radius: 999px;
+            transition: all 0.2s ease;
+        }
+        .btn-drawer-logout:hover {
+            background: #dc2626;
+            color: #ffffff;
+        }
+        .drawer-guest-box {
+            padding: 14px 20px;
+            background: var(--paper);
+            border-bottom: 1px solid var(--line);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .drawer-guest-box span {
+            font-size: 11.5px;
+            font-weight: 600;
+            color: var(--muted);
+        }
+        .btn-drawer-login {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 9px 14px;
+            border-radius: 12px;
+            border: 1px solid var(--line);
+            background: var(--card);
+            color: var(--ink);
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .btn-drawer-login:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* Drawer Nav List Cards */
+        .drawer-section-title {
+            padding: 16px 20px 8px;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--muted);
+        }
+        .mobile-nav-list {
+            display: flex;
+            flex-direction: column;
+            padding: 4px 14px;
+            gap: 8px;
+        }
+        .drawer-nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 14px;
+            border-radius: 14px;
+            background: var(--paper);
+            border: 1px solid var(--line);
+            text-decoration: none;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .drawer-nav-item:hover, .drawer-nav-item:active {
+            border-color: var(--accent);
+            transform: translateX(3px);
+            background: var(--card);
+            box-shadow: 0 4px 14px rgba(200, 109, 99, 0.12);
+        }
+        .nav-item-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        .nav-item-text {
+            flex: 1;
+            min-width: 0;
+        }
+        .nav-item-title {
+            font-size: 13.5px;
+            font-weight: 700;
+            color: var(--ink);
+            line-height: 1.3;
+        }
+        .nav-item-sub {
+            font-size: 11px;
+            color: var(--muted);
+            margin-top: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .nav-item-arrow {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--muted);
+            opacity: 0.6;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+        .drawer-nav-item:hover .nav-item-arrow {
+            color: var(--accent);
+            opacity: 1;
+            transform: translateX(2px);
+        }
+
+        /* Drawer Footer Actions */
+        .drawer-footer-actions {
+            margin-top: auto;
+            padding: 16px 20px 24px;
+            border-top: 1px solid var(--line);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background: var(--paper);
+        }
+        .btn-theme-toggle-drawer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 11px 16px;
+            border-radius: 12px;
+            border: 1px solid var(--line);
+            background: var(--card);
+            color: var(--ink);
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .btn-theme-toggle-drawer:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        .btn-rent-drawer {
+            width: 100%;
+            padding: 13px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #d47a6f 0%, #ba584d 100%);
+            color: #ffffff;
+            font-size: 13.5px;
+            font-weight: 800;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(200, 109, 99, 0.35);
+            text-align: center;
+            display: block;
+            transition: all 0.2s ease;
+        }
+        .btn-rent-drawer:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(200, 109, 99, 0.45);
+        }
+        .drawer-brand-footer {
+            text-align: center;
+            margin-top: 6px;
+        }
+        .drawer-brand-footer span {
+            display: block;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--muted);
+        }
+        .drawer-brand-footer small {
+            display: block;
+            font-size: 10px;
+            color: var(--muted);
+            opacity: 0.75;
+            margin-top: 2px;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 980px) {
+            .portal-nav-links { display: none; }
+            .btn-mobile-menu { display: inline-flex; }
+            .companies-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+            .plans-grid { grid-template-columns: repeat(2, 1fr); }
+            .portal-footer-grid { grid-template-columns: repeat(2, 1fr); gap: 30px; }
+        }
+
+        @media (max-width: 768px) {
+            .shell { width: calc(100% - 28px); }
+            .portal-hero { padding: 40px 0 24px; }
+            .portal-hero h1 { font-size: clamp(26px, 6vw, 42px); }
+            .portal-hero p { font-size: 14px; margin-bottom: 24px; }
+            .portal-brand strong { font-size: 15px; }
+            .portal-brand small { display: none; }
+            
+            /* Clean up top header by moving rent and admin buttons into the mobile drawer */
+            .btn-rent-nav { display: none; }
+            .btn-admin-panel { display: none; }
+            .portal-auth-actions { gap: 8px; }
+            
+            .companies-grid { grid-template-columns: 1fr; gap: 16px; }
+            .company-card { padding: 18px 16px; border-radius: 18px; }
+            
+            .plans-grid { grid-template-columns: 1fr; max-width: 440px; margin-left: auto; margin-right: auto; }
+            .plan-card { padding: 26px 20px; }
+            
+            .search-results-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+            .search-product-body { padding: 12px; }
+            .search-product-body h3 { font-size: 14px; }
+            .search-product-body p { display: none; }
+            .search-product-price { font-size: 16px; }
+            .btn-buy-store { font-size: 10.5px; padding: 6px 10px; }
+            
+            .proximity-actions-row { flex-direction: column; align-items: stretch; }
+            .btn-use-gps { width: 100%; justify-content: center; }
+            .gps-status-indicator { text-align: center; }
+            .zac-map-box { height: 280px; border-radius: 16px; }
+            
+            .pwa-install-bar { display: block; }
+            .pwa-install-inner { flex-direction: column; text-align: center; }
+            .floating-pwa-badge { bottom: 16px; right: 16px; padding: 8px 14px; font-size: 12px; }
+        }
+
+        @media (max-width: 540px) {
+            .mobile-menu-label { display: none; }
+            .btn-mobile-menu { width: 40px; padding: 0; }
+            .btn-auth-login { padding: 7px 12px; font-size: 12px; }
+
+            .search-btn-text { display: none; }
+            .global-search-btn::after { content: 'Buscar'; }
+            .global-search-form { padding: 4px 6px 4px 14px; }
+            .global-search-input { font-size: 13.5px; }
+            
+            .search-results-grid { grid-template-columns: 1fr; }
+            .company-actions-footer { width: 100%; padding-top: 12px; }
+            .btn-visit-company { width: 100%; justify-content: center; }
+            
+            .billing-toggle-btn { padding: 7px 14px; font-size: 12px; }
+            .annual-badge-pill { font-size: 11px; padding: 3px 10px; }
+            
+            .portal-footer-grid { grid-template-columns: 1fr; gap: 24px; }
+            .portal-footer-bottom { flex-direction: column; gap: 10px; text-align: center; }
+            
+            .auth-modal-card, .rent-modal-card { padding: 22px 16px; border-radius: 20px; }
+            .auth-modal-title { font-size: 20px; }
+        }
+
+        @media (max-width: 380px) {
+            .global-search-btn::after { display: none; }
+            .global-search-btn { padding: 10px 14px; }
+            .brand-badge { width: 32px; height: 32px; font-size: 16px; }
+        }
     </style>
 </head>
 <body>
-    <header class="shell nav">
-        <a class="brand" href="{{ url('/') }}"><span class="mark">A</span><span>Atelier Commerce</span></a>
-        <nav class="nav-links"><a href="#solucion">La plataforma</a><a href="#principios">Principios</a><a href="mailto:hola@ateliercommerce.test">Contacto</a></nav>
-        <a class="nav-button" href="{{ url('/admin/login') }}">Acceder al panel ↗</a>
-    </header>
-    <main>
-        <section class="shell hero">
-            <div><div class="eyebrow">La nueva forma de vender online</div><h1>Tu tienda.<br><em>Tu mundo.</em></h1><p class="hero-copy">Una plataforma elegante para empresas que quieren vender mejor, crecer sin límites y crear una experiencia que sus clientes recuerden.</p><div class="actions"><a class="button button-primary" href="{{ url('/admin/login') }}">Entrar al panel <span>↗</span></a><a class="button button-secondary" href="#solucion">Descubrir más <span>↓</span></a></div></div>
-            <div class="visual"><div class="mini-card"><strong>∞</strong><small>crecimiento<br>sin fronteras</small></div><div class="visual-image"><img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1000&q=85" alt="Experiencia de compra online"></div><div class="badge">Una plataforma<br>para hacer<br>las cosas bien ✦</div></div>
+
+<!-- PWA MOBILE INSTALL BANNER -->
+<div class="pwa-install-bar" id="pwaInstallBar">
+    <div class="shell pwa-install-inner">
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 22px;">📱</span>
+            <div>
+                <strong>Instala la App de Tiendas de Zacatecas Centro</strong>
+                <div style="font-size: 11.5px; opacity: 0.85;">PWA rápida para tu teléfono · Funciona sin conexión y pedidos por WhatsApp</div>
+            </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px;">
+            <button type="button" class="pwa-install-btn" id="btnPwaInstall" onclick="triggerPwaInstall()">
+                ⬇️ Instalar en Celular
+            </button>
+            <button type="button" onclick="dismissPwaBanner()" style="background: transparent; border: none; color: #fff; font-size: 16px; cursor: pointer; padding: 4px 8px;" title="Cerrar">✕</button>
+        </div>
+    </div>
+</div>
+
+<!-- FLOATING PWA INSTALL BADGE -->
+<button type="button" class="floating-pwa-badge" id="floatingPwaBadge" onclick="triggerPwaInstall()">
+    <span>📲</span> <span>Instalar App</span>
+</button>
+
+<!-- PWA STEP-BY-STEP GUIDE MODAL -->
+<div id="pwaGuideModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 10000; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(4px);">
+    <div style="background: #ffffff; border-radius: 24px; max-width: 480px; width: 100%; padding: 28px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.35); position: relative; max-height: 90vh; overflow-y: auto;">
+        <button type="button" onclick="closePwaModal()" style="position: absolute; top: 18px; right: 18px; background: #f3f4f6; border: none; border-radius: 50%; width: 34px; height: 34px; cursor: pointer; font-size: 16px; display: grid; place-items: center;">✕</button>
+        
+        <div style="text-align: center; margin-bottom: 20px;">
+            <div style="width: 72px; height: 72px; border-radius: 18px; margin: 0 auto 12px; box-shadow: 0 8px 22px rgba(200,109,99,0.35); overflow: hidden; border: 2.5px solid #cbd5e1;">
+                <img src="/icons/icon-192.png" alt="Zacatecas Centro Minimapa" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <h3 style="font-size: 20px; font-weight: 800; margin-bottom: 4px; color: #111210;">Instalar Atelier Zacatecas</h3>
+            <p style="font-size: 13px; color: #6b7280;">Aplicación oficial de comercios en el Centro Histórico de Zacatecas.</p>
+        </div>
+
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; padding: 16px; margin-bottom: 16px;">
+            <div style="display: flex; align-items: center; gap: 8px; font-weight: 700; color: #1e293b; margin-bottom: 8px; font-size: 14px;">
+                <span>🤖</span> En Android (Google Chrome)
+            </div>
+            <ol style="margin-left: 20px; font-size: 13px; color: #475569; line-height: 1.6;">
+                <li>Toca el botón de <strong>3 puntos verticales (⋮)</strong> arriba a la derecha en Chrome.</li>
+                <li>Selecciona <strong>"Instalar aplicación"</strong> o <strong>"Agregar a la pantalla principal"</strong>.</li>
+                <li>Confirma en <strong>"Instalar"</strong> y el icono de la app aparecerá en tu teléfono.</li>
+            </ol>
+        </div>
+
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; padding: 16px; margin-bottom: 20px;">
+            <div style="display: flex; align-items: center; gap: 8px; font-weight: 700; color: #1e293b; margin-bottom: 8px; font-size: 14px;">
+                <span>🍏</span> En iPhone / iPad (Safari)
+            </div>
+            <ol style="margin-left: 20px; font-size: 13px; color: #475569; line-height: 1.6;">
+                <li>Toca el botón <strong>Compartir</strong> (icono de cuadrado con flecha hacia arriba <strong>[↑]</strong>) en Safari.</li>
+                <li>Desliza hacia abajo en las opciones y selecciona <strong>"Agregar al inicio"</strong> (+).</li>
+                <li>Toca <strong>"Agregar"</strong> en la esquina superior derecha.</li>
+            </ol>
+        </div>
+
+        <button type="button" onclick="closePwaModal()" style="width: 100%; padding: 12px; border-radius: 999px; background: #111210; color: #fff; font-weight: 700; border: none; cursor: pointer; font-size: 14px;">
+            Entendido, volver a la App
+        </button>
+    </div>
+</div>
+
+@if(session('success'))
+    <div class="alert-banner">
+        <span>✓ {{ session('success') }}</span>
+    </div>
+@endif
+@if(session('info'))
+    <div class="alert-banner info">
+        <span>ℹ {{ session('info') }}</span>
+    </div>
+@endif
+
+@if(session('success_store_created'))
+    @php $newStore = session('success_store_created'); @endphp
+    <div class="alert-banner store-created-banner" style="background: #ecfdf5; border-bottom: 2px solid #10b981; padding: 18px 24px; color: #064e3b; text-align: center;">
+        <div style="font-size: 16px; font-weight: 800; margin-bottom: 4px;">🎉 ¡Felicitaciones! Tu tienda "{{ $newStore['name'] }}" ha sido dada de alta y activada en la plataforma.</div>
+        <div style="font-size: 13.5px; margin-bottom: 12px; color: #047857;">
+            Plan contratado: <strong>{{ $newStore['plan_name'] }}</strong> ({{ $newStore['billing_cycle'] }}) · Usuario admin: <strong>{{ $newStore['owner_email'] }}</strong>
+        </div>
+        <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+            <a href="{{ $newStore['admin_url'] }}" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 20px; border-radius: 999px; background: #059669; color: #fff; font-weight: 700; font-size: 13px; text-decoration: none; box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);">
+                🚀 Ingresar al Panel de tu Tienda
+            </a>
+            <a href="{{ $newStore['store_url'] }}" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 20px; border-radius: 999px; background: #fff; border: 1.5px solid #059669; color: #059669; font-weight: 700; font-size: 13px; text-decoration: none;">
+                🛍️ Ver tu Tienda Pública Online
+            </a>
+        </div>
+    </div>
+@endif
+
+<!-- HEADER -->
+<header class="portal-header">
+    <div class="shell header-inner">
+        <a href="{{ url('/') }}" class="portal-brand">
+            <div class="brand-badge" style="padding: 0; overflow: hidden; background: transparent; border: 1.5px solid #cbd5e1; width: 38px; height: 38px; border-radius: 10px; display: grid; place-items: center; box-shadow: 0 2px 8px rgba(0,0,0,0.12);">
+                <img src="/icons/icon.svg" alt="Minimapa Zacatecas Centro" style="width: 100%; height: 100%; object-fit: cover; border-radius: 9px;">
+            </div>
+            <div class="brand-text">
+                <strong>Atelier Zacatecas</strong>
+                <small>Centro Histórico · Cantera &amp; Plata</small>
+            </div>
+        </a>
+
+        <nav class="portal-nav-links">
+            <a href="#cercanas" style="color: var(--accent); font-weight: 700;">📍 Tiendas Cercanas</a>
+            <a href="#empresas">Empresas</a>
+            <a href="#buscar">Búsqueda Global</a>
+            <a href="#planes">💎 Planes de Renta</a>
+            <a href="{{ url('/admin') }}" target="_blank">Super Admin</a>
+        </nav>
+
+        <div class="portal-auth-actions">
+            <button type="button" class="btn-rent-nav" onclick="openRentModal('crecimiento', 'annual')">
+                <span>✨</span> <span class="rent-btn-long-text">Rentar Tienda</span>
+            </button>
+
+            @if($user)
+                <!-- Usuario Autenticado -->
+                <div class="user-profile-pill">
+                    <img src="{{ $user->avatar_url ?? 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=80&q=80' }}" alt="{{ $user->name }}" class="user-avatar-circle">
+                    <div>
+                        <div class="user-info-text">{{ Str::limit($user->name, 12) }}</div>
+                        <span class="user-provider-tag {{ $user->auth_provider === 'google' ? 'tag-google' : ($user->auth_provider === 'facebook' ? 'tag-facebook' : 'tag-email') }}">
+                            {{ $user->auth_provider ?? 'Correo' }}
+                        </span>
+                    </div>
+                    <a href="{{ url('/logout') }}" class="btn-logout" title="Cerrar Sesión">✕</a>
+                </div>
+            @else
+                <!-- Invitado (No autenticado) -->
+                <button class="btn-auth-login" onclick="openAuthModal('login')">
+                    Entrar
+                </button>
+            @endif
+
+            <a href="{{ url('/admin') }}" target="_blank" class="btn-admin-panel" title="Panel Central Multi-Tenant">
+                <span>⚙</span> <span class="admin-btn-text">Central</span>
+            </a>
+
+            <!-- Dark / Light Theme Toggle -->
+            <button type="button" class="btn-theme-toggle" id="themeToggleBtn" onclick="toggleTheme()" aria-label="Cambiar modo oscuro/claro" title="Cambiar a Modo Oscuro / Claro">
+                <span class="theme-icon-light">🌙</span>
+                <span class="theme-icon-dark" style="display: none;">☀️</span>
+            </button>
+
+            <!-- Mobile Hamburger Toggle -->
+            <button type="button" class="btn-mobile-menu" id="mobileMenuToggle" onclick="toggleMobileMenu()" aria-label="Abrir Menú">
+                <div class="btn-mobile-menu-bars">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+                <span class="mobile-menu-label">Menú</span>
+            </button>
+        </div>
+    </div>
+</header>
+
+<!-- BACKDROP OVERLAY FOR MOBILE DRAWER -->
+<div class="mobile-drawer-backdrop" id="mobileDrawerBackdrop" onclick="closeMobileMenu()"></div>
+
+<!-- SLIDE-OVER MOBILE NAVIGATION DRAWER -->
+<aside class="portal-mobile-menu" id="portalMobileMenu" aria-label="Menú Móvil">
+    <!-- Header inside drawer -->
+    <div class="drawer-header">
+        <div class="drawer-brand">
+            <div class="drawer-logo-badge">
+                <img src="/icons/icon.svg" alt="Minimapa Zacatecas Centro">
+            </div>
+            <div>
+                <strong>Atelier Zacatecas</strong>
+                <small>Cantera Rosa &amp; Plata</small>
+            </div>
+        </div>
+        <button type="button" class="btn-drawer-close" onclick="closeMobileMenu()" aria-label="Cerrar menú">
+            ✕
+        </button>
+    </div>
+
+    <!-- User Profile / Session Status Bar inside drawer -->
+    @if($user)
+        <div class="drawer-user-card">
+            <img src="{{ $user->avatar_url ?? 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=80&q=80' }}" alt="{{ $user->name }}" class="drawer-avatar">
+            <div class="drawer-user-info">
+                <strong>{{ $user->name }}</strong>
+                <span class="drawer-user-badge">{{ $user->email ?? $user->auth_provider }}</span>
+            </div>
+            <a href="{{ url('/logout') }}" class="btn-drawer-logout" title="Cerrar Sesión">Salir</a>
+        </div>
+    @else
+        <div class="drawer-guest-box">
+            <span>👋 Bienvenido(a) a Zacatecas Centro</span>
+            <button type="button" class="btn-drawer-login" onclick="closeMobileMenu(); openAuthModal('login')">
+                <span>👤</span> Iniciar Sesión / Registrarse
+            </button>
+        </div>
+    @endif
+
+    <!-- Navigation Options (The 5 requested sections) -->
+    <div class="drawer-section-title">Navegación del Portal</div>
+    <nav class="mobile-nav-list">
+        <a href="#cercanas" class="drawer-nav-item" onclick="closeMobileMenu()">
+            <div class="nav-item-icon" style="background: rgba(200, 109, 99, 0.15); color: #c86d63;">📍</div>
+            <div class="nav-item-text">
+                <div class="nav-item-title">Tiendas Cercanas</div>
+                <div class="nav-item-sub">Zacatecas Centro Histórico &amp; Mapa</div>
+            </div>
+            <span class="nav-item-arrow">›</span>
+        </a>
+
+        <a href="#empresas" class="drawer-nav-item" onclick="closeMobileMenu()">
+            <div class="nav-item-icon" style="background: rgba(59, 130, 246, 0.15); color: #3b82f6;">🏢</div>
+            <div class="nav-item-text">
+                <div class="nav-item-title">Directorio de Empresas</div>
+                <div class="nav-item-sub">Bitácora oficial de comercios locales</div>
+            </div>
+            <span class="nav-item-arrow">›</span>
+        </a>
+
+        <a href="#buscar" class="drawer-nav-item" onclick="closeMobileMenu()">
+            <div class="nav-item-icon" style="background: rgba(16, 185, 129, 0.15); color: #10b981;">🔍</div>
+            <div class="nav-item-text">
+                <div class="nav-item-title">Búsqueda Global de Productos</div>
+                <div class="nav-item-sub">Catálogo completo de todas las tiendas</div>
+            </div>
+            <span class="nav-item-arrow">›</span>
+        </a>
+
+        <a href="#planes" class="drawer-nav-item" onclick="closeMobileMenu()">
+            <div class="nav-item-icon" style="background: rgba(245, 158, 11, 0.15); color: #f59e0b;">💎</div>
+            <div class="nav-item-text">
+                <div class="nav-item-title">Planes de Renta de Tiendas</div>
+                <div class="nav-item-sub">Abre tu sucursal en línea hoy</div>
+            </div>
+            <span class="nav-item-arrow">›</span>
+        </a>
+
+        <a href="{{ url('/admin') }}" target="_blank" class="drawer-nav-item" onclick="closeMobileMenu()">
+            <div class="nav-item-icon" style="background: rgba(139, 92, 246, 0.15); color: #8b5cf6;">⚙️</div>
+            <div class="nav-item-text">
+                <div class="nav-item-title">Panel Super Admin Central</div>
+                <div class="nav-item-sub">Administración multi-tenant del sistema</div>
+            </div>
+            <span class="nav-item-arrow">↗</span>
+        </a>
+    </nav>
+
+    <!-- Quick Action Controls & Buttons -->
+    <div class="drawer-footer-actions">
+        <!-- Theme Toggle in Drawer -->
+        <button type="button" class="btn-theme-toggle-drawer" onclick="toggleTheme()">
+            <span class="theme-text-light">🌙 Cambiar a Modo Oscuro</span>
+            <span class="theme-text-dark" style="display: none;">☀️ Cambiar a Modo Claro</span>
+        </button>
+
+        <!-- Rent CTA Button in Drawer -->
+        <button type="button" class="btn-rent-drawer" onclick="closeMobileMenu(); openRentModal('crecimiento', 'annual')">
+            ✨ Rentar Tienda Online (-20% Anual)
+        </button>
+
+        <div class="drawer-brand-footer">
+            <span>Atelier Zacatecas · Cantera Rosa &amp; Plata</span>
+            <small>Plataforma PWA Offline Ready v2.2.0</small>
+        </div>
+    </div>
+</aside>
+
+<main class="shell">
+
+    <!-- HERO WITH MULTI-STORE GLOBAL SEARCH -->
+    <section class="portal-hero" id="buscar">
+        <span class="zac-location-hero-badge">📍 Zacatecas Centro Histórico · Cantera Rosa &amp; Plata</span>
+        <h1>Explora Comercios y Tiendas Locales de <em>Zacatecas Centro</em></h1>
+        <p>Directorio oficial en la <strong>Ciudad de Cantera Rosa y Plata</strong> para descubrir comercios emblemáticos, consultar productos y enviar pedidos directos por WhatsApp con sucursal física geolocalizada.</p>
+
+        <!-- GLOBAL SEARCH BAR -->
+        <div class="global-search-container">
+            <form action="{{ url('/') }}" method="GET" class="global-search-form" id="globalSearchForm">
+                <input type="text" name="q" id="globalSearchInput" class="global-search-input" value="{{ $searchQuery }}" placeholder="Buscar en tiendas de Zacatecas (ej. café americano, plata ley .925, gorditas, dulces, mezcal)..." autocomplete="off">
+                <button type="submit" class="global-search-btn">
+                    <span>🔍</span> <span class="search-btn-text">Buscar en todas las tiendas</span>
+                </button>
+            </form>
+
+            <!-- LIVE SEARCH DROPDOWN -->
+            <div class="live-search-dropdown" id="liveSearchDropdown">
+                <!-- Dynamically populated via AJAX -->
+            </div>
+
+            <!-- POPULAR QUICK SEARCH TAGS -->
+            <div class="popular-tags-row">
+                <span>Búsquedas de Zacatecas:</span>
+                <a href="{{ url('/?q=Café') }}" class="popular-tag">☕ Café Acrópolis</a>
+                <a href="{{ url('/?q=Gordita') }}" class="popular-tag">🌮 Gorditas Doña Julia</a>
+                <a href="{{ url('/?q=Plata') }}" class="popular-tag">💎 Rosa de Plata</a>
+                <a href="{{ url('/?q=Dulce') }}" class="popular-tag">🍬 El Serranito</a>
+                <a href="{{ url('/?q=Mezcal') }}" class="popular-tag">🍷 Las Quince Letras</a>
+                <a href="{{ url('/?q=Libro') }}" class="popular-tag">📚 Librería André-a</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- USER WELCOME BANNER (IF LOGGED IN) -->
+    @if($user)
+        <div class="user-welcome-card">
+            <div class="user-welcome-info">
+                <img src="{{ $user->avatar_url ?? 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&q=80' }}" alt="{{ $user->name }}" class="user-welcome-avatar">
+                <div>
+                    <strong>¡Hola, {{ $user->name }}! Has iniciado sesión con {{ ucfirst($user->auth_provider ?? 'Correo') }}.</strong>
+                    <span>Tu cuenta te permite explorar las empresas oficiales y rastrear tus pedidos en toda la plataforma.</span>
+                </div>
+            </div>
+            <a href="{{ url('/logout') }}" class="btn-auth-login">Cerrar Sesión</a>
+        </div>
+    @endif
+
+    <!-- GLOBAL SEARCH RESULTS (IF SEARCH IS PERFORMED) -->
+    @if($searchQuery !== '')
+        <section class="search-results-section">
+            <div class="results-header-bar">
+                <div>
+                    <span class="section-eyebrow">Búsqueda Cruzada en Tiempo Real</span>
+                    <h2>Resultados para "{{ $searchQuery }}" ({{ count($searchResults) }} encontrados)</h2>
+                </div>
+                <a href="{{ url('/') }}" class="btn-clear-search">✕ Limpiar Búsqueda</a>
+            </div>
+
+            @if(count($searchResults) > 0)
+                <div class="search-results-grid">
+                    @foreach($searchResults as $item)
+                        <article class="search-product-card">
+                            <div class="search-product-thumb">
+                                <span class="search-store-badge-float" style="border-left: 3px solid {{ $item['store_color'] }};">
+                                    🏬 {{ $item['store_name'] }}
+                                </span>
+                                <img src="{{ !empty($item['image_url']) ? $item['image_url'] : 'https://placehold.co/600x600?text=' . urlencode($item['name']) }}" alt="{{ $item['name'] }}" loading="lazy">
+                            </div>
+                            <div class="search-product-body">
+                                <span style="font-size: 11px; font-weight: 700; color: var(--accent); text-transform: uppercase; margin-bottom: 4px;">{{ $item['category_name'] }}</span>
+                                <h3>{{ $item['name'] }}</h3>
+                                <p>{{ Str::limit($item['description'], 75) }}</p>
+                                <div class="search-product-footer">
+                                    <span class="search-product-price">${{ number_format($item['price'], 2) }}</span>
+                                    <a href="{{ $item['store_url'] }}" target="_blank" class="btn-buy-store">
+                                        Ver en {{ Str::limit($item['store_name'], 12) }} ↗
+                                    </a>
+                                </div>
+                            </div>
+                        </article>
+                    @endforeach
+                </div>
+            @else
+                <div style="text-align: center; padding: 60px 20px; background: var(--card); border-radius: 20px; border: 1px dashed var(--line);">
+                    <h3>No se encontraron productos coincidentes en ninguna tienda</h3>
+                    <p style="color: var(--muted); margin: 10px 0 20px;">Intenta con términos más generales como "reloj", "bolso", "pepsi", "sonido" o explora el catálogo de cada empresa.</p>
+                    <a href="{{ url('/') }}" class="btn-visit-company" style="display: inline-flex; width: auto;">Ver todas las empresas</a>
+                </div>
+            @endif
         </section>
-        <div class="strip">Multi-empresa · Multi-dispositivo · Una experiencia extraordinaria</div>
-        <section class="section" id="solucion"><div class="shell"><div class="section-head"><div><div class="eyebrow">Todo en un solo lugar</div><h2>Hecha para tu<br>próximo capítulo.</h2></div><p>Desde el primer producto hasta el pedido número mil, las herramientas que necesitas están aquí.</p></div><div class="features" id="principios"><article class="feature"><span class="feature-number">01</span><h3>Tu marca, primero</h3><p>Personaliza cada detalle de tu tienda y conviértela en una extensión auténtica de tu negocio.</p></article><article class="feature"><span class="feature-number">02</span><h3>Datos bajo control</h3><p>Una base de datos aislada para cada empresa. Privacidad y seguridad desde el diseño.</p></article><article class="feature"><span class="feature-number">03</span><h3>Crece con libertad</h3><p>Panel web, APIs y futuras apps móviles conectadas a la misma experiencia.</p></article></div></div></section>
-    </main>
-    <footer><div class="shell footer-inner"><span>© {{ date('Y') }} Atelier Commerce</span><span>Diseñado para negocios con intención.</span></div></footer>
+    @endif
+
+    <!-- TIENDAS CERCANAS EN ZACATECAS CENTRO & MAPA INTERACTIVO -->
+    <section class="companies-section" id="cercanas">
+        <div class="section-intro">
+            <span class="section-eyebrow">📍 Geolocalización y Proximidad</span>
+            <h2 class="section-title">Tiendas Cercanas en Zacatecas Centro</h2>
+            <p style="color: var(--muted); font-size: 14.5px; margin-top: 6px;">
+                Descubre los comercios más cercanos en el Centro Histórico de Zacatecas. Activa tu GPS para calcular la distancia en tiempo real o filtra por zona comercial:
+            </p>
+        </div>
+
+        <!-- Proximity Toolbar -->
+        <div class="proximity-toolbar">
+            <div class="proximity-actions-row">
+                <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                    <button type="button" class="btn-use-gps" id="btnGpsProximity" onclick="requestUserLocation()">
+                        <span>🎯</span> Activar Mi Ubicación (GPS)
+                    </button>
+                    <span class="gps-status-indicator" id="gpsStatusText">Centro de Zacatecas (Plaza de Armas)</span>
+                </div>
+                <div style="font-size: 12px; color: var(--muted); font-weight: 600;">
+                    🗺️ Mapa interactivo con sucursales físicas y cálculo de cercanía
+                </div>
+            </div>
+
+            <!-- Zacatecas Zone Filter Pills -->
+            <div class="zac-zones-pills">
+                <button type="button" class="zone-pill active" onclick="filterByZone('all', this)">✦ Todas las Zonas</button>
+                <button type="button" class="zone-pill" onclick="filterByZone('Centro Histórico', this)">🏛️ Centro Histórico</button>
+                <button type="button" class="zone-pill" onclick="filterByZone('Av. Hidalgo', this)">🚶 Av. Hidalgo</button>
+                <button type="button" class="zone-pill" onclick="filterByZone('Calle Tacuba', this)">🛍️ Calle Tacuba</button>
+                <button type="button" class="zone-pill" onclick="filterByZone('Av. Juárez', this)">🏬 Av. Juárez</button>
+                <button type="button" class="zone-pill" onclick="filterByZone('Portal de Rosales', this)">☕ Portal de Rosales</button>
+            </div>
+        </div>
+
+        <!-- Leaflet Map Container -->
+        <div class="zac-map-section">
+            <div id="zacatecasMap" class="zac-map-box"></div>
+        </div>
+
+        <!-- Category Filter Pills for Businesses -->
+        <div id="empresas" style="padding-top: 16px;">
+            <div class="section-intro" style="margin-bottom: 16px;">
+                <span class="section-eyebrow">Directorio Oficial de Empresas</span>
+                <h2 class="section-title">Empresas Disponibles en la App</h2>
+                <p style="color: var(--muted); font-size: 14px; margin-top: 4px;">Filtra las empresas por su categoría comercial y descubre sus catálogos independientes:</p>
+            </div>
+            <div class="category-filter-pills">
+                <a href="{{ url('/?categoria=all' . ($searchQuery ? '&q=' . urlencode($searchQuery) : '')) }}#empresas" class="filter-pill {{ $selectedCategory === 'all' ? 'active' : '' }}">
+                    ✦ Todas las Empresas ({{ count($allBusinesses) }})
+                </a>
+                @foreach($businessCategories as $catName)
+                    @php
+                        $countInCat = count(array_filter($allBusinesses, fn($b) => strtolower($b['business_category']) === strtolower($catName)));
+                    @endphp
+                    <a href="{{ url('/?categoria=' . urlencode($catName) . ($searchQuery ? '&q=' . urlencode($searchQuery) : '')) }}#empresas" class="filter-pill {{ strtolower($selectedCategory) === strtolower($catName) ? 'active' : '' }}">
+                        {{ match($catName) {
+                            'Moda y Lujo' => '👗',
+                            'Tecnología y Gadgets' => '💻',
+                            'Bebidas y Alimentos' => '🥤',
+                            'Hogar y Decoración' => '🏺',
+                            'Salud y Belleza' => '🌿',
+                            default => '🏬'
+                        } }} {{ $catName }} ({{ $countInCat }})
+                    </a>
+                @endforeach
+            </div>
+        </div>
+
+        <!-- Grid of Businesses with Location Chips and Distance Badges -->
+        <div class="companies-grid" id="companiesGrid">
+            @forelse($businesses as $company)
+                <div class="company-card" 
+                     data-company-id="{{ $company['id'] }}"
+                     data-lat="{{ $company['latitude'] }}" 
+                     data-lng="{{ $company['longitude'] }}" 
+                     data-zone="{{ $company['neighborhood_zone'] }}"
+                     data-name="{{ $company['store_name'] }}">
+                    <div>
+                        <div class="company-header">
+                            <div class="company-badge-logo" style="background: {{ $company['primary_color'] }};">
+                                {{ strtoupper(substr($company['store_name'], 0, 1)) }}
+                            </div>
+                            <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 4px;">
+                                <span class="company-cat-tag">
+                                    {{ $company['business_category'] }}
+                                </span>
+                                <span class="distance-badge-pill" id="dist-badge-{{ $company['id'] }}" style="display: none;">
+                                    📍 <span class="dist-val">--</span> km
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="company-info">
+                            <h3>{{ $company['store_name'] }}</h3>
+                            <p>{{ $company['tagline'] }}</p>
+
+                            <!-- Physical Location in Zacatecas Centro -->
+                            <div class="store-location-chip" title="Dirección física en Zacatecas Centro">
+                                <span>📍</span>
+                                <span><strong>{{ $company['address'] }}</strong> ({{ $company['neighborhood_zone'] }})</span>
+                            </div>
+                            @if(!empty($company['location_reference']))
+                                <div style="font-size: 11.5px; color: var(--muted); margin-bottom: 8px; display: flex; align-items: center; gap: 5px;">
+                                    <span>🧭</span> <em>Ref: {{ $company['location_reference'] }}</em>
+                                </div>
+                            @endif
+                            <div style="font-size: 11.5px; color: #059669; font-weight: 700; margin-bottom: 14px; display: flex; align-items: center; gap: 5px;">
+                                <span>⏰</span> {{ $company['opening_hours'] }}
+                            </div>
+                        </div>
+
+                        <!-- Top 3 Preview Products of this Company -->
+                        @if(count($company['sample_products']) > 0)
+                            <div class="company-preview-strip">
+                                <div class="preview-strip-label">
+                                    <span>Artículos destacados</span>
+                                    <span>{{ $company['products_count'] }} productos</span>
+                                </div>
+                                <div class="preview-products-grid">
+                                    @foreach(collect($company['sample_products'])->take(3) as $prod)
+                                        <a href="{{ $prod['url'] }}" target="_blank" class="preview-thumb-box" title="{{ $prod['name'] }}">
+                                            <img src="{{ !empty($prod['image_url']) ? $prod['image_url'] : 'https://placehold.co/200x200?text=Prod' }}" alt="{{ $prod['name'] }}">
+                                            <span class="preview-thumb-price">${{ number_format($prod['price'], 0) }}</span>
+                                        </a>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endif
+
+                        <!-- Redes Sociales y Enlaces Oficiales -->
+                        @if(!empty($company['whatsapp_number']) || !empty($company['facebook_url']) || !empty($company['instagram_url']) || !empty($company['official_website_url']) || !empty($company['maps_url']))
+                            <div class="company-social-bar">
+                                <span class="company-social-label">Redes & Contacto</span>
+                                <div class="company-social-links">
+                                    @if(!empty($company['whatsapp_number']))
+                                        @php $compWa = preg_replace('/[^0-9]/', '', $company['whatsapp_number']); @endphp
+                                        <a href="https://wa.me/{{ $compWa }}?text={{ urlencode('¡Hola! Me comunico desde el portal para ' . $company['store_name']) }}" target="_blank" class="social-icon-btn btn-wa" title="WhatsApp: {{ $company['whatsapp_number'] }}">
+                                            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                                            <span>WhatsApp</span>
+                                        </a>
+                                    @endif
+                                    @if(!empty($company['facebook_url']))
+                                        <a href="{{ $company['facebook_url'] }}" target="_blank" class="social-icon-btn btn-fb" title="Facebook de {{ $company['store_name'] }}">
+                                            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                                            <span>Facebook</span>
+                                        </a>
+                                    @endif
+                                    @if(!empty($company['instagram_url']))
+                                        <a href="{{ $company['instagram_url'] }}" target="_blank" class="social-icon-btn btn-ig" title="Instagram de {{ $company['store_name'] }}">
+                                            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                                            <span>Instagram</span>
+                                        </a>
+                                    @endif
+                                    @if(!empty($company['official_website_url']))
+                                        <a href="{{ $company['official_website_url'] }}" target="_blank" class="social-icon-btn btn-web" title="Sitio Web Oficial">
+                                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                                            <span>Web</span>
+                                        </a>
+                                    @endif
+                                    @if(!empty($company['maps_url']))
+                                        <a href="{{ $company['maps_url'] }}" target="_blank" class="social-icon-btn btn-map" title="Ver en Google Maps">
+                                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                                            <span>Mapa</span>
+                                        </a>
+                                    @endif
+                                </div>
+                            </div>
+                        @endif
+                    </div>
+
+                    <div class="company-actions-footer">
+                        <a href="{{ $company['store_url'] }}" target="_blank" class="btn-visit-company">
+                            Entrar a la Tienda <span>↗</span>
+                        </a>
+                    </div>
+                </div>
+            @empty
+                <div style="grid-column: 1 / -1; text-align: center; padding: 40px; background: var(--card); border-radius: 18px;">
+                    <h3>No hay empresas en esta categoría</h3>
+                    <p style="color: var(--muted); margin: 8px 0 16px;">Elige otra categoría en los filtros superiores.</p>
+                    <a href="{{ url('/?categoria=all') }}#empresas" class="filter-pill active">Ver todas</a>
+                </div>
+            @endforelse
+        </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- SECTION: PLANES Y PRECIOS DE RENTA SAAS        -->
+    <!-- ============================================== -->
+    <section class="portal-section plans-section" id="planes">
+        <div class="section-header" style="text-align: center; max-width: 820px; margin: 0 auto 20px;">
+            <div class="section-eyebrow" style="justify-content: center;">Renta tu Tienda SaaS B2B</div>
+            <h2 class="section-title">Planes de Renta para Empresas</h2>
+            <p style="color: var(--muted); font-size: 15px; margin-top: 10px; line-height: 1.6;">
+                Digitaliza tu marca con una tienda e-commerce completamente autónoma: base de datos SQLite aislada en modo WAL de alta velocidad, subdominio personalizado, panel privado Filament v3 y <strong>0% comisiones por venta</strong>.
+            </p>
+
+            <!-- INTERACTIVE BILLING CYCLE TOGGLE -->
+            <div class="billing-toggle-container">
+                <div class="billing-toggle-box">
+                    <button type="button" class="billing-toggle-btn active" id="btnMonthly" onclick="switchBillingCycle('monthly')">
+                        📅 Facturación Mensual
+                    </button>
+                    <button type="button" class="billing-toggle-btn" id="btnAnnual" onclick="switchBillingCycle('annual')">
+                        💎 Facturación Anual
+                    </button>
+                </div>
+                <div class="annual-badge-pill" id="annualSavingsBadge">
+                    <span>🎉 Ahorra 20% anual (2 meses gratis de renta)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- PLANS CARDS GRID -->
+        <div class="plans-grid">
+            @foreach($subscriptionPlans as $plan)
+                <div class="plan-card {{ $plan->is_popular ? 'plan-card-popular' : '' }}" id="card-plan-{{ $plan->slug }}">
+                    @if($plan->badge)
+                        <div class="plan-popular-badge">{{ $plan->badge }}</div>
+                    @endif
+
+                    <div>
+                        <div class="plan-header">
+                            <h3 class="plan-name">{{ $plan->name }}</h3>
+                            <p class="plan-tagline">{{ $plan->tagline }}</p>
+                        </div>
+
+                        <div class="plan-price-wrapper">
+                            <!-- Dynamic Monthly Price Display -->
+                            <div class="price-display price-monthly-box" id="price-monthly-{{ $plan->slug }}" style="display: block;">
+                                <span class="price-currency">$</span>
+                                <span class="price-amount">{{ number_format($plan->monthly_price, 0) }}</span>
+                                <span class="price-period">USD / mes</span>
+                                <div class="price-subnote">Facturación mes a mes</div>
+                            </div>
+
+                            <!-- Dynamic Annual Price Display -->
+                            <div class="price-display price-annual-box" id="price-annual-{{ $plan->slug }}" style="display: none;">
+                                <span class="price-currency">$</span>
+                                <span class="price-amount">{{ number_format($plan->annual_price_per_month, 0) }}</span>
+                                <span class="price-period">USD / mes</span>
+                                <div class="price-subnote" style="color: #047857; font-weight: 700;">
+                                    Facturado anual: ${{ number_format($plan->annual_total, 0) }} USD (Ahorras ${{ number_format($plan->annual_savings, 0) }} USD/año)
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="plan-divider"></div>
+
+                        <!-- Highlight Meta -->
+                        <div class="plan-highlights">
+                            <div class="highlight-item">
+                                <span class="hl-icon">📦</span>
+                                <span>{{ $plan->product_limit ? "Hasta {$plan->product_limit} productos activos" : 'Productos y categorías ILIMITADOS' }}</span>
+                            </div>
+                            <div class="highlight-item">
+                                <span class="hl-icon">🌐</span>
+                                <span>{{ $plan->has_custom_domain ? 'Subdominio + Dominio propio' : 'Subdominio exclusivo incluido' }}</span>
+                            </div>
+                            <div class="highlight-item">
+                                <span class="hl-icon">🏷️</span>
+                                <span>0% de comisiones por tus ventas</span>
+                            </div>
+                        </div>
+
+                        <!-- Features List -->
+                        <ul class="plan-features-list">
+                            @foreach($plan->features ?? [] as $feat)
+                                <li>
+                                    <svg class="check-icon" width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span>{{ $feat }}</span>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+
+                    <div class="plan-footer">
+                        <button type="button" 
+                                class="btn-plan-cta {{ $plan->is_popular ? 'btn-popular' : '' }}"
+                                onclick="openRentModal('{{ $plan->slug }}', currentBillingCycle)">
+                            Rentar {{ $plan->name }} <span>→</span>
+                        </button>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="portal-footer">
+    <div class="shell">
+        <div class="portal-footer-grid">
+            <div>
+                <div class="portal-brand" style="margin-bottom: 12px;">
+                    <div class="brand-badge">✦</div>
+                    <strong style="font-size: 16px;">Atelier Marketplace Multi-Empresa</strong>
+                </div>
+                <p>Plataforma SaaS con arquitectura Multi-Database (stancl/tenancy), paneles Filament PHP y soporte para consumo desde aplicaciones web y móviles con Laravel Sanctum.</p>
+            </div>
+            <div>
+                <h4>Categorías de Empresas</h4>
+                <ul>
+                    @foreach($businessCategories as $cat)
+                        <li><a href="{{ url('/?categoria=' . urlencode($cat)) }}#empresas">{{ $cat }}</a></li>
+                    @endforeach
+                </ul>
+            </div>
+            <div>
+                <h4>Administración</h4>
+                <ul>
+                    <li><a href="{{ url('/admin') }}" target="_blank">Panel Super Admin</a></li>
+                    <li><a href="{{ url('/admin/tenants') }}" target="_blank">Gestión de Empresas</a></li>
+                    <li><a href="javascript:void(0)" onclick="openAuthModal('login')">Inicio de Sesión</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="portal-footer-bottom">
+            <span>© {{ date('Y') }} Atelier Marketplace. Todos los derechos reservados.</span>
+            <span>Laravel 12 · Stancl Tenancy · Filament v3</span>
+        </div>
+    </div>
+</footer>
+
+<!-- AUTH MODAL (INICIO DE SESIÓN CON GOOGLE, FACEBOOK Y CORREO) -->
+<div class="modal-backdrop" id="authModal">
+    <div class="auth-modal-card">
+        <button class="modal-close-x" onclick="closeAuthModal()" aria-label="Cerrar modal">✕</button>
+
+        <!-- Tab 1: LOGIN -->
+        <div id="loginView">
+            <h3 class="auth-modal-title">Iniciar Sesión</h3>
+            <p class="auth-modal-subtitle">Accede con tu cuenta preferida para navegar por las tiendas.</p>
+
+            <div class="social-login-group">
+                <!-- 1. GOOGLE LOGIN -->
+                @if($hasGoogleKeys)
+                    <a href="{{ url('/auth/google') }}" class="btn-social-auth btn-google-auth">
+                        <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
+                        <span>Continuar con Google</span>
+                    </a>
+                @else
+                    <button type="button" onclick="switchAuthTab('googleChooser')" class="btn-social-auth btn-google-auth">
+                        <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
+                        <span>Continuar con Google</span>
+                    </button>
+                @endif
+
+                <!-- 2. FACEBOOK LOGIN -->
+                @if($hasFacebookKeys)
+                    <a href="{{ url('/auth/facebook') }}" class="btn-social-auth btn-facebook-auth">
+                        <svg width="20" height="20" fill="#ffffff" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        <span>Continuar con Facebook</span>
+                    </a>
+                @else
+                    <button type="button" onclick="switchAuthTab('facebookChooser')" class="btn-social-auth btn-facebook-auth">
+                        <svg width="20" height="20" fill="#ffffff" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        <span>Continuar con Facebook</span>
+                    </button>
+                @endif
+            </div>
+
+            <div class="auth-separator">
+                <span>o con tu correo</span>
+            </div>
+
+            <!-- 3. EMAIL LOGIN -->
+            <form action="{{ url('/login') }}" method="POST">
+                @csrf
+                <div class="auth-field">
+                    <label>Correo Electrónico</label>
+                    <input type="email" name="email" placeholder="ejemplo@correo.com" required value="{{ old('email') }}">
+                </div>
+                <div class="auth-field">
+                    <label>Contraseña</label>
+                    <input type="password" name="password" placeholder="Tu contraseña" required>
+                </div>
+                <button type="submit" class="btn-submit-email-auth">
+                    Iniciar Sesión con Correo
+                </button>
+            </form>
+
+            <p class="auth-modal-switch-text">
+                ¿No tienes cuenta? <a onclick="switchAuthTab('register')">Crear cuenta gratuita</a>
+            </p>
+        </div>
+
+        <!-- Tab 2: REGISTER -->
+        <div id="registerView" style="display: none;">
+            <h3 class="auth-modal-title">Crear Cuenta</h3>
+            <p class="auth-modal-subtitle">Regístrate para comprar en todas las tiendas oficiales.</p>
+
+            <form action="{{ url('/register') }}" method="POST">
+                @csrf
+                <div class="auth-field">
+                    <label>Nombre Completo</label>
+                    <input type="text" name="name" placeholder="Tu nombre" required>
+                </div>
+                <div class="auth-field">
+                    <label>Correo Electrónico</label>
+                    <input type="email" name="email" placeholder="tu@correo.com" required>
+                </div>
+                <div class="auth-field">
+                    <label>Contraseña</label>
+                    <input type="password" name="password" placeholder="Mínimo 6 caracteres" required>
+                </div>
+                <div class="auth-field">
+                    <label>Confirmar Contraseña</label>
+                    <input type="password" name="password_confirmation" placeholder="Repite tu contraseña" required>
+                </div>
+                <button type="submit" class="btn-submit-email-auth">
+                    Crear Cuenta con Correo
+                </button>
+            </form>
+
+            <p class="auth-modal-switch-text">
+                ¿Ya tienes cuenta? <a onclick="switchAuthTab('login')">Iniciar sesión</a>
+            </p>
+        </div>
+
+        <!-- Tab 3: GOOGLE CHOOSER -->
+        <div id="googleChooserView" style="display: none;">
+            <button type="button" onclick="switchAuthTab('login')" class="social-back-btn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                Volver
+            </button>
+
+            <div style="text-align: center; margin-bottom: 20px;">
+                <svg width="36" height="36" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
+                <h3 class="auth-modal-title" style="margin-top: 8px;">Elegir cuenta de Google</h3>
+                <p class="auth-modal-subtitle">para continuar en Zacatecas Centro Marketplace</p>
+            </div>
+
+            <!-- Cuentas rápidas de 1 toque -->
+            <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px;">
+                <form action="{{ url('/auth/social/login') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="provider" value="google">
+                    <input type="hidden" name="name" value="Manuel González">
+                    <input type="hidden" name="email" value="manuel.zacatecas@gmail.com">
+                    <input type="hidden" name="avatar_url" value="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&q=80">
+                    <button type="submit" class="social-account-item">
+                        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&q=80" alt="Avatar" class="social-account-avatar">
+                        <div class="social-account-info">
+                            <strong>Manuel González</strong>
+                            <small>manuel.zacatecas@gmail.com</small>
+                        </div>
+                    </button>
+                </form>
+
+                <form action="{{ url('/auth/social/login') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="provider" value="google">
+                    <input type="hidden" name="name" value="Comercio Zacatecas">
+                    <input type="hidden" name="email" value="contacto.tienda@gmail.com">
+                    <input type="hidden" name="avatar_url" value="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=120&q=80">
+                    <button type="submit" class="social-account-item">
+                        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=120&q=80" alt="Avatar" class="social-account-avatar">
+                        <div class="social-account-info">
+                            <strong>Comercio Zacatecas</strong>
+                            <small>contacto.tienda@gmail.com</small>
+                        </div>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Opción: Ingresar tu cuenta real de Google -->
+            <details style="border: 1px solid var(--line); border-radius: 12px; padding: 10px 14px; background: #fafaf9; margin-bottom: 12px;">
+                <summary style="font-size: 12.5px; font-weight: 700; color: var(--ink); cursor: pointer;">
+                    ✍️ Usar tu propio correo de Google (Gmail)
+                </summary>
+                <form action="{{ url('/auth/social/login') }}" method="POST" style="margin-top: 10px;">
+                    @csrf
+                    <input type="hidden" name="provider" value="google">
+                    <input type="hidden" name="avatar_url" value="">
+                    <div class="auth-field" style="margin-bottom: 8px;">
+                        <label style="font-size: 11px;">Tu Nombre Completo</label>
+                        <input type="text" name="name" placeholder="Ej. Manuel González" required style="padding: 8px 12px; font-size: 13px;">
+                    </div>
+                    <div class="auth-field" style="margin-bottom: 10px;">
+                        <label style="font-size: 11px;">Tu Correo Gmail</label>
+                        <input type="email" name="email" placeholder="ejemplo@gmail.com" required style="padding: 8px 12px; font-size: 13px;">
+                    </div>
+                    <button type="submit" class="btn-submit-email-auth" style="padding: 10px; font-size: 13px; background: #4285F4;">
+                        Entrar con mi Gmail
+                    </button>
+                </form>
+            </details>
+
+            <div class="social-env-notice">
+                <span>💡 <strong>Modo pruebas móviles activado:</strong> Puedes ingresar de inmediato con 1 toque. Cuando configures <code>GOOGLE_CLIENT_ID</code> y <code>GOOGLE_CLIENT_SECRET</code> en tu archivo <code>.env</code>, este botón abrirá la pantalla de consentimiento oficial de Google.</span>
+            </div>
+        </div>
+
+        <!-- Tab 4: FACEBOOK CHOOSER -->
+        <div id="facebookChooserView" style="display: none;">
+            <button type="button" onclick="switchAuthTab('login')" class="social-back-btn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                Volver
+            </button>
+
+            <div style="text-align: center; margin-bottom: 20px;">
+                <div style="width: 42px; height: 42px; background: #1877F2; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin: 0 auto 6px;">
+                    <svg width="24" height="24" fill="#ffffff" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                </div>
+                <h3 class="auth-modal-title">Iniciar sesión con Facebook</h3>
+                <p class="auth-modal-subtitle">para continuar en Zacatecas Centro Marketplace</p>
+            </div>
+
+            <!-- Cuentas rápidas de 1 toque -->
+            <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px;">
+                <form action="{{ url('/auth/social/login') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="provider" value="facebook">
+                    <input type="hidden" name="name" value="Manuel G. (Facebook)">
+                    <input type="hidden" name="email" value="manuel.fb@facebook.com">
+                    <input type="hidden" name="avatar_url" value="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?auto=format&fit=crop&w=120&q=80">
+                    <button type="submit" class="social-account-item">
+                        <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?auto=format&fit=crop&w=120&q=80" alt="Avatar" class="social-account-avatar">
+                        <div class="social-account-info">
+                            <strong>Manuel G. (Facebook)</strong>
+                            <small>manuel.fb@facebook.com</small>
+                        </div>
+                    </button>
+                </form>
+
+                <form action="{{ url('/auth/social/login') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="provider" value="facebook">
+                    <input type="hidden" name="name" value="Cliente Zacatecas">
+                    <input type="hidden" name="email" value="cliente.fb@facebook.com">
+                    <input type="hidden" name="avatar_url" value="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80">
+                    <button type="submit" class="social-account-item">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80" alt="Avatar" class="social-account-avatar">
+                        <div class="social-account-info">
+                            <strong>Cliente Zacatecas</strong>
+                            <small>cliente.fb@facebook.com</small>
+                        </div>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Opción: Ingresar tu cuenta real de Facebook -->
+            <details style="border: 1px solid var(--line); border-radius: 12px; padding: 10px 14px; background: #fafaf9; margin-bottom: 12px;">
+                <summary style="font-size: 12.5px; font-weight: 700; color: var(--ink); cursor: pointer;">
+                    ✍️ Usar tu propio nombre/cuenta de Facebook
+                </summary>
+                <form action="{{ url('/auth/social/login') }}" method="POST" style="margin-top: 10px;">
+                    @csrf
+                    <input type="hidden" name="provider" value="facebook">
+                    <input type="hidden" name="avatar_url" value="">
+                    <div class="auth-field" style="margin-bottom: 8px;">
+                        <label style="font-size: 11px;">Tu Nombre en Facebook</label>
+                        <input type="text" name="name" placeholder="Ej. Manuel González" required style="padding: 8px 12px; font-size: 13px;">
+                    </div>
+                    <div class="auth-field" style="margin-bottom: 10px;">
+                        <label style="font-size: 11px;">Tu Correo o Usuario</label>
+                        <input type="email" name="email" placeholder="tu_correo@facebook.com" required style="padding: 8px 12px; font-size: 13px;">
+                    </div>
+                    <button type="submit" class="btn-submit-email-auth" style="padding: 10px; font-size: 13px; background: #1877F2;">
+                        Entrar con Facebook
+                    </button>
+                </form>
+            </details>
+
+            <div class="social-env-notice">
+                <span>💡 <strong>Modo pruebas móviles activado:</strong> Puedes ingresar de inmediato con 1 toque. Cuando configures <code>FACEBOOK_CLIENT_ID</code> y <code>FACEBOOK_CLIENT_SECRET</code> en tu archivo <code>.env</code>, este botón abrirá la pantalla de consentimiento oficial de Meta / Facebook.</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL: RENTA TU TIENDA ONLINE -->
+<div class="modal-backdrop" id="rentModal">
+    <div class="auth-modal-card rent-modal-card">
+        <button class="modal-close-x" onclick="closeRentModal()" aria-label="Cerrar modal">✕</button>
+
+        <div class="rent-modal-header">
+            <span class="rent-modal-pill">✦ Alta Rápida de Empresa</span>
+            <h3 class="auth-modal-title">Renta tu Tienda Virtual</h3>
+            <p class="auth-modal-subtitle">Tu catálogo e infraestructura multi-tenant quedarán configurados en segundos.</p>
+        </div>
+
+        <form action="{{ route('central.rent.tenant') }}" method="POST" id="rentForm" onsubmit="handleRentSubmit()">
+            @csrf
+
+            <!-- Plan & Billing Selector in Modal -->
+            <div class="rent-summary-box">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                    <strong id="modalPlanLabel" style="font-size: 15px; color: var(--ink);">Plan Crecimiento</strong>
+                    <span id="modalCycleLabel" class="rent-cycle-tag">💎 Anual (-20% Ahorro)</span>
+                </div>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                    <select name="plan_slug" id="modalPlanSelect" class="rent-select" onchange="updateModalSummary()">
+                        @foreach($subscriptionPlans as $p)
+                            <option value="{{ $p->slug }}" 
+                                    data-name="{{ $p->name }}" 
+                                    data-monthly="{{ $p->monthly_price }}" 
+                                    data-annual="{{ $p->annual_price_per_month }}" 
+                                    data-total="{{ $p->annual_total }}"
+                                    data-savings="{{ $p->annual_savings }}"
+                                    {{ $p->slug === 'crecimiento' ? 'selected' : '' }}>
+                                {{ $p->name }} (${{ number_format($p->monthly_price, 0) }}/m o ${{ number_format($p->annual_price_per_month, 0) }}/m anual)
+                            </option>
+                        @endforeach
+                    </select>
+                    <select name="billing_cycle" id="modalCycleSelect" class="rent-select" onchange="updateModalSummary()">
+                        <option value="annual" selected>💎 Anual (-20% Ahorro)</option>
+                        <option value="monthly">📅 Mensual</option>
+                    </select>
+                </div>
+                <div id="modalPriceSummary" style="margin-top: 10px; font-size: 12px; color: var(--muted); font-weight: 600;">
+                    Total a pagar: $372 USD / año ($31 USD/mes) · ¡Ahorras $96 USD!
+                </div>
+            </div>
+
+            <!-- Company Details -->
+            <div class="auth-field">
+                <label for="rentCompanyName">Nombre de tu Empresa o Marca *</label>
+                <input type="text" name="company_name" id="rentCompanyName" placeholder="Ej. Zapatería Verona" required oninput="autoGenerateSubdomain(this.value)">
+            </div>
+
+            <div class="auth-field">
+                <label for="rentSubdomain">Subdominio para tu Tienda *</label>
+                <div class="subdomain-input-wrap">
+                    <input type="text" name="subdomain" id="rentSubdomain" placeholder="verona" required pattern="[a-z0-9-]+" minlength="3" maxlength="30" oninput="updateSubdomainPreview(this.value)">
+                    <span class="subdomain-suffix">.localhost:8000</span>
+                </div>
+                <div class="subdomain-preview-text" id="subdomainLivePreview">
+                    🌐 Tu tienda estará en: <strong>http://verona.localhost:8000</strong>
+                </div>
+            </div>
+
+            <div class="auth-field">
+                <label for="rentCategory">Giro o Categoría del Negocio</label>
+                <select name="business_category" id="rentCategory" class="rent-select" style="width: 100%;">
+                    <option value="Moda y Lujo">👗 Moda, Lujo & Accesorios</option>
+                    <option value="Tecnología y Gadgets">💻 Tecnología, Audio & Dispositivos</option>
+                    <option value="Bebidas y Alimentos">🥤 Bebidas, Refrescos & Gourmet</option>
+                    <option value="Hogar y Decoración">🏺 Hogar, Mobiliario & Diseño</option>
+                    <option value="Salud y Belleza">🌿 Belleza, Cuidado & Fragancias</option>
+                    <option value="Comercio General" selected>🏬 Tienda Departamental / General</option>
+                </select>
+            </div>
+
+            <!-- Owner Credentials -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                <div class="auth-field">
+                    <label for="rentOwnerName">Nombre del Propietario *</label>
+                    <input type="text" name="owner_name" id="rentOwnerName" placeholder="Carlos Mendoza" required>
+                </div>
+                <div class="auth-field">
+                    <label for="rentOwnerEmail">Correo de Administrador *</label>
+                    <input type="email" name="owner_email" id="rentOwnerEmail" placeholder="admin@verona.com" required>
+                </div>
+            </div>
+
+            <div class="auth-field">
+                <label for="rentOwnerPassword">Contraseña del Panel Admin *</label>
+                <input type="password" name="owner_password" id="rentOwnerPassword" placeholder="Mínimo 6 caracteres" minlength="6" required>
+                <small style="font-size: 11px; color: var(--muted); display: block; margin-top: 4px;">Usarás este correo y contraseña para entrar a tu panel de control Filament.</small>
+            </div>
+
+            <button type="submit" class="btn-submit-email-auth" id="btnRentSubmit" style="background: linear-gradient(135deg, #d47a6f 0%, #ba584d 100%); margin-top: 14px; border: 1px solid rgba(255, 255, 255, 0.25); box-shadow: 0 4px 14px rgba(200, 109, 99, 0.4);">
+                🚀 Confirmar Renta y Activar Tienda Ahora
+            </button>
+            <div id="rentLoadingState" style="display: none; text-align: center; margin-top: 14px; font-size: 13px; font-weight: 700; color: var(--accent);">
+                ⏳ Creando base de datos SQLite aislada y configurando catálogo... Por favor espera unos segundos.
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- JAVASCRIPT FOR LIVE SEARCH & MODAL -->
+<script>
+// BILLING CYCLE MANAGEMENT (MONTHLY VS ANNUAL)
+let currentBillingCycle = 'annual'; // default to annual with 20% discount
+
+function switchBillingCycle(cycle) {
+    currentBillingCycle = cycle;
+    const btnMonthly = document.getElementById('btnMonthly');
+    const btnAnnual = document.getElementById('btnAnnual');
+    const badge = document.getElementById('annualSavingsBadge');
+
+    if (cycle === 'annual') {
+        btnAnnual.classList.add('active');
+        btnMonthly.classList.remove('active');
+        if (badge) badge.style.opacity = '1';
+        document.querySelectorAll('.price-annual-box').forEach(el => el.style.display = 'block');
+        document.querySelectorAll('.price-monthly-box').forEach(el => el.style.display = 'none');
+    } else {
+        btnMonthly.classList.add('active');
+        btnAnnual.classList.remove('active');
+        if (badge) badge.style.opacity = '0.4';
+        document.querySelectorAll('.price-annual-box').forEach(el => el.style.display = 'none');
+        document.querySelectorAll('.price-monthly-box').forEach(el => el.style.display = 'block');
+    }
+
+    // Sync modal cycle select if modal exists
+    const modalCycleSelect = document.getElementById('modalCycleSelect');
+    if (modalCycleSelect) {
+        modalCycleSelect.value = cycle;
+        updateModalSummary();
+    }
+}
+
+// Initial cycle display trigger
+document.addEventListener('DOMContentLoaded', () => {
+    switchBillingCycle('annual');
+});
+
+// RENTAL MODAL HANDLERS
+let hasCustomSubdomain = false;
+
+function openRentModal(planSlug = 'crecimiento', cycle = null) {
+    const modal = document.getElementById('rentModal');
+    if (!modal) return;
+
+    if (cycle) {
+        currentBillingCycle = cycle;
+    }
+
+    const planSelect = document.getElementById('modalPlanSelect');
+    const cycleSelect = document.getElementById('modalCycleSelect');
+
+    if (planSelect && planSlug) {
+        planSelect.value = planSlug;
+    }
+    if (cycleSelect) {
+        cycleSelect.value = currentBillingCycle;
+    }
+
+    updateModalSummary();
+    modal.classList.add('open');
+}
+
+function closeRentModal() {
+    const modal = document.getElementById('rentModal');
+    if (modal) modal.classList.remove('open');
+}
+
+function updateModalSummary() {
+    const planSelect = document.getElementById('modalPlanSelect');
+    const cycleSelect = document.getElementById('modalCycleSelect');
+    const planLabel = document.getElementById('modalPlanLabel');
+    const cycleLabel = document.getElementById('modalCycleLabel');
+    const priceSummary = document.getElementById('modalPriceSummary');
+
+    if (!planSelect || !cycleSelect) return;
+
+    const selectedOption = planSelect.options[planSelect.selectedIndex];
+    if (!selectedOption) return;
+
+    const planName = selectedOption.getAttribute('data-name');
+    const monthlyPrice = parseFloat(selectedOption.getAttribute('data-monthly') || 0);
+    const annualMonthly = parseFloat(selectedOption.getAttribute('data-annual') || 0);
+    const annualTotal = parseFloat(selectedOption.getAttribute('data-total') || 0);
+    const savings = parseFloat(selectedOption.getAttribute('data-savings') || 0);
+    const isAnnual = cycleSelect.value === 'annual';
+
+    if (planLabel) planLabel.textContent = planName;
+    if (cycleLabel) {
+        cycleLabel.textContent = isAnnual ? '💎 Anual (-20% Ahorro)' : '📅 Mensual';
+        cycleLabel.style.background = isAnnual ? '#d1fae5' : '#e0e7ff';
+        cycleLabel.style.color = isAnnual ? '#059669' : '#3730a3';
+    }
+
+    if (priceSummary) {
+        if (isAnnual) {
+            priceSummary.innerHTML = `Total de la renta: <strong>$${annualTotal.toFixed(0)} USD / año</strong> ($${annualMonthly.toFixed(0)} USD/mes) · <span style="color: #059669;">¡Ahorras $${savings.toFixed(0)} USD al año!</span>`;
+        } else {
+            priceSummary.innerHTML = `Total de la renta: <strong>$${monthlyPrice.toFixed(0)} USD / mes</strong> (Facturación recurrente mensual)`;
+        }
+    }
+}
+
+function autoGenerateSubdomain(companyName) {
+    if (hasCustomSubdomain) return;
+    const subInput = document.getElementById('rentSubdomain');
+    if (!subInput) return;
+
+    const clean = companyName
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9]/g, "");
+
+    subInput.value = clean.substring(0, 25);
+    updateSubdomainPreview(subInput.value);
+}
+
+function updateSubdomainPreview(val) {
+    const clean = val.toLowerCase().replace(/[^a-z0-9-]/g, '');
+    const preview = document.getElementById('subdomainLivePreview');
+    if (preview) {
+        preview.innerHTML = `🌐 Tu tienda estará en: <strong>http://${clean || 'mi-tienda'}.localhost:8000</strong>`;
+    }
+}
+
+document.getElementById('rentSubdomain')?.addEventListener('focus', () => {
+    hasCustomSubdomain = true;
+});
+
+function handleRentSubmit() {
+    const btn = document.getElementById('btnRentSubmit');
+    const loading = document.getElementById('rentLoadingState');
+    if (btn) {
+        btn.disabled = true;
+        btn.style.opacity = '0.6';
+    }
+    if (loading) loading.style.display = 'block';
+    return true;
+}
+
+// Close modals when clicking backdrop
+window.addEventListener('click', (e) => {
+    const authModal = document.getElementById('authModal');
+    const rentModal = document.getElementById('rentModal');
+    if (e.target === authModal) closeAuthModal();
+    if (e.target === rentModal) closeRentModal();
+});
+
+// ESC key closes modals
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        closeAuthModal();
+        closeRentModal();
+    }
+});
+
+function openAuthModal(view = 'login') {
+    switchAuthTab(view);
+    const modal = document.getElementById('authModal');
+    if (modal) modal.classList.add('open');
+}
+
+function closeAuthModal() {
+    const modal = document.getElementById('authModal');
+    if (modal) modal.classList.remove('open');
+}
+
+function switchAuthTab(view) {
+    const loginEl = document.getElementById('loginView');
+    const registerEl = document.getElementById('registerView');
+    const googleEl = document.getElementById('googleChooserView');
+    const fbEl = document.getElementById('facebookChooserView');
+
+    if (loginEl) loginEl.style.display = view === 'login' ? 'block' : 'none';
+    if (registerEl) registerEl.style.display = view === 'register' ? 'block' : 'none';
+    if (googleEl) googleEl.style.display = view === 'googleChooser' ? 'block' : 'none';
+    if (fbEl) fbEl.style.display = view === 'facebookChooser' ? 'block' : 'none';
+}
+
+// LIVE INSTANT SEARCH ACROSS ALL STORES
+const searchInput = document.getElementById('globalSearchInput');
+const liveDropdown = document.getElementById('liveSearchDropdown');
+let debounceTimer = null;
+
+if (searchInput && liveDropdown) {
+    searchInput.addEventListener('input', (e) => {
+        const query = e.target.value.trim();
+        clearTimeout(debounceTimer);
+
+        if (query.length < 2) {
+            liveDropdown.classList.remove('open');
+            liveDropdown.innerHTML = '';
+            return;
+        }
+
+        debounceTimer = setTimeout(() => {
+            fetch(`/api/global-search?q=${encodeURIComponent(query)}`)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.results && data.results.length > 0) {
+                        let html = `<div style="padding: 6px 12px; font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--line);">Productos encontrados en todas las tiendas (${data.count}):</div>`;
+                        data.results.forEach(item => {
+                            html += `
+                                <a href="${item.url}" target="_blank" class="live-search-item">
+                                    <div style="display: flex; align-items: center; gap: 12px;">
+                                        <img src="${item.image_url || 'https://placehold.co/100x100?text=Prod'}" class="live-search-thumb" alt="${item.name}">
+                                        <div class="live-search-details">
+                                            <strong>${item.name}</strong>
+                                            <small><span class="live-search-store-badge">🏬 ${item.store_name}</span> · ${item.category_name}</small>
+                                        </div>
+                                    </div>
+                                    <div class="live-search-price">
+                                        $${parseFloat(item.price).toFixed(2)}
+                                    </div>
+                                </a>
+                            `;
+                        });
+                        liveDropdown.innerHTML = html;
+                        liveDropdown.classList.add('open');
+                    } else {
+                        liveDropdown.innerHTML = `<div style="padding: 16px; font-size: 13px; color: var(--muted); text-align: center;">No se encontraron productos en ninguna tienda para "${query}".</div>`;
+                        liveDropdown.classList.add('open');
+                    }
+                })
+                .catch(() => {
+                    liveDropdown.classList.remove('open');
+                });
+        }, 250);
+    });
+
+    // Close live search dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!searchInput.contains(e.target) && !liveDropdown.contains(e.target)) {
+            liveDropdown.classList.remove('open');
+        }
+    });
+}
+
+// ========================================================
+// PWA INSTALL PROMPT HANDLER & SERVICE WORKER
+// ========================================================
+let deferredPrompt = null;
+const pwaBar = document.getElementById('pwaInstallBar');
+const floatingPwaBadge = document.getElementById('floatingPwaBadge');
+
+// If already running as installed PWA app, hide install banners
+if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
+    if (pwaBar) pwaBar.style.display = 'none';
+    if (floatingPwaBadge) floatingPwaBadge.style.display = 'none';
+}
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    if (pwaBar) {
+        pwaBar.style.display = 'block';
+    }
+});
+
+function triggerPwaInstall() {
+    if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+                console.log('El usuario aceptó e instaló la PWA de Zacatecas Centro');
+                if (pwaBar) pwaBar.style.display = 'none';
+                if (floatingPwaBadge) floatingPwaBadge.style.display = 'none';
+            }
+            deferredPrompt = null;
+        });
+    } else {
+        openPwaModal();
+    }
+}
+
+function openPwaModal() {
+    const modal = document.getElementById('pwaGuideModal');
+    if (modal) modal.style.display = 'flex';
+}
+
+function closePwaModal() {
+    const modal = document.getElementById('pwaGuideModal');
+    if (modal) modal.style.display = 'none';
+}
+
+function dismissPwaBanner() {
+    if (pwaBar) pwaBar.style.display = 'none';
+}
+
+// ========================================================
+// PWA AUTO-UPDATE MANAGER (ACTUALIZACIÓN AUTOMÁTICA EN SEGUNDO PLANO)
+// ========================================================
+if ('serviceWorker' in navigator) {
+    let isRefreshing = false;
+
+    // Cuando el nuevo Service Worker toma el control, recargar suavemente para mostrar los cambios
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (!isRefreshing) {
+            isRefreshing = true;
+            console.log('[PWA] Nueva versión de la app activada. Recargando con los cambios más recientes...');
+            window.location.reload();
+        }
+    });
+
+    // Escuchar mensajes de actualización desde el Service Worker
+    navigator.serviceWorker.addEventListener('message', (event) => {
+        if (event.data && event.data.type === 'SW_UPDATED') {
+            console.log('[PWA] Actualización exitosa a versión:', event.data.version);
+            if (!isRefreshing) {
+                isRefreshing = true;
+                window.location.reload();
+            }
+        }
+    });
+
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js', { updateViaCache: 'none' })
+            .then((registration) => {
+                console.log('[PWA] Service Worker Zacatecas activo:', registration.scope);
+
+                // 1. Buscar actualización inmediatamente al abrir la app
+                registration.update().catch(() => {});
+
+                // 2. Si ya hay un worker nuevo esperando en segundo plano, activarlo de inmediato
+                if (registration.waiting) {
+                    registration.waiting.postMessage({ type: 'SKIP_WAITING' });
+                }
+
+                // 3. Detectar cuando se descarga una nueva versión
+                registration.addEventListener('updatefound', () => {
+                    const newWorker = registration.installing;
+                    if (newWorker) {
+                        newWorker.addEventListener('statechange', () => {
+                            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                console.log('[PWA] Nueva versión descargada, activando sin reiniciar...');
+                                newWorker.postMessage({ type: 'SKIP_WAITING' });
+                            }
+                        });
+                    }
+                });
+
+                // 4. Buscar actualizaciones cada vez que el usuario vuelve a la app en su teléfono
+                document.addEventListener('visibilitychange', () => {
+                    if (document.visibilityState === 'visible') {
+                        registration.update().catch(() => {});
+                    }
+                });
+
+                window.addEventListener('focus', () => {
+                    registration.update().catch(() => {});
+                });
+
+                // 5. Verificación periódica cada 15 minutos mientras la app permanezca abierta
+                setInterval(() => {
+                    registration.update().catch(() => {});
+                }, 15 * 60 * 1000);
+            })
+            .catch((err) => console.log('[PWA] Error en registro de ServiceWorker:', err));
+    });
+}
+
+// ========================================================
+// INTERACTIVE MAP & PROXIMITY SORTING (ZACATECAS CENTRO)
+// ========================================================
+const businessesData = @json($businesses);
+const ZACATECAS_CENTER = [22.7753, -102.5724]; // Plaza de Armas, Zacatecas Centro
+let map = null;
+let mapMarkers = [];
+let userLocationMarker = null;
+let userCoords = null;
+
+function initZacatecasMap() {
+    const mapEl = document.getElementById('zacatecasMap');
+    if (!mapEl || typeof L === 'undefined') return;
+
+    map = L.map('zacatecasMap').setView(ZACATECAS_CENTER, 15);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© OpenStreetMap Zacatecas'
+    }).addTo(map);
+
+    // Place store markers
+    renderStoreMarkers(businessesData);
+}
+
+function renderStoreMarkers(stores) {
+    if (!map) return;
+    mapMarkers.forEach(m => map.removeLayer(m));
+    mapMarkers = [];
+
+    stores.forEach(store => {
+        const lat = parseFloat(store.latitude) || 22.7753;
+        const lng = parseFloat(store.longitude) || -102.5724;
+
+        const customIcon = L.divIcon({
+            className: 'custom-map-pin',
+            html: `<div style="background: ${store.primary_color || '#c86d63'}; color: #fff; width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px; box-shadow: 0 4px 10px rgba(0,0,0,.35); border: 2.5px solid #ffffff;">📍</div>`,
+            iconSize: [34, 34],
+            iconAnchor: [17, 34],
+            popupAnchor: [0, -32]
+        });
+
+        const waClean = store.whatsapp_number ? store.whatsapp_number.replace(/[^0-9]/g, '') : '';
+        const waBtn = waClean ? `<a href="https://wa.me/${waClean}?text=${encodeURIComponent('¡Hola! Me comunico desde el portal de Zacatecas para ' + store.store_name)}" target="_blank" style="background: #25d366; color: #fff; padding: 5px 8px; border-radius: 999px; font-size: 11px; font-weight: 700; text-decoration: none;" title="WhatsApp">WA</a>` : '';
+        const fbBtn = store.facebook_url ? `<a href="${store.facebook_url}" target="_blank" style="background: #1877f2; color: #fff; padding: 5px 8px; border-radius: 999px; font-size: 11px; font-weight: 700; text-decoration: none;" title="Facebook">FB</a>` : '';
+        const igBtn = store.instagram_url ? `<a href="${store.instagram_url}" target="_blank" style="background: #e1306c; color: #fff; padding: 5px 8px; border-radius: 999px; font-size: 11px; font-weight: 700; text-decoration: none;" title="Instagram">IG</a>` : '';
+
+        const popupContent = `
+            <div style="font-family: 'Plus Jakarta Sans', sans-serif; min-width: 200px; padding: 4px;">
+                <span style="font-size: 10px; font-weight: 800; text-transform: uppercase; color: ${store.primary_color || 'var(--accent)'}; letter-spacing: .06em;">${store.business_category}</span>
+                <h4 style="font-size: 15px; margin: 2px 0 4px; font-weight: 800;">${store.store_name}</h4>
+                <p style="font-size: 11.5px; color: #555; margin: 0 0 6px; line-height: 1.35;">📍 ${store.address}</p>
+                <div style="font-size: 11px; color: #059669; font-weight: 700; margin-bottom: 8px;">⏰ ${store.opening_hours}</div>
+                <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                    <a href="${store.store_url}" target="_blank" style="flex: 1; text-align: center; background: #111210; color: #fff; padding: 5px 8px; border-radius: 999px; font-size: 11px; font-weight: 700; text-decoration: none;">Ver Tienda ↗</a>
+                    <a href="${store.maps_url}" target="_blank" style="background: #f3f4f6; color: #111; padding: 5px 8px; border-radius: 999px; font-size: 11px; font-weight: 700; text-decoration: none;">Mapa</a>
+                    ${waBtn}
+                    ${fbBtn}
+                    ${igBtn}
+                </div>
+            </div>
+        `;
+
+        const marker = L.marker([lat, lng], { icon: customIcon }).addTo(map);
+        marker.bindPopup(popupContent);
+        mapMarkers.push(marker);
+    });
+}
+
+// HAVERSINE DISTANCE IN KILOMETERS
+function calculateDistanceKm(lat1, lon1, lat2, lon2) {
+    const R = 6371; // Earth's radius in km
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLon = (lon2 - lon1) * Math.PI / 180;
+    const a =
+        Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+        Math.sin(dLon/2) * Math.sin(dLon/2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    return R * c;
+}
+
+// REQUEST USER GEOLOCATION
+function requestUserLocation() {
+    const btn = document.getElementById('btnGpsProximity');
+    const statusText = document.getElementById('gpsStatusText');
+
+    if (!navigator.geolocation) {
+        alert('Tu navegador o dispositivo no soporta geolocalización.');
+        return;
+    }
+
+    if (btn) {
+        btn.innerHTML = '<span>⏳</span> Obteniendo ubicación...';
+        btn.disabled = true;
+    }
+    if (statusText) {
+        statusText.textContent = 'Calculando cercanía a tiendas de Zacatecas Centro...';
+    }
+
+    navigator.geolocation.getCurrentPosition(
+        (position) => {
+            const userLat = position.coords.latitude;
+            const userLng = position.coords.longitude;
+            userCoords = { lat: userLat, lng: userLng };
+
+            if (btn) {
+                btn.classList.add('active');
+                btn.innerHTML = '<span>✓</span> Ubicación GPS Activa';
+                btn.disabled = false;
+            }
+            if (statusText) {
+                statusText.textContent = `📍 Ubicación detectada (${userLat.toFixed(4)}, ${userLng.toFixed(4)})`;
+            }
+
+            // Update Map Center and add user marker
+            if (map) {
+                if (userLocationMarker) map.removeLayer(userLocationMarker);
+
+                const userIcon = L.divIcon({
+                    className: 'user-map-pin',
+                    html: `<div style="background: #2563eb; color: #fff; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; box-shadow: 0 4px 14px rgba(37,99,235,.5); border: 3px solid #fff;">👤</div>`,
+                    iconSize: [36, 36],
+                    iconAnchor: [18, 36],
+                    popupAnchor: [0, -34]
+                });
+
+                userLocationMarker = L.marker([userLat, userLng], { icon: userIcon }).addTo(map);
+                userLocationMarker.bindPopup("<strong>Tu Ubicación Actual</strong>").openPopup();
+                map.setView([userLat, userLng], 15);
+            }
+
+            // Update distance badges and sort company cards by proximity
+            sortCardsByProximity(userLat, userLng);
+        },
+        (error) => {
+            console.warn('Geolocation error:', error);
+            if (btn) {
+                btn.innerHTML = '<span>🎯</span> Activar Mi Ubicación (GPS)';
+                btn.disabled = false;
+            }
+            // Fallback: use downtown Zacatecas (Plaza de Armas) as user center
+            const fallbackLat = 22.7753;
+            const fallbackLng = -102.5724;
+            if (statusText) {
+                statusText.textContent = 'Permiso GPS no concedido. Calculando distancias desde Plaza de Armas (Centro Histórico).';
+            }
+            sortCardsByProximity(fallbackLat, fallbackLng);
+        },
+        { enableHighAccuracy: true, timeout: 8000 }
+    );
+}
+
+function sortCardsByProximity(originLat, originLng) {
+    const grid = document.getElementById('companiesGrid');
+    if (!grid) return;
+
+    const cards = Array.from(grid.querySelectorAll('.company-card'));
+
+    cards.forEach(card => {
+        const cLat = parseFloat(card.dataset.lat) || 22.7753;
+        const cLng = parseFloat(card.dataset.lng) || -102.5724;
+        const distKm = calculateDistanceKm(originLat, originLng, cLat, cLng);
+
+        card.dataset.distance = distKm;
+        const badge = card.querySelector('.distance-badge-pill');
+        const badgeVal = card.querySelector('.dist-val');
+        if (badge && badgeVal) {
+            badgeVal.textContent = distKm < 1 ? `${(distKm * 1000).toFixed(0)} m` : `${distKm.toFixed(2)} km`;
+            badge.style.display = 'inline-flex';
+        }
+    });
+
+    // Sort cards in DOM from closest to furthest
+    cards.sort((a, b) => parseFloat(a.dataset.distance) - parseFloat(b.dataset.distance));
+    cards.forEach(c => grid.appendChild(c));
+}
+
+// FILTER BY ZONE
+function filterByZone(zoneName, btnEl) {
+    // Update active pill
+    document.querySelectorAll('.zone-pill').forEach(b => b.classList.remove('active'));
+    if (btnEl) btnEl.classList.add('active');
+
+    const cards = document.querySelectorAll('.company-card');
+    let visibleStores = [];
+
+    cards.forEach(card => {
+        const cardZone = card.dataset.zone || '';
+        if (zoneName === 'all' || cardZone.toLowerCase().includes(zoneName.toLowerCase())) {
+            card.style.display = 'flex';
+            const companyId = card.dataset.companyId;
+            const foundStore = businessesData.find(b => String(b.id) === String(companyId));
+            if (foundStore) visibleStores.push(foundStore);
+        } else {
+            card.style.display = 'none';
+        }
+    });
+
+    // Re-render map markers for visible stores
+    renderStoreMarkers(visibleStores.length > 0 ? visibleStores : businessesData);
+    if (visibleStores.length > 0 && map) {
+        const first = visibleStores[0];
+        map.panTo([parseFloat(first.latitude) || 22.7753, parseFloat(first.longitude) || -102.5724]);
+    }
+}
+
+// Mobile Navigation Drawer Toggle, Open & Close
+function toggleMobileMenu() {
+    const menu = document.getElementById('portalMobileMenu');
+    const isOpen = menu && menu.classList.contains('open');
+    if (isOpen) {
+        closeMobileMenu();
+    } else {
+        openMobileMenu();
+    }
+}
+
+function openMobileMenu() {
+    const menu = document.getElementById('portalMobileMenu');
+    const backdrop = document.getElementById('mobileDrawerBackdrop');
+    const toggle = document.getElementById('mobileMenuToggle');
+    if (menu) menu.classList.add('open');
+    if (backdrop) backdrop.classList.add('active');
+    if (toggle) toggle.classList.add('active');
+    document.body.style.overflow = 'hidden'; // Lock background scroll on mobile
+}
+
+function closeMobileMenu() {
+    const menu = document.getElementById('portalMobileMenu');
+    const backdrop = document.getElementById('mobileDrawerBackdrop');
+    const toggle = document.getElementById('mobileMenuToggle');
+    if (menu) menu.classList.remove('open');
+    if (backdrop) backdrop.classList.remove('active');
+    if (toggle) toggle.classList.remove('active');
+    document.body.style.overflow = ''; // Restore background scroll
+}
+
+// Close mobile drawer on Escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        closeMobileMenu();
+    }
+});
+
+// THEME TOGGLE (DARK / LIGHT MODE)
+function toggleTheme() {
+    const current = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+    updateThemeIcons(next);
+}
+
+function updateThemeIcons(theme) {
+    document.querySelectorAll('.theme-icon-light').forEach(el => el.style.display = theme === 'dark' ? 'none' : 'inline-block');
+    document.querySelectorAll('.theme-icon-dark').forEach(el => el.style.display = theme === 'dark' ? 'inline-block' : 'none');
+    document.querySelectorAll('.theme-text-light').forEach(el => el.style.display = theme === 'dark' ? 'none' : 'inline-flex');
+    document.querySelectorAll('.theme-text-dark').forEach(el => el.style.display = theme === 'dark' ? 'inline-flex' : 'none');
+}
+
+// Initialize map & theme icons on DOMContentLoaded
+document.addEventListener('DOMContentLoaded', () => {
+    initZacatecasMap();
+    const activeTheme = document.documentElement.getAttribute('data-theme') || 'light';
+    updateThemeIcons(activeTheme);
+});
+</script>
+
 </body>
 </html>

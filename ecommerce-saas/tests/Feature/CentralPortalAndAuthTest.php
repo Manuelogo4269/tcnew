@@ -1,0 +1,166 @@
+<?php
+
+namespace Tests\Feature;
+
+use App\Models\CentralUser;
+use App\Models\Tenant;
+use Tests\TestCase;
+
+class CentralPortalAndAuthTest extends TestCase
+{
+    public function test_central_portal_displays_categorized_enterprises(): void
+    {
+        $response = $this->get('http://localhost/');
+        $response->assertStatus(200);
+
+        // Verify categorized enterprises section
+        $response->assertSee('Empresas Disponibles en la App');
+        $response->assertSee('✦ Todas las Empresas');
+        $response->assertSee('Moda y Lujo');
+        $response->assertSee('Bebidas y Alimentos');
+        $response->assertSee('Hogar y Decoración');
+
+        // Verify available enterprises
+        $response->assertSee('Café Acrópolis');
+        $response->assertSee('Gorditas Doña Julia');
+        $response->assertSee('Platería Rosa de Plata');
+        $response->assertSee('Entrar a la Tienda');
+    }
+
+    public function test_global_search_across_all_stores(): void
+    {
+        // 1. Search for coffee product (from Acrópolis)
+        $responseCafe = $this->get('http://localhost/?q=cafe');
+        $responseCafe->assertStatus(200);
+        $responseCafe->assertSee('Resultados para "cafe"', false);
+        $responseCafe->assertSee('Café Acrópolis');
+        $responseCafe->assertSee('Café Americano Selección Acrópolis');
+
+        // 2. Search for food product (from Doña Julia)
+        $responseFood = $this->get('http://localhost/?q=gordita');
+        $responseFood->assertStatus(200);
+        $responseFood->assertSee('Gorditas Doña Julia');
+        $responseFood->assertSee('Gordita de Asado de Boda Zacatecano');
+
+        // 3. Search for silver jewelry (from Rosa de Plata)
+        $responseSilver = $this->get('http://localhost/?q=catedral');
+        $responseSilver->assertStatus(200);
+        $responseSilver->assertSee('Dije Catedral Basílica en Plata Ley .925');
+
+        // 4. API Live Search endpoint
+        $apiResponse = $this->getJson('http://localhost/api/global-search?q=mezcal');
+        $apiResponse->assertStatus(200)
+            ->assertJsonPath('count', fn ($count) => $count >= 1);
+    }
+
+    public function test_social_and_email_authentication_alternatives(): void
+    {
+        // 1. Check Login Page displays Google, Facebook, and Email options
+        $loginPage = $this->get('http://localhost/login');
+        $loginPage->assertStatus(200);
+        $loginPage->assertSee('Continuar con Google');
+        $loginPage->assertSee('Continuar con Facebook');
+        $loginPage->assertSee('Iniciar Sesión con Correo');
+
+        // 2. Google Authentication (Redirects to Google OAuth consent screen when credentials configured, or ?demo=1 for testing)
+        $googleResponse = $this->get('http://localhost/auth/google?demo=1');
+        $googleResponse->assertRedirect('/');
+        $this->assertAuthenticatedAs(
+            CentralUser::where('auth_provider', 'google')->first(),
+            'web'
+        );
+
+        // 3. Facebook Authentication
+        $fbResponse = $this->get('http://localhost/auth/facebook');
+        $fbResponse->assertRedirect('/');
+        $this->assertAuthenticatedAs(
+            CentralUser::where('auth_provider', 'facebook')->first(),
+            'web'
+        );
+
+        // 4. Email Registration
+        $email = 'nuevo_usuario_' . time() . '@correo.com';
+        $registerResponse = $this->post('http://localhost/register', [
+            'name' => 'Usuario Nuevo',
+            'email' => $email,
+            'password' => 'password123',
+            'password_confirmation' => 'password123',
+        ]);
+        $registerResponse->assertRedirect('/');
+        $this->assertDatabaseHas('users', [
+            'email' => $email,
+            'auth_provider' => 'email',
+        ]);
+
+        // 5. Logout
+        $logoutResponse = $this->get('http://localhost/logout');
+        $logoutResponse->assertRedirect('/');
+        $this->assertGuest('web');
+    }
+
+    public function test_socialite_google_and_facebook_callbacks(): void
+    {
+        // 1. Mock Google OAuth User from Socialite
+        $googleUser = \Mockery::mock(\Laravel\Socialite\Two\User::class);
+        $googleUser->shouldReceive('getId')->andReturn('google_987654321');
+        $googleUser->shouldReceive('getName')->andReturn('Carlos Mendoza Google');
+        $googleUser->shouldReceive('getNickname')->andReturn('carlosm');
+        $googleUser->shouldReceive('getEmail')->andReturn('carlos.mendoza@gmail.com');
+        $googleUser->shouldReceive('getAvatar')->andReturn('https://lh3.googleusercontent.com/photo.jpg');
+
+        $googleProvider = \Mockery::mock(\Laravel\Socialite\Two\GoogleProvider::class);
+        $googleProvider->shouldReceive('redirectUrl')->andReturnSelf();
+        $googleProvider->shouldReceive('setHttpClient')->andReturnSelf();
+        $googleProvider->shouldReceive('user')->andReturn($googleUser);
+
+        \Laravel\Socialite\Facades\Socialite::shouldReceive('driver')->with('google')->andReturn($googleProvider);
+
+        $googleCallbackResponse = $this->get('http://localhost/auth/google/callback');
+        $googleCallbackResponse->assertRedirect('/');
+        $this->assertDatabaseHas('users', [
+            'email' => 'carlos.mendoza@gmail.com',
+            'auth_provider' => 'google',
+            'auth_provider_id' => 'google_987654321',
+        ]);
+
+        // 2. Mock Facebook OAuth User from Socialite
+        $fbUser = \Mockery::mock(\Laravel\Socialite\Two\User::class);
+        $fbUser->shouldReceive('getId')->andReturn('fb_1234567890');
+        $fbUser->shouldReceive('getName')->andReturn('Valeria Torres Facebook');
+        $fbUser->shouldReceive('getEmail')->andReturn('valeria.torres@facebook.com');
+        $fbUser->shouldReceive('getAvatar')->andReturn('https://graph.facebook.com/picture.jpg');
+
+        $fbProvider = \Mockery::mock(\Laravel\Socialite\Two\FacebookProvider::class);
+        $fbProvider->shouldReceive('redirectUrl')->andReturnSelf();
+        $fbProvider->shouldReceive('setHttpClient')->andReturnSelf();
+        $fbProvider->shouldReceive('user')->andReturn($fbUser);
+
+        \Laravel\Socialite\Facades\Socialite::shouldReceive('driver')->with('facebook')->andReturn($fbProvider);
+
+        $fbCallbackResponse = $this->get('http://localhost/auth/facebook/callback');
+        $fbCallbackResponse->assertRedirect('/');
+        $this->assertDatabaseHas('users', [
+            'email' => 'valeria.torres@facebook.com',
+            'auth_provider' => 'facebook',
+            'auth_provider_id' => 'fb_1234567890',
+        ]);
+    }
+
+    public function test_interactive_social_login_without_avatar_url(): void
+    {
+        $response = $this->post('http://localhost/auth/social/login', [
+            'provider' => 'google',
+            'name' => 'Manuel Alejandro Moreno de la Cruz',
+            'email' => 'manuelmorenocruz1307@gmail.com',
+        ]);
+
+        $response->assertRedirect('/');
+        $this->assertAuthenticated('web');
+        $this->assertDatabaseHas('users', [
+            'email' => 'manuelmorenocruz1307@gmail.com',
+            'name' => 'Manuel Alejandro Moreno de la Cruz',
+            'auth_provider' => 'google',
+        ]);
+    }
+}
+

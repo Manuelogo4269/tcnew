@@ -28,13 +28,262 @@ class TenantResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('id')
-                    ->label('Identificador')
-                    ->placeholder('empresa-nueva')
-                    ->required()
-                    ->unique(ignoreRecord: true)
-                    ->alphaDash()
-                    ->maxLength(80),
+                Forms\Components\Section::make('Identificación de la Empresa')
+                    ->schema([
+                        Forms\Components\TextInput::make('id')
+                            ->label('Identificador Técnico')
+                            ->placeholder('empresa-nueva')
+                            ->required()
+                            ->unique(ignoreRecord: true)
+                            ->alphaDash()
+                            ->maxLength(80)
+                            ->disabled(fn (string $operation): bool => $operation === 'edit')
+                            ->helperText(fn (string $operation): ?string => $operation === 'edit'
+                                ? 'El identificador no puede modificarse porque corresponde al nombre de la base de datos física aislada.'
+                                : 'Se utilizará como subdominio y nombre de base de datos aislada (ej. tenant_empresa.sqlite).'),
+                    ]),
+
+                Forms\Components\Section::make('Plan de Renta SaaS y Suscripción')
+                    ->description('Gestiona el plan contratado, ciclo de facturación y vigencia del alquiler de la tienda.')
+                    ->icon('heroicon-o-credit-card')
+                    ->schema([
+                        Forms\Components\Select::make('plan_name')
+                            ->label('Plan Contratado')
+                            ->options([
+                                'Emprendedor' => '🚀 Plan Emprendedor ($19/mes - $15/mes anual)',
+                                'Crecimiento' => '⭐ Plan Crecimiento ($39/mes - $31/mes anual - Más Popular)',
+                                'Corporativo' => '👑 Plan Corporativo ($89/mes - $71/mes anual)',
+                            ])
+                            ->default('Emprendedor')
+                            ->required(),
+
+                        Forms\Components\Select::make('billing_cycle')
+                            ->label('Ciclo de Facturación')
+                            ->options([
+                                'monthly' => '📅 Mensual (Facturación mes a mes)',
+                                'annual' => '💎 Anual (Pago de 12 meses con 20% descuento)',
+                            ])
+                            ->default('monthly')
+                            ->required(),
+
+                        Forms\Components\Select::make('subscription_status')
+                            ->label('Estado de la Renta')
+                            ->options([
+                                'active' => '✅ Activa / Al corriente',
+                                'trial' => '⏳ En período de prueba',
+                                'past_due' => '⚠️ Pago pendiente / Vencido',
+                                'cancelled' => '❌ Cancelada / Suspendida',
+                            ])
+                            ->default('active')
+                            ->required(),
+
+                        Forms\Components\TextInput::make('subscription_amount')
+                            ->label('Monto de la Renta (USD)')
+                            ->numeric()
+                            ->prefix('$')
+                            ->placeholder('39.00'),
+
+                        Forms\Components\DateTimePicker::make('subscription_ends_at')
+                            ->label('Fecha de Vencimiento de la Renta'),
+                    ])->columns(3),
+
+                Forms\Components\Section::make('Paleta de Colores y Tipografía de la Tienda')
+                    ->description('Personaliza los colores corporativos y la fuente de la tienda pública de esta empresa.')
+                    ->icon('heroicon-o-swatch')
+                    ->collapsible()
+                    ->schema([
+                        Forms\Components\ColorPicker::make('primary_color')
+                            ->label('Color Primario / Acento')
+                            ->helperText('Botones, insignias y elementos principales.')
+                            ->default('#d96b45'),
+
+                        Forms\Components\ColorPicker::make('secondary_color')
+                            ->label('Color de Fondo / Secundario')
+                            ->helperText('Color base del sitio (ej. #f4efe7 crema, #ffffff blanco o #0f172a oscuro).')
+                            ->default('#f4efe7'),
+
+                        Forms\Components\Select::make('font_family')
+                            ->label('Tipografía')
+                            ->options([
+                                'DM Sans' => 'DM Sans + Playfair (Editorial / Sofisticado)',
+                                'Inter' => 'Inter (Minimalista / Moderno)',
+                                'Poppins' => 'Poppins (Dinámico / Comercial)',
+                                'Plus Jakarta Sans' => 'Plus Jakarta Sans (Tech / Vanguardista)',
+                                'Cinzel' => 'Cinzel + Cormorant (Lujo / Joyería)',
+                            ])
+                            ->default('DM Sans'),
+                    ])->columns(3),
+
+                Forms\Components\Section::make('Identidad y Logotipo')
+                    ->description('Nombre comercial, eslogan y enlaces directos de la empresa.')
+                    ->icon('heroicon-o-sparkles')
+                    ->collapsible()
+                    ->schema([
+                        Forms\Components\TextInput::make('store_name')
+                            ->label('Nombre Comercial de la Tienda')
+                            ->placeholder('Ej. Boutique Vintage')
+                            ->maxLength(120),
+
+                        Forms\Components\Select::make('business_category')
+                            ->label('Categoría / Giro del Negocio')
+                            ->options([
+                                'Moda y Lujo' => '👗 Moda, Lujo & Accesorios',
+                                'Tecnología y Gadgets' => '💻 Tecnología, Audio & Dispositivos',
+                                'Bebidas y Alimentos' => '🥤 Bebidas, Refrescos & Gourmet',
+                                'Hogar y Decoración' => '🏺 Hogar, Mobiliario & Diseño',
+                                'Salud y Belleza' => '🌿 Belleza, Cuidado & Fragancias',
+                                'Comercio General' => '🏬 Tienda Departamental / General',
+                            ])
+                            ->default('Comercio General')
+                            ->required(),
+
+                        Forms\Components\TextInput::make('tagline')
+                            ->label('Eslogan')
+                            ->placeholder('Ej. Exclusividad y estilo a tu alcance')
+                            ->maxLength(180),
+
+                        Forms\Components\TextInput::make('contact_email')
+                            ->label('Correo Electrónico de Contacto')
+                            ->email()
+                            ->maxLength(255),
+
+                        Forms\Components\TextInput::make('logo_url')
+                            ->label('URL del Logo')
+                            ->url()
+                            ->placeholder('https://.../logo.png')
+                            ->columnSpanFull(),
+                    ])->columns(3),
+
+                Forms\Components\Section::make('Portada, Banner y Anuncios')
+                    ->description('Imágenes de impacto y mensajes destacados.')
+                    ->icon('heroicon-o-photo')
+                    ->collapsible()
+                    ->schema([
+                        Forms\Components\TextInput::make('banner_url')
+                            ->label('URL del Banner / Imagen de Cabecera')
+                            ->url()
+                            ->placeholder('https://.../banner.jpg')
+                            ->columnSpanFull(),
+
+                        Forms\Components\TextInput::make('hero_title')
+                            ->label('Título de Portada')
+                            ->placeholder('Calidad y diseño. Hecho para ti.')
+                            ->maxLength(150),
+
+                        Forms\Components\TextInput::make('hero_button_text')
+                            ->label('Texto de Botón de Portada')
+                            ->placeholder('Ver productos')
+                            ->default('Ver productos')
+                            ->maxLength(60),
+
+                        Forms\Components\Textarea::make('hero_subtitle')
+                            ->label('Subtítulo de Portada')
+                            ->placeholder('Descripción introductoria del catálogo.')
+                            ->rows(2)
+                            ->columnSpanFull(),
+
+                        Forms\Components\Toggle::make('show_announcement')
+                            ->label('Mostrar Barra de Anuncio Superior')
+                            ->default(true),
+
+                        Forms\Components\TextInput::make('announcement_text')
+                            ->label('Texto de la Barra Superior')
+                            ->placeholder('Envío sin costo en compras mayores a $50')
+                            ->columnSpan(2),
+                    ])->columns(3),
+
+                Forms\Components\Section::make('Canales de Atención y Redes Sociales')
+                    ->description('Número de WhatsApp para pedidos directos y perfiles sociales.')
+                    ->icon('heroicon-o-chat-bubble-left-right')
+                    ->collapsible()
+                    ->schema([
+                        Forms\Components\TextInput::make('whatsapp_number')
+                            ->label('WhatsApp de la Tienda')
+                            ->placeholder('+52 55 1234 5678')
+                            ->helperText('Habilita el botón flotante de WhatsApp en la tienda pública.')
+                            ->maxLength(30),
+
+                        Forms\Components\TextInput::make('instagram_url')
+                            ->label('Instagram URL')
+                            ->url()
+                            ->placeholder('https://instagram.com/...'),
+
+                        Forms\Components\TextInput::make('facebook_url')
+                            ->label('Facebook URL')
+                            ->url()
+                            ->placeholder('https://facebook.com/...'),
+
+                        Forms\Components\TextInput::make('official_website_url')
+                            ->label('Página Web Oficial del Negocio')
+                            ->url()
+                            ->placeholder('https://www.minegocio.com')
+                            ->helperText('Enlace directo a la página web o portal oficial de la empresa.')
+                            ->columnSpanFull(),
+
+                        Forms\Components\TextInput::make('footer_text')
+                            ->label('Pie de Página Personalizado')
+                            ->placeholder('Todos los derechos reservados.')
+                            ->columnSpanFull(),
+                    ])->columns(3),
+
+                Forms\Components\Section::make('Ubicación Física en Zacatecas Centro')
+                    ->description('Dirección física, zona comercial y coordenadas GPS para el mapa interactivo y pedidos por WhatsApp.')
+                    ->icon('heroicon-o-map-pin')
+                    ->collapsible()
+                    ->schema([
+                        Forms\Components\TextInput::make('address')
+                            ->label('Dirección Física')
+                            ->placeholder('Av. Hidalgo #305, Centro Histórico')
+                            ->maxLength(255),
+
+                        Forms\Components\Select::make('neighborhood_zone')
+                            ->label('Zona / Corredor Comercial')
+                            ->options([
+                                'Centro Histórico' => '🏛️ Centro Histórico',
+                                'Av. Hidalgo' => '🚶 Av. Hidalgo',
+                                'Calle Tacuba' => '🛍️ Calle Tacuba',
+                                'Av. Juárez' => '🏬 Av. Juárez',
+                                'Portal de Rosales' => '☕ Portal de Rosales',
+                                'Av. González Ortega' => '🌳 Av. González Ortega',
+                                'Zona Centro General' => '📍 Zona Centro General',
+                            ])
+                            ->default('Centro Histórico'),
+
+                        Forms\Components\TextInput::make('city')
+                            ->label('Ciudad')
+                            ->default('Zacatecas')
+                            ->maxLength(100),
+
+                        Forms\Components\TextInput::make('latitude')
+                            ->label('Latitud GPS')
+                            ->numeric()
+                            ->placeholder('22.7753')
+                            ->helperText('Ej: 22.7753 (Plaza de Armas)'),
+
+                        Forms\Components\TextInput::make('longitude')
+                            ->label('Longitud GPS')
+                            ->numeric()
+                            ->placeholder('-102.5724')
+                            ->helperText('Ej: -102.5724 (Plaza de Armas)'),
+
+                        Forms\Components\TextInput::make('opening_hours')
+                            ->label('Horario de Atención')
+                            ->placeholder('Lun - Sáb: 9:00 AM - 8:30 PM')
+                            ->maxLength(150),
+
+                        Forms\Components\TextInput::make('location_reference')
+                            ->label('Punto de Referencia')
+                            ->placeholder('A media cuadra del Portal de Rosales')
+                            ->maxLength(255)
+                            ->columnSpan(2),
+
+                        Forms\Components\TextInput::make('maps_url')
+                            ->label('Enlace Directo Google Maps')
+                            ->url()
+                            ->placeholder('https://maps.google.com/?q=22.7753,-102.5724')
+                            ->helperText('Enlace que se adjunta automáticamente en los pedidos enviados por WhatsApp.')
+                            ->columnSpanFull(),
+                    ])->columns(3),
             ]);
     }
 
@@ -51,15 +300,87 @@ class TenantResource extends Resource
                     ->label('Subdominio')
                     ->badge()
                     ->placeholder('Sin dominio'),
+                TextColumn::make('plan_name')
+                    ->label('Plan Contratado')
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        'Corporativo' => 'warning',
+                        'Crecimiento' => 'success',
+                        default => 'info',
+                    })
+                    ->sortable(),
+                TextColumn::make('neighborhood_zone')
+                    ->label('Zona Zacatecas')
+                    ->badge()
+                    ->color('gray')
+                    ->sortable(),
+                TextColumn::make('billing_cycle')
+                    ->label('Ciclo')
+                    ->badge()
+                    ->formatStateUsing(fn (string $state): string => match ($state) {
+                        'annual' => '💎 Anual (-20%)',
+                        default => '📅 Mensual',
+                    })
+                    ->color(fn (string $state): string => $state === 'annual' ? 'success' : 'gray')
+                    ->sortable(),
+                TextColumn::make('subscription_status')
+                    ->label('Estado Renta')
+                    ->badge()
+                    ->formatStateUsing(fn (string $state): string => match ($state) {
+                        'active' => 'Activa',
+                        'trial' => 'Prueba',
+                        'past_due' => 'Vencida',
+                        'cancelled' => 'Cancelada',
+                        default => $state,
+                    })
+                    ->color(fn (string $state): string => match ($state) {
+                        'active' => 'success',
+                        'trial' => 'info',
+                        'past_due' => 'warning',
+                        default => 'danger',
+                    })
+                    ->sortable(),
                 TextColumn::make('created_at')
-                    ->label('Creada')
+                    ->label('Alta')
                     ->dateTime('d M Y')
                     ->sortable(),
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('plan_name')
+                    ->label('Filtrar por Plan')
+                    ->options([
+                        'Emprendedor' => 'Plan Emprendedor',
+                        'Crecimiento' => 'Plan Crecimiento',
+                        'Corporativo' => 'Plan Corporativo',
+                    ]),
+                Tables\Filters\SelectFilter::make('billing_cycle')
+                    ->label('Ciclo de Facturación')
+                    ->options([
+                        'monthly' => 'Mensual',
+                        'annual' => 'Anual',
+                    ]),
+                Tables\Filters\SelectFilter::make('subscription_status')
+                    ->label('Estado de la Renta')
+                    ->options([
+                        'active' => 'Activa',
+                        'trial' => 'Prueba',
+                        'past_due' => 'Vencida',
+                        'cancelled' => 'Cancelada',
+                    ]),
             ])
             ->actions([
+                Tables\Actions\Action::make('visit_store')
+                    ->label('Ver Tienda')
+                    ->icon('heroicon-o-arrow-top-right-on-square')
+                    ->color('gray')
+                    ->url(fn (Tenant $record): string => 'http://' . strtolower($record->id) . '.localhost:8000')
+                    ->openUrlInNewTab(),
+                Tables\Actions\Action::make('visit_admin')
+                    ->label('Panel Tienda')
+                    ->icon('heroicon-o-cog-6-tooth')
+                    ->color('primary')
+                    ->url(fn (Tenant $record): string => 'http://' . strtolower($record->id) . '.localhost:8000/tenant-admin')
+                    ->openUrlInNewTab(),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([

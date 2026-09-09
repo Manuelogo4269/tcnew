@@ -1,0 +1,55 @@
+{
+  "name": "Atelier Zacatecas — Tiendas Centro Histórico",
+  "short_name": "Atelier ZAC",
+  "description": "Marketplace oficial y directorio de comercios de la Zona Centro de Zacatecas. Catálogos en línea, ubicación de sucursales y pedidos por WhatsApp.",
+  "start_url": "/?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#121620",
+  "theme_color": "#c86d63",
+  "lang": "es-MX",
+  "categories": ["shopping", "business", "lifestyle"],
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Tiendas Cercanas",
+      "short_name": "Cercanas",
+      "description": "Ver tiendas cercanas en Zacatecas Centro",
+      "url": "/#cercanas",
+      "icons": [{ "src": "/icons/icon.svg", "sizes": "192x192" }]
+    },
+    {
+      "name": "Planes de Renta",
+      "short_name": "Planes",
+      "description": "Planes para rentar tu tienda en Zacatecas",
+      "url": "/#planes",
+      "icons": [{ "src": "/icons/icon.svg", "sizes": "192x192" }]
+    }
+  ]
+}

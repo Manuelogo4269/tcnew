@@ -1,0 +1,66 @@
+<?php
+
+namespace Tests\Feature;
+
+use App\Models\Tenant;
+use Tests\TestCase;
+
+class ZacatecasLocationAndPwaTest extends TestCase
+{
+    public function test_pwa_manifest_is_accessible_and_valid(): void
+    {
+        $response = $this->get('/manifest.json');
+        $response->assertStatus(200);
+
+        $json = $response->json();
+        $this->assertIsArray($json);
+        $this->assertStringContainsString('Zacatecas', $json['name']);
+        $this->assertEquals('standalone', $json['display']);
+        $this->assertNotEmpty($json['icons']);
+    }
+
+    public function test_pwa_service_worker_is_accessible(): void
+    {
+        $response = $this->get('/sw.js');
+        $response->assertStatus(200);
+        $this->assertStringContainsString('CACHE_NAME', $response->getContent());
+        $this->assertStringContainsString('atelier-zacatecas', $response->getContent());
+    }
+
+    public function test_central_portal_displays_zacatecas_centro_and_pwa(): void
+    {
+        $response = $this->get('http://localhost/');
+        $response->assertStatus(200);
+
+        // Verify Zacatecas Centro elements
+        $response->assertSee('Zacatecas Centro Histórico');
+        $response->assertSee('Tiendas Cercanas');
+        $response->assertSee('zacatecasMap');
+        $response->assertSee('btnGpsProximity');
+        $response->assertSee('Activar Mi Ubicación (GPS)');
+
+        // Verify PWA installation bar
+        $response->assertSee('pwaInstallBar');
+        $response->assertSee('Instala la App de Tiendas de Zacatecas Centro');
+    }
+
+    public function test_tenant_storefront_displays_zacatecas_location_and_whatsapp_details(): void
+    {
+        $tenant = Tenant::find('acropolis');
+        if (!$tenant) {
+            $this->markTestSkipped('Tenant acropolis does not exist.');
+        }
+
+        $response = $this->get('http://acropolis.localhost/');
+        $response->assertStatus(200);
+
+        // Verify location information in modal / storefront
+        $response->assertSee('Sucursal Zacatecas Centro');
+        $response->assertSee('Av. Hidalgo');
+        $response->assertSee('Google Maps');
+
+        // Verify WhatsApp integration includes physical address & maps URL
+        $response->assertSee('Sucursal / Recogida en Zacatecas Centro');
+        $response->assertSee('Ubicación en Google Maps');
+    }
+}
