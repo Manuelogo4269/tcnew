@@ -36,9 +36,7 @@ foreach (['{tenant}.localhost', '{tenant}.127.0.0.1.nip.io', '{tenant}.192.168.0
         $cachedStores = \Illuminate\Support\Facades\Cache::remember('platform_official_stores_list', 120, function () {
             return tenancy()->central(function () {
                 return \App\Models\Tenant::with('domains')->get()->map(function ($t) {
-                    $primaryDomain = $t->domains->first()?->domain ?? $t->id;
-                    $host = str_contains($primaryDomain, '.') ? $primaryDomain : "{$primaryDomain}.localhost";
-                    $url = "http://{$host}:8000";
+                    $url = url("/tienda/{$t->id}");
 
                     return [
                         'id' => (string) $t->id,

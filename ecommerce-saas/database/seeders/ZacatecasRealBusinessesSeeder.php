@@ -618,6 +618,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
 
             // Assign Domains
             $tenant->createDomain($tenantId);
+            $tenant->createDomain("{$tenantId}.atelier-zacatecas.onrender.com");
             $tenant->createDomain("{$tenantId}.localhost");
             $tenant->createDomain("{$tenantId}.192.168.0.128.nip.io");
 

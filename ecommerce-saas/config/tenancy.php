@@ -17,23 +17,23 @@ return [
      * Only relevant if you're using the domain or subdomain identification middleware.
      */
     'central_domains' => array_values(array_unique(array_filter([
+        'atelier-zacatecas.onrender.com',
+        parse_url(env('APP_URL', 'https://atelier-zacatecas.onrender.com'), PHP_URL_HOST),
         '127.0.0.1',
         'localhost',
         '192.168.0.128',
         '192.168.0.128.nip.io',
         '127.0.0.1.nip.io',
-        'atelier-zacatecas.onrender.com',
-        parse_url(env('APP_URL', 'http://localhost'), PHP_URL_HOST),
         (function () {
             $host = isset($_SERVER['HTTP_HOST']) ? explode(':', $_SERVER['HTTP_HOST'])[0] : null;
             if (!$host) return null;
             $baseCentral = [
+                'atelier-zacatecas.onrender.com',
                 'localhost',
                 '127.0.0.1',
                 '192.168.0.128',
                 '192.168.0.128.nip.io',
                 '127.0.0.1.nip.io',
-                'atelier-zacatecas.onrender.com',
             ];
             foreach ($baseCentral as $central) {
                 if (str_ends_with($host, '.' . $central)) {

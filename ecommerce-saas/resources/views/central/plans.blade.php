@@ -889,13 +889,13 @@
                 </div>
 
                 <div class="auth-field">
-                    <label for="rentSubdomain">Subdominio para tu Tienda *</label>
+                    <label for="rentSubdomain">Identificador y Enlace para tu Tienda *</label>
                     <div class="subdomain-input-wrap">
                         <input type="text" name="subdomain" id="rentSubdomain" placeholder="verona" required pattern="[a-z0-9-]+" minlength="3" maxlength="30" oninput="updateSubdomainPreview(this.value)">
-                        <span class="subdomain-suffix">.localhost:8000</span>
+                        <span class="subdomain-suffix">/tienda/</span>
                     </div>
                     <div class="subdomain-preview-text" id="subdomainLivePreview">
-                        🌐 Tu tienda estará en: <strong>http://verona.localhost:8000</strong>
+                        🌐 Tu tienda estará en: <strong>https://atelier-zacatecas.onrender.com/tienda/verona</strong>
                     </div>
                 </div>
 
@@ -1063,9 +1063,8 @@
             if (!preview) return;
 
             const clean = val.toLowerCase().replace(/[^a-z0-9-]/g, '');
-            const host = window.location.hostname;
-            const port = window.location.port ? ':' + window.location.port : '';
-            preview.innerHTML = `🌐 Tu tienda estará en: <strong>http://${clean || 'mi-tienda'}.${host}${port}</strong>`;
+            const origin = window.location.origin;
+            preview.innerHTML = `🌐 Tu tienda estará en: <strong>${origin}/tienda/${clean || 'mi-tienda'}</strong>`;
         }
 
         // Theme toggle
@@ -1105,9 +1104,9 @@
             const activeTheme = document.documentElement.getAttribute('data-theme') || 'light';
             updateThemeIcons(activeTheme);
             switchBillingCycle('annual');
-            const suffix = document.querySelector('.subdomain-suffix');
-            if (suffix) {
-                suffix.textContent = '.' + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
+            const preview = document.getElementById('subdomainLivePreview');
+            if (preview) {
+                preview.innerHTML = `🌐 Tu tienda estará en: <strong>${window.location.origin}/tienda/verona</strong>`;
             }
         });
     </script>

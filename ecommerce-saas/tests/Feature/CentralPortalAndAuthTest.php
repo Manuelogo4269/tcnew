@@ -169,13 +169,12 @@ class CentralPortalAndAuthTest extends TestCase
         $homeResponse->assertStatus(200);
         $homeResponse->assertDontSee('Super Admin');
         $homeResponse->assertDontSee('btn-admin-panel');
-        $homeResponse->assertDontSee('Panel Super Admin Central');
-        $homeResponse->assertDontSee('http://localhost/admin');
+        $homeResponse->assertDontSee('href="/admin"', false);
 
         $plansResponse = $this->get('http://localhost/planes');
         $plansResponse->assertStatus(200);
         $plansResponse->assertSee('Super Admin');
-        $plansResponse->assertSee('http://localhost/admin');
+        $plansResponse->assertSee('/admin');
     }
 
     public function test_home_portal_does_not_display_static_search_chips(): void

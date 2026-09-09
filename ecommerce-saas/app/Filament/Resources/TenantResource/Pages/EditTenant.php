@@ -18,13 +18,13 @@ class EditTenant extends EditRecord
                 ->label('Ver Tienda Pública')
                 ->icon('heroicon-o-arrow-top-right-on-square')
                 ->color('gray')
-                ->url(fn (): string => 'http://' . strtolower($this->record->id) . '.localhost:8000')
+                ->url(fn (): string => url('/tienda/' . strtolower($this->record->id)))
                 ->openUrlInNewTab(),
             Actions\Action::make('visit_admin')
                 ->label('Abrir Panel de la Tienda')
                 ->icon('heroicon-o-cog-6-tooth')
                 ->color('primary')
-                ->url(fn (): string => 'http://' . strtolower($this->record->id) . '.localhost:8000/tenant-admin')
+                ->url(fn (): string => url('/tienda/' . strtolower($this->record->id) . '/admin'))
                 ->openUrlInNewTab(),
             Actions\DeleteAction::make(),
         ];

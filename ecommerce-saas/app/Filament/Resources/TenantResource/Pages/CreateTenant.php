@@ -17,6 +17,7 @@ class CreateTenant extends CreateRecord
         $subdomain = strtolower($tenant->id);
 
         $tenant->createDomain($subdomain);
+        $tenant->createDomain($subdomain . '.atelier-zacatecas.onrender.com');
         $tenant->createDomain($subdomain . '.localhost');
 
         $formData = $this->data;

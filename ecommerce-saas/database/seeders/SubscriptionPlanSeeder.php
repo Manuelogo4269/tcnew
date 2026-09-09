@@ -29,7 +29,7 @@ class SubscriptionPlanSeeder extends Seeder
                 'sort_order' => 1,
                 'features' => [
                     'Catálogo de hasta 50 productos activos',
-                    'Subdominio exclusivo (tunegocio.localhost:8000)',
+                    'Enlace exclusivo (atelier-zacatecas.onrender.com/tienda/tunegocio)',
                     'Panel de administración privado y autónomo',
                     '0% comisión por ventas generadas',
                     'Personalización de colores de marca y logotipo',

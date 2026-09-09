@@ -11,7 +11,7 @@ class TenantAdminAccessTest extends TestCase
     {
         $response = $this->get('http://acropolis.localhost/tenant-admin');
         $response->assertStatus(302);
-        $response->assertRedirect('http://acropolis.localhost/tenant-admin/login');
+        $this->assertStringEndsWith('/tenant-admin/login', $response->headers->get('Location'));
     }
 
     public function test_universal_path_tenant_admin_redirects_with_session(): void

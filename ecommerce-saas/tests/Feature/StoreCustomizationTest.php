@@ -90,8 +90,8 @@ class StoreCustomizationTest extends TestCase
         $response->assertSee('https://www.cafeacropolis.com.mx', false);
         $response->assertSee('Negocios Oficiales ▾');
         $response->assertSee('Directorio de Negocios Oficiales');
-        $response->assertSee('donajulia.localhost', false);
-        $response->assertSee('rosadeplata.localhost', false);
+        $response->assertSee('/tienda/donajulia', false);
+        $response->assertSee('/tienda/rosadeplata', false);
 
         // 2. Verify Category Carousel & Interactive Filter Pills
         $response->assertSee('Explorar por Categoría');

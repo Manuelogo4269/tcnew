@@ -18,7 +18,7 @@
                 <h1>Buenos días,<br><em>{{ $tenantName }}</em>.</h1>
                 <p>Todo lo que necesitas para llevar tu tienda a la siguiente etapa, en un vistazo.</p>
                 <div class="atelier-dashboard__actions">
-                    <a href="{{ url('/') }}" target="_blank" class="atelier-dashboard__button atelier-dashboard__button--light">
+                    <a href="{{ url('/tienda/' . $tenantId) }}" target="_blank" class="atelier-dashboard__button atelier-dashboard__button--light">
                         Ver mi tienda pública <span>↗</span>
                     </a>
                     <a href="{{ url('/tenant-admin/products/create') }}" class="atelier-dashboard__button atelier-dashboard__button--ghost">
@@ -142,7 +142,7 @@
 
         <div class="atelier-dashboard__footer-note">
             <span>Atelier Commerce SaaS</span>
-            <span>Tienda: {{ $tenantName }} ({{ $tenantId }}.localhost)</span>
+            <span>Tienda: {{ $tenantName }} ({{ url('/tienda/' . $tenantId) }})</span>
             <span>✦</span>
         </div>
     </div>

@@ -290,8 +290,9 @@ class CentralPortalController extends Controller
             'location_reference' => 'Zona Centro de Zacatecas',
         ]);
 
-        // 2. Assign primary and localhost domains
+        // 2. Assign primary and production domains
         $tenant->createDomain($subdomain);
+        $tenant->createDomain("{$subdomain}.atelier-zacatecas.onrender.com");
         $tenant->createDomain("{$subdomain}.localhost");
 
         // 3. Initialize isolated database and populate initial settings & admin user
@@ -332,8 +333,8 @@ class CentralPortalController extends Controller
         \Illuminate\Support\Facades\Cache::forget('central_portal_businesses_list');
         \Illuminate\Support\Facades\Cache::forget('platform_official_stores_list');
 
-        $storeUrl = "http://{$subdomain}.localhost:8000";
-        $adminUrl = "http://{$subdomain}.localhost:8000/tenant-admin/login";
+        $storeUrl = url("/tienda/{$subdomain}");
+        $adminUrl = url("/tienda/{$subdomain}/admin");
 
         if ($request->wantsJson()) {
             return response()->json([
@@ -411,28 +412,10 @@ class CentralPortalController extends Controller
     }
 
     /**
-     * Resolve store URL dynamically based on client connection (Localhost, IP, or wildcard nip.io)
+     * Resolve store URL dynamically based on current host/server (Render, domain or IP)
      */
     protected function resolveStoreUrl($tenant, Request $request): string
     {
-        $reqHost = $request->getHost();
-        $port = $request->getPort();
-        $portStr = ($port && !in_array($port, [80, 443])) ? ":{$port}" : "";
-
-        // If client connects via nip.io (e.g. 192.168.0.128.nip.io)
-        if (str_ends_with($reqHost, '.nip.io')) {
-            $baseNip = str_starts_with($reqHost, '192.168.') ? $reqHost : '192.168.0.128.nip.io';
-            return "http://{$tenant->id}.{$baseNip}{$portStr}";
-        }
-
-        // If client connects via explicit localhost
-        if ($reqHost === 'localhost' || str_ends_with($reqHost, '.localhost') || $reqHost === '127.0.0.1') {
-            $primaryDomain = $tenant->domains->first()?->domain ?? $tenant->id;
-            $host = str_contains($primaryDomain, '.') ? $primaryDomain : "{$primaryDomain}.localhost";
-            return "http://{$host}{$portStr}";
-        }
-
-        // For all mobile networks, LAN IP (e.g. 192.168.0.128), and HTTPS tunnels (e.g. Cloudflare / Ngrok):
         return url("/tienda/{$tenant->id}");
     }
 
