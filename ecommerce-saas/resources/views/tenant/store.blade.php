@@ -5,7 +5,15 @@
     $fontFamily = $settings?->font_family ?? 'DM Sans';
     $officialUrl = $settings?->official_website_url;
 
-    // Calculate background brightness for auto text contrast
+    
+    // Determine Central Portal Home URL
+    $portalHomeUrl = '/';
+    $currentHost = request()->getHost();
+    $centralDomain = config('tenancy.central_domains.0', 'localhost');
+    if ($currentHost !== $centralDomain && !str_contains($currentHost, 'localhost') && !str_contains($currentHost, '127.0.0.1')) {
+        $portalHomeUrl = request()->getScheme() . '://' . $centralDomain . '/';
+    }
+// Calculate background brightness for auto text contrast
     $cleanHex = ltrim($secondaryColor, '#');
     if (strlen($cleanHex) === 3) {
         $cleanHex = $cleanHex[0].$cleanHex[0].$cleanHex[1].$cleanHex[1].$cleanHex[2].$cleanHex[2];
@@ -2941,6 +2949,111 @@
                 display: block !important;
             }
         }
+        /* ---------------------------------------------------- */
+        /* PWA RETURN TO HOME & ENHANCED NAVIGATION CONTROLS   */
+        /* ---------------------------------------------------- */
+        .btn-back-to-portal-header {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 7px 13px;
+            border-radius: 999px;
+            background: rgba(217, 107, 69, 0.12);
+            color: var(--accent);
+            font-weight: 800;
+            font-size: 13px;
+            text-decoration: none;
+            border: 1px solid rgba(217, 107, 69, 0.28);
+            transition: all .2s ease;
+            white-space: nowrap;
+            margin-right: 6px;
+            cursor: pointer;
+        }
+        .btn-back-to-portal-header:hover {
+            background: var(--accent);
+            color: #ffffff;
+            transform: translateX(-2px);
+        }
+        .btn-back-to-portal-header .btn-back-arrow {
+            font-size: 18px;
+            line-height: 1;
+            font-weight: 800;
+        }
+        @media (max-width: 640px) {
+            .btn-back-to-portal-header {
+                padding: 6px 10px;
+                font-size: 12px;
+                gap: 4px;
+            }
+        }
+
+        /* Floating PWA Return Home Bar */
+        .pwa-floating-bottom-bar {
+            position: fixed;
+            bottom: max(16px, env(safe-area-inset-bottom));
+            left: 16px;
+            right: 16px;
+            display: flex;
+            gap: 10px;
+            z-index: 9995;
+            pointer-events: none;
+        }
+        .pwa-fab-home, .pwa-fab-cart {
+            pointer-events: auto;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 18px;
+            border-radius: 999px;
+            font-weight: 800;
+            font-size: 13.5px;
+            text-decoration: none;
+            box-shadow: 0 10px 28px rgba(0,0,0,0.18);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            transition: transform .18s ease, box-shadow .18s ease;
+        }
+        .pwa-fab-home {
+            background: rgba(32, 33, 30, 0.92);
+            color: #ffffff;
+            border: 1.5px solid rgba(255,255,255,0.22);
+            flex: 1;
+        }
+        [data-theme="dark"] .pwa-fab-home {
+            background: rgba(255, 255, 255, 0.94);
+            color: #121212;
+            border-color: rgba(255,255,255,0.4);
+        }
+        .pwa-fab-cart {
+            background: var(--accent);
+            color: #ffffff;
+            border: 1.5px solid rgba(255,255,255,0.25);
+            cursor: pointer;
+            padding: 12px 16px;
+        }
+        .pwa-fab-home:active, .pwa-fab-cart:active {
+            transform: scale(0.96);
+        }
+        @media (min-width: 900px) {
+            .pwa-floating-bottom-bar {
+                left: auto;
+                right: 24px;
+                bottom: 24px;
+            }
+            .pwa-fab-home {
+                flex: initial;
+            }
+        }
+        .drawer-nav-item-portal-home {
+            background: rgba(217, 107, 69, 0.08) !important;
+            border: 1.5px solid rgba(217, 107, 69, 0.25) !important;
+            border-radius: 14px !important;
+            margin-bottom: 8px !important;
+        }
+        .drawer-nav-item-portal-home:hover {
+            background: rgba(217, 107, 69, 0.15) !important;
+        }
     </style>
 </head>
 <body>
@@ -2954,6 +3067,11 @@
 
 <header class="site-header">
     <div class="shell nav-shell">
+        <!-- Return to Central Portal Button -->
+        <a href="{{ $portalHomeUrl }}" class="btn-back-to-portal-header" id="btnHeaderBackPortal" title="Regresar al Portal Zacatecas Centro" aria-label="Volver a Zacatecas Centro">
+            <span class="btn-back-arrow">‹</span>
+            <span class="btn-back-text">Inicio Zacatecas</span>
+        </a>
         <a class="brand-link" href="{{ url('/') }}">
             @if(!empty($settings?->logo_url))
                 <img src="{{ $settings->logo_url }}" alt="{{ $storeTitle }}" class="brand-logo" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='grid';">
@@ -3104,6 +3222,15 @@
     <!-- Navigation Options -->
     <div class="store-drawer-section-title">Navegación de la Tienda</div>
     <nav class="store-drawer-nav-list">
+        <!-- FIRST OPTION: RETURN TO CENTRAL PORTAL -->
+        <a href="{{ $portalHomeUrl }}" class="drawer-nav-item drawer-nav-item-portal-home" onclick="closeStoreMenu()">
+            <div class="nav-item-icon" style="background: var(--accent); color: #fff;">🏠</div>
+            <div class="nav-item-text">
+                <div class="nav-item-title" style="color: var(--accent); font-weight: 800;">Volver al Inicio del Portal</div>
+                <div class="nav-item-sub">Zacatecas Centro · Directorio &amp; Mapa</div>
+            </div>
+            <span class="nav-item-arrow" style="color: var(--accent); font-weight: 800;">‹</span>
+        </a>
         <a href="#inicio" class="drawer-nav-item" onclick="closeStoreMenu()">
             <div class="nav-item-icon" style="background: rgba(200, 109, 99, 0.15); color: var(--accent);">🏠</div>
             <div class="nav-item-text">
@@ -3158,7 +3285,7 @@
             <span class="nav-item-arrow">›</span>
         </a>
 
-        <a href="{{ url('/') }}" target="_blank" class="drawer-nav-item" onclick="closeStoreMenu()">
+        <a href="{{ $portalHomeUrl }}" class="drawer-nav-item" onclick="closeStoreMenu()">
             <div class="nav-item-icon" style="background: rgba(200, 109, 99, 0.15); color: #c86d63;">📍</div>
             <div class="nav-item-text">
                 <div class="nav-item-title">Portal Zacatecas Centro ↗</div>
@@ -3958,7 +4085,10 @@
         <button type="button" class="btn-cart-clear" onclick="clearCart()">
             Vaciar Carrito
         </button>
-    </div>
+            <a href="{{ $portalHomeUrl }}" class="btn-cart-back-home" style="display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 11px; border-radius: 12px; background: rgba(217, 107, 69, 0.08); color: var(--accent); font-weight: 700; font-size: 12.5px; text-decoration: none; border: 1.5px solid rgba(217, 107, 69, 0.25); margin-top: 8px; transition: all .2s ease;">
+            <span>🏠</span> Volver al Portal Zacatecas Centro
+        </a>
+</div>
 </aside>
 
 <!-- CHECKOUT & PAYMENT MODAL -->
@@ -5394,5 +5524,78 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
+<!-- FLOATING PWA HOME & CART ACTION BAR -->
+<div class="pwa-floating-bottom-bar" id="pwaFloatingBottomBar">
+    <a href="{{ $portalHomeUrl }}" class="pwa-fab-home" id="pwaFabHomeBtn" title="Regresar al Inicio del Portal">
+        <span class="pwa-fab-icon">🏠</span>
+        <span class="pwa-fab-text">Volver al Inicio</span>
+    </a>
+    <button type="button" class="pwa-fab-cart" onclick="toggleCartDrawer()" aria-label="Ver Carrito">
+        <span class="pwa-fab-icon">🛒</span>
+        <span class="pwa-fab-text">Carrito (<span id="fabCartCount">0</span>)</span>
+    </button>
+</div>
+
+<script>
+// PWA Navigation History & Gestures Trap
+(function initPwaHistoryGuard() {
+    if (!window.history || !window.history.pushState) return;
+
+    // Seed history stack so hitting back inside store navigates to portal home instead of exiting PWA
+    window.history.pushState({ pwaStoreViewing: true }, '');
+
+    window.addEventListener('popstate', function(event) {
+        // 1. Check if product modal is open
+        const productModal = document.getElementById('productDetailModal');
+        if (productModal && productModal.classList.contains('open')) {
+            closeProductDetail();
+            return;
+        }
+
+        // 2. Check if cart drawer is open
+        const cartDrawer = document.getElementById('storeCartDrawer');
+        if (cartDrawer && cartDrawer.classList.contains('open')) {
+            toggleCartDrawer();
+            return;
+        }
+
+        // 3. Check if store mobile menu is open
+        const storeDrawer = document.getElementById('storeMobileDrawer');
+        if (storeDrawer && storeDrawer.classList.contains('open')) {
+            closeStoreMenu();
+            return;
+        }
+
+        // 4. Check if checkout modal is open
+        const checkoutModal = document.getElementById('checkoutModal');
+        if (checkoutModal && checkoutModal.classList.contains('open')) {
+            closeCheckoutModal();
+            return;
+        }
+
+        // 5. Check if success modal is open
+        const orderModal = document.getElementById('orderSuccessModal');
+        if (orderModal && orderModal.classList.contains('open')) {
+            closeOrderSuccessModal();
+            return;
+        }
+
+        // 6. No modal open -> User swiped back from store root!
+        // Smoothly redirect to Central Portal Home instead of exiting to phone's home screen!
+        window.location.href = "{{ $portalHomeUrl }}";
+    });
+
+    // Also update fabCartCount on cart changes
+    const origUpdateCartUI = window.updateCartUI;
+    window.updateCartUI = function() {
+        if (typeof origUpdateCartUI === 'function') origUpdateCartUI();
+        const fabBadge = document.getElementById('fabCartCount');
+        const headerBadge = document.getElementById('headerCartBadge');
+        if (fabBadge && headerBadge) {
+            fabBadge.textContent = headerBadge.textContent;
+        }
+    };
+})();
+</script>
 </body>
 </html>

@@ -5361,6 +5361,41 @@
             background: rgba(245, 158, 11, 0.2);
             transform: translateY(-1px);
         }
+        /* FLOATING RETURN HOME PILL (VISIBLE ON MOBILE SCROLL & STANDALONE PWA) */
+        .pwa-floating-home-pill {
+            position: fixed;
+            bottom: 74px;
+            left: 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 10px 16px;
+            border-radius: 999px;
+            background: rgba(32, 33, 30, 0.88);
+            color: #ffffff;
+            border: 1.5px solid rgba(255, 255, 255, 0.2);
+            font-size: 13px;
+            font-weight: 800;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.16);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 9980;
+            cursor: pointer;
+            transition: transform .2s ease, opacity .2s ease;
+        }
+        [data-theme="dark"] .pwa-floating-home-pill {
+            background: rgba(255, 255, 255, 0.92);
+            color: #111210;
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+        .pwa-floating-home-pill:active {
+            transform: scale(0.96);
+        }
+        @media (min-width: 900px) {
+            .pwa-floating-home-pill {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
@@ -7021,6 +7056,9 @@
                         <span>🏬</span> Ir a la Tienda Oficial Completa ↗
                     </a>
                 </div>
+                    <button type="button" class="btn-return-home-modal" onclick="closeCentralProductModal(); goToPortalHome();" style="width: 100%; margin-top: 10px; padding: 12px; border-radius: 12px; background: rgba(200, 109, 99, 0.12); color: var(--accent); border: 1.5px solid rgba(200, 109, 99, 0.3); font-weight: 700; font-size: 13.5px; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer;">
+                        <span>🏠</span> Volver al Inicio de Zacatecas
+                    </button>
             </div>
         </div>
     </div>
@@ -7090,9 +7128,43 @@
             <div id="companyReviewsContainer">
                 <!-- Dynamically populated via AJAX -->
             </div>
-        </div>
+                <button type="button" class="btn-return-home-modal" onclick="closeCompanyReviewsModal(); goToPortalHome();" style="width: 100%; margin-top: 14px; padding: 11px; border-radius: 12px; background: rgba(200, 109, 99, 0.12); color: var(--accent); border: 1.5px solid rgba(200, 109, 99, 0.3); font-weight: 700; font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer;">
+            <span>🏠</span> Volver al Inicio de Zacatecas
+        </button>
+</div>
     </div>
 </div>
+
+<!-- NATIVE MOBILE BOTTOM NAVIGATION BAR -->
+<nav class="mobile-bottom-nav" id="mobileBottomNav" aria-label="Navegación Móvil Principal">
+    <button type="button" class="bottom-nav-tab active" id="bnavFeed" onclick="goToPortalHome()" aria-label="Inicio">
+        <span class="bottom-nav-icon">🏠</span>
+        <span class="bottom-nav-label">Inicio</span>
+    </button>
+    <button type="button" class="bottom-nav-tab" id="bnavStores" onclick="switchMainTab('stores')" aria-label="Tiendas">
+        <span class="bottom-nav-icon">🏢</span>
+        <span class="bottom-nav-label">Tiendas</span>
+    </button>
+    <button type="button" class="bottom-nav-tab" id="bnavMap" onclick="switchMainTab('map')" aria-label="Mapa GPS">
+        <span class="bottom-nav-icon">🗺️</span>
+        <span class="bottom-nav-label">Mapa GPS</span>
+    </button>
+    <button type="button" class="bottom-nav-tab" id="bnavRoute" onclick="toggleShoppingRouteOptimizer()" aria-label="Mi Ruta">
+        <span class="bottom-nav-icon">🛍️</span>
+        <span class="bottom-nav-label">Mi Ruta</span>
+        <span class="bottom-nav-badge" id="bnavRouteBadge" style="display: none;">0</span>
+    </button>
+    <button type="button" class="bottom-nav-tab" id="bnavSearch" onclick="focusGlobalSearch()" aria-label="Buscar">
+        <span class="bottom-nav-icon">🔍</span>
+        <span class="bottom-nav-label">Buscar</span>
+    </button>
+</nav>
+
+<!-- FLOATING RETURN HOME PILL -->
+<button type="button" class="pwa-floating-home-pill" id="pwaFloatingHomePill" onclick="goToPortalHome()" aria-label="Volver al Inicio" title="Volver al Inicio">
+    <span class="pwa-pill-icon">🏠</span>
+    <span class="pwa-pill-text">Inicio Zacatecas</span>
+</button>
 
 <!-- JAVASCRIPT FOR LIVE SEARCH & MODAL -->
 <script>
@@ -7232,6 +7304,9 @@ function openCompanyReviewsModal(comp) {
     if (modal) {
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
+        if (window.history && window.history.pushState) {
+            window.history.pushState({ pwaModal: 'companyReviews' }, '');
+        }
     }
 }
 
@@ -7361,6 +7436,100 @@ function renderReviewsList(container, reviews) {
         container.appendChild(item);
     });
 }
+
+// ========================================================
+// PWA NAVIGATION, GO TO HOME & HISTORY GUARD
+// ========================================================
+function goToPortalHome() {
+    closeCentralProductModal();
+    closeCompanyReviewsModal();
+    if (typeof closeAuthModal === 'function') closeAuthModal();
+    if (typeof closeRentModal === 'function') closeRentModal();
+    if (typeof closeMobileMenu === 'function') closeMobileMenu();
+    const pwaModal = document.getElementById('pwaGuideModal');
+    if (pwaModal) pwaModal.style.display = 'none';
+
+    // Clear search
+    const sInput = document.getElementById('globalSearchInput');
+    if (sInput && sInput.value) {
+        sInput.value = '';
+        const clearBtn = document.getElementById('searchClearBtn');
+        if (clearBtn) clearBtn.style.display = 'none';
+        const liveDropdown = document.getElementById('liveSearchResults');
+        if (liveDropdown) liveDropdown.style.display = 'none';
+    }
+
+    switchMainTab('feed', false);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    if (window.history && window.history.pushState) {
+        window.history.pushState({ portalHomeRoot: true }, '', '/');
+    }
+}
+
+function focusGlobalSearch() {
+    closeCentralProductModal();
+    closeCompanyReviewsModal();
+    const sInput = document.getElementById('globalSearchInput');
+    if (sInput) {
+        sInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        setTimeout(() => sInput.focus(), 300);
+    }
+}
+
+(function initCentralPwaHistoryGuard() {
+    if (!window.history || !window.history.pushState) return;
+
+    window.history.pushState({ portalHomeViewing: true }, '');
+
+    window.addEventListener('popstate', function(e) {
+        const pModal = document.getElementById('centralProductModal');
+        if (pModal && (pModal.classList.contains('open') || pModal.classList.contains('active') || pModal.style.display === 'flex')) {
+            closeCentralProductModal();
+            window.history.pushState({ portalHomeViewing: true }, '');
+            return;
+        }
+
+        const rModal = document.getElementById('companyReviewsModal');
+        if (rModal && (rModal.classList.contains('open') || rModal.classList.contains('active') || rModal.style.display === 'flex')) {
+            closeCompanyReviewsModal();
+            window.history.pushState({ portalHomeViewing: true }, '');
+            return;
+        }
+
+        const authModal = document.getElementById('authModal');
+        if (authModal && (authModal.classList.contains('open') || authModal.classList.contains('active') || authModal.style.display === 'flex')) {
+            if (typeof closeAuthModal === 'function') closeAuthModal();
+            window.history.pushState({ portalHomeViewing: true }, '');
+            return;
+        }
+
+        const rentModal = document.getElementById('rentModal');
+        if (rentModal && (rentModal.classList.contains('open') || rentModal.classList.contains('active') || rentModal.style.display === 'flex')) {
+            if (typeof closeRentModal === 'function') closeRentModal();
+            window.history.pushState({ portalHomeViewing: true }, '');
+            return;
+        }
+
+        const mobileMenu = document.getElementById('portalMobileMenu');
+        if (mobileMenu && mobileMenu.classList.contains('open')) {
+            if (typeof closeMobileMenu === 'function') closeMobileMenu();
+            window.history.pushState({ portalHomeViewing: true }, '');
+            return;
+        }
+
+        // If in another tab, return to feed tab!
+        const savedTab = sessionStorage.getItem('active_portal_tab') || 'feed';
+        if (savedTab !== 'feed') {
+            switchMainTab('feed', true);
+            window.history.pushState({ portalHomeViewing: true }, '');
+            return;
+        }
+
+        // If at feed, smooth scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+})();
 
 // MAIN TAB SWITCHER (PARATI, MAPA, TIENDAS, PLANES)
 function switchMainTab(tabName, shouldScroll = true) {
@@ -7713,6 +7882,9 @@ function openCentralProductModal(item) {
     modal.classList.add('open');
     document.body.style.overflow = 'hidden';
     document.documentElement.style.overflow = 'hidden';
+    if (window.history && window.history.pushState) {
+        window.history.pushState({ pwaModal: 'centralProduct' }, '');
+    }
 
     const card = modal.querySelector('.central-product-modal-card');
     if (card) card.scrollTop = 0;

@@ -92,5 +92,27 @@ class ZacatecasLocationAndPwaTest extends TestCase
         $this->assertFileExists(public_path('app-icons/icon-192.png'));
         $this->assertFileExists(public_path('app-icons/icon-512.png'));
     }
+
+    public function test_pwa_return_home_buttons_and_navigation_controls_are_present(): void
+    {
+        // 1. Central Portal Navigation Controls
+        $portalResponse = $this->get('http://localhost/');
+        $portalResponse->assertStatus(200);
+        $portalResponse->assertSee('mobileBottomNav');
+        $portalResponse->assertSee('bnavFeed');
+        $portalResponse->assertSee('goToPortalHome');
+        $portalResponse->assertSee('pwaFloatingHomePill');
+        $portalResponse->assertSee('Volver al Inicio de Zacatecas');
+
+        // 2. Tenant Storefront Return to Home Controls
+        $storeResponse = $this->get('/tienda/acropolis');
+        $storeResponse->assertStatus(200);
+        $storeResponse->assertSee('btnHeaderBackPortal');
+        $storeResponse->assertSee('Inicio Zacatecas');
+        $storeResponse->assertSee('pwaFloatingBottomBar');
+        $storeResponse->assertSee('pwaFabHomeBtn');
+        $storeResponse->assertSee('Volver al Inicio del Portal');
+        $storeResponse->assertSee('initPwaHistoryGuard');
+    }
 }
 
