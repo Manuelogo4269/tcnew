@@ -408,28 +408,80 @@
 
         /* Announcement Bar */
         .announcement-bar {
-            padding: 9px 24px;
+            padding: 8px 16px;
             color: #ffffff;
             background: var(--ink);
             font-size: 11.5px;
             font-weight: 600;
-            letter-spacing: .06em;
-            text-align: center;
-            text-transform: uppercase;
+            letter-spacing: .04em;
             position: relative;
             z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .announcement-shell {
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: space-between;
             gap: 16px;
-            flex-wrap: wrap;
+            width: min(1260px, 100%);
+            margin: 0 auto;
+        }
+        .announcement-portal-back {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 11px;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 10px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all .2s ease;
+            white-space: nowrap;
+        }
+        .announcement-portal-back:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(-1px);
+        }
+        .announcement-text-content {
+            text-align: center;
+            flex: 1;
+            font-size: 11.5px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .announcement-stores-wrap {
+            position: relative;
+            flex-shrink: 0;
         }
         .announcement-stores-link {
             color: {{ $primaryColor }};
-            text-decoration: underline;
-            text-underline-offset: 3px;
             font-weight: 700;
             cursor: pointer;
+            padding: 3px 10px;
+            border-radius: 999px;
+            background: rgba(217, 107, 69, 0.14);
+            border: 1px solid rgba(217, 107, 69, 0.3);
+            transition: all .2s ease;
+            white-space: nowrap;
+            display: inline-block;
+        }
+        .announcement-stores-link:hover {
+            background: rgba(217, 107, 69, 0.28);
+        }
+        .announcement-stores-menu {
+            top: calc(100% + 8px) !important;
+            right: 0 !important;
+            text-transform: none;
+            letter-spacing: normal;
+        }
+        @media (max-width: 768px) {
+            .announcement-portal-back { display: none; }
+            .announcement-shell { justify-content: center; }
+            .announcement-text-content { font-size: 10.5px; }
         }
 
         /* Glass Header */
@@ -467,7 +519,36 @@
             flex-shrink: 0;
         }
         .brand-info strong { display: block; font-size: 18px; font-weight: 700; letter-spacing: -.02em; }
-        .brand-info small { display: block; font-size: 10.5px; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+        .brand-sub-badge {
+            display: block;
+            font-size: 10px;
+            color: var(--accent);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            margin-top: 1px;
+        }
+
+        .btn-admin-gear {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: 1px solid var(--line);
+            background: var(--card);
+            color: var(--muted);
+            font-size: 16px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all .2s ease;
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+        .btn-admin-gear:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+            transform: rotate(30deg);
+        }
 
         .nav-menu { display: flex; gap: 24px; font-size: 13.5px; font-weight: 500; }
         .nav-menu a { color: var(--muted); transition: color .2s ease; }
@@ -3060,54 +3141,18 @@
 
 @if($settings?->show_announcement ?? true)
     <aside class="announcement-bar">
-        <span>✦ {{ !empty($settings?->announcement_text) ? $settings->announcement_text : ('Bienvenido a ' . $storeTitle . ' · Envíos seguros a todo el país') }} ✦</span>
-        <span class="announcement-stores-link" onclick="toggleStoresDropdown()">Ver Tiendas Oficiales de la Red ▾</span>
-    </aside>
-@endif
-
-<header class="site-header">
-    <div class="shell nav-shell">
-        <!-- Return to Central Portal Button -->
-        <a href="{{ $portalHomeUrl }}" class="btn-back-to-portal-header" id="btnHeaderBackPortal" title="Regresar al Portal Zacatecas Centro" aria-label="Volver a Zacatecas Centro">
-            <span class="btn-back-arrow">‹</span>
-            <span class="btn-back-text">Inicio Zacatecas</span>
-        </a>
-        <a class="brand-link" href="{{ url('/') }}">
-            @if(!empty($settings?->logo_url))
-                <img src="{{ $settings->logo_url }}" alt="{{ $storeTitle }}" class="brand-logo" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='grid';">
-                <span class="brand-badge-circle" style="display: none;">{{ str($storeTitle)->substr(0, 1) }}</span>
-            @else
-                <span class="brand-badge-circle">{{ str($storeTitle)->substr(0, 1) }}</span>
-            @endif
-            <div class="brand-info">
-                <strong>{{ $storeTitle }}</strong>
-                <small>{{ !empty($settings?->tagline) ? $settings->tagline : 'Tienda Oficial Verificada' }}</small>
-            </div>
-        </a>
-
-        <nav class="nav-menu">
-            <a href="#inicio" class="active">Inicio</a>
-            <a href="#categorias">Categorías</a>
-            <a href="#destacados">Tendencias</a>
-            <a href="#catalogo">Catálogo</a>
-            <a href="#negocios">Tiendas Oficiales</a>
-            <a href="#contacto">Contacto</a>
-        </nav>
-
-        <div class="nav-actions">
-            <!-- 1. Botón Sitio Web Oficial del Negocio -->
-            @if(!empty($officialUrl))
-                <a href="{{ $officialUrl }}" target="_blank" class="btn-official-website" title="Visitar Sitio Web Oficial de {{ $storeTitle }}">
-                    <span>🌐</span> Sitio Oficial ↗
-                </a>
-            @endif
-
-            <!-- 2. Dropdown de Negocios Oficiales de la Red SaaS -->
-            <div class="official-stores-dropdown-wrap">
-                <button class="btn-stores-dropdown-toggle" id="storesToggleBtn" onclick="toggleStoresDropdown()">
-                    <span>🏢</span> <span class="btn-stores-text">Negocios Oficiales ▾</span>
-                </button>
-                <div class="official-stores-menu" id="storesDropdownMenu">
+        <div class="shell announcement-shell">
+            <a href="{{ $portalHomeUrl }}" class="announcement-portal-back" id="btnHeaderBackPortal" title="Regresar al Portal Zacatecas Centro">
+                ‹ Inicio Zacatecas
+            </a>
+            <span class="announcement-text-content">
+                ✦ {{ !empty($settings?->announcement_text) ? $settings->announcement_text : ('Bienvenido a ' . $storeTitle . ' · Envíos seguros a todo el país') }} ✦
+            </span>
+            <div class="announcement-stores-wrap">
+                <span class="announcement-stores-link" id="announcementStoresLink" onclick="toggleStoresDropdown()">
+                    Negocios Oficiales ▾
+                </span>
+                <div class="official-stores-menu announcement-stores-menu" id="storesDropdownMenu">
                     <div class="stores-menu-header">
                         <span>Red de Tiendas Oficiales</span>
                         <span>{{ count($officialStores ?? []) }} disponibles</span>
@@ -3127,24 +3172,42 @@
                     @endforeach
                 </div>
             </div>
+        </div>
+    </aside>
+@endif
 
-            @if(!empty($settings?->facebook_url))
-                <a href="{{ $settings->facebook_url }}" target="_blank" class="social-circle-btn" style="color: #1877f2;" title="Facebook Oficial de {{ $storeTitle }}">FB</a>
+<header class="site-header">
+    <div class="shell nav-shell">
+        <!-- Brand Link -->
+        <a class="brand-link" href="{{ url('/') }}" title="{{ $storeTitle }}">
+            @if(!empty($settings?->logo_url))
+                <img src="{{ $settings->logo_url }}" alt="{{ $storeTitle }}" class="brand-logo" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='grid';">
+                <span class="brand-badge-circle" style="display: none;">{{ str($storeTitle)->substr(0, 1) }}</span>
+            @else
+                <span class="brand-badge-circle">{{ str($storeTitle)->substr(0, 1) }}</span>
             @endif
-            @if(!empty($settings?->instagram_url))
-                <a href="{{ $settings->instagram_url }}" target="_blank" class="social-circle-btn" style="color: #e1306c;" title="Instagram Oficial de {{ $storeTitle }}">IG</a>
-            @endif
-            @if(!empty($settings?->whatsapp_number))
-                @php $headerWa = preg_replace('/[^0-9]/', '', $settings->whatsapp_number); @endphp
-                <a href="https://wa.me/{{ $headerWa }}?text={{ urlencode('¡Hola! Me comunico desde la tienda ' . $storeTitle) }}" target="_blank" class="social-circle-btn" style="color: #25d366;" title="Chat directo de WhatsApp">WA</a>
-            @endif
+            <div class="brand-info">
+                <strong>{{ $storeTitle }}</strong>
+                <small class="brand-sub-badge">Centro Histórico · Oficial</small>
+            </div>
+        </a>
+
+        <!-- Clean Navigation Menu -->
+        <nav class="nav-menu">
+            <a href="#inicio" class="active">Inicio</a>
+            <a href="#categorias">Categorías</a>
+            <a href="#catalogo">Catálogo</a>
+            <a href="#contacto">Ubicación</a>
+        </nav>
+
+        <!-- Header Actions -->
+        <div class="nav-actions">
+            <!-- Official Website Link -->
             @if(!empty($officialUrl))
-                <a href="{{ $officialUrl }}" target="_blank" class="social-circle-btn" style="color: var(--accent);" title="Sitio Web Oficial de {{ $storeTitle }}">🌐</a>
+                <a href="{{ $officialUrl }}" target="_blank" class="btn-official-website" title="Visitar Sitio Web Oficial de {{ $storeTitle }}">
+                    <span>🌐</span> <span class="btn-official-text">Sitio Oficial ↗</span>
+                </a>
             @endif
-
-            <a href="{{ url('/tenant-admin') }}" class="admin-direct-link" title="Panel de Administración de la Tienda">
-                <span>⚙</span> <span class="admin-link-text">Panel</span>
-            </a>
 
             <!-- Shopping Cart Header Button -->
             <button type="button" class="btn-cart-header" id="btnCartHeader" onclick="toggleCartDrawer()" aria-label="Ver Carrito de Compras" title="Ver Carrito de Compras">
@@ -3157,10 +3220,10 @@
                 <span class="theme-icon-dark" style="display: none;">☀️</span>
             </button>
 
-            <!-- Web Share Button -->
-            <button type="button" class="btn-theme-toggle btn-share-header" onclick="shareStorePage()" aria-label="Compartir tienda" title="Compartir Tienda">
-                <span>📤</span>
-            </button>
+            <!-- Store Admin Panel Direct Access -->
+            <a href="{{ url('/tenant-admin/login?tenant=' . ($tenantId ?? 'acropolis')) }}" class="btn-admin-gear" title="Panel de Administración ({{ $storeTitle }})" aria-label="Panel Admin">
+                <span>⚙</span>
+            </a>
 
             <!-- Mobile Store Hamburger Toggle -->
             <button type="button" class="btn-store-menu" id="storeMenuToggle" onclick="toggleStoreMenu()" aria-label="Abrir Menú">
@@ -4982,8 +5045,9 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('click', (e) => {
         const dropdown = document.getElementById('storesDropdownMenu');
         const toggleBtn = document.getElementById('storesToggleBtn');
+        const annLink = document.getElementById('announcementStoresLink');
         if (dropdown && dropdown.classList.contains('open')) {
-            if (!dropdown.contains(e.target) && (!toggleBtn || !toggleBtn.contains(e.target))) {
+            if (!dropdown.contains(e.target) && (!toggleBtn || !toggleBtn.contains(e.target)) && (!annLink || !annLink.contains(e.target))) {
                 dropdown.classList.remove('open');
             }
         }
