@@ -3399,6 +3399,38 @@
             transform: translateX(-50%) translateY(0);
         }
 
+        /* CENTRAL CART ADDED INQUIRY BANNER */
+        .central-cart-inquiry-banner {
+            position: fixed;
+            bottom: 30px;
+            right: 24px;
+            max-width: 420px;
+            width: calc(100% - 32px);
+            background: var(--card);
+            border: 1.5px solid var(--card-border);
+            border-radius: 20px;
+            box-shadow: 0 16px 48px rgba(0,0,0,0.2);
+            z-index: 10003;
+            padding: 16px 18px;
+            transform: translateY(120px) scale(0.95);
+            opacity: 0;
+            pointer-events: none;
+            transition: transform .35s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity .3s ease;
+        }
+        .central-cart-inquiry-banner.show {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+            pointer-events: auto;
+        }
+        @media (max-width: 600px) {
+            .central-cart-inquiry-banner {
+                bottom: 84px;
+                left: 14px;
+                right: 14px;
+                width: auto;
+            }
+        }
+
         /* PWA MOBILE INSTALL BAR & FLOATING BADGE */
         .pwa-install-bar {
             display: none;
@@ -5539,6 +5571,7 @@
             <a href="javascript:void(0)" onclick="switchMainTab('map', true)" style="color: var(--accent); font-weight: 700;">📍 Tiendas Cercanas</a>
             <a href="javascript:void(0)" onclick="switchMainTab('stores', true)">🏢 Empresas</a>
             <a href="javascript:void(0)" onclick="focusGlobalSearch()">🔍 Búsqueda Global</a>
+            <a href="{{ url('/planes') }}" style="display: inline-flex; align-items: center; gap: 6px; color: #9333ea; font-weight: 800; background: rgba(168, 85, 247, 0.1); padding: 5px 12px; border-radius: 999px; border: 1px solid rgba(168, 85, 247, 0.25); text-decoration: none;" title="Planes de Renta de Tiendas para Empresas">💎 Planes de Suscripción</a>
         </nav>
 
         <div class="portal-auth-actions">
@@ -5676,12 +5709,14 @@
                 <div class="nav-item-title" data-i18n="nav_buscar">Búsqueda Global de Productos</div>
                 <div class="nav-item-sub" data-i18n="nav_buscar_sub">Catálogo completo de todas las tiendas</div>
             </div>
-            <span class="nav-item-arrow">›</span>
+        <a href="{{ url('/planes') }}" class="drawer-nav-item" onclick="closeMobileMenu();">
+            <div class="nav-item-icon" style="background: rgba(168, 85, 247, 0.15); color: #9333ea;">💎</div>
+            <div class="nav-item-text">
+                <div class="nav-item-title" style="color: #9333ea; font-weight: 800;">Planes de Suscripción</div>
+                <div class="nav-item-sub">Renta tu tienda online en Zacatecas Centro</div>
+            </div>
+            <span class="nav-item-arrow" style="color: #9333ea;">›</span>
         </a>
-
-        
-
-        
     </nav>
 
     <!-- Quick Action Controls & Buttons -->
@@ -5797,6 +5832,15 @@
                     <p>Calificaciones reales de productos locales</p>
                 </div>
                 <span class="hero-action-arrow">➔</span>
+            </a>
+
+            <a href="{{ url('/planes') }}" class="hero-action-card" style="border-color: rgba(168, 85, 247, 0.35); background: linear-gradient(135deg, var(--card) 0%, rgba(168, 85, 247, 0.06) 100%);">
+                <div class="hero-action-icon" style="background: rgba(168, 85, 247, 0.15); color: #9333ea;">💎</div>
+                <div class="hero-action-text">
+                    <strong style="color: #9333ea;">Planes de Suscripción</strong>
+                    <p>Renta tu tienda online multi-tenant en Zacatecas</p>
+                </div>
+                <span class="hero-action-arrow" style="color: #9333ea;">➔</span>
             </a>
         </div>
     </section>
@@ -6773,6 +6817,36 @@
 
 <!-- Global Toast Notification -->
 <div class="toast-popup" id="toastPopup" role="status" aria-live="polite"></div>
+
+<!-- SMART CENTRAL CART ADDED INQUIRY BANNER -->
+<div class="central-cart-inquiry-banner" id="centralCartInquiryBanner" role="dialog" aria-live="polite">
+    <div class="cib-header">
+        <div class="cib-status">
+            <span class="cib-check">✓</span>
+            <span>¡Añadido a tu Carrito!</span>
+        </div>
+        <button type="button" class="cib-close" onclick="closeCentralCartInquiryBanner()" aria-label="Cerrar aviso">✕</button>
+    </div>
+    <div class="cib-product-row">
+        <img src="" alt="" id="centralCibProdThumb" class="cib-thumb">
+        <div>
+            <div class="cib-prod-name" id="centralCibProdName"></div>
+            <div class="cib-prod-price" id="centralCibProdPrice"></div>
+        </div>
+    </div>
+    <div class="cib-inquiry-box">
+        <div class="cib-inquiry-title" id="centralCibInquiryTitle"></div>
+        <div class="cib-inquiry-desc" id="centralCibInquiryDesc"></div>
+    </div>
+    <div class="cib-actions">
+        <a href="#" target="_blank" class="cib-btn-wa" id="centralCibBtnWa" onclick="closeCentralCartInquiryBanner()">
+            <span id="centralCibBtnWaIcon">💬</span> <span id="centralCibBtnWaText">Preguntar por WhatsApp</span>
+        </a>
+        <button type="button" class="cib-btn-cart" onclick="closeCentralCartInquiryBanner(); goToCartRoutePlanner();">
+            Ver Carrito &amp; Ruta ➔
+        </button>
+    </div>
+</div>
 
 <!-- MODAL: CALIFICACIONES Y COMENTARIOS DE EMPRESA (1 A 5 ESTRELLAS) -->
 <div class="modal-backdrop" id="companyReviewsModal" onclick="handleCompanyReviewsBackdrop(event)">
@@ -8199,12 +8273,144 @@ function addGlobalCartItem(prod) {
     saveUnifiedCart(cart);
 }
 
+// DETECT PRODUCT TYPE & TAILOR SMART CONTEXTUAL INQUIRY (CENTRAL PORTAL)
+function detectCentralProductInquiry(product) {
+    const pName = (product.name || '').toLowerCase();
+    const pDesc = (product.description || '').toLowerCase();
+    const catName = (product.category_name || '').toLowerCase();
+    const fullText = `${pName} ${catName} ${pDesc}`;
+
+    let storeObj = null;
+    if (product.store_id) {
+        storeObj = businessesData.find(b => String(b.id) === String(product.store_id));
+    }
+    if (!storeObj && product.store_name) {
+        storeObj = businessesData.find(b => b.store_name === product.store_name);
+    }
+    const storeCategory = (storeObj?.business_category || '').toLowerCase();
+    const allText = `${fullText} ${storeCategory}`;
+
+    // 1. CLOTHING / APPAREL
+    const clothingTerms = ['ropa', 'moda', 'prenda', 'vestir', 'vestido', 'camisa', 'playera', 'pantalon', 'pantalón', 'falda', 'blusa', 'sueter', 'suéter', 'chamarra', 'chaleco', 'saco', 'calzado', 'zapato', 'tenis', 'bota', 'sandalia', 'talla', 'tallas', 'sombrero', 'rebozo', 'reboso', 'poncho', 'bufanda', 'textil', 'lujo'];
+    const isClothing = clothingTerms.some(t => allText.includes(t));
+
+    // 2. FOOD / BEVERAGES / SWEETS / RESTAURANT
+    const foodTerms = ['comida', 'alimento', 'bebida', 'cafe', 'café', 'postre', 'dulce', 'gordita', 'pan', 'restaurante', 'comestible', 'snack', 'tuna', 'queso de tuna', 'ate', 'cajeta', 'mezcal', 'vino', 'licor', 'cerveza', 'chicharron', 'desayuno', 'cena', 'sabor', 'orden', 'pieza', 'rebanada', 'cantina'];
+    const isFood = foodTerms.some(t => allText.includes(t));
+
+    // 3. JEWELRY / SILVER / ARTISAN CRAFTS
+    const jewelryTerms = ['plata', 'joya', 'joyeria', 'joyería', 'platería', 'plateria', 'anillo', 'dije', 'collar', 'pulsera', 'arete', 'aretes', 'cantera', 'mineral', 'oro', 'artesan', 'souvenir', 'recuerdo'];
+    const isJewelry = jewelryTerms.some(t => allText.includes(t));
+
+    let icon = '💬';
+    let btnText = 'Preguntar a la Empresa';
+    let promptTitle = '💬 ¿Deseas consultar con la empresa?';
+    let promptSubtitle = 'Resuelven tus dudas de inmediato por WhatsApp antes de visitar la tienda.';
+    let waMsg = '';
+
+    const storeName = storeObj ? storeObj.store_name : (product.store_name || 'la empresa');
+
+    if (isClothing) {
+        icon = '👕';
+        btnText = 'Preguntar por Tallas';
+        promptTitle = '👕 ¿Tienes dudas sobre la talla o medida?';
+        promptSubtitle = `Pregunta directamente a ${storeName} qué tallas tienen disponibles en sucursal.`;
+        waMsg = `¡Hola! Vi el producto "${product.name}" en su catálogo de Zacatecas Centro. Me interesa adquirirlo, ¿qué tallas tienen disponibles actualmente?`;
+    } else if (isFood) {
+        icon = '🍽️';
+        btnText = 'Preguntar por Existencia Hoy';
+        promptTitle = '🍽️ ¿Deseas verificar si hay existencia hoy?';
+        promptSubtitle = `Pregunta a ${storeName} si tienen porciones o unidades listas para recoger o consumir hoy.`;
+        waMsg = `¡Hola! Vi en su menú/catálogo de Zacatecas Centro el producto "${product.name}". ¿Aún tienen en existencia disponible para hoy?`;
+    } else if (isJewelry) {
+        icon = '💍';
+        btnText = 'Consultar Acabado o Medida';
+        promptTitle = '💍 ¿Deseas consultar sobre esta pieza?';
+        promptSubtitle = `Consulta con ${storeName} sobre kilataje de plata ley .925, medidas de anillo o grabado.`;
+        waMsg = `¡Hola! Me interesa la pieza "${product.name}" de su tienda en Zacatecas Centro. ¿Tienen existencia o medidas disponibles en sucursal?`;
+    } else {
+        icon = '📦';
+        btnText = 'Consultar Disponibilidad';
+        promptTitle = '📦 ¿Tienes alguna duda sobre este producto?';
+        promptSubtitle = `Consulta directamente con ${storeName} sobre stock o recogida física en el Centro Histórico.`;
+        waMsg = `¡Hola! Vi en su catálogo de Zacatecas Centro el producto "${product.name}". ¿Tienen disponibilidad para entrega o recogida en sucursal?`;
+    }
+
+    const cleanWa = (storeObj?.whatsapp_number || '').replace(/[^0-9]/g, '');
+    const waUrl = cleanWa 
+        ? `https://wa.me/${cleanWa}?text=${encodeURIComponent(waMsg)}`
+        : `https://wa.me/?text=${encodeURIComponent(waMsg)}`;
+
+    return {
+        isClothing,
+        isFood,
+        isJewelry,
+        icon,
+        btnText,
+        promptTitle,
+        promptSubtitle,
+        waMsg,
+        waUrl,
+        storeName
+    };
+}
+
+let __centralInquiryTimer = null;
+
+function showCentralCartInquiryBanner(prod) {
+    const banner = document.getElementById('centralCartInquiryBanner');
+    if (!banner) return;
+
+    const inq = detectCentralProductInquiry(prod);
+
+    const thumbEl = document.getElementById('centralCibProdThumb');
+    if (thumbEl) {
+        thumbEl.src = prod.image_url || 'https://placehold.co/100x100?text=Zac';
+        thumbEl.alt = prod.name || 'Producto';
+    }
+
+    const nameEl = document.getElementById('centralCibProdName');
+    if (nameEl) nameEl.textContent = prod.name;
+
+    const priceEl = document.getElementById('centralCibProdPrice');
+    if (priceEl) priceEl.textContent = `$${(parseFloat(prod.price) || 0).toFixed(2)} MXN · ${inq.storeName}`;
+
+    const titleEl = document.getElementById('centralCibInquiryTitle');
+    if (titleEl) titleEl.innerHTML = inq.promptTitle;
+
+    const descEl = document.getElementById('centralCibInquiryDesc');
+    if (descEl) descEl.textContent = inq.promptSubtitle;
+
+    const btnWa = document.getElementById('centralCibBtnWa');
+    if (btnWa) {
+        btnWa.href = inq.waUrl;
+    }
+    const iconEl = document.getElementById('centralCibBtnWaIcon');
+    if (iconEl) iconEl.textContent = inq.icon;
+    const textEl = document.getElementById('centralCibBtnWaText');
+    if (textEl) textEl.textContent = inq.btnText;
+
+    banner.classList.add('show');
+
+    clearTimeout(__centralInquiryTimer);
+    __centralInquiryTimer = setTimeout(() => {
+        closeCentralCartInquiryBanner();
+    }, 8000);
+}
+
+function closeCentralCartInquiryBanner() {
+    const banner = document.getElementById('centralCartInquiryBanner');
+    if (banner) banner.classList.remove('show');
+    clearTimeout(__centralInquiryTimer);
+}
+
 function quickAddProductToRouteCart(prod) {
     if (!prod) return;
     addGlobalCartItem(prod);
     renderCartForRoute();
     updateHeaderCartBadge();
     showToast(`🛒 ¡"${prod.name}" añadido a tu Carrito de Ruta!`);
+    showCentralCartInquiryBanner(prod);
     if (currentRoutePolyline) {
         optimizeShoppingRoute(false);
     }
@@ -8479,12 +8685,22 @@ function renderCartForRoute() {
             const q = parseInt(it.quantity) || 1;
             const itemSub = (parseFloat(it.price) || 0) * q;
             storeSubtotal += itemSub;
+            const inq = detectCentralProductInquiry({
+                name: it.name,
+                price: it.price,
+                store_id: sId,
+                store_name: storeGroup.store_name,
+                category_name: storeObj?.business_category
+            });
             prodsHtml += `
                 <div class="cart-prod-row">
                     <img src="${it.image_url || 'https://placehold.co/40x40?text=Zac'}" alt="${it.name}" onerror="this.onerror=null; this.src='https://placehold.co/40x40?text=Prod';">
                     <div class="cart-prod-meta">
                         <span class="cart-prod-name">${it.name}</span>
                         <span class="cart-prod-price">$${parseFloat(it.price).toFixed(2)} MXN c/u</span>
+                        <a href="${inq.waUrl}" target="_blank" style="margin-top: 4px; font-size: 11px; padding: 2px 8px; border-radius: 999px; background: rgba(37,211,102,0.12); color: #15803d; border: 1px solid rgba(37,211,102,0.28); text-decoration: none; display: inline-flex; align-items: center; gap: 4px; font-weight: 700; width: fit-content;" title="${inq.promptTitle}">
+                            <span>${inq.icon}</span> ${inq.btnText}
+                        </a>
                     </div>
                     <div class="cart-prod-qty-ctrl">
                         <button type="button" onclick="updateRouteCartQty('${sId}', '${it.id}', -1)" title="Reducir">−</button>

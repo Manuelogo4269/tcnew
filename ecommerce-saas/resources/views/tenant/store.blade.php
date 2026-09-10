@@ -1758,6 +1758,193 @@
             transform: translateX(-50%) translateY(0);
         }
 
+        /* SMART CART INQUIRY POPUP BANNER */
+        .cart-inquiry-banner {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            max-width: 420px;
+            width: calc(100% - 32px);
+            background: var(--card);
+            border: 1.5px solid var(--card-border);
+            border-radius: 20px;
+            box-shadow: 0 16px 48px rgba(0,0,0,0.2);
+            z-index: 99999;
+            padding: 16px 18px;
+            transform: translateY(120px) scale(0.95);
+            opacity: 0;
+            pointer-events: none;
+            transition: transform .35s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity .3s ease;
+        }
+        .cart-inquiry-banner.show {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .cib-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .cib-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 800;
+            color: #059669;
+        }
+        .cib-check {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: rgba(16, 185, 129, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #10b981;
+            font-weight: 900;
+        }
+        .cib-close {
+            background: transparent;
+            border: none;
+            color: var(--muted);
+            font-size: 16px;
+            cursor: pointer;
+            padding: 4px;
+            line-height: 1;
+            border-radius: 6px;
+        }
+        .cib-product-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 10px;
+            background: var(--paper);
+            border-radius: 12px;
+            margin-bottom: 12px;
+            border: 1px solid var(--line);
+        }
+        .cib-thumb {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 1px solid var(--line);
+        }
+        .cib-prod-name {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--ink);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 250px;
+        }
+        .cib-prod-price {
+            font-size: 11.5px;
+            color: var(--accent);
+            font-weight: 800;
+        }
+        .cib-inquiry-box {
+            background: rgba(37, 211, 102, 0.08);
+            border: 1.5px solid rgba(37, 211, 102, 0.28);
+            border-radius: 14px;
+            padding: 12px;
+            margin-bottom: 12px;
+        }
+        .cib-inquiry-title {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12.5px;
+            font-weight: 800;
+            color: #15803d;
+            margin-bottom: 4px;
+        }
+        [data-theme="dark"] .cib-inquiry-title {
+            color: #4ade80;
+        }
+        .cib-inquiry-desc {
+            font-size: 11.5px;
+            color: var(--muted);
+            line-height: 1.35;
+        }
+        .cib-actions {
+            display: flex;
+            gap: 8px;
+        }
+        .cib-btn-wa {
+            flex: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            background: #25d366;
+            color: #ffffff;
+            font-size: 12.5px;
+            font-weight: 800;
+            padding: 10px 14px;
+            border-radius: 999px;
+            text-decoration: none;
+            box-shadow: 0 4px 14px rgba(37,211,102,.35);
+            transition: all .2s ease;
+        }
+        .cib-btn-wa:hover {
+            background: #20ba5a;
+            transform: translateY(-1px);
+        }
+        .cib-btn-cart {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: var(--paper);
+            color: var(--ink);
+            font-size: 12px;
+            font-weight: 700;
+            border: 1px solid var(--line);
+            cursor: pointer;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+        .cart-inquiry-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 11px;
+            font-weight: 800;
+            color: #15803d;
+            background: rgba(37, 211, 102, 0.12);
+            border: 1px solid rgba(37, 211, 102, 0.28);
+            padding: 3px 9px;
+            border-radius: 999px;
+            text-decoration: none;
+            margin-top: 6px;
+            transition: all .15s ease;
+            width: fit-content;
+        }
+        [data-theme="dark"] .cart-inquiry-chip {
+            color: #4ade80;
+            background: rgba(37, 211, 102, 0.2);
+        }
+        .cart-inquiry-chip:hover {
+            background: #25d366;
+            color: #ffffff;
+        }
+        @media (max-width: 600px) {
+            .cart-inquiry-banner {
+                bottom: 84px;
+                left: 14px;
+                right: 14px;
+                width: auto;
+            }
+        }
+
         /* FOOTER */
         .site-footer {
             padding: 60px 0 30px;
@@ -4100,6 +4287,36 @@
 <!-- TOAST NOTIFICATION CONTAINER -->
 <div class="toast-notify" id="toastNotify">¡Enlace copiado al portapapeles!</div>
 
+<!-- SMART CART ADDED INQUIRY BANNER -->
+<div class="cart-inquiry-banner" id="cartInquiryBanner" role="dialog" aria-live="polite">
+    <div class="cib-header">
+        <div class="cib-status">
+            <span class="cib-check">✓</span>
+            <span>¡Añadido al carrito!</span>
+        </div>
+        <button type="button" class="cib-close" onclick="closeCartInquiryBanner()" aria-label="Cerrar aviso">✕</button>
+    </div>
+    <div class="cib-product-row">
+        <img src="" alt="" id="cibProdThumb" class="cib-thumb">
+        <div>
+            <div class="cib-prod-name" id="cibProdName"></div>
+            <div class="cib-prod-price" id="cibProdPrice"></div>
+        </div>
+    </div>
+    <div class="cib-inquiry-box">
+        <div class="cib-inquiry-title" id="cibInquiryTitle"></div>
+        <div class="cib-inquiry-desc" id="cibInquiryDesc"></div>
+    </div>
+    <div class="cib-actions">
+        <a href="#" target="_blank" class="cib-btn-wa" id="cibBtnWa" onclick="closeCartInquiryBanner()">
+            <span id="cibBtnWaIcon">💬</span> <span id="cibBtnWaText">Preguntar por WhatsApp</span>
+        </a>
+        <button type="button" class="cib-btn-cart" onclick="closeCartInquiryBanner(); toggleCartDrawer();">
+            Ver Carrito (<span id="cibCartCount">1</span>)
+        </button>
+    </div>
+</div>
+
 <!-- CART DRAWER BACKDROP -->
 <div class="cart-drawer-backdrop" id="cartDrawerBackdrop" onclick="toggleCartDrawer()"></div>
 
@@ -4443,6 +4660,131 @@ function toggleCartDrawer() {
     }
 }
 
+// DETECT PRODUCT TYPE & TAILOR SMART CONTEXTUAL INQUIRY
+function detectProductInquiryType(product) {
+    const pName = (product.name || '').toLowerCase();
+    const pDesc = (product.description || '').toLowerCase();
+    const catName = ((product.category && product.category.name) || product.category_name || '').toLowerCase();
+    const catSlug = ((product.category && product.category.slug) || '').toLowerCase();
+    const fullText = `${pName} ${catName} ${catSlug} ${pDesc}`;
+
+    // 1. CLOTHING / APPAREL / SHOES / TEXTILES
+    const clothingTerms = ['ropa', 'moda', 'prenda', 'vestir', 'vestido', 'camisa', 'playera', 'pantalon', 'pantalón', 'falda', 'blusa', 'sueter', 'suéter', 'chamarra', 'chaleco', 'saco', 'calzado', 'zapato', 'tenis', 'bota', 'sandalia', 'talla', 'tallas', 'sombrero', 'rebozo', 'reboso', 'poncho', 'bufanda', 'textil', 'lujo'];
+    const isClothing = clothingTerms.some(term => fullText.includes(term));
+
+    // 2. FOOD / BEVERAGES / SWEETS / RESTAURANT
+    const foodTerms = ['comida', 'alimento', 'bebida', 'cafe', 'café', 'postre', 'dulce', 'gordita', 'pan', 'restaurante', 'comestible', 'snack', 'tuna', 'queso de tuna', 'ate', 'cajeta', 'mezcal', 'vino', 'licor', 'cerveza', 'chicharron', 'desayuno', 'cena', 'sabor', 'orden', 'pieza', 'rebanada'];
+    const isFood = foodTerms.some(term => fullText.includes(term));
+
+    // 3. JEWELRY / SILVER / ARTISAN CRAFTS
+    const jewelryTerms = ['plata', 'joya', 'joyeria', 'joyería', 'platería', 'plateria', 'anillo', 'dije', 'collar', 'pulsera', 'arete', 'aretes', 'cantera', 'mineral', 'oro', 'artesan', 'souvenir', 'recuerdo'];
+    const isJewelry = jewelryTerms.some(term => fullText.includes(term));
+
+    let icon = '💬';
+    let btnText = 'Preguntar a la Tienda';
+    let promptTitle = '¿Deseas consultar con la tienda?';
+    let promptSubtitle = 'Pregunta directamente por WhatsApp sobre este producto.';
+    let waMessage = '';
+
+    if (isClothing) {
+        icon = '👕';
+        btnText = 'Preguntar por Tallas';
+        promptTitle = '👕 ¿Tienes dudas sobre la talla o medida?';
+        promptSubtitle = 'Pregunta por WhatsApp qué tallas están disponibles en la sucursal del Centro.';
+        waMessage = `¡Hola! Vi el producto "${product.name}" en su tienda online de Zacatecas Centro. Me interesa comprarlo, ¿qué tallas tienen disponibles en existencia?`;
+    } else if (isFood) {
+        icon = '🍽️';
+        btnText = 'Preguntar por Existencia Hoy';
+        promptTitle = '🍽️ ¿Deseas verificar si hay existencia hoy?';
+        promptSubtitle = 'Consulta si tienen porciones o unidades listas para recoger o consumir hoy.';
+        waMessage = `¡Hola! Vi en su menú/catálogo de Zacatecas Centro "${product.name}". ¿Aún tienen disponible en existencia para hoy?`;
+    } else if (isJewelry) {
+        icon = '💍';
+        btnText = 'Consultar Acabado o Medida';
+        promptTitle = '💍 ¿Deseas consultar sobre esta pieza?';
+        promptSubtitle = 'Verifica acabados de plata ley .925, medidas de anillo o grabado personalizado.';
+        waMessage = `¡Hola! Me interesa la pieza de joyería/platería "${product.name}" de su tienda en Zacatecas Centro. ¿Tienen medidas o piezas disponibles en sucursal?`;
+    } else {
+        icon = '📦';
+        btnText = 'Consultar Disponibilidad';
+        promptTitle = '📦 ¿Deseas consultar sobre este producto?';
+        promptSubtitle = 'Consulta directamente sobre stock o recogida física en el Centro Histórico.';
+        waMessage = `¡Hola! Vi en su tienda de Zacatecas Centro el producto "${product.name}". ¿Tienen disponibilidad para entrega o recogida en sucursal?`;
+    }
+
+    const cleanPhone = (typeof WA_PHONE !== 'undefined' && WA_PHONE) ? WA_PHONE.replace(/[^0-9]/g, '') : '';
+    const waUrl = cleanPhone 
+        ? `https://wa.me/${cleanPhone}?text=${encodeURIComponent(waMessage)}`
+        : `https://wa.me/?text=${encodeURIComponent(waMessage)}`;
+
+    return {
+        isClothing,
+        isFood,
+        isJewelry,
+        icon,
+        btnText,
+        promptTitle,
+        promptSubtitle,
+        waMessage,
+        waUrl
+    };
+}
+
+let __cartInquiryTimer = null;
+
+function showCartInquiryBanner(prod, qty = 1) {
+    const banner = document.getElementById('cartInquiryBanner');
+    if (!banner) return;
+
+    const inq = detectProductInquiryType(prod);
+
+    const thumbEl = document.getElementById('cibProdThumb');
+    if (thumbEl) {
+        thumbEl.src = prod.image_url || 'https://placehold.co/100x100?text=Prod';
+        thumbEl.alt = prod.name || 'Producto';
+    }
+
+    const nameEl = document.getElementById('cibProdName');
+    if (nameEl) nameEl.textContent = prod.name;
+
+    const priceEl = document.getElementById('cibProdPrice');
+    if (priceEl) priceEl.textContent = `$${(parseFloat(prod.price) || 0).toFixed(2)} MXN (${qty} pza${qty > 1 ? 's' : ''})`;
+
+    const titleEl = document.getElementById('cibInquiryTitle');
+    if (titleEl) titleEl.innerHTML = inq.promptTitle;
+
+    const descEl = document.getElementById('cibInquiryDesc');
+    if (descEl) descEl.textContent = inq.promptSubtitle;
+
+    const btnWa = document.getElementById('cibBtnWa');
+    if (btnWa) {
+        btnWa.href = inq.waUrl;
+    }
+    const iconEl = document.getElementById('cibBtnWaIcon');
+    if (iconEl) iconEl.textContent = inq.icon;
+    const textEl = document.getElementById('cibBtnWaText');
+    if (textEl) textEl.textContent = inq.btnText;
+
+    const countEl = document.getElementById('cibCartCount');
+    if (countEl) {
+        const totalItems = storeCart.reduce((sum, item) => sum + (parseInt(item.quantity) || 1), 0);
+        countEl.textContent = totalItems;
+    }
+
+    banner.classList.add('show');
+
+    clearTimeout(__cartInquiryTimer);
+    __cartInquiryTimer = setTimeout(() => {
+        closeCartInquiryBanner();
+    }, 7500);
+}
+
+function closeCartInquiryBanner() {
+    const banner = document.getElementById('cartInquiryBanner');
+    if (banner) banner.classList.remove('show');
+    clearTimeout(__cartInquiryTimer);
+}
+
 function addCartItem(productId, qty = 1) {
     if (!window.ALL_PRODUCTS) return;
     const prod = ALL_PRODUCTS.find(p => String(p.id) === String(productId) || p.slug === String(productId));
@@ -4464,6 +4806,7 @@ function addCartItem(productId, qty = 1) {
 
     saveCart();
     showToast(`🛒 "${prod.name}" añadido al carrito`);
+    showCartInquiryBanner(prod, qty);
     
     // Animate badge
     const badge = document.getElementById('headerCartBadge');
@@ -4573,6 +4916,8 @@ function updateCartUI() {
             let html = '';
             storeCart.forEach((item, idx) => {
                 const itemTotal = (item.price * item.quantity).toFixed(2);
+                const fullProd = (window.ALL_PRODUCTS && ALL_PRODUCTS.find(p => String(p.id) === String(item.id) || p.slug === String(item.id))) || item;
+                const inq = detectProductInquiryType(fullProd);
                 html += `
                     <div class="cart-item-row">
                         <img src="${item.image_url}" alt="${item.name}" class="cart-item-thumb" onerror="this.onerror=null; this.src='https://placehold.co/100x100?text=Zacatecas';">
@@ -4584,6 +4929,9 @@ function updateCartUI() {
                                 <span class="cart-qty-num">${item.quantity}</span>
                                 <button type="button" class="cart-qty-btn" onclick="updateCartItemQty(${idx}, 1)">+</button>
                             </div>
+                            <a href="${inq.waUrl}" target="_blank" class="cart-inquiry-chip" title="${inq.promptTitle}">
+                                <span>${inq.icon}</span> ${inq.btnText}
+                            </a>
                         </div>
                         <div style="text-align: right;">
                             <strong style="font-size: 13.5px; color: var(--ink); display: block; margin-bottom: 8px;">$${itemTotal}</strong>
