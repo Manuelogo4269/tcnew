@@ -24,6 +24,11 @@ class Login extends BaseLogin
             return null;
         }
 
+        // Ensure tenancy is ended if in central admin panel
+        if (Filament::getCurrentPanel()?->getId() === 'admin' && function_exists('tenancy') && tenancy()->initialized) {
+            tenancy()->end();
+        }
+
         // Ensure tenancy is initialized if in tenant panel
         if (Filament::getCurrentPanel()?->getId() === 'tenant' && (!function_exists('tenancy') || !tenancy()->initialized)) {
             $tenantId = session('tenant_admin_tenant_id') ?: request()->query('tenant');

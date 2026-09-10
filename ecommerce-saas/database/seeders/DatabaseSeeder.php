@@ -24,6 +24,14 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
+        CentralUser::updateOrCreate(
+            ['email' => 'superadmin@plataforma.test'],
+            [
+                'name' => 'Super Administrador',
+                'password' => Hash::make('password'),
+            ]
+        );
+
         // 2. Global Customers (for Marketplace & Sanctum App Mobile)
         CustomerAccount::updateOrCreate(
             ['email' => 'juan@gmail.com'],

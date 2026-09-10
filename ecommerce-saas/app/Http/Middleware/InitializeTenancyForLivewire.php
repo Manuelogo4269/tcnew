@@ -23,19 +23,21 @@ class InitializeTenancyForLivewire
             return app(InitializeTenancyBySubdomain::class)->handle($request, $next);
         }
 
-        // 2. If on a central domain, identify tenant from session, query, or referer
-        $tenantId = null;
-        if ($request->hasSession()) {
+        // Never initialize tenancy for central admin panel (/admin)
+        $referer = (string) $request->headers->get('referer', '');
+        if (str_contains($referer, '/admin') && !str_contains($referer, '/tenant-admin')) {
+            return $next($request);
+        }
+
+        // 2. If on a central domain, identify tenant from query, referer, or session
+        $tenantId = $request->query('tenant');
+
+        if (!$tenantId && preg_match('#/tienda/([^/?]+)#', $referer, $matches)) {
+            $tenantId = $matches[1];
+        }
+
+        if (!$tenantId && str_contains($referer, '/tenant-admin') && $request->hasSession()) {
             $tenantId = $request->session()->get('tenant_admin_tenant_id');
-        }
-        if (!$tenantId) {
-            $tenantId = $request->query('tenant');
-        }
-        if (!$tenantId && $request->headers->has('referer')) {
-            $referer = (string) $request->headers->get('referer');
-            if (preg_match('#/tienda/([^/?]+)#', $referer, $matches)) {
-                $tenantId = $matches[1];
-            }
         }
 
         if ($tenantId) {
