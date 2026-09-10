@@ -14,7 +14,7 @@ class CentralPortalController extends Controller
         $selectedCategory = trim((string) $request->input('categoria', 'all'));
         $user = Auth::guard('web')->user();
 
-        $tenants = Tenant::with('domains')->get();
+        $tenants = Tenant::with('domains')->where('id', 'not like', 'test%')->get();
         $cacheKey = 'central_portal_businesses_list_' . md5($request->getHost() . ':' . $request->getPort());
         $businesses = \Illuminate\Support\Facades\Cache::remember($cacheKey, 60, function () use ($tenants, $request) {
             $list = [];
@@ -46,7 +46,7 @@ class CentralPortalController extends Controller
                         'id' => $t->id,
                         'store_name' => $settings?->store_name ?? str($t->id)->replace(['-', '_'], ' ')->title()->toString(),
                         'business_category' => $settings?->business_category ?? 'Comercio General',
-                        'tagline' => $settings?->tagline ?? 'Tienda oficial verificada en la plataforma.',
+                        'tagline' => $settings?->tagline ?? 'Comercio verificado en Zacatecas Centro.',
                         'logo_url' => $settings?->logo_url,
                         'primary_color' => $settings?->primary_color ?? '#d96b45',
                         'secondary_color' => $settings?->secondary_color ?? '#f4efe7',
@@ -307,7 +307,7 @@ class CentralPortalController extends Controller
                     'store_name' => $validated['company_name'],
                     'business_category' => $validated['business_category'] ?? 'Comercio General',
                     'contact_email' => $validated['owner_email'],
-                    'tagline' => 'Tienda oficial verificada en la plataforma.',
+                    'tagline' => 'Comercio verificado en Zacatecas Centro.',
                     'address' => 'Av. Hidalgo #305, Centro Histórico, Zacatecas, Zac., CP 98000',
                     'neighborhood_zone' => 'Centro Histórico',
                     'city' => 'Zacatecas',
@@ -367,7 +367,7 @@ class CentralPortalController extends Controller
             return response()->json(['results' => [], 'count' => 0]);
         }
 
-        $tenants = Tenant::with('domains')->get();
+        $tenants = Tenant::with('domains')->where('id', 'not like', 'test%')->get();
         $results = [];
 
         foreach ($tenants as $t) {
@@ -459,7 +459,7 @@ class CentralPortalController extends Controller
             'store_logo' => $validated['store_logo'] ?? null,
             'media_url' => $mediaUrl,
             'caption' => $validated['caption'] ?? null,
-            'cta_text' => $validated['cta_text'] ?? 'Ver Tienda Oficial',
+            'cta_text' => $validated['cta_text'] ?? 'Ver Tienda',
             'cta_url' => $validated['cta_url'] ?? (!empty($validated['tenant_id']) ? url('/tienda/' . $validated['tenant_id']) : url('/')),
             'whatsapp_number' => $validated['whatsapp_number'] ?? null,
             'duration_seconds' => (int) ($validated['duration_seconds'] ?? 5),

@@ -1152,7 +1152,7 @@
             text-transform: uppercase;
             letter-spacing: .06em;
         }
-        .company-info h3 { font-size: 21px; margin-bottom: 6px; letter-spacing: -.02em; }
+        .company-info h3 { font-size: 18px; line-height: 1.3; margin-bottom: 6px; letter-spacing: -.01em; word-break: break-word; font-weight: 800; }
         .company-info p { font-size: 13.5px; color: var(--muted); line-height: 1.55; margin-bottom: 20px; }
 
         /* Preview Products of Company */
@@ -5536,9 +5536,9 @@
         </a>
 
         <nav class="portal-nav-links">
-            <a href="#cercanas" onclick="switchMainTab('map')" style="color: var(--accent); font-weight: 700;">📍 Tiendas Cercanas</a>
-            <a href="#empresas" onclick="switchMainTab('stores')">Empresas</a>
-            <a href="#buscar" onclick="switchMainTab('feed')">Búsqueda Global</a>
+            <a href="javascript:void(0)" onclick="switchMainTab('map', true)" style="color: var(--accent); font-weight: 700;">📍 Tiendas Cercanas</a>
+            <a href="javascript:void(0)" onclick="switchMainTab('stores', true)">🏢 Empresas</a>
+            <a href="javascript:void(0)" onclick="focusGlobalSearch()">🔍 Búsqueda Global</a>
         </nav>
 
         <div class="portal-auth-actions">
@@ -5652,7 +5652,7 @@
             <span class="nav-item-arrow">›</span>
         </a>
 
-        <a href="#cercanas" class="drawer-nav-item" onclick="closeMobileMenu(); switchMainTab('map');">
+        <a href="javascript:void(0)" class="drawer-nav-item" onclick="closeMobileMenu(); switchMainTab('map', true);">
             <div class="nav-item-icon" style="background: rgba(200, 109, 99, 0.15); color: #c86d63;">📍</div>
             <div class="nav-item-text">
                 <div class="nav-item-title" data-i18n="nav_cercanas">Tiendas Cercanas</div>
@@ -5661,7 +5661,7 @@
             <span class="nav-item-arrow">›</span>
         </a>
 
-        <a href="#empresas" class="drawer-nav-item" onclick="closeMobileMenu(); switchMainTab('stores');">
+        <a href="javascript:void(0)" class="drawer-nav-item" onclick="closeMobileMenu(); switchMainTab('stores', true);">
             <div class="nav-item-icon" style="background: rgba(59, 130, 246, 0.15); color: #3b82f6;">🏢</div>
             <div class="nav-item-text">
                 <div class="nav-item-title" data-i18n="nav_empresas">Directorio de Empresas</div>
@@ -5670,7 +5670,7 @@
             <span class="nav-item-arrow">›</span>
         </a>
 
-        <a href="#buscar" class="drawer-nav-item" onclick="closeMobileMenu(); switchMainTab('feed');">
+        <a href="javascript:void(0)" class="drawer-nav-item" onclick="closeMobileMenu(); focusGlobalSearch();">
             <div class="nav-item-icon" style="background: rgba(16, 185, 129, 0.15); color: #10b981;">🔍</div>
             <div class="nav-item-text">
                 <div class="nav-item-title" data-i18n="nav_buscar">Búsqueda Global de Productos</div>
@@ -5763,7 +5763,7 @@
 
         <!-- QUICK INTUITIVE ACTION DECK ("¿QUÉ DESEAS HACER HOY?") -->
         <div class="hero-quick-actions">
-            <a href="#cercanas" class="hero-action-card" onclick="switchMainTab('map')">
+            <a href="javascript:void(0)" class="hero-action-card" onclick="switchMainTab('map', true)">
                 <div class="hero-action-icon" style="background: rgba(37, 99, 235, 0.12); color: #2563eb;">📍</div>
                 <div class="hero-action-text">
                     <strong>Mapa &amp; Cercanía</strong>
@@ -5772,7 +5772,7 @@
                 <span class="hero-action-arrow">➔</span>
             </a>
 
-            <a href="#empresas" class="hero-action-card" onclick="switchMainTab('stores')">
+            <a href="javascript:void(0)" class="hero-action-card" onclick="switchMainTab('stores', true)">
                 <div class="hero-action-icon" style="background: rgba(200, 109, 99, 0.12); color: #c86d63;">🏬</div>
                 <div class="hero-action-text">
                     <strong>Directorio de Empresas</strong>
@@ -6161,15 +6161,15 @@
                         <span style="font-size: 22px;">📍</span>
                         <div>
                             <strong style="font-size: 13px; color: var(--ink);">Tu Punto de Partida:</strong>
-                            <div style="font-size: 12px; color: var(--muted);" id="routeOriginLabel">Obteniendo ubicación GPS actual...</div>
+                            <div style="font-size: 12px; color: var(--muted);" id="routeOriginLabel">🏛️ Plaza de Armas (Centro Histórico)</div>
                         </div>
                     </div>
                     <div style="display: flex; gap: 6px; flex-wrap: wrap;">
-                        <button type="button" class="btn-route-origin-pill active" id="btnRouteUseGps" onclick="requestUserLocationForRoute(true)" title="Usar coordenadas GPS en tiempo real">
-                            <span>📡</span> Mi Ubicación GPS
-                        </button>
-                        <button type="button" class="btn-route-origin-pill" id="btnRoutePlazaArmas" onclick="setOriginPlazaDeArmas()" title="Fijar punto de partida en Plaza de Armas">
+                        <button type="button" class="btn-route-origin-pill active" id="btnRoutePlazaArmas" onclick="setOriginPlazaDeArmas()" title="Fijar punto de partida en Plaza de Armas">
                             <span>🏛️</span> Plaza de Armas
+                        </button>
+                        <button type="button" class="btn-route-origin-pill" id="btnRouteUseGps" onclick="requestUserLocationForRoute(true)" title="Usar coordenadas GPS en tiempo real">
+                            <span>📡</span> Mi Ubicación GPS
                         </button>
                         <button type="button" class="btn-route-origin-pill" id="btnClickMapOrigin" onclick="enableMapPickOrigin()" title="Hacer clic en cualquier parte del mapa para fijar tu hotel o punto de partida">
                             <span>🗺️</span> Elegir en Mapa
@@ -7164,12 +7164,16 @@ function goToPortalHome() {
 }
 
 function focusGlobalSearch() {
+    switchMainTab('feed', false);
     closeCentralProductModal();
     closeCompanyReviewsModal();
     const sInput = document.getElementById('globalSearchInput');
     if (sInput) {
         sInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        setTimeout(() => sInput.focus(), 300);
+        setTimeout(() => {
+            sInput.focus();
+            sInput.select();
+        }, 200);
     }
 }
 
@@ -7214,16 +7218,7 @@ function focusGlobalSearch() {
             return;
         }
 
-        // If in another tab, return to feed tab!
-        const savedTab = sessionStorage.getItem('active_portal_tab') || 'feed';
-        if (savedTab !== 'feed') {
-            switchMainTab('feed', true);
-            window.history.pushState({ portalHomeViewing: true }, '');
-            return;
-        }
-
-        // If at feed, smooth scroll to top
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        // Standard navigation: no modals open, allow browser to navigate naturally
     });
 })();
 
@@ -7259,29 +7254,32 @@ function switchMainTab(tabName, shouldScroll = true) {
     if (bnavStores) bnavStores.classList.toggle('active', tabName === 'stores');
 
     // Invalidate Leaflet Map Size so tiles re-render properly
-    if (tabName === 'map' && typeof map !== 'undefined' && map) {
+    if (tabName === 'map') {
+        if (typeof map === 'undefined' || !map) {
+            initZacatecasMap();
+        }
         setTimeout(() => {
-            map.invalidateSize();
-        }, 120);
+            if (map) {
+                map.invalidateSize();
+                if (!currentRoutePolyline && !window.__focusingStorePin) {
+                    map.setView(ZACATECAS_CENTER, 15);
+                }
+            }
+        }, 100);
+        setTimeout(() => {
+            if (map) map.invalidateSize();
+        }, 300);
     }
 
     if (shouldScroll) {
-        const isMobile = window.innerWidth <= 768;
-        if (isMobile) {
-            if (tabName === 'feed') {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            } else if (tabName === 'map') {
-                const mapEl = document.getElementById('panelMap');
-                if (mapEl) mapEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            } else if (tabName === 'stores') {
-                const storesEl = document.getElementById('panelStores');
-                if (storesEl) storesEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-        } else {
-            const targetEl = document.getElementById('mainTabNavWrapper') || document.getElementById('productosPopulares');
-            if (targetEl) {
-                targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
+        if (tabName === 'feed') {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else if (tabName === 'map') {
+            const mapEl = document.getElementById('panelMap');
+            if (mapEl) mapEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else if (tabName === 'stores') {
+            const storesEl = document.getElementById('panelStores');
+            if (storesEl) storesEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     }
 
@@ -7905,23 +7903,38 @@ function focusStoreOnMap(storeId) {
     const store = businessesData.find(b => String(b.id) === sId);
     if (!store) return;
 
-    const mapBox = document.getElementById('zacatecasMap');
-    if (mapBox) {
-        mapBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
+    window.__focusingStorePin = true;
 
+    // 1. Switch to Map tab first so #panelMap becomes visible
+    switchMainTab('map', false);
+
+    // 2. Ensure map is properly sized and scroll to it
     setTimeout(() => {
-        if (map && store.latitude && store.longitude) {
-            map.flyTo([parseFloat(store.latitude), parseFloat(store.longitude)], 17, {
-                animate: true,
-                duration: 1.0
-            });
-            const marker = mapMarkers.find(m => m.storeId === sId);
-            if (marker) {
-                marker.openPopup();
-            }
+        if (map) {
+            map.invalidateSize();
         }
-    }, 450);
+        const mapBox = document.getElementById('zacatecasMap');
+        if (mapBox) {
+            mapBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // 3. Smooth fly to store pin and open popup
+        setTimeout(() => {
+            if (map && store.latitude && store.longitude) {
+                map.flyTo([parseFloat(store.latitude), parseFloat(store.longitude)], 17, {
+                    animate: true,
+                    duration: 0.8
+                });
+                const marker = mapMarkers.find(m => m.storeId === sId);
+                if (marker) {
+                    marker.openPopup();
+                }
+            }
+            setTimeout(() => {
+                window.__focusingStorePin = false;
+            }, 1000);
+        }, 300);
+    }, 100);
 }
 
 // ACTIVE HIGHLIGHT FOR QUICK JUMP BAR ON SCROLL
@@ -7988,35 +8001,48 @@ function requestUserLocation() {
             const userLat = position.coords.latitude;
             const userLng = position.coords.longitude;
             userCoords = { lat: userLat, lng: userLng };
+            const distToZac = calculateDistanceKm(userLat, userLng, ZACATECAS_CENTER[0], ZACATECAS_CENTER[1]);
 
             if (btn) {
                 btn.classList.add('active');
                 btn.innerHTML = '<span>✓</span> ' + (i18nDictionary[currentLang] || i18nDictionary.es).gps_active;
                 btn.disabled = false;
             }
-            if (statusText) {
-                statusText.textContent = `📍 Ubicación detectada (${userLat.toFixed(4)}, ${userLng.toFixed(4)})`;
+
+            if (distToZac <= 15) {
+                if (statusText) {
+                    statusText.textContent = `📍 Ubicación detectada (${userLat.toFixed(4)}, ${userLng.toFixed(4)})`;
+                }
+
+                // Update Map Center and add user marker
+                if (map) {
+                    if (userLocationMarker) map.removeLayer(userLocationMarker);
+
+                    const userIcon = L.divIcon({
+                        className: 'user-map-pin',
+                        html: `<div style="background: #2563eb; color: #fff; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; box-shadow: 0 4px 14px rgba(37,99,235,.5); border: 3px solid #fff;">👤</div>`,
+                        iconSize: [36, 36],
+                        iconAnchor: [18, 36],
+                        popupAnchor: [0, -34]
+                    });
+
+                    userLocationMarker = L.marker([userLat, userLng], { icon: userIcon }).addTo(map);
+                    userLocationMarker.bindPopup("<strong>Tu Ubicación Actual</strong>").openPopup();
+                    map.setView([userLat, userLng], 15);
+                }
+
+                // Update distance badges and sort company cards by proximity
+                sortCardsByProximity(userLat, userLng);
+            } else {
+                if (statusText) {
+                    statusText.textContent = `📍 Te encuentras a ${Math.round(distToZac)} km. Mostrando Comercios del Centro Histórico.`;
+                }
+                showToast(`📍 Tu ubicación está a ${Math.round(distToZac)} km de Zacatecas. Mostrando Comercios desde Plaza de Armas (Centro Histórico).`);
+                sortCardsByProximity(ZACATECAS_CENTER[0], ZACATECAS_CENTER[1]);
+                if (map) {
+                    map.setView(ZACATECAS_CENTER, 15);
+                }
             }
-
-            // Update Map Center and add user marker
-            if (map) {
-                if (userLocationMarker) map.removeLayer(userLocationMarker);
-
-                const userIcon = L.divIcon({
-                    className: 'user-map-pin',
-                    html: `<div style="background: #2563eb; color: #fff; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; box-shadow: 0 4px 14px rgba(37,99,235,.5); border: 3px solid #fff;">👤</div>`,
-                    iconSize: [36, 36],
-                    iconAnchor: [18, 36],
-                    popupAnchor: [0, -34]
-                });
-
-                userLocationMarker = L.marker([userLat, userLng], { icon: userIcon }).addTo(map);
-                userLocationMarker.bindPopup("<strong>Tu Ubicación Actual</strong>").openPopup();
-                map.setView([userLat, userLng], 15);
-            }
-
-            // Update distance badges and sort company cards by proximity
-            sortCardsByProximity(userLat, userLng);
         },
         (error) => {
             console.warn('Geolocation error:', error);
@@ -8570,14 +8596,21 @@ function requestUserLocationForRoute(andOptimize = false) {
 
     navigator.geolocation.getCurrentPosition(
         (pos) => {
-            userCoords = { lat: pos.coords.latitude, lng: pos.coords.longitude };
-            routeOrigin = {
-                lat: pos.coords.latitude,
-                lng: pos.coords.longitude,
-                name: 'Tu Ubicación Actual (GPS)'
-            };
-            updateOriginBarUI('gps', `<span style="color:#059669; font-weight:700;">✓ Tu Ubicación Actual (GPS)</span> · Coords: ${userCoords.lat.toFixed(4)}, ${userCoords.lng.toFixed(4)}`);
-            showToast('📍 Origen configurado en tu ubicación GPS actual');
+            const lat = pos.coords.latitude;
+            const lng = pos.coords.longitude;
+            userCoords = { lat, lng };
+            const distToZac = calculateDistanceKm(lat, lng, ZACATECAS_CENTER[0], ZACATECAS_CENTER[1]);
+
+            if (distToZac <= 15) {
+                routeOrigin = { lat, lng, name: 'Tu Ubicación Actual (GPS)' };
+                updateOriginBarUI('gps', `<span style="color:#059669; font-weight:700;">✓ Tu Ubicación Actual (GPS)</span> · Coords: ${lat.toFixed(4)}, ${lng.toFixed(4)}`);
+                showToast('📍 Origen configurado en tu ubicación GPS actual');
+            } else {
+                routeOrigin = { lat: ZACATECAS_CENTER[0], lng: ZACATECAS_CENTER[1], name: 'Plaza de Armas (Centro Histórico)' };
+                updateOriginBarUI('plaza', '🏛️ Plaza de Armas (Centro Histórico)');
+                showToast(`📍 Tu ubicación está a ${Math.round(distToZac)} km. Se usa Plaza de Armas como punto de partida sugerido para tu recorrido en el Centro.`);
+            }
+
             if (andOptimize || selectedRouteStoreIds.size > 0) {
                 optimizeShoppingRoute(true);
             }
@@ -8618,32 +8651,33 @@ function setCustomMapOrigin(lat, lng) {
 }
 
 function autoDetectUserLocation() {
+    if (!routeOrigin) {
+        routeOrigin = { lat: ZACATECAS_CENTER[0], lng: ZACATECAS_CENTER[1], name: 'Plaza de Armas (Centro Histórico)' };
+    }
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
             (pos) => {
-                userCoords = { lat: pos.coords.latitude, lng: pos.coords.longitude };
-                if (!routeOrigin || routeOrigin.name.includes('Plaza de Armas')) {
-                    routeOrigin = {
-                        lat: pos.coords.latitude,
-                        lng: pos.coords.longitude,
-                        name: 'Tu Ubicación Actual (GPS)'
-                    };
-                    updateOriginBarUI('gps', `<span style="color:#059669; font-weight:700;">✓ Tu Ubicación Actual (GPS)</span> · Coords: ${userCoords.lat.toFixed(4)}, ${userCoords.lng.toFixed(4)}`);
+                const lat = pos.coords.latitude;
+                const lng = pos.coords.longitude;
+                userCoords = { lat, lng };
+                const distToZac = calculateDistanceKm(lat, lng, ZACATECAS_CENTER[0], ZACATECAS_CENTER[1]);
+                if (distToZac <= 15) {
+                    routeOrigin = { lat, lng, name: 'Tu Ubicación Actual (GPS)' };
+                    updateOriginBarUI('gps', `<span style="color:#059669; font-weight:700;">✓ Tu Ubicación Actual (GPS)</span> (${lat.toFixed(4)}, ${lng.toFixed(4)})`);
+                } else {
+                    routeOrigin = { lat: ZACATECAS_CENTER[0], lng: ZACATECAS_CENTER[1], name: 'Plaza de Armas (Centro Histórico)' };
+                    updateOriginBarUI('plaza', '🏛️ Plaza de Armas (Centro Histórico)');
                 }
             },
             () => {
-                if (!routeOrigin) {
-                    routeOrigin = { lat: ZACATECAS_CENTER[0], lng: ZACATECAS_CENTER[1], name: 'Plaza de Armas (Centro)' };
-                    updateOriginBarUI('plaza', 'Plaza de Armas (Centro Histórico)');
-                }
+                routeOrigin = { lat: ZACATECAS_CENTER[0], lng: ZACATECAS_CENTER[1], name: 'Plaza de Armas (Centro Histórico)' };
+                updateOriginBarUI('plaza', '🏛️ Plaza de Armas (Centro Histórico)');
             },
             { enableHighAccuracy: true, timeout: 6000, maximumAge: 60000 }
         );
     } else {
-        if (!routeOrigin) {
-            routeOrigin = { lat: ZACATECAS_CENTER[0], lng: ZACATECAS_CENTER[1], name: 'Plaza de Armas (Centro)' };
-            updateOriginBarUI('plaza', 'Plaza de Armas (Centro Histórico)');
-        }
+        routeOrigin = { lat: ZACATECAS_CENTER[0], lng: ZACATECAS_CENTER[1], name: 'Plaza de Armas (Centro Histórico)' };
+        updateOriginBarUI('plaza', '🏛️ Plaza de Armas (Centro Histórico)');
     }
 }
 
@@ -8664,36 +8698,76 @@ function computeExactShortestRoute(startPoint, storesList) {
         };
     }
 
-    // Exact permutation solver for minimum total walking distance from startPoint
     let bestPermutation = null;
     let minTotalDist = Infinity;
 
-    function generatePermutations(arr, current = []) {
-        if (arr.length === 0) {
-            let dist = 0;
-            let cLat = startPoint.lat;
-            let cLng = startPoint.lng;
-            for (let i = 0; i < current.length; i++) {
-                const s = current[i];
+    if (storesList.length <= 7) {
+        // Exact permutation solver for <= 7 stores
+        function generatePermutations(arr, current = []) {
+            if (arr.length === 0) {
+                let dist = 0;
+                let cLat = startPoint.lat;
+                let cLng = startPoint.lng;
+                for (let i = 0; i < current.length; i++) {
+                    const s = current[i];
+                    const sLat = parseFloat(s.latitude) || 22.7753;
+                    const sLng = parseFloat(s.longitude) || -102.5724;
+                    dist += calculateDistanceKm(cLat, cLng, sLat, sLng);
+                    cLat = sLat;
+                    cLng = sLng;
+                }
+                if (dist < minTotalDist) {
+                    minTotalDist = dist;
+                    bestPermutation = current;
+                }
+                return;
+            }
+            for (let i = 0; i < arr.length; i++) {
+                const nextArr = arr.slice(0, i).concat(arr.slice(i + 1));
+                generatePermutations(nextArr, current.concat([arr[i]]));
+            }
+        }
+        generatePermutations(storesList);
+    } else {
+        // Nearest-neighbor greedy heuristic for > 7 stores to prevent UI freeze
+        let unvisited = [...storesList];
+        let currentOrder = [];
+        let curLat = startPoint.lat;
+        let curLng = startPoint.lng;
+
+        while (unvisited.length > 0) {
+            let closestIdx = -1;
+            let closestDist = Infinity;
+            for (let i = 0; i < unvisited.length; i++) {
+                const s = unvisited[i];
                 const sLat = parseFloat(s.latitude) || 22.7753;
                 const sLng = parseFloat(s.longitude) || -102.5724;
-                dist += calculateDistanceKm(cLat, cLng, sLat, sLng);
-                cLat = sLat;
-                cLng = sLng;
+                const d = calculateDistanceKm(curLat, curLng, sLat, sLng);
+                if (d < closestDist) {
+                    closestDist = d;
+                    closestIdx = i;
+                }
             }
-            if (dist < minTotalDist) {
-                minTotalDist = dist;
-                bestPermutation = current;
-            }
-            return;
+            const nextStore = unvisited.splice(closestIdx, 1)[0];
+            currentOrder.push(nextStore);
+            curLat = parseFloat(nextStore.latitude) || 22.7753;
+            curLng = parseFloat(nextStore.longitude) || -102.5724;
         }
-        for (let i = 0; i < arr.length; i++) {
-            const nextArr = arr.slice(0, i).concat(arr.slice(i + 1));
-            generatePermutations(nextArr, current.concat([arr[i]]));
-        }
-    }
 
-    generatePermutations(storesList);
+        bestPermutation = currentOrder;
+        let dist = 0;
+        let cLat = startPoint.lat;
+        let cLng = startPoint.lng;
+        for (let i = 0; i < bestPermutation.length; i++) {
+            const s = bestPermutation[i];
+            const sLat = parseFloat(s.latitude) || 22.7753;
+            const sLng = parseFloat(s.longitude) || -102.5724;
+            dist += calculateDistanceKm(cLat, cLng, sLat, sLng);
+            cLat = sLat;
+            cLng = sLng;
+        }
+        minTotalDist = dist;
+    }
 
     let orderedRoute = [];
     let curLat = startPoint.lat;
@@ -8736,9 +8810,15 @@ function optimizeShoppingRoute(scroll = true) {
         return;
     }
 
-    const startPoint = routeOrigin || (userCoords 
-        ? { lat: userCoords.lat, lng: userCoords.lng, name: 'Tu Ubicación Actual' }
-        : { lat: ZACATECAS_CENTER[0], lng: ZACATECAS_CENTER[1], name: 'Plaza de Armas (Centro)' });
+    // Determine startPoint safely within Zacatecas Centro (< 15 km)
+    let startPoint = routeOrigin;
+    if (!startPoint || calculateDistanceKm(startPoint.lat, startPoint.lng, ZACATECAS_CENTER[0], ZACATECAS_CENTER[1]) > 15) {
+        if (userCoords && calculateDistanceKm(userCoords.lat, userCoords.lng, ZACATECAS_CENTER[0], ZACATECAS_CENTER[1]) <= 15) {
+            startPoint = { lat: userCoords.lat, lng: userCoords.lng, name: 'Tu Ubicación Actual (GPS)' };
+        } else {
+            startPoint = { lat: ZACATECAS_CENTER[0], lng: ZACATECAS_CENTER[1], name: 'Plaza de Armas (Centro Histórico)' };
+        }
+    }
 
     const storesToVisit = businessesData.filter(b => selectedRouteStoreIds.has(String(b.id)));
 

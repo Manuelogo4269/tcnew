@@ -5606,9 +5606,6 @@ document.addEventListener('DOMContentLoaded', () => {
 (function initPwaHistoryGuard() {
     if (!window.history || !window.history.pushState) return;
 
-    // Seed history stack so hitting back inside store navigates to portal home instead of exiting PWA
-    window.history.pushState({ pwaStoreViewing: true }, '');
-
     window.addEventListener('popstate', function(event) {
         // 1. Check if product modal is open
         const productModal = document.getElementById('productDetailModal');
