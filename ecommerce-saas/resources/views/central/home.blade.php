@@ -16,7 +16,7 @@
         })();
     </script>
     <title>Atelier Marketplace — Tiendas y Comercios de Zacatecas Centro</title>
-    <meta name="description" content="Directorio y marketplace oficial de comercios en el Centro Histórico de Zacatecas. Explora tiendas emblemáticas, productos típicos, mapa interactivo con GPS y pedidos por WhatsApp con sucursal física.">
+    <meta name="description" content="Directorio y marketplace de comercios en el Centro Histórico de Zacatecas. Explora tiendas emblemáticas, productos típicos, mapa interactivo con GPS y pedidos por WhatsApp con sucursal física.">
 
     <!-- Open Graph & Social Cards (WhatsApp, Facebook, Telegram, Twitter) -->
     <meta property="og:site_name" content="Atelier Zacatecas">
@@ -29,7 +29,7 @@
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Atelier Zacatecas — Tiendas y Comercios de Zacatecas Centro">
-    <meta name="twitter:description" content="Directorio oficial de comercios en el Centro Histórico de Zacatecas. Mapa interactivo, catálogo y pedidos directos.">
+    <meta name="twitter:description" content="Directorio de comercios en el Centro Histórico de Zacatecas. Mapa interactivo, catálogo y pedidos directos.">
     <meta name="twitter:image" content="{{ url('/app-icons/icon-512.png') }}">
 
     <!-- PWA Requirements for Mobile (Android Chrome, iOS Safari & Desktop) -->
@@ -5479,7 +5479,7 @@
                 <span style="display: none; font-size: 32px; color: #fff;">🏛️</span>
             </div>
             <h3 style="font-size: 20px; font-weight: 800; margin-bottom: 4px; color: #111210;">Instalar Atelier Zacatecas</h3>
-            <p style="font-size: 13px; color: #6b7280;">Aplicación oficial de comercios en el Centro Histórico de Zacatecas.</p>
+            <p style="font-size: 13px; color: #6b7280;">Aplicación de comercios en el Centro Histórico de Zacatecas.</p>
         </div>
 
         <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; padding: 16px; margin-bottom: 16px;">
@@ -5665,7 +5665,7 @@
             <div class="nav-item-icon" style="background: rgba(59, 130, 246, 0.15); color: #3b82f6;">🏢</div>
             <div class="nav-item-text">
                 <div class="nav-item-title" data-i18n="nav_empresas">Directorio de Empresas</div>
-                <div class="nav-item-sub" data-i18n="nav_empresas_sub">Bitácora oficial de comercios locales</div>
+                <div class="nav-item-sub" data-i18n="nav_empresas_sub">Directorio de comercios locales</div>
             </div>
             <span class="nav-item-arrow">›</span>
         </a>
@@ -5737,7 +5737,7 @@
     <section class="portal-hero" id="buscar">
         <span class="zac-location-hero-badge">📍 Zacatecas Centro Histórico · Cantera Rosa &amp; Plata</span>
         <h1>Explora Comercios y Tiendas Locales de <em>Zacatecas Centro</em></h1>
-        <p>Directorio oficial en la <strong>Ciudad de Cantera Rosa y Plata</strong> para descubrir comercios emblemáticos, consultar productos y enviar pedidos directos por WhatsApp con sucursal física geolocalizada.</p>
+        <p>Directorio en la <strong>Ciudad de Cantera Rosa y Plata</strong> para descubrir comercios emblemáticos, consultar productos y enviar pedidos directos por WhatsApp con sucursal física geolocalizada.</p>
 
         <!-- GLOBAL SEARCH BAR -->
         <div class="global-search-container">
@@ -5775,7 +5775,7 @@
             <a href="#empresas" class="hero-action-card" onclick="switchMainTab('stores')">
                 <div class="hero-action-icon" style="background: rgba(200, 109, 99, 0.12); color: #c86d63;">🏬</div>
                 <div class="hero-action-text">
-                    <strong>Directorio Oficial</strong>
+                    <strong>Directorio de Empresas</strong>
                     <p>Marcas locales de plata, comida, café y arte</p>
                 </div>
                 <span class="hero-action-arrow">➔</span>
@@ -5808,7 +5808,7 @@
                 <img src="{{ $user->avatar_url ?? 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&q=80' }}" alt="{{ $user->name }}" class="user-welcome-avatar">
                 <div>
                     <strong>¡Hola, {{ $user->name }}! Has iniciado sesión con {{ ucfirst($user->auth_provider ?? 'Correo') }}.</strong>
-                    <span>Tu cuenta te permite explorar las empresas oficiales y rastrear tus pedidos en toda la plataforma.</span>
+                    <span>Tu cuenta te permite explorar las empresas y rastrear tus pedidos en toda la plataforma.</span>
                 </div>
             </div>
             <a href="{{ url('/logout') }}" class="btn-auth-login">Cerrar Sesión</a>
@@ -6052,7 +6052,7 @@
                 <div class="how-step-badge">Paso 2</div>
                 <div class="how-step-icon">🛒</div>
                 <h3>Agrega al Carrito o Pide Directo</h3>
-                <p>Guarda artículos de diferentes tiendas en tu carrito o contacta a la tienda oficial vía WhatsApp.</p>
+                <p>Guarda artículos de diferentes tiendas en tu carrito o contacta a la tienda vía WhatsApp.</p>
             </div>
             <div class="how-step-card">
                 <div class="how-step-badge">Paso 3</div>
@@ -6230,7 +6230,7 @@
         <!-- Category Filter Pills for Businesses -->
         <div id="empresas" style="padding-top: 16px;">
             <div class="section-intro" style="margin-bottom: 16px;">
-                <span class="section-eyebrow">Directorio Oficial de Empresas</span>
+                <span class="section-eyebrow">Directorio de Empresas</span>
                 <h2 class="section-title">Empresas Disponibles en la App</h2>
                 <p style="color: var(--muted); font-size: 14px; margin-top: 4px;">Filtra las empresas por su categoría comercial y descubre sus catálogos independientes:</p>
             </div>
@@ -6373,7 +6373,7 @@
                             </div>
                         @endif
 
-                        <!-- Redes Sociales y Enlaces Oficiales -->
+                        <!-- Redes Sociales y Enlaces -->
                         @if(!empty($company['whatsapp_number']) || !empty($company['facebook_url']) || !empty($company['instagram_url']) || !empty($company['official_website_url']) || !empty($company['maps_url']))
                             <div class="company-social-bar">
                                 <span class="company-social-label" data-i18n="social_label">Redes & Contacto</span>
@@ -6398,7 +6398,7 @@
                                         </a>
                                     @endif
                                     @if(!empty($company['official_website_url']))
-                                        <a href="{{ $company['official_website_url'] }}" target="_blank" class="social-icon-btn btn-web" title="Sitio Web Oficial">
+                                        <a href="{{ $company['official_website_url'] }}" target="_blank" class="social-icon-btn btn-web" title="Sitio Web">
                                             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
                                             <span>Web</span>
                                         </a>
@@ -6557,7 +6557,7 @@
         <!-- Tab 2: REGISTER -->
         <div id="registerView" style="display: none;">
             <h3 class="auth-modal-title">Crear Cuenta</h3>
-            <p class="auth-modal-subtitle">Regístrate para comprar en todas las tiendas oficiales.</p>
+            <p class="auth-modal-subtitle">Regístrate para comprar en todas las tiendas.</p>
 
             <form action="{{ url('/register') }}" method="POST">
                 @csrf
@@ -6674,7 +6674,7 @@
 
             <!-- Right: Product Info, Store & Actions -->
             <div class="modal-content-col">
-                <span class="modal-cat-tag" id="centralModalStoreTag">Comercio Oficial</span>
+                <span class="modal-cat-tag" id="centralModalStoreTag">Comercio</span>
                 <h3 class="modal-title" id="centralModalTitle">Nombre del Producto</h3>
                 
                 <div class="modal-price-row">
@@ -6755,7 +6755,7 @@
                         Pedir por WhatsApp (<span id="centralModalBtnPrice">$0.00</span>)
                     </a>
                     <a id="centralModalStoreBtn" href="#" class="btn-visit-store-modal">
-                        <span>🏬</span> Ir a la Tienda Oficial Completa ↗
+                        <span>🏬</span> Ir a la Tienda Completa ↗
                     </a>
                 </div>
                     <button type="button" class="btn-return-home-modal" onclick="closeCentralProductModal(); goToPortalHome();" style="width: 100%; margin-top: 10px; padding: 12px; border-radius: 12px; background: rgba(200, 109, 99, 0.12); color: var(--accent); border: 1.5px solid rgba(200, 109, 99, 0.3); font-weight: 700; font-size: 13.5px; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer;">
@@ -7440,7 +7440,7 @@ function openCentralProductModal(item) {
     if (titleEl) titleEl.textContent = item.name || '';
 
     const storeTagEl = document.getElementById('centralModalStoreTag');
-    if (storeTagEl) storeTagEl.textContent = item.store_name ? ('🏬 ' + item.store_name) : 'Comercio Oficial';
+    if (storeTagEl) storeTagEl.textContent = item.store_name ? ('🏬 ' + item.store_name) : 'Comercio';
 
     const storeBadgeEl = document.getElementById('centralModalStoreBadge');
     if (storeBadgeEl) storeBadgeEl.textContent = '🏬 ' + (item.store_name || 'Comercio');
@@ -9376,7 +9376,7 @@ const i18nDictionary = {
         nav_cercanas: "Tiendas Cercanas",
         nav_cercanas_sub: "Zacatecas Centro Histórico & Mapa",
         nav_empresas: "Directorio de Empresas",
-        nav_empresas_sub: "Bitácora oficial de comercios locales",
+        nav_empresas_sub: "Directorio de comercios locales",
         nav_buscar: "Búsqueda Global de Productos",
         nav_buscar_sub: "Catálogo completo de todas las tiendas",
 

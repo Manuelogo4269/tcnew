@@ -821,7 +821,7 @@
                     <div class="perk-card">
                         <span class="perk-icon">🗺️</span>
                         <h4>Presencia en el Mapa Interactivo</h4>
-                        <p>Tu comercio aparecerá en el mapa oficial con geolocalización GPS y cálculo de distancia a pie para que los visitantes lleguen fácilmente a tu local físico.</p>
+                        <p>Tu comercio aparecerá en el mapa interactivo con geolocalización GPS y cálculo de distancia a pie para que los visitantes lleguen fácilmente a tu local físico.</p>
                     </div>
                     <div class="perk-card">
                         <span class="perk-icon">⚙️</span>
@@ -917,7 +917,7 @@
                 </div>
 
                 <div class="auth-field">
-                    <label for="rentOwnerEmail">Correo Electrónico Oficial *</label>
+                    <label for="rentOwnerEmail">Correo Electrónico *</label>
                     <input type="email" name="owner_email" id="rentOwnerEmail" placeholder="contacto@tuempresa.com" required>
                 </div>
 

@@ -190,7 +190,7 @@
             <span style="display: none; width: 100%; height: 100%; place-items: center; font-size: 24px; color: #fff;">🏛️</span>
         </div>
         <h1>Iniciar Sesión</h1>
-        <p>Accede con Google, Facebook o tu correo electrónico para comprar en las tiendas oficiales.</p>
+        <p>Accede con Google, Facebook o tu correo electrónico para comprar en las tiendas de la plataforma.</p>
 
         @if($errors->any())
             <div class="error-box" style="background: #fef2f2; border: 1.5px solid #f87171; color: #991b1b; padding: 14px; border-radius: 12px; margin-bottom: 20px; font-size: 13px; text-align: left; line-height: 1.5;">

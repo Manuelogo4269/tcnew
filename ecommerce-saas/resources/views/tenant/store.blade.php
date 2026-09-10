@@ -85,18 +85,18 @@
             }
         })();
     </script>
-    <title>{{ $storeTitle }} — Zacatecas Centro · Tienda Oficial</title>
+    <title>{{ $storeTitle }} — Zacatecas Centro</title>
 
     <!-- Open Graph & Social Sharing -->
     <meta property="og:site_name" content="Atelier Zacatecas Centro">
     <meta property="og:title" content="{{ $storeTitle }} — Zacatecas Centro">
-    <meta property="og:description" content="{{ $settings?->tagline ?? 'Tienda oficial en el Centro Histórico de Zacatecas. Catálogo en línea y pedidos directos por WhatsApp.' }}">
+    <meta property="og:description" content="{{ $settings?->tagline ?? 'Catálogo en línea y pedidos directos en el Centro Histórico de Zacatecas.' }}">
     <meta property="og:image" content="{{ !empty($settings?->logo_url) ? $settings->logo_url : url('/app-icons/icon-512.png') }}">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{{ $storeTitle }} — Zacatecas Centro">
-    <meta name="twitter:description" content="{{ $settings?->tagline ?? 'Tienda oficial en el Centro Histórico de Zacatecas. Catálogo en línea y pedidos directos por WhatsApp.' }}">
+    <meta name="twitter:description" content="{{ $settings?->tagline ?? 'Catálogo en línea y pedidos directos en el Centro Histórico de Zacatecas.' }}">
     <meta name="twitter:image" content="{{ !empty($settings?->logo_url) ? $settings->logo_url : url('/app-icons/icon-512.png') }}">
 
     <!-- PWA Requirements for Mobile (Android & iOS) -->
@@ -518,7 +518,7 @@
             box-shadow: 0 4px 14px {{ $primaryColor }}40;
             flex-shrink: 0;
         }
-        .brand-info strong { display: block; font-size: 18px; font-weight: 700; letter-spacing: -.02em; }
+        .brand-info strong { display: block; font-size: 15px; font-weight: 700; letter-spacing: -.01em; line-height: 1.2; }
         .brand-sub-badge {
             display: block;
             font-size: 10px;
@@ -739,10 +739,10 @@
             margin-bottom: 20px;
         }
         .hero-slide h2 {
-            font-size: clamp(38px, 4.5vw, 62px);
-            line-height: 1.06;
-            margin-bottom: 18px;
-            letter-spacing: -.03em;
+            font-size: clamp(24px, 3.2vw, 38px);
+            line-height: 1.15;
+            margin-bottom: 14px;
+            letter-spacing: -.02em;
         }
         .hero-slide h2 em { color: var(--accent); font-style: normal; }
         .hero-slide p {
@@ -910,7 +910,7 @@
             margin-bottom: 6px;
         }
         .section-eyebrow::before { content: ''; width: 22px; height: 2px; background: var(--accent); }
-        .section-title { font-size: clamp(28px, 3.5vw, 42px); letter-spacing: -.03em; line-height: 1.1; }
+        .section-title { font-size: clamp(20px, 2.4vw, 30px); letter-spacing: -.02em; line-height: 1.18; }
 
         /* CATEGORIES CAROUSEL */
         .categories-carousel-wrap {
@@ -3150,11 +3150,11 @@
             </span>
             <div class="announcement-stores-wrap">
                 <span class="announcement-stores-link" id="announcementStoresLink" onclick="toggleStoresDropdown()">
-                    Negocios Oficiales ▾
+                    Red de Tiendas ▾
                 </span>
                 <div class="official-stores-menu announcement-stores-menu" id="storesDropdownMenu">
                     <div class="stores-menu-header">
-                        <span>Red de Tiendas Oficiales</span>
+                        <span>Red de Tiendas</span>
                         <span>{{ count($officialStores ?? []) }} disponibles</span>
                     </div>
                     @foreach($officialStores ?? [] as $store)
@@ -3179,7 +3179,7 @@
 <header class="site-header">
     <div class="shell nav-shell">
         <!-- Brand Link -->
-        <a class="brand-link" href="{{ url('/') }}" title="{{ $storeTitle }}">
+        <a class="brand-link" href="#inicio" title="{{ $storeTitle }}">
             @if(!empty($settings?->logo_url))
                 <img src="{{ $settings->logo_url }}" alt="{{ $storeTitle }}" class="brand-logo" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='grid';">
                 <span class="brand-badge-circle" style="display: none;">{{ str($storeTitle)->substr(0, 1) }}</span>
@@ -3188,7 +3188,7 @@
             @endif
             <div class="brand-info">
                 <strong>{{ $storeTitle }}</strong>
-                <small class="brand-sub-badge">Centro Histórico · Oficial</small>
+                <small class="brand-sub-badge">Centro Histórico</small>
             </div>
         </a>
 
@@ -3202,10 +3202,10 @@
 
         <!-- Header Actions -->
         <div class="nav-actions">
-            <!-- Official Website Link -->
+            <!-- External Website Link -->
             @if(!empty($officialUrl))
-                <a href="{{ $officialUrl }}" target="_blank" class="btn-official-website" title="Visitar Sitio Web Oficial de {{ $storeTitle }}">
-                    <span>🌐</span> <span class="btn-official-text">Sitio Oficial ↗</span>
+                <a href="{{ $officialUrl }}" target="_blank" class="btn-official-website" title="Visitar Sitio Web de {{ $storeTitle }}">
+                    <span>🌐</span> <span class="btn-official-text">Sitio Web ↗</span>
                 </a>
             @endif
 
@@ -3256,7 +3256,7 @@
             </div>
             <div class="store-drawer-title-box">
                 <strong>{{ $storeTitle }}</strong>
-                <small>Zacatecas Centro · Tienda Oficial</small>
+                <small>Zacatecas Centro</small>
             </div>
         </div>
         <button type="button" class="btn-store-drawer-close" onclick="closeStoreMenu()" aria-label="Cerrar menú">
@@ -3333,7 +3333,7 @@
         <a href="#negocios" class="drawer-nav-item" onclick="closeStoreMenu()">
             <div class="nav-item-icon" style="background: rgba(139, 92, 246, 0.15); color: #8b5cf6;">🏢</div>
             <div class="nav-item-text">
-                <div class="nav-item-title">Red de Tiendas Oficiales</div>
+                <div class="nav-item-title">Red de Tiendas</div>
                 <div class="nav-item-sub">Explora otros comercios de Zacatecas</div>
             </div>
             <span class="nav-item-arrow">›</span>
@@ -3374,7 +3374,7 @@
     </div>
 
     <!-- Social & Contact Links -->
-    <div class="store-drawer-section-title">Contacto Oficial</div>
+    <div class="store-drawer-section-title">Contacto &amp; Redes</div>
     <div class="drawer-social-grid">
         @if(!empty($settings?->whatsapp_number))
             @php $drawerWa = preg_replace('/[^0-9]/', '', $settings->whatsapp_number); @endphp
@@ -3420,18 +3420,18 @@
     <!-- 1. HERO CAROUSEL -->
     <section class="hero-carousel-container" id="heroCarousel">
         <div class="hero-track" id="heroTrack">
-            <!-- Slide 1: Oficial de la tienda -->
+            <!-- Slide 1: Principal de la tienda -->
             <div class="hero-slide" style="background-image: url('{{ $heroBanner }}');">
                 <div class="hero-slide-overlay"></div>
                 <div class="hero-slide-content">
-                    <span class="hero-badge">Colección Oficial 2026</span>
+                    <span class="hero-badge">Colección 2026</span>
                     <h2>{!! nl2br(e($settings?->hero_title ?? 'Calidad y diseño. Hecho para ti.')) !!}</h2>
-                    <p>{{ $settings?->hero_subtitle ?? 'Explora nuestra cuidada selección de piezas y productos de alta gama con garantía oficial y control de inventario.' }}</p>
+                    <p>{{ $settings?->hero_subtitle ?? 'Explora nuestra cuidada selección de piezas y productos de alta gama con garantía de satisfacción y control de inventario.' }}</p>
                     <div class="hero-cta-group">
                         <a href="#catalogo" class="btn-brand-primary">{{ $settings?->hero_button_text ?? 'Explorar Catálogo' }} <span>↓</span></a>
                         @if(!empty($officialUrl))
                             <a href="{{ $officialUrl }}" target="_blank" class="btn-official-hero">
-                                <span>🌐</span> Visitar Sitio Oficial ↗
+                                <span>🌐</span> Visitar Sitio Web ↗
                             </a>
                         @endif
                         <a href="#destacados" class="btn-brand-outline">Ver Tendencias <span>→</span></a>
@@ -3474,7 +3474,7 @@
                             @php $waNum = preg_replace('/[^0-9]/', '', $settings->whatsapp_number); @endphp
                             <a href="https://wa.me/{{ $waNum }}" target="_blank" class="btn-brand-outline">Pedir por WhatsApp <span>💬</span></a>
                         @endif
-                        <a href="#negocios" class="btn-brand-outline">Ver Tiendas Oficiales <span>🏢</span></a>
+                        <a href="#negocios" class="btn-brand-outline">Explorar Tiendas <span>🏢</span></a>
                     </div>
                 </div>
                 <div class="hero-floating-tag">
@@ -3508,7 +3508,7 @@
         <div class="trust-item">
             <div class="trust-icon">🛡️</div>
             <div>
-                <strong>Garantía Oficial de Calidad</strong>
+                <strong>Garantía de Calidad</strong>
                 <small>30 días para cambios y devoluciones</small>
             </div>
         </div>
@@ -3707,21 +3707,21 @@
         </div>
     </section>
 
-    <!-- 6. RED DE NEGOCIOS Y TIENDAS OFICIALES (BOTONES DE REDIRECCIÓN A NEGOCIOS) -->
+    <!-- 6. RED DE NEGOCIOS Y TIENDAS (BOTONES DE REDIRECCIÓN A NEGOCIOS) -->
     <section class="official-network-section" id="negocios">
         <div class="section-header" style="margin-bottom: 10px;">
             <div>
                 <span class="section-eyebrow">Ecosistema Multi-Tienda</span>
-                <h2 class="section-title">Directorio de Negocios Oficiales</h2>
+                <h2 class="section-title">Directorio de Negocios</h2>
             </div>
             @if(!empty($officialUrl))
                 <a href="{{ $officialUrl }}" target="_blank" class="btn-brand-primary">
-                    <span>🌐</span> Web Oficial de {{ $storeTitle }} ↗
+                    <span>🌐</span> Sitio Web de {{ $storeTitle }} ↗
                 </a>
             @endif
         </div>
         <p style="color: var(--muted); font-size: 14px; max-width: 700px;">
-            Navega entre las diferentes marcas y tiendas oficiales registradas en nuestra plataforma SaaS multi-empresa. Cada negocio cuenta con catálogo independiente, atención directa y garantía verificada.
+            Navega entre los diferentes comercios y tiendas registradas en nuestra plataforma. Cada negocio cuenta con catálogo independiente, atención directa y productos locales.
         </p>
 
         <div class="network-grid">
@@ -3745,7 +3745,7 @@
                                 'elserranito' => 'Tradición dulce zacatecana: quesos de tuna, ates, cajetas de Jerez y artesanías.',
                                 'quinceletras' => 'La cantina más legendaria de Zacatecas desde 1906. Maestros del mezcal artesanal.',
                                 'libreriaandrea' => 'Libros de historia colonial de Zacatecas, novela, poesía, arte y papelería fina.',
-                                default => 'Comercio emblemático verificado en el Centro Histórico de Zacatecas.'
+                                default => 'Comercio emblemático en el Centro Histórico de Zacatecas.'
                             } }}
                         </p>
                     </div>
@@ -3756,7 +3756,7 @@
                         </div>
                     @else
                         <a href="{{ $store['url'] }}" target="_blank" class="network-card-btn network-card-btn-outline">
-                            Visitar Tienda Oficial <span>↗</span>
+                            Visitar Tienda <span>↗</span>
                         </a>
                     @endif
                 </div>
@@ -3850,17 +3850,17 @@
                 @endif
                 @if(!empty($settings?->facebook_url))
                     <a href="{{ $settings->facebook_url }}" target="_blank" class="btn-brand-outline" style="border-color: #1877f2; color: #1877f2;">
-                        <span>📘</span> Facebook Oficial ↗
+                        <span>📘</span> Facebook ↗
                     </a>
                 @endif
                 @if(!empty($settings?->instagram_url))
                     <a href="{{ $settings->instagram_url }}" target="_blank" class="btn-brand-outline" style="border-color: #e1306c; color: #e1306c;">
-                        <span>📸</span> Instagram Oficial ↗
+                        <span>📸</span> Instagram ↗
                     </a>
                 @endif
                 @if(!empty($officialUrl))
                     <a href="{{ $officialUrl }}" target="_blank" class="btn-brand-outline" style="border-color: var(--accent); color: var(--accent);">
-                        <span>🌐</span> Sitio Web Oficial ↗
+                        <span>🌐</span> Sitio Web ↗
                     </a>
                 @endif
             </div>
@@ -3876,12 +3876,12 @@
             <div class="footer-col">
                 <div class="brand-link" style="margin-bottom: 14px;">
                     <span class="brand-badge-circle">{{ str($storeTitle)->substr(0, 1) }}</span>
-                    <strong style="font-size: 18px;">{{ $storeTitle }}</strong>
+                    <strong style="font-size: 16px;">{{ $storeTitle }}</strong>
                 </div>
                 <p style="margin-bottom: 16px;">{{ !empty($settings?->tagline) ? $settings->tagline : 'Comercio independiente multi-tenant con diseño y seguridad de estándar internacional.' }}</p>
                 @if(!empty($officialUrl))
                     <a href="{{ $officialUrl }}" target="_blank" class="btn-official-website" style="display:inline-flex;">
-                        <span>🌐</span> Visitar Página Oficial ↗
+                        <span>🌐</span> Visitar Página Web ↗
                     </a>
                 @endif
             </div>
@@ -3904,8 +3904,8 @@
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>Negocios Oficiales</h4>
-                <p style="margin-bottom: 12px;">Descubre las tiendas oficiales de nuestra red:</p>
+                <h4>Red de Negocios</h4>
+                <p style="margin-bottom: 12px;">Descubre las tiendas de nuestra red:</p>
                 <ul class="footer-links" style="margin-bottom: 16px;">
                     @foreach($officialStores ?? [] as $store)
                         <li>
@@ -3927,7 +3927,7 @@
                         <a href="https://wa.me/{{ $footerWa }}?text={{ urlencode('¡Hola! Me comunico desde la tienda ' . $storeTitle) }}" target="_blank" class="social-circle-btn" style="color: #25d366;" title="WhatsApp">WA</a>
                     @endif
                     @if(!empty($officialUrl))
-                        <a href="{{ $officialUrl }}" target="_blank" class="social-circle-btn" style="color: var(--accent);" title="Sitio Web Oficial">🌐</a>
+                        <a href="{{ $officialUrl }}" target="_blank" class="social-circle-btn" style="color: var(--accent);" title="Sitio Web">🌐</a>
                     @endif
                     <a href="javascript:void(0)" onclick="copyCurrentStoreLink()" class="social-circle-btn" title="Compartir Tienda">🔗</a>
                 </div>
@@ -3994,7 +3994,7 @@
                 <div class="modal-tabs-header">
                     <button class="modal-tab-btn active" onclick="switchModalTab('specs', this)">Especificaciones</button>
                     <button class="modal-tab-btn" onclick="switchModalTab('shipping', this)">Envíos y Devolución</button>
-                    <button class="modal-tab-btn" onclick="switchModalTab('guarantee', this)">Garantía Oficial</button>
+                    <button class="modal-tab-btn" onclick="switchModalTab('guarantee', this)">Garantía</button>
                 </div>
 
                 <div class="modal-tab-pane active" id="tab-specs">
@@ -4012,7 +4012,7 @@
                             <strong id="specAvailability">Almacén Central Inmediato</strong>
                         </div>
                         <div class="spec-box">
-                            <span>Garantía Oficial</span>
+                            <span>Garantía</span>
                             <strong id="specWarranty">12 meses de cobertura</strong>
                         </div>
                     </div>
@@ -4026,7 +4026,7 @@
 
                 <div class="modal-tab-pane" id="tab-guarantee">
                     <p style="margin-bottom: 8px;">• <strong>100% Auténtico:</strong> Certificado de autenticidad emitido directamente por {{ $storeTitle }}.</p>
-                    <p style="margin-bottom: 8px;">• <strong>Soporte Dedicado:</strong> Asistencia post-venta y resolución de cualquier duda a través de WhatsApp o correo oficial.</p>
+                    <p style="margin-bottom: 8px;">• <strong>Soporte Dedicado:</strong> Asistencia post-venta y resolución de cualquier duda a través de WhatsApp o correo de atención.</p>
                     <p>• <strong>Comercio Seguro:</strong> Pagos protegidos con cifrado SSL de extremo a extremo.</p>
                 </div>
 
@@ -4066,7 +4066,7 @@
                         </button>
                         @if(!empty($officialUrl))
                             <a href="{{ $officialUrl }}" target="_blank" class="btn-modal-action">
-                                <span>🌐</span> Web Oficial del Negocio ↗
+                                <span>🌐</span> Sitio Web del Negocio ↗
                             </a>
                         @endif
                     </div>
@@ -4160,7 +4160,7 @@
         <div class="checkout-modal-header">
             <div>
                 <h3>Pasarela de Pago Segura</h3>
-                <div class="checkout-sec-badge">🔒 Cifrado Bancario SSL · Pedido Oficial en {{ $storeTitle }}</div>
+                <div class="checkout-sec-badge">🔒 Cifrado Bancario SSL · Pedido Seguro en {{ $storeTitle }}</div>
             </div>
             <button type="button" class="cart-drawer-close" onclick="closeCheckoutModal()" aria-label="Cerrar checkout">✕</button>
         </div>
@@ -4258,7 +4258,7 @@
             <!-- SPEI Panel -->
             <div class="payment-method-panel" id="payPanel_spei">
                 <div style="font-size: 13px; color: var(--ink); margin-bottom: 6px;">
-                    Realiza tu transferencia bancaria a la cuenta CLABE oficial de la tienda:
+                    Realiza tu transferencia bancaria a la cuenta CLABE de la tienda:
                 </div>
                 <div class="spei-box">
                     <div style="font-size: 12px; color: var(--muted);">Banco Receptor: <strong>STP / BBVA México</strong></div>
@@ -4327,7 +4327,7 @@
         <p style="font-size: 13.5px; color: var(--muted); margin: 0 0 12px;">Tu compra ha sido registrada en el sistema de {{ $storeTitle }}.</p>
         
         <div>
-            <span style="font-size: 11.5px; color: var(--muted); font-weight: 700; text-transform: uppercase;">Folio Oficial de Orden</span><br>
+            <span style="font-size: 11.5px; color: var(--muted); font-weight: 700; text-transform: uppercase;">Folio de Pedido</span><br>
             <div class="order-folio-tag" id="successFolioTag">ACRO-20260909-XXXX</div>
         </div>
 
@@ -4880,7 +4880,7 @@ function handleOrderSuccess(order, payload) {
 
     const waBtn = document.getElementById('btnSuccessWhatsApp');
     if (waBtn) {
-        const orderSummaryMsg = encodeURIComponent(`¡Hola ${STORE_TITLE}! He completado mi pedido oficial:
+        const orderSummaryMsg = encodeURIComponent(`¡Hola ${STORE_TITLE}! He completado mi pedido:
 • Folio: ${order.folio}
 • Cliente: ${order.customer_name}
 • Teléfono: ${order.customer_phone}
@@ -5071,13 +5071,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// DROPDOWN OFICIAL STORES TOGGLE
+// DROPDOWN STORES TOGGLE
 function toggleStoresDropdown() {
     const dropdown = document.getElementById('storesDropdownMenu');
     if (dropdown) {
         dropdown.classList.toggle('open');
     }
 }
+const toggleOfficialDropdown = toggleStoresDropdown;
 
 // CATEGORY SELECTION & FILTERING
 function selectCategory(slug, name = '', scroll = true) {
@@ -5366,7 +5367,7 @@ function getProductSpecs(name, categorySlug) {
             return {
                 material: 'Acero quirúrgico 316L y cristal de zafiro antireflejante',
                 dimensions: 'Caja 41 mm · Grosor 11 mm · Pulso de 20 mm',
-                warranty: '3 años de garantía oficial en maquinaria de precisión'
+                warranty: '3 años de garantía en maquinaria de precisión'
             };
         case 'joyeria-accesorios':
             return {
@@ -5411,7 +5412,7 @@ function getProductSpecs(name, categorySlug) {
             return {
                 material: 'Materias primas de primer nivel seleccionadas a mano',
                 dimensions: 'Dimensiones proporcionales y acabado de precisión',
-                warranty: '12 meses de garantía oficial directa del fabricante'
+                warranty: '12 meses de garantía directa del fabricante'
             };
     }
 }
@@ -5438,7 +5439,7 @@ function copyProductDirectLink() {
 
 function copyCurrentStoreLink() {
     navigator.clipboard.writeText(window.location.href).then(() => {
-        showToast(`¡Enlace de la tienda oficial copiado!`);
+        showToast(`¡Enlace de la tienda copiado!`);
     }).catch(() => {
         showToast('Enlace copiado');
     });
@@ -5644,9 +5645,25 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // 6. No modal open -> User swiped back from store root!
-        // Smoothly redirect to Central Portal Home instead of exiting to phone's home screen!
-        window.location.href = "{{ $portalHomeUrl }}";
+        // 6. If no modal is open, let standard browser navigation occur naturally without redirecting
+    });
+
+    // In-page smooth scroll navigation for anchors
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+        link.addEventListener('click', function(e) {
+            const hash = this.getAttribute('href');
+            if (!hash || hash === '#') return;
+            const target = document.querySelector(hash);
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                document.querySelectorAll('.nav-menu a').forEach(a => a.classList.remove('active'));
+                if (this.closest('.nav-menu')) {
+                    this.classList.add('active');
+                }
+                history.replaceState(null, '', hash);
+            }
+        });
     });
 
     // Also update fabCartCount on cart changes
