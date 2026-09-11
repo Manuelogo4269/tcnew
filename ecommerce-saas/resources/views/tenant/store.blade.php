@@ -4935,7 +4935,8 @@
 <!-- JAVASCRIPT LOGIC -->
 <script>
 // Catalog products database for rich details & related products
-const ALL_PRODUCTS = @json($products);
+window.ALL_PRODUCTS = @json($products) || [];
+var ALL_PRODUCTS = window.ALL_PRODUCTS;
 const STORE_TITLE = @json($storeTitle);
 const WA_PHONE = @json(!empty($settings?->whatsapp_number) ? preg_replace('/[^0-9]/', '', $settings->whatsapp_number) : '');
 const STORE_ADDRESS = @json($storeAddress);
@@ -5148,8 +5149,9 @@ function closeCartInquiryBanner() {
 }
 
 function addCartItem(productId, qty = 1) {
-    if (!window.ALL_PRODUCTS) return;
-    const prod = ALL_PRODUCTS.find(p => String(p.id) === String(productId) || p.slug === String(productId));
+    const list = window.ALL_PRODUCTS || (typeof ALL_PRODUCTS !== 'undefined' ? ALL_PRODUCTS : []);
+    if (!list || !Array.isArray(list) || list.length === 0) return;
+    const prod = list.find(p => String(p.id) === String(productId) || p.slug === String(productId));
     if (!prod) return;
 
     const existing = storeCart.find(item => String(item.id) === String(prod.id));
@@ -5870,8 +5872,9 @@ function applyCatalogFilter() {
 
 // ENRICHED PRODUCT DETAIL MODAL LOGIC ("VER MÁS COSAS DE LOS PRODUCTOS")
 function openProductById(id) {
-    if (!window.ALL_PRODUCTS || !Array.isArray(ALL_PRODUCTS)) return;
-    const p = ALL_PRODUCTS.find(item => String(item.id) === String(id) || item.slug === String(id));
+    const list = window.ALL_PRODUCTS || (typeof ALL_PRODUCTS !== 'undefined' ? ALL_PRODUCTS : []);
+    if (!list || !Array.isArray(list) || list.length === 0) return;
+    const p = list.find(item => String(item.id) === String(id) || item.slug === String(id));
     if (p) {
         openProductDetail(p);
     }
@@ -5891,48 +5894,69 @@ function openProductDetail(product) {
         modalImgEl.src = product.image_url || ('https://placehold.co/600x600?text=' + encodeURIComponent(product.name));
         modalImgEl.alt = product.name;
     }
-    document.getElementById('modalTitle').textContent = product.name;
+    const titleEl = document.getElementById('modalTitle');
+    if (titleEl) titleEl.textContent = product.name;
     const catName = product.category ? product.category.name : 'Colección General';
-    document.getElementById('modalCat').textContent = catName;
-    document.getElementById('modalPrice').textContent = '$' + parseFloat(product.price).toFixed(2);
-    document.getElementById('modalDesc').textContent = product.description || 'Artículo exclusivo confeccionado bajo estrictos estándares de manufactura y control de calidad.';
+    const catEl = document.getElementById('modalCat');
+    if (catEl) catEl.textContent = catName;
+    const priceEl = document.getElementById('modalPrice');
+    if (priceEl) priceEl.textContent = '$' + parseFloat(product.price || 0).toFixed(2);
+    const descEl = document.getElementById('modalDesc');
+    if (descEl) descEl.textContent = product.description || 'Artículo exclusivo confeccionado bajo estrictos estándares de manufactura y control de calidad.';
     
     // Fill Badges
     const skuCode = `SKU-${product.id ? String(product.id).padStart(4, '0') : '001'}-${product.slug ? product.slug.substring(0, 4).toUpperCase() : 'ART'}`;
-    document.getElementById('modalSku').textContent = skuCode;
+    const skuEl = document.getElementById('modalSku');
+    if (skuEl) skuEl.textContent = skuCode;
     
     const stockEl = document.getElementById('modalStock');
-    if (product.stock > 10) {
-        stockEl.textContent = `✓ En stock: ${product.stock} disponibles`;
-        stockEl.className = 'modal-chip modal-chip-stock';
-    } else if (product.stock > 0) {
-        stockEl.textContent = `⚡ Stock bajo: últimas ${product.stock} unidades`;
-        stockEl.className = 'modal-chip';
-        stockEl.style.background = '#fef9c3';
-        stockEl.style.color = '#854d0e';
-    } else {
-        stockEl.textContent = `✕ Agotado temporalmente`;
-        stockEl.className = 'modal-chip';
-        stockEl.style.background = '#fee2e2';
-        stockEl.style.color = '#991b1b';
+    if (stockEl) {
+        if (product.stock > 10) {
+            stockEl.textContent = `✓ En stock: ${product.stock} disponibles`;
+            stockEl.className = 'modal-chip modal-chip-stock';
+            stockEl.style.background = '';
+            stockEl.style.color = '';
+        } else if (product.stock > 0) {
+            stockEl.textContent = `⚡ Stock bajo: últimas ${product.stock} unidades`;
+            stockEl.className = 'modal-chip';
+            stockEl.style.background = '#fef9c3';
+            stockEl.style.color = '#854d0e';
+        } else {
+            stockEl.textContent = `✕ Agotado temporalmente`;
+            stockEl.className = 'modal-chip';
+            stockEl.style.background = '#fee2e2';
+            stockEl.style.color = '#991b1b';
+        }
     }
 
     // Dynamic Specifications Mapping
     const catSlug = product.category ? product.category.slug : '';
-    const specs = getProductSpecs(product.name, catSlug);
-    document.getElementById('specMaterial').textContent = specs.material;
-    document.getElementById('specDimensions').textContent = specs.dimensions;
-    document.getElementById('specAvailability').textContent = product.stock > 0 ? 'En existencia para despacho express' : 'Bajo pedido especial';
-    document.getElementById('specWarranty').textContent = specs.warranty;
+    const specs = (typeof getProductSpecs === 'function') ? getProductSpecs(product.name, catSlug) : {
+        material: 'Plata / Acero / Joyería de Autor',
+        dimensions: 'Ajustable / Medida Estándar',
+        warranty: '12 meses de garantía directa'
+    };
+    const specMat = document.getElementById('specMaterial');
+    if (specMat) specMat.textContent = specs.material;
+    const specDim = document.getElementById('specDimensions');
+    if (specDim) specDim.textContent = specs.dimensions;
+    const specAvail = document.getElementById('specAvailability');
+    if (specAvail) specAvail.textContent = product.stock > 0 ? 'En existencia para despacho express' : 'Bajo pedido especial';
+    const specWar = document.getElementById('specWarranty');
+    if (specWar) specWar.textContent = specs.warranty;
 
     // Reset Qty & Subtotal
     updateModalQtyUI();
 
     // Populate Related Products (same category)
-    populateRelatedProducts(product);
+    if (typeof populateRelatedProducts === 'function') {
+        populateRelatedProducts(product);
+    }
 
     // Reset to specs tab
-    switchModalTab('specs');
+    if (typeof switchModalTab === 'function') {
+        switchModalTab('specs');
+    }
 
     modal.classList.add('open');
     document.body.style.overflow = 'hidden';
@@ -5944,9 +5968,11 @@ function openProductDetail(product) {
     }
 
     // Update URL parameter
-    const url = new URL(window.location);
-    url.searchParams.set('producto', product.slug || product.id);
-    window.history.replaceState({}, '', url);
+    try {
+        const url = new URL(window.location);
+        url.searchParams.set('producto', product.slug || product.id);
+        window.history.replaceState({}, '', url);
+    } catch (e) {}
 }
 
 function closeProductDetail() {
@@ -5979,20 +6005,24 @@ function changeModalQty(delta) {
 
 function updateModalQtyUI() {
     if (!currentModalProduct) return;
-    document.getElementById('modalQtyDisplay').textContent = currentModalQty;
+    const qtyDisplay = document.getElementById('modalQtyDisplay');
+    if (qtyDisplay) qtyDisplay.textContent = currentModalQty;
     const unitPrice = parseFloat(currentModalProduct.price || 0);
     const subtotal = unitPrice * currentModalQty;
     const formatted = '$' + subtotal.toFixed(2);
-    document.getElementById('modalSubtotal').textContent = formatted + ' MXN';
-    document.getElementById('modalBtnTotal').textContent = formatted;
+    const subtotalEl = document.getElementById('modalSubtotal');
+    if (subtotalEl) subtotalEl.textContent = formatted + ' MXN';
+    const btnTotalEl = document.getElementById('modalBtnTotal');
+    if (btnTotalEl) btnTotalEl.textContent = formatted;
     const addCartTotalEl = document.getElementById('modalAddCartTotal');
     if (addCartTotalEl) addCartTotalEl.textContent = formatted;
 
     // Update WhatsApp Link
     const waBtn = document.getElementById('modalWhatsAppBtn');
-    const sku = `SKU-${currentModalProduct.id ? String(currentModalProduct.id).padStart(4, '0') : '001'}`;
-    const productUrl = `${window.location.origin}${window.location.pathname}?producto=${currentModalProduct.slug}`;
-    const msg = encodeURIComponent(`¡Hola! Me interesa comprar el siguiente producto en ${STORE_TITLE}:
+    if (waBtn) {
+        const sku = `SKU-${currentModalProduct.id ? String(currentModalProduct.id).padStart(4, '0') : '001'}`;
+        const productUrl = `${window.location.origin}${window.location.pathname}?producto=${currentModalProduct.slug || currentModalProduct.id}`;
+        const msg = encodeURIComponent(`¡Hola! Me interesa comprar el siguiente producto en ${STORE_TITLE}:
 • Producto: ${currentModalProduct.name}
 • ${sku}
 • Cantidad: ${currentModalQty} unidad(es)
@@ -6006,12 +6036,13 @@ ${STORE_ADDRESS} (${STORE_REF})
 
 ¿Tienen disponibilidad para entrega local en Zacatecas o recogida en tienda?`);
 
-    if (WA_PHONE) {
-        waBtn.href = `https://wa.me/${WA_PHONE}?text=${msg}`;
-        waBtn.style.display = 'flex';
-    } else {
-        waBtn.href = `mailto:contacto@${window.location.hostname}?subject=` + encodeURIComponent(`Pedido de ${currentModalProduct.name}`);
-        waBtn.innerHTML = `✉ Consultar Disponibilidad por Correo (${formatted})`;
+        if (WA_PHONE) {
+            waBtn.href = `https://wa.me/${WA_PHONE}?text=${msg}`;
+            waBtn.style.display = 'flex';
+        } else {
+            waBtn.href = `mailto:contacto@${window.location.hostname}?subject=` + encodeURIComponent(`Pedido de ${currentModalProduct.name}`);
+            waBtn.innerHTML = `✉ Consultar Disponibilidad por Correo (${formatted})`;
+        }
     }
 }
 

@@ -37,6 +37,16 @@ class ProductResource extends Resource
                             ->relationship('category', 'name')
                             ->searchable()
                             ->preload()
+                            ->createOptionForm([
+                                Forms\Components\TextInput::make('name')
+                                    ->label('Nombre de Categoría')
+                                    ->required()
+                                    ->live(onBlur: true)
+                                    ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state ?? ''))),
+                                Forms\Components\TextInput::make('slug')
+                                    ->label('Slug')
+                                    ->required(),
+                            ])
                             ->required(),
                         Forms\Components\TextInput::make('name')
                             ->label('Nombre del Producto')
@@ -134,6 +144,7 @@ class ProductResource extends Resource
                     ->label('Solo Activos'),
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])
