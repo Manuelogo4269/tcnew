@@ -26,6 +26,8 @@ foreach (['{tenant}.localhost', '{tenant}.127.0.0.1.nip.io', '{tenant}.192.168.0
     ])->group(function () {
     Route::get('/', function () {
         $tenantId = (string) tenant('id');
+        $user = \Illuminate\Support\Facades\Auth::guard('web')->user();
+        $hasFacebookKeys = !empty(config('services.facebook.client_id')) && !empty(config('services.facebook.client_secret'));
         $settings = StoreSetting::first();
         $storeName = $settings?->store_name ?? str($tenantId)->replace(['-', '_'], ' ')->title()->toString();
         $categories = Category::withCount('products')->get();
@@ -52,7 +54,7 @@ foreach (['{tenant}.localhost', '{tenant}.127.0.0.1.nip.io', '{tenant}.192.168.0
             return $store;
         }, (array) $cachedStores);
 
-        return view('tenant.store', compact('storeName', 'tenantId', 'settings', 'categories', 'products', 'featuredProducts', 'officialStores'));
+        return view('tenant.store', compact('storeName', 'tenantId', 'settings', 'categories', 'products', 'featuredProducts', 'officialStores', 'user', 'hasFacebookKeys'));
     });
 
     Route::get('/manifest.json', function () {

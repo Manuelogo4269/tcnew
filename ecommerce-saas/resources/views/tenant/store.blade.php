@@ -555,27 +555,287 @@
 
         .nav-actions { display: flex; align-items: center; gap: 10px; }
 
-        /* Official Website Redirect Button (Top Header) */
-        .btn-official-website {
-            padding: 8px 15px;
+        /* Customer Auth & Profile in Store */
+        .store-user-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 10px 4px 5px;
+            background: var(--card);
+            border: 1.5px solid var(--border);
             border-radius: 999px;
-            background: transparent;
-            border: 1.5px solid var(--accent);
-            color: var(--accent);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .store-user-avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+        }
+        .store-user-info {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.1;
+        }
+        .store-user-name {
             font-size: 12px;
             font-weight: 700;
+            color: var(--foreground);
+            max-width: 100px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .store-user-status {
+            font-size: 9px;
+            font-weight: 800;
+            color: var(--accent);
+            text-transform: uppercase;
+        }
+        .store-user-logout {
+            color: var(--muted);
+            font-size: 12px;
+            margin-left: 2px;
+            text-decoration: none;
+            padding: 2px 4px;
+            border-radius: 4px;
+            transition: color 0.15s ease;
+        }
+        .store-user-logout:hover { color: #dc2626; }
+
+        .btn-store-auth-trigger {
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            transition: all .2s ease;
-            white-space: nowrap;
-        }
-        .btn-official-website:hover {
+            padding: 7px 14px;
             background: var(--accent);
             color: #ffffff;
-            box-shadow: 0 4px 14px {{ $primaryColor }}40;
+            border: none;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(200, 109, 99, 0.25);
+            transition: all 0.2s ease;
+        }
+        .btn-store-auth-trigger:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(200, 109, 99, 0.35);
+        }
+
+        .drawer-user-box {
+            margin: 12px 18px 8px;
+            padding: 12px 14px;
+            background: var(--card);
+            border: 1.5px solid var(--border);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .drawer-user-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .drawer-user-info {
+            flex: 1;
+            min-width: 0;
+            line-height: 1.2;
+        }
+        .drawer-user-info strong {
+            font-size: 13.5px;
+            color: var(--foreground);
+            display: block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .drawer-user-info small {
+            font-size: 11px;
+            color: var(--muted);
+            display: block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .drawer-user-logout {
+            background: rgba(220, 38, 38, 0.1);
+            color: #dc2626;
+            padding: 5px 9px;
+            border-radius: 6px;
+            font-size: 11.5px;
+            font-weight: 800;
+            text-decoration: none;
+        }
+        .drawer-login-wrap {
+            padding: 12px 18px 6px;
+        }
+        .drawer-login-btn {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 11px 16px;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 13.5px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .store-auth-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 26px;
+            width: min(440px, 100%);
+            padding: 34px 28px;
+            position: relative;
+            box-shadow: 0 25px 65px rgba(0,0,0,0.35);
+        }
+        .auth-modal-title {
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 6px;
+            color: var(--foreground);
+        }
+        .auth-modal-subtitle {
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 20px;
+        }
+        .social-login-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+        .btn-social-auth {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 11px 18px;
+            border-radius: 999px;
+            font-size: 13.5px;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .btn-google-auth {
+            background: #ffffff;
+            color: #1f2937;
+            border: 1.5px solid #e5e7eb;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+        }
+        .btn-google-auth:hover {
+            background: #f9fafb;
+            border-color: #d1d5db;
             transform: translateY(-1px);
         }
+        .btn-facebook-auth {
+            background: #1877f2;
+            color: #ffffff;
+            border: none;
+            box-shadow: 0 4px 12px rgba(24, 119, 242, 0.3);
+        }
+        .btn-facebook-auth:hover {
+            background: #166fe5;
+            transform: translateY(-1px);
+        }
+        .auth-separator {
+            position: relative;
+            text-align: center;
+            margin: 18px 0;
+        }
+        .auth-separator::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--border);
+        }
+        .auth-separator span {
+            position: relative;
+            background: var(--card);
+            padding: 0 12px;
+            font-size: 12px;
+            color: var(--muted);
+            font-weight: 600;
+        }
+        .auth-field {
+            margin-bottom: 14px;
+            text-align: left;
+        }
+        .auth-field label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--foreground);
+            margin-bottom: 5px;
+        }
+        .auth-field input {
+            width: 100%;
+            padding: 11px 14px;
+            border-radius: 12px;
+            border: 1.5px solid var(--border);
+            background: var(--surface);
+            color: var(--foreground);
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .auth-field input:focus {
+            border-color: var(--accent);
+        }
+        .btn-submit-email-auth {
+            width: 100%;
+            padding: 12px;
+            border-radius: 12px;
+            background: var(--accent);
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(200, 109, 99, 0.3);
+            transition: all 0.2s ease;
+        }
+        .btn-submit-email-auth:hover {
+            transform: translateY(-1px);
+        }
+        .auth-modal-switch-text {
+            font-size: 12.5px;
+            color: var(--muted);
+            text-align: center;
+            margin-top: 16px;
+            margin-bottom: 0;
+        }
+        .auth-modal-switch-text a {
+            color: var(--accent);
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .social-back-btn {
+            background: none;
+            border: none;
+            color: var(--muted);
+            font-size: 12.5px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-bottom: 10px;
+            padding: 0;
+        }
+        .social-back-btn:hover { color: var(--foreground); }
 
         /* Official Stores Dropdown in Header */
         .official-stores-dropdown-wrap {
@@ -3388,6 +3648,22 @@
 
         <!-- Header Actions -->
         <div class="nav-actions">
+            @if(!empty($user))
+                <!-- Usuario Autenticado en la Tienda -->
+                <div class="store-user-pill" title="Conectado como {{ $user->name }}">
+                    <img src="{{ $user->avatar_url ?? 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=80&q=80' }}" alt="{{ $user->name }}" class="store-user-avatar">
+                    <div class="store-user-info">
+                        <span class="store-user-name">{{ Str::limit($user->name, 12) }}</span>
+                        <span class="store-user-status">✓ Conectado</span>
+                    </div>
+                    <a href="{{ url('/logout?return_url=' . urlencode(request()->fullUrl())) }}" class="store-user-logout" title="Cerrar Sesión">✕</a>
+                </div>
+            @else
+                <!-- Botón Iniciar Sesión en la Tienda -->
+                <button type="button" class="btn-store-auth-trigger" onclick="openStoreAuthModal('login')" title="Iniciar sesión con Google o correo">
+                    <span>👤</span> <span>Entrar</span>
+                </button>
+            @endif
 
             <!-- Shopping Cart Header Button -->
             <button type="button" class="btn-cart-header" id="btnCartHeader" onclick="toggleCartDrawer()" aria-label="Ver Carrito de Compras" title="Ver Carrito de Compras">
@@ -3546,6 +3822,24 @@
             <span class="nav-item-arrow">›</span>
         </a>
     </nav>
+
+    @if(!empty($user))
+        <div class="drawer-user-box">
+            <img src="{{ $user->avatar_url ?? 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=80&q=80' }}" alt="{{ $user->name }}" class="drawer-user-avatar">
+            <div class="drawer-user-info">
+                <strong>{{ $user->name }}</strong>
+                <small>{{ $user->email }}</small>
+            </div>
+            <a href="{{ url('/logout?return_url=' . urlencode(request()->fullUrl())) }}" class="drawer-user-logout">Salir</a>
+        </div>
+    @else
+        <div class="drawer-login-wrap">
+            <button type="button" class="drawer-login-btn" onclick="closeStoreMenu(); openStoreAuthModal('login');">
+                <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
+                <span>Iniciar Sesión con Google</span>
+            </button>
+        </div>
+    @endif
 
     <!-- Mobile Drawer Cart Action Button -->
     <div style="padding: 12px 20px 6px;">
@@ -4228,6 +4522,166 @@
             <div class="modal-related-grid" id="modalRelatedGrid">
                 <!-- Dynamically populated via JS -->
             </div>
+        </div>
+    </div>
+</div>
+
+<!-- STORE CUSTOMER AUTH MODAL -->
+<div class="modal-backdrop" id="storeAuthModal">
+    <div class="store-auth-card">
+        <button type="button" class="modal-close-x" onclick="closeStoreAuthModal()" aria-label="Cerrar modal">✕</button>
+
+        <!-- Tab 1: LOGIN -->
+        <div id="storeLoginView">
+            <div style="text-align: center; margin-bottom: 20px;">
+                <span style="background: rgba(200, 109, 99, 0.12); color: var(--accent); padding: 4px 12px; border-radius: 999px; font-size: 11.5px; font-weight: 800; text-transform: uppercase;">{{ $storeTitle }}</span>
+                <h3 class="auth-modal-title" style="margin-top: 8px;">Iniciar Sesión</h3>
+                <p class="auth-modal-subtitle">Accede con tu cuenta preferida para realizar pedidos en esta tienda.</p>
+            </div>
+
+            <div class="social-login-group">
+                <!-- 1. GOOGLE LOGIN -->
+                <a href="{{ url('/auth/google?return_url=' . urlencode(request()->fullUrl())) }}" class="btn-social-auth btn-google-auth">
+                    <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
+                    <span>Continuar con Google</span>
+                </a>
+
+                <!-- 2. FACEBOOK LOGIN -->
+                @if(!empty($hasFacebookKeys))
+                    <a href="{{ url('/auth/facebook?return_url=' . urlencode(request()->fullUrl())) }}" class="btn-social-auth btn-facebook-auth">
+                        <svg width="20" height="20" fill="#ffffff" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        <span>Continuar con Facebook</span>
+                    </a>
+                @else
+                    <button type="button" onclick="switchStoreAuthTab('facebookChooser')" class="btn-social-auth btn-facebook-auth">
+                        <svg width="20" height="20" fill="#ffffff" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        <span>Continuar con Facebook</span>
+                    </button>
+                @endif
+            </div>
+
+            <div style="text-align: center; margin-top: -6px; margin-bottom: 14px;">
+                <a href="javascript:void(0)" onclick="switchStoreAuthTab('googleChooser')" style="font-size: 12px; color: var(--muted); text-decoration: underline;">
+                    ¿Problemas con el pop-up de Google? Ingresar Gmail directo
+                </a>
+            </div>
+
+            <div class="auth-separator">
+                <span>o con correo electrónico</span>
+            </div>
+
+            <!-- 3. EMAIL LOGIN -->
+            <form action="{{ url('/login') }}" method="POST">
+                @csrf
+                <input type="hidden" name="return_url" value="{{ request()->fullUrl() }}">
+                <div class="auth-field">
+                    <label>Correo Electrónico</label>
+                    <input type="email" name="email" placeholder="tu@correo.com" required>
+                </div>
+                <div class="auth-field">
+                    <label>Contraseña</label>
+                    <input type="password" name="password" placeholder="Tu contraseña" required>
+                </div>
+                <button type="submit" class="btn-submit-email-auth">
+                    Iniciar Sesión
+                </button>
+            </form>
+
+            <p class="auth-modal-switch-text">
+                ¿No tienes cuenta? <a href="javascript:void(0)" onclick="switchStoreAuthTab('register')">Crear cuenta gratis</a>
+            </p>
+        </div>
+
+        <!-- Tab 2: REGISTER -->
+        <div id="storeRegisterView" style="display: none;">
+            <div style="text-align: center; margin-bottom: 18px;">
+                <h3 class="auth-modal-title">Crear Cuenta</h3>
+                <p class="auth-modal-subtitle">Regístrate para comprar en {{ $storeTitle }} y en toda la red de Zacatecas.</p>
+            </div>
+
+            <form action="{{ url('/register') }}" method="POST">
+                @csrf
+                <input type="hidden" name="return_url" value="{{ request()->fullUrl() }}">
+                <div class="auth-field">
+                    <label>Nombre Completo</label>
+                    <input type="text" name="name" placeholder="Tu nombre" required>
+                </div>
+                <div class="auth-field">
+                    <label>Correo Electrónico</label>
+                    <input type="email" name="email" placeholder="tu@correo.com" required>
+                </div>
+                <div class="auth-field">
+                    <label>Contraseña</label>
+                    <input type="password" name="password" placeholder="Mínimo 6 caracteres" required>
+                </div>
+                <div class="auth-field">
+                    <label>Confirmar Contraseña</label>
+                    <input type="password" name="password_confirmation" placeholder="Repite tu contraseña" required>
+                </div>
+                <button type="submit" class="btn-submit-email-auth">
+                    Crear Cuenta
+                </button>
+            </form>
+
+            <p class="auth-modal-switch-text">
+                ¿Ya tienes cuenta? <a href="javascript:void(0)" onclick="switchStoreAuthTab('login')">Iniciar sesión</a>
+            </p>
+        </div>
+
+        <!-- Tab 3: GOOGLE CHOOSER DIRECT GMAIL -->
+        <div id="storeGoogleChooserView" style="display: none;">
+            <button type="button" onclick="switchStoreAuthTab('login')" class="social-back-btn">
+                ← Volver al login
+            </button>
+            <div style="text-align: center; margin-bottom: 16px;">
+                <h3 class="auth-modal-title">Acceso Directo con Gmail</h3>
+                <p class="auth-modal-subtitle">Ingresa tus datos reales para identificarte como cliente en {{ $storeTitle }}</p>
+            </div>
+            <form action="{{ url('/auth/social/login') }}" method="POST">
+                @csrf
+                <input type="hidden" name="provider" value="google">
+                <input type="hidden" name="return_url" value="{{ request()->fullUrl() }}">
+                <input type="hidden" name="avatar_url" value="">
+                <div class="auth-field">
+                    <label>Tu Nombre Completo *</label>
+                    <input type="text" name="name" placeholder="Tu nombre real" required>
+                </div>
+                <div class="auth-field">
+                    <label>Tu Cuenta de Gmail *</label>
+                    <input type="email" name="email" placeholder="tu.nombre@gmail.com" required>
+                </div>
+                <button type="submit" class="btn-submit-email-auth" style="background: #ea4335;">
+                    Acceder con Google
+                </button>
+            </form>
+        </div>
+
+        <!-- Tab 4: FACEBOOK CHOOSER -->
+        <div id="storeFacebookChooserView" style="display: none;">
+            <button type="button" onclick="switchStoreAuthTab('login')" class="social-back-btn">
+                ← Volver al login
+            </button>
+            <div style="text-align: center; margin-bottom: 16px;">
+                <h3 class="auth-modal-title">Acceso con Facebook</h3>
+                <p class="auth-modal-subtitle">Ingresa tus datos para identificarte con tu perfil de Facebook</p>
+            </div>
+            <form action="{{ url('/auth/social/login') }}" method="POST">
+                @csrf
+                <input type="hidden" name="provider" value="facebook">
+                <input type="hidden" name="return_url" value="{{ request()->fullUrl() }}">
+                <input type="hidden" name="avatar_url" value="">
+                <div class="auth-field">
+                    <label>Tu Nombre en Facebook *</label>
+                    <input type="text" name="name" placeholder="Ej. Juan Pérez" required>
+                </div>
+                <div class="auth-field">
+                    <label>Correo de Facebook *</label>
+                    <input type="email" name="email" placeholder="tu.cuenta@facebook.com" required>
+                </div>
+                <button type="submit" class="btn-submit-email-auth" style="background: #1877f2;">
+                    Acceder con Facebook
+                </button>
+            </form>
         </div>
     </div>
 </div>
@@ -5895,6 +6349,45 @@ document.addEventListener('DOMContentLoaded', () => {
     const activeTheme = document.documentElement.getAttribute('data-theme') || 'light';
     updateThemeIcons(activeTheme);
 });
+
+// STORE AUTH MODAL CONTROLLERS
+function openStoreAuthModal(view = 'login') {
+    const modal = document.getElementById('storeAuthModal');
+    if (modal) {
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        switchStoreAuthTab(view);
+    }
+}
+
+function closeStoreAuthModal() {
+    const modal = document.getElementById('storeAuthModal');
+    if (modal) {
+        modal.classList.remove('open');
+        document.body.style.overflow = '';
+    }
+}
+
+function switchStoreAuthTab(tab) {
+    const views = ['storeLoginView', 'storeRegisterView', 'storeGoogleChooserView', 'storeFacebookChooserView'];
+    views.forEach(v => {
+        const el = document.getElementById(v);
+        if (el) el.style.display = 'none';
+    });
+    const target = document.getElementById(
+        tab === 'login' ? 'storeLoginView' :
+        (tab === 'register' ? 'storeRegisterView' :
+        (tab === 'googleChooser' ? 'storeGoogleChooserView' : 'storeFacebookChooserView'))
+    );
+    if (target) target.style.display = 'block';
+}
+
+document.addEventListener('click', function(e) {
+    const authModal = document.getElementById('storeAuthModal');
+    if (authModal && e.target === authModal) {
+        closeStoreAuthModal();
+    }
+});
 </script>
 
 <!-- FLOATING PWA HOME & CART ACTION BAR -->
@@ -5915,42 +6408,49 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!window.history || !window.history.pushState) return;
 
     window.addEventListener('popstate', function(event) {
-        // 1. Check if product modal is open
+        // 1. Check if auth modal is open
+        const authModal = document.getElementById('storeAuthModal');
+        if (authModal && authModal.classList.contains('open')) {
+            closeStoreAuthModal();
+            return;
+        }
+
+        // 2. Check if product modal is open
         const productModal = document.getElementById('productDetailModal');
         if (productModal && productModal.classList.contains('open')) {
             closeProductDetail();
             return;
         }
 
-        // 2. Check if cart drawer is open
+        // 3. Check if cart drawer is open
         const cartDrawer = document.getElementById('storeCartDrawer');
         if (cartDrawer && cartDrawer.classList.contains('open')) {
             toggleCartDrawer();
             return;
         }
 
-        // 3. Check if store mobile menu is open
+        // 4. Check if store mobile menu is open
         const storeDrawer = document.getElementById('storeMobileDrawer');
         if (storeDrawer && storeDrawer.classList.contains('open')) {
             closeStoreMenu();
             return;
         }
 
-        // 4. Check if checkout modal is open
+        // 5. Check if checkout modal is open
         const checkoutModal = document.getElementById('checkoutModal');
         if (checkoutModal && checkoutModal.classList.contains('open')) {
             closeCheckoutModal();
             return;
         }
 
-        // 5. Check if success modal is open
+        // 6. Check if success modal is open
         const orderModal = document.getElementById('orderSuccessModal');
         if (orderModal && orderModal.classList.contains('open')) {
             closeOrderSuccessModal();
             return;
         }
 
-        // 6. If no modal is open, let standard browser navigation occur naturally without redirecting
+        // 7. If no modal is open, let standard browser navigation occur naturally without redirecting
     });
 
     // In-page smooth scroll navigation for anchors

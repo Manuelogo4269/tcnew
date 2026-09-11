@@ -32,6 +32,9 @@ foreach ($centralDomains as $domain) {
 
             tenancy()->initialize($tenant);
 
+            $user = \Illuminate\Support\Facades\Auth::guard('web')->user();
+            $hasFacebookKeys = !empty(config('services.facebook.client_id')) && !empty(config('services.facebook.client_secret'));
+
             $settings = \App\Models\StoreSetting::first();
             $storeName = $settings?->store_name ?? str($tenantId)->replace(['-', '_'], ' ')->title()->toString();
             $categories = \App\Models\Category::withCount('products')->get();
@@ -55,7 +58,7 @@ foreach ($centralDomains as $domain) {
                 return $store;
             }, (array) $cachedStores);
 
-            return view('tenant.store', compact('storeName', 'tenantId', 'settings', 'categories', 'products', 'featuredProducts', 'officialStores'));
+            return view('tenant.store', compact('storeName', 'tenantId', 'settings', 'categories', 'products', 'featuredProducts', 'officialStores', 'user', 'hasFacebookKeys'));
         })->name('central.tenant.store');
 
         // Universal Path-Based Store Management Route (No DNS setup required)

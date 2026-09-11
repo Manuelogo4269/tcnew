@@ -29,6 +29,11 @@ class CentralAuthController extends Controller
             $request->session()->regenerate();
             $user = Auth::guard('web')->user();
 
+            $returnUrl = $request->input('return_url') ?? session()->pull('auth_return_url');
+            if ($returnUrl && !str_contains($returnUrl, '/login')) {
+                return redirect($returnUrl)->with('success', "¡Bienvenido de vuelta, {$user->name}!");
+            }
+
             return redirect()->intended('/')->with('success', "¡Bienvenido de vuelta, {$user->name}!");
         }
 
@@ -42,6 +47,10 @@ class CentralAuthController extends Controller
      */
     public function redirectToGoogle(Request $request)
     {
+        if ($request->filled('return_url')) {
+            session(['auth_return_url' => $request->input('return_url')]);
+        }
+
         // Only for automated test suites running in unit test environment
         if ($request->has('demo') && app()->runningUnitTests()) {
             $email = $request->query('email', 'usuario.google@gmail.com');
@@ -59,7 +68,8 @@ class CentralAuthController extends Controller
             Auth::guard('web')->login($user, true);
             $request->session()->regenerate();
 
-            return redirect('/')->with('success', "¡Sesión iniciada con Google!");
+            $returnUrl = session()->pull('auth_return_url', '/');
+            return redirect($returnUrl)->with('success', "¡Sesión iniciada con Google!");
         }
 
         $clientId = config('services.google.client_id');
@@ -124,7 +134,8 @@ class CentralAuthController extends Controller
             Auth::guard('web')->login($user, true);
             $request->session()->regenerate();
 
-            return redirect('/')->with('success', "¡Conectado exitosamente con tu cuenta de Google ({$user->name})!");
+            $returnUrl = session()->pull('auth_return_url', '/');
+            return redirect($returnUrl)->with('success', "¡Conectado exitosamente con tu cuenta de Google ({$user->name})!");
         } catch (\Exception $e) {
             return redirect('/login')->withErrors([
                 'oauth' => 'No se pudo completar el inicio de sesión con Google: ' . $e->getMessage() . ". Verifica que '{$redirectUri}' esté registrado en Google Cloud Console.",
@@ -162,11 +173,13 @@ class CentralAuthController extends Controller
                 Auth::guard('web')->login($user, true);
                 $request->session()->regenerate();
 
+                $returnUrl = $request->input('return_url') ?? session()->pull('auth_return_url', '/');
+
                 if ($request->wantsJson()) {
-                    return response()->json(['success' => true, 'redirect' => url('/')]);
+                    return response()->json(['success' => true, 'redirect' => $returnUrl]);
                 }
 
-                return redirect('/')->with('success', "¡Sesión iniciada con Google como {$user->name}!");
+                return redirect($returnUrl)->with('success', "¡Sesión iniciada con Google como {$user->name}!");
             }
         } catch (\Exception $e) {
             // Fallback decode JWT payload if direct tokeninfo call fails
@@ -189,11 +202,13 @@ class CentralAuthController extends Controller
                         Auth::guard('web')->login($user, true);
                         $request->session()->regenerate();
 
+                        $returnUrl = $request->input('return_url') ?? session()->pull('auth_return_url', '/');
+
                         if ($request->wantsJson()) {
-                            return response()->json(['success' => true, 'redirect' => url('/')]);
+                            return response()->json(['success' => true, 'redirect' => $returnUrl]);
                         }
 
-                        return redirect('/')->with('success', "¡Sesión iniciada con Google como {$user->name}!");
+                        return redirect($returnUrl)->with('success', "¡Sesión iniciada con Google como {$user->name}!");
                     }
                 }
             } catch (\Exception $e2) {}
@@ -305,7 +320,8 @@ class CentralAuthController extends Controller
         Auth::guard('web')->login($user);
         $request->session()->regenerate();
 
-        return redirect('/')->with('success', "¡Cuenta creada exitosamente! Bienvenido a la plataforma, {$user->name}.");
+        $returnUrl = $request->input('return_url') ?? session()->pull('auth_return_url', '/');
+        return redirect($returnUrl)->with('success', "¡Cuenta creada exitosamente! Bienvenido a la plataforma, {$user->name}.");
     }
 
     public function logout(Request $request)
@@ -315,7 +331,12 @@ class CentralAuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/')->with('info', 'Has cerrado sesión correctamente.');
+        $returnUrl = $request->input('return_url') ?? $request->query('return_url') ?? '/';
+        if (str_contains($returnUrl, '/logout')) {
+            $returnUrl = '/';
+        }
+
+        return redirect($returnUrl)->with('info', 'Has cerrado sesión correctamente.');
     }
 
     /**
@@ -354,7 +375,8 @@ class CentralAuthController extends Controller
         Auth::guard('web')->login($user, true);
         $request->session()->regenerate();
 
+        $returnUrl = $request->input('return_url') ?? session()->pull('auth_return_url', '/');
         $providerName = ucfirst($validated['provider']);
-        return redirect('/')->with('success', "¡Sesión iniciada con {$providerName} como {$user->name}!");
+        return redirect($returnUrl)->with('success', "¡Sesión iniciada con {$providerName} como {$user->name}!");
     }
 }
