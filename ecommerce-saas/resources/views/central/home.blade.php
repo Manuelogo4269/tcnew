@@ -5568,8 +5568,6 @@
         </a>
 
         <nav class="portal-nav-links">
-            <a href="javascript:void(0)" onclick="switchMainTab('map', true)" style="color: var(--accent); font-weight: 700;">📍 Tiendas Cercanas</a>
-            <a href="javascript:void(0)" onclick="switchMainTab('stores', true)">🏢 Empresas</a>
             <a href="javascript:void(0)" onclick="focusGlobalSearch()">🔍 Búsqueda Global</a>
             <a href="{{ url('/planes') }}" style="display: inline-flex; align-items: center; gap: 6px; color: #9333ea; font-weight: 800; background: rgba(168, 85, 247, 0.1); padding: 5px 12px; border-radius: 999px; border: 1px solid rgba(168, 85, 247, 0.25); text-decoration: none;" title="Planes de Renta de Tiendas para Empresas">💎 Planes de Suscripción</a>
         </nav>
@@ -5685,23 +5683,6 @@
             <span class="nav-item-arrow">›</span>
         </a>
 
-        <a href="javascript:void(0)" class="drawer-nav-item" onclick="closeMobileMenu(); switchMainTab('map', true);">
-            <div class="nav-item-icon" style="background: rgba(200, 109, 99, 0.15); color: #c86d63;">📍</div>
-            <div class="nav-item-text">
-                <div class="nav-item-title" data-i18n="nav_cercanas">Tiendas Cercanas</div>
-                <div class="nav-item-sub" data-i18n="nav_cercanas_sub">Zacatecas Centro Histórico &amp; Mapa</div>
-            </div>
-            <span class="nav-item-arrow">›</span>
-        </a>
-
-        <a href="javascript:void(0)" class="drawer-nav-item" onclick="closeMobileMenu(); switchMainTab('stores', true);">
-            <div class="nav-item-icon" style="background: rgba(59, 130, 246, 0.15); color: #3b82f6;">🏢</div>
-            <div class="nav-item-text">
-                <div class="nav-item-title" data-i18n="nav_empresas">Directorio de Empresas</div>
-                <div class="nav-item-sub" data-i18n="nav_empresas_sub">Directorio de comercios locales</div>
-            </div>
-            <span class="nav-item-arrow">›</span>
-        </a>
 
         <a href="javascript:void(0)" class="drawer-nav-item" onclick="closeMobileMenu(); focusGlobalSearch();">
             <div class="nav-item-icon" style="background: rgba(16, 185, 129, 0.15); color: #10b981;">🔍</div>
@@ -5801,23 +5782,6 @@
 
         <!-- QUICK INTUITIVE ACTION DECK ("¿QUÉ DESEAS HACER HOY?") -->
         <div class="hero-quick-actions">
-            <a href="javascript:void(0)" class="hero-action-card" onclick="switchMainTab('map', true)">
-                <div class="hero-action-icon" style="background: rgba(37, 99, 235, 0.12); color: #2563eb;">📍</div>
-                <div class="hero-action-text">
-                    <strong>Mapa &amp; Cercanía</strong>
-                    <p>Comercios y cafeterías a pocos minutos a pie</p>
-                </div>
-                <span class="hero-action-arrow">➔</span>
-            </a>
-
-            <a href="javascript:void(0)" class="hero-action-card" onclick="switchMainTab('stores', true)">
-                <div class="hero-action-icon" style="background: rgba(200, 109, 99, 0.12); color: #c86d63;">🏬</div>
-                <div class="hero-action-text">
-                    <strong>Directorio de Empresas</strong>
-                    <p>Marcas locales de plata, comida, café y arte</p>
-                </div>
-                <span class="hero-action-arrow">➔</span>
-            </a>
 
             <button type="button" class="hero-action-card" onclick="goToCartRoutePlanner()">
                 <div class="hero-action-icon" style="background: rgba(16, 185, 129, 0.12); color: #10b981;">🗺️</div>
@@ -6279,7 +6243,27 @@
             <div class="section-intro" style="margin-bottom: 16px;">
                 <span class="section-eyebrow">Directorio de Empresas</span>
                 <h2 class="section-title">Empresas Disponibles en la App</h2>
-                <p style="color: var(--muted); font-size: 14px; margin-top: 4px;">Filtra las empresas por su categoría comercial y descubre sus catálogos independientes:</p>
+                <p style="color: var(--muted); font-size: 14px; margin-top: 4px;">Filtra las empresas por su categoría comercial o busca directamente por nombre, calle o productos:</p>
+            </div>
+
+            <!-- BUSCADOR INTERACTIVO DEL DIRECTORIO DE EMPRESAS -->
+            <div class="directory-search-wrapper" style="margin-bottom: 20px; max-width: 620px;">
+                <div style="position: relative; display: flex; align-items: center;">
+                    <span style="position: absolute; left: 16px; font-size: 18px; pointer-events: none; opacity: 0.65;">🔍</span>
+                    <input type="text" 
+                           id="directorySearchInput" 
+                           class="directory-search-input" 
+                           placeholder="Buscar empresa por nombre, categoría, calle o productos (ej. plata, café, dulces)..." 
+                           oninput="filterDirectoryBusinesses(this.value)" 
+                           autocomplete="off"
+                           style="width: 100%; padding: 13px 44px 13px 46px; border-radius: 14px; border: 1.5px solid var(--border); background: var(--card); color: var(--foreground); font-size: 15px; font-weight: 500; outline: none; box-shadow: 0 4px 14px rgba(0,0,0,0.03); transition: all 0.2s ease;">
+                    <button type="button" 
+                            id="btnClearDirectorySearch" 
+                            onclick="clearDirectorySearch()" 
+                            style="display: none; position: absolute; right: 12px; background: rgba(150,150,150,0.2); border: none; width: 26px; height: 26px; border-radius: 50%; font-size: 12px; font-weight: bold; color: var(--foreground); cursor: pointer; align-items: center; justify-content: center; transition: background 0.15s ease;"
+                            title="Limpiar búsqueda">✕</button>
+                </div>
+                <div id="directoryResultsCount" style="margin-top: 8px; font-size: 13px; color: var(--muted); font-weight: 600; display: none;"></div>
             </div>
             <div class="category-filter-pills">
                 <a href="{{ url('/?categoria=all' . ($searchQuery ? '&q=' . urlencode($searchQuery) : '')) }}#empresas" class="filter-pill {{ $selectedCategory === 'all' ? 'active' : '' }}">
@@ -6480,6 +6464,14 @@
                     <a href="{{ url('/?categoria=all') }}#empresas" class="filter-pill active">Ver todas</a>
                 </div>
             @endforelse
+
+            <!-- EMPTY STATE PARA EL BUSCADOR DEL DIRECTORIO -->
+            <div id="directoryEmptyState" style="display: none; grid-column: 1 / -1; text-align: center; padding: 48px 24px; background: var(--card); border: 2px dashed var(--border); border-radius: 20px;">
+                <div style="font-size: 44px; margin-bottom: 12px;">🏢🔍</div>
+                <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 6px; color: var(--foreground);">No se encontraron empresas</h3>
+                <p style="color: var(--muted); font-size: 14px; max-width: 440px; margin: 0 auto 18px;">No encontramos comercios que coincidan con "<strong id="directorySearchTerm" style="color: var(--accent);"></strong>". Intenta con otro nombre, giro o producto.</p>
+                <button type="button" onclick="clearDirectorySearch()" style="background: var(--accent); color: #fff; border: none; padding: 9px 20px; border-radius: 999px; font-weight: 700; cursor: pointer; font-size: 13.5px; box-shadow: 0 4px 12px rgba(200, 109, 99, 0.3);">✦ Mostrar Todas las Empresas</button>
+            </div>
         </div>
     </section>
     </div> <!-- /#panelStores -->
@@ -7363,6 +7355,65 @@ function switchMainTab(tabName, shouldScroll = true) {
     try {
         sessionStorage.setItem('active_portal_tab', tabName);
     } catch(e) {}
+}
+
+// BUSCADOR EN TIEMPO REAL DEL DIRECTORIO DE EMPRESAS
+function filterDirectoryBusinesses(query) {
+    const q = (query || '').trim().toLowerCase();
+    const clearBtn = document.getElementById('btnClearDirectorySearch');
+    const countEl = document.getElementById('directoryResultsCount');
+    const emptyState = document.getElementById('directoryEmptyState');
+    const termSpan = document.getElementById('directorySearchTerm');
+    const grid = document.getElementById('companiesGrid');
+
+    if (clearBtn) {
+        clearBtn.style.display = q ? 'flex' : 'none';
+    }
+
+    if (!grid) return;
+    const cards = grid.querySelectorAll('.company-card');
+    let visibleCount = 0;
+
+    cards.forEach(card => {
+        const name = (card.getAttribute('data-name') || '').toLowerCase();
+        const zone = (card.getAttribute('data-zone') || '').toLowerCase();
+        const text = (card.textContent || '').toLowerCase();
+
+        const matches = !q || name.includes(q) || zone.includes(q) || text.includes(q);
+        if (matches) {
+            card.style.display = '';
+            visibleCount++;
+        } else {
+            card.style.display = 'none';
+        }
+    });
+
+    if (countEl) {
+        if (q) {
+            countEl.style.display = 'block';
+            countEl.textContent = `Mostrando ${visibleCount} de ${cards.length} empresas para "${query}"`;
+        } else {
+            countEl.style.display = 'none';
+        }
+    }
+
+    if (emptyState) {
+        if (q && visibleCount === 0) {
+            emptyState.style.display = 'block';
+            if (termSpan) termSpan.textContent = query;
+        } else {
+            emptyState.style.display = 'none';
+        }
+    }
+}
+
+function clearDirectorySearch() {
+    const input = document.getElementById('directorySearchInput');
+    if (input) {
+        input.value = '';
+        input.focus();
+    }
+    filterDirectoryBusinesses('');
 }
 
 // SOCIAL FEED: DOUBLE TAP LIKE & HEART POP ANIMATION
