@@ -85,9 +85,9 @@ class StoreCustomizationTest extends TestCase
         $response = $this->get('http://acropolis.localhost/');
         $response->assertStatus(200);
 
-        // 1. Verify Business Redirect Buttons & Links
-        $response->assertSee('Sitio Web ↗');
-        $response->assertSee('https://www.cafeacropolis.com.mx', false);
+        // 1. Verify Business Redirect Buttons & Links (Official website is omitted for customers)
+        $response->assertDontSee('Sitio Web ↗');
+        $response->assertDontSee('https://www.cafeacropolis.com.mx', false);
         $response->assertSee('Red de Tiendas ▾');
         $response->assertSee('Directorio de Negocios');
         $response->assertSee('/tienda/donajulia', false);

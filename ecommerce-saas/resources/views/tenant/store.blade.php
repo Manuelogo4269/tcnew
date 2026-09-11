@@ -3,7 +3,6 @@
     $primaryColor = $settings?->primary_color ?? '#d96b45';
     $secondaryColor = $settings?->secondary_color ?? '#f4efe7';
     $fontFamily = $settings?->font_family ?? 'DM Sans';
-    $officialUrl = $settings?->official_website_url;
 
     
     // Determine Central Portal Home URL
@@ -3389,12 +3388,6 @@
 
         <!-- Header Actions -->
         <div class="nav-actions">
-            <!-- External Website Link -->
-            @if(!empty($officialUrl))
-                <a href="{{ $officialUrl }}" target="_blank" class="btn-official-website" title="Visitar Sitio Web de {{ $storeTitle }}">
-                    <span>🌐</span> <span class="btn-official-text">Sitio Web ↗</span>
-                </a>
-            @endif
 
             <!-- Shopping Cart Header Button -->
             <button type="button" class="btn-cart-header" id="btnCartHeader" onclick="toggleCartDrawer()" aria-label="Ver Carrito de Compras" title="Ver Carrito de Compras">
@@ -3580,11 +3573,6 @@
                 <span>📷</span> Instagram
             </a>
         @endif
-        @if(!empty($officialUrl))
-            <a href="{{ $officialUrl }}" target="_blank" class="drawer-social-btn drawer-social-web">
-                <span>🌐</span> Sitio Web
-            </a>
-        @endif
     </div>
 
     <!-- Drawer Footer Actions -->
@@ -3617,11 +3605,6 @@
                     <p>{{ $settings?->hero_subtitle ?? 'Explora nuestra cuidada selección de piezas y productos de alta gama con garantía de satisfacción y control de inventario.' }}</p>
                     <div class="hero-cta-group">
                         <a href="#catalogo" class="btn-brand-primary">{{ $settings?->hero_button_text ?? 'Explorar Catálogo' }} <span>↓</span></a>
-                        @if(!empty($officialUrl))
-                            <a href="{{ $officialUrl }}" target="_blank" class="btn-official-hero">
-                                <span>🌐</span> Visitar Sitio Web ↗
-                            </a>
-                        @endif
                         <a href="#destacados" class="btn-brand-outline">Ver Tendencias <span>→</span></a>
                     </div>
                 </div>
@@ -3902,11 +3885,6 @@
                 <span class="section-eyebrow">Ecosistema Multi-Tienda</span>
                 <h2 class="section-title">Directorio de Negocios</h2>
             </div>
-            @if(!empty($officialUrl))
-                <a href="{{ $officialUrl }}" target="_blank" class="btn-brand-primary">
-                    <span>🌐</span> Sitio Web de {{ $storeTitle }} ↗
-                </a>
-            @endif
         </div>
         <p style="color: var(--muted); font-size: 14px; max-width: 700px;">
             Navega entre los diferentes comercios y tiendas registradas en nuestra plataforma. Cada negocio cuenta con catálogo independiente, atención directa y productos locales.
@@ -4046,11 +4024,6 @@
                         <span>📸</span> Instagram ↗
                     </a>
                 @endif
-                @if(!empty($officialUrl))
-                    <a href="{{ $officialUrl }}" target="_blank" class="btn-brand-outline" style="border-color: var(--accent); color: var(--accent);">
-                        <span>🌐</span> Sitio Web ↗
-                    </a>
-                @endif
             </div>
         </div>
     </section>
@@ -4067,11 +4040,6 @@
                     <strong style="font-size: 16px;">{{ $storeTitle }}</strong>
                 </div>
                 <p style="margin-bottom: 16px;">{{ !empty($settings?->tagline) ? $settings->tagline : 'Comercio independiente multi-tenant con diseño y seguridad de estándar internacional.' }}</p>
-                @if(!empty($officialUrl))
-                    <a href="{{ $officialUrl }}" target="_blank" class="btn-official-website" style="display:inline-flex;">
-                        <span>🌐</span> Visitar Página Web ↗
-                    </a>
-                @endif
             </div>
             <div class="footer-col">
                 <h4>Navegación</h4>
@@ -4113,9 +4081,6 @@
                     @if(!empty($settings?->whatsapp_number))
                         @php $footerWa = preg_replace('/[^0-9]/', '', $settings->whatsapp_number); @endphp
                         <a href="https://wa.me/{{ $footerWa }}?text={{ urlencode('¡Hola! Me comunico desde la tienda ' . $storeTitle) }}" target="_blank" class="social-circle-btn" style="color: #25d366;" title="WhatsApp">WA</a>
-                    @endif
-                    @if(!empty($officialUrl))
-                        <a href="{{ $officialUrl }}" target="_blank" class="social-circle-btn" style="color: var(--accent);" title="Sitio Web">🌐</a>
                     @endif
                     <a href="javascript:void(0)" onclick="copyCurrentStoreLink()" class="social-circle-btn" title="Compartir Tienda">🔗</a>
                 </div>
@@ -4252,11 +4217,6 @@
                         <button class="btn-modal-action" onclick="copyProductDirectLink()">
                             <span>🔗</span> Copiar Enlace Directo
                         </button>
-                        @if(!empty($officialUrl))
-                            <a href="{{ $officialUrl }}" target="_blank" class="btn-modal-action">
-                                <span>🌐</span> Sitio Web del Negocio ↗
-                            </a>
-                        @endif
                     </div>
                 </div>
             </div>
@@ -4575,7 +4535,6 @@
 // Catalog products database for rich details & related products
 const ALL_PRODUCTS = @json($products);
 const STORE_TITLE = @json($storeTitle);
-const STORE_OFFICIAL_URL = @json($officialUrl);
 const WA_PHONE = @json(!empty($settings?->whatsapp_number) ? preg_replace('/[^0-9]/', '', $settings->whatsapp_number) : '');
 const STORE_ADDRESS = @json($storeAddress);
 const STORE_ZONE = @json($storeZone);
