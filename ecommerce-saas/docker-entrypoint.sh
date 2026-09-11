@@ -5,6 +5,10 @@ PORT="${PORT:-80}"
 sed -i "s/Listen 80/Listen ${PORT}/g" /etc/apache2/ports.conf 2>/dev/null || true
 sed -i "s/<VirtualHost \*:80>/<VirtualHost \*:${PORT}>/g" /etc/apache2/sites-available/000-default.conf 2>/dev/null || true
 
+# Disable Apache default /icons/ alias so /icons/ requests reach Laravel public/icons
+sed -ri 's!^(\s*Alias\s+/icons/)!# \1!g' /etc/apache2/mods-available/alias.conf /etc/apache2/mods-enabled/alias.conf 2>/dev/null || true
+a2disconf alias 2>/dev/null || true
+
 export DB_CONNECTION="${DB_CONNECTION:-central}"
 export CENTRAL_DB_CONNECTION="${CENTRAL_DB_CONNECTION:-central}"
 export CENTRAL_DB_DATABASE="${CENTRAL_DB_DATABASE:-database/central.sqlite}"

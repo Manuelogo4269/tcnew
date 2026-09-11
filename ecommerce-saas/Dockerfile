@@ -55,6 +55,11 @@ ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 
+# Disable Apache default /icons/ alias so /icons/ requests reach Laravel public/icons
+RUN a2disconf alias 2>/dev/null || true && \
+    sed -ri 's!^(\s*Alias\s+/icons/)!# \1!g' /etc/apache2/mods-available/alias.conf /etc/apache2/mods-enabled/alias.conf 2>/dev/null || true
+
+
 RUN mkdir -p /var/www/html/storage/app/public/products \
     /var/www/html/storage/app/private/livewire-tmp \
     /var/www/html/storage/app/livewire-tmp \
