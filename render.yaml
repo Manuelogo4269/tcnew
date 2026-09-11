@@ -15,12 +15,12 @@ services:
         value: false
       - key: APP_KEY
         generateValue: true
+      - key: DATABASE_URL
+        value: postgresql://atelier_db_55go_user:ihntg9j5zelCTy2VF6ltL61GZ9qN8VxW@dpg-dai4776k1f9s73bu75fg-a/atelier_db_55go
       - key: DB_CONNECTION
         value: central
       - key: CENTRAL_DB_CONNECTION
         value: central
-      - key: CENTRAL_DB_DATABASE
-        value: database/central.sqlite
       - key: SESSION_CONNECTION
         value: central
       - key: DB_CACHE_CONNECTION

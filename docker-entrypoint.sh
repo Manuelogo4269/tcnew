@@ -9,12 +9,25 @@ sed -i "s/<VirtualHost \*:80>/<VirtualHost \*:${PORT}>/g" /etc/apache2/sites-ava
 sed -ri 's!^(\s*Alias\s+/icons/)!# \1!g' /etc/apache2/mods-available/alias.conf /etc/apache2/mods-enabled/alias.conf 2>/dev/null || true
 a2disconf alias 2>/dev/null || true
 
-export DB_CONNECTION="${DB_CONNECTION:-central}"
-export CENTRAL_DB_CONNECTION="${CENTRAL_DB_CONNECTION:-central}"
-export CENTRAL_DB_DATABASE="${CENTRAL_DB_DATABASE:-database/central.sqlite}"
-export SESSION_CONNECTION="${SESSION_CONNECTION:-central}"
-export DB_CACHE_CONNECTION="${DB_CACHE_CONNECTION:-central}"
-export DB_QUEUE_CONNECTION="${DB_QUEUE_CONNECTION:-central}"
+export DATABASE_URL="${DATABASE_URL:-postgresql://atelier_db_55go_user:ihntg9j5zelCTy2VF6ltL61GZ9qN8VxW@dpg-dai4776k1f9s73bu75fg-a/atelier_db_55go}"
+
+if [ -n "$DATABASE_URL" ]; then
+    export DB_CONNECTION="central"
+    export CENTRAL_DB_CONNECTION="central"
+    export SESSION_CONNECTION="central"
+    export DB_CACHE_CONNECTION="central"
+    export DB_QUEUE_CONNECTION="central"
+else
+    export DB_CONNECTION="${DB_CONNECTION:-central}"
+    export CENTRAL_DB_CONNECTION="${CENTRAL_DB_CONNECTION:-central}"
+    export CENTRAL_DB_DATABASE="${CENTRAL_DB_DATABASE:-database/central.sqlite}"
+    export SESSION_CONNECTION="${SESSION_CONNECTION:-central}"
+    export DB_CACHE_CONNECTION="${DB_CACHE_CONNECTION:-central}"
+    export DB_QUEUE_CONNECTION="${DB_QUEUE_CONNECTION:-central}"
+    mkdir -p /var/www/html/database
+    touch /var/www/html/database/central.sqlite
+    touch /var/www/html/database/database.sqlite
+fi
 
 mkdir -p /var/www/html/database
 mkdir -p /var/www/html/storage/app/public/products
@@ -25,8 +38,6 @@ mkdir -p /var/www/html/storage/framework/cache/data
 mkdir -p /var/www/html/storage/framework/sessions
 mkdir -p /var/www/html/storage/framework/views
 mkdir -p /var/www/html/storage/logs
-touch /var/www/html/database/central.sqlite
-touch /var/www/html/database/database.sqlite
 
 if [ -z "$APP_KEY" ]; then
     php artisan key:generate --force

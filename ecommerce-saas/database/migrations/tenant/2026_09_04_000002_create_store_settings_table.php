@@ -10,9 +10,9 @@ return new class extends Migration
     {
         Schema::create('store_settings', function (Blueprint $table) {
             $table->id();
-            $table->string('logo_url')->nullable();
+            $table->text('logo_url')->nullable();
             $table->string('primary_color')->nullable();
-            $table->string('banner_url')->nullable();
+            $table->text('banner_url')->nullable();
             $table->string('store_name');
             $table->string('contact_email')->nullable();
             $table->timestamps();

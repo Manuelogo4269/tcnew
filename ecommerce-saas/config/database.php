@@ -32,7 +32,15 @@ return [
 
     'connections' => [
 
-        'central' => [
+        'central' => env('DATABASE_URL') ? [
+            'driver' => 'pgsql',
+            'url' => env('DATABASE_URL'),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'search_path' => 'public',
+            'sslmode' => env('DB_SSLMODE', 'prefer'),
+        ] : [
             'driver' => 'sqlite',
             'url' => env('CENTRAL_DB_URL'),
             'database' => env('CENTRAL_DB_DATABASE', database_path('central.sqlite')),
@@ -98,7 +106,7 @@ return [
 
         'pgsql' => [
             'driver' => 'pgsql',
-            'url' => env('DB_URL'),
+            'url' => env('DATABASE_URL', env('DB_URL')),
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '5432'),
             'database' => env('DB_DATABASE', 'laravel'),
