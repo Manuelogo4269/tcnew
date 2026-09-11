@@ -18,8 +18,9 @@ class TenantAdminAccessTest extends TestCase
     {
         $response = $this->get('/tienda/conceptos7/admin');
         $response->assertStatus(302);
-        $response->assertRedirect('/tenant-admin');
+        $response->assertRedirect('/tenant-admin?tenant=conceptos7');
         $response->assertSessionHas('tenant_admin_tenant_id', 'conceptos7');
+        $this->assertTrue(auth()->guard('tenant')->check());
     }
 
     public function test_tenant_admin_panel_accessible_with_session(): void

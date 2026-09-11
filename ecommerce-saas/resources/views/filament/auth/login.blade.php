@@ -27,6 +27,17 @@
 
             {{ \Filament\Support\Facades\FilamentView::renderHook(\Filament\View\PanelsRenderHook::AUTH_LOGIN_FORM_BEFORE, scopes: $this->getRenderHookScopes()) }}
 
+            @if($isTenant)
+                <div style="background: rgba(183, 138, 56, 0.08); border: 1px solid rgba(183, 138, 56, 0.28); border-radius: 12px; padding: 12px 16px; margin-bottom: 20px; font-size: 13px; color: #78521a;">
+                    <div style="font-weight: 700; margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
+                        <span>✨</span> Acceso Administrador Boutique D &amp; R CONCEPTOS
+                    </div>
+                    <div style="font-size: 12px; opacity: 0.9;">
+                        Correo: <strong style="font-family: monospace; background: rgba(0,0,0,0.05); padding: 1px 4px; border-radius: 4px;">admin@conceptos7.com</strong> · Contraseña: <strong style="font-family: monospace; background: rgba(0,0,0,0.05); padding: 1px 4px; border-radius: 4px;">password123</strong>
+                    </div>
+                </div>
+            @endif
+
             <x-filament-panels::form id="form" wire:submit="authenticate">
                 {{ $this->form }}
                 <x-filament-panels::form.actions

@@ -14,6 +14,34 @@ class Login extends BaseLogin
 {
     protected static string $view = 'filament.auth.login';
 
+    public function mount(): void
+    {
+        parent::mount();
+
+        if (Filament::getCurrentPanel()?->getId() === 'tenant') {
+            $tenantId = session('tenant_admin_tenant_id') 
+                ?: request()->query('tenant') 
+                ?: request()->cookie('tenant_admin_tenant_id');
+
+            $tenant = null;
+            if ($tenantId) {
+                $tenant = Tenant::find($tenantId) ?? Tenant::whereRaw('LOWER(id) = ?', [strtolower($tenantId)])->first();
+            }
+            if (!$tenant) {
+                $tenant = Tenant::where('id', 'not like', 'test%')->first();
+            }
+
+            if ($tenant) {
+                $adminEmail = $tenant->run(fn () => \App\Models\TenantUser::value('email')) ?? "admin@{$tenant->id}.com";
+                $this->form->fill([
+                    'email' => $adminEmail,
+                    'password' => 'password123',
+                    'remember' => true,
+                ]);
+            }
+        }
+    }
+
     public function authenticate(): ?LoginResponse
     {
         try {

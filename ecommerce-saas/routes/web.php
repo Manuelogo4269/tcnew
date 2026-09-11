@@ -96,9 +96,16 @@ foreach ($centralDomains as $domain) {
                 abort(404, 'Tienda no encontrada.');
             }
 
+            tenancy()->initialize($tenant);
             session(['tenant_admin_tenant_id' => $tenant->id]);
+            cookie()->queue(cookie('tenant_admin_tenant_id', $tenant->id, 60 * 24 * 30));
 
-            return redirect('/tenant-admin');
+            $adminUser = \App\Models\TenantUser::whereNull('customer_account_id')->first();
+            if ($adminUser) {
+                auth()->guard('tenant')->login($adminUser, true);
+            }
+
+            return redirect("/tenant-admin?tenant={$tenant->id}");
         })->name('central.tenant.admin');
 
         Route::post('/api/tienda/{tenant}/checkout', [\App\Http\Controllers\CheckoutController::class, 'processCheckout'])->name('central.tenant.checkout');
@@ -178,9 +185,16 @@ Route::get('/tienda/{tenant}/admin', function (string $tenantId) {
         abort(404, 'Tienda no encontrada.');
     }
 
+    tenancy()->initialize($tenant);
     session(['tenant_admin_tenant_id' => $tenant->id]);
+    cookie()->queue(cookie('tenant_admin_tenant_id', $tenant->id, 60 * 24 * 30));
 
-    return redirect('/tenant-admin');
+    $adminUser = \App\Models\TenantUser::whereNull('customer_account_id')->first();
+    if ($adminUser) {
+        auth()->guard('tenant')->login($adminUser, true);
+    }
+
+    return redirect("/tenant-admin?tenant={$tenant->id}");
 });
 
 Route::get('/tienda/{tenant}', function (string $tenantId) {

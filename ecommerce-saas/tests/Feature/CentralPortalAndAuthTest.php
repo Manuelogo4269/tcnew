@@ -8,6 +8,12 @@ use Tests\TestCase;
 
 class CentralPortalAndAuthTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+        \Illuminate\Support\Facades\Cache::flush();
+    }
+
     public function test_central_portal_displays_categorized_enterprises(): void
     {
         $response = $this->get('http://localhost/');
