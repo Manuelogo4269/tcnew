@@ -194,7 +194,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                                 'description' => 'Pulsera ajustable para cualquier muñeca con eslabones pulidos de alto brillo.',
                                 'price' => 450.00,
                                 'stock' => 40,
-                                'image_url' => 'https://images.unsplash.com/photo-1611591475871-70bf89366113?auto=format&fit=crop&w=700&q=80',
+                                'image_url' => 'https://images.unsplash.com/photo-1573408301185-9146fe634ad0?auto=format&fit=crop&w=700&q=80',
                             ],
                             [
                                 'name' => 'Anillo Ajustable Twist en Plata Fina y Oro',

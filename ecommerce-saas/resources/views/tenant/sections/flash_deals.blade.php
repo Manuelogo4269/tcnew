@@ -49,7 +49,7 @@
                     <div class="flash-deal-card" onclick="openProductById({{ $dealItem->id }})">
                         <div class="flash-deal-thumb">
                             <span class="flash-deal-discount">{{ $bBadge }}</span>
-                            <img src="{{ !empty($dealItem->image_url) ? $dealItem->image_url : 'https://placehold.co/400x400?text=' . urlencode($dealItem->name) }}" alt="{{ $dealItem->name }}" loading="lazy">
+                            <img src="{{ !empty($dealItem->image_url) ? $dealItem->image_url : 'https://placehold.co/400x400?text=' . urlencode($dealItem->name) }}" alt="{{ $dealItem->name }}" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/400x400?text=' + encodeURIComponent('{{ $dealItem->name }}');">
                         </div>
                         <div class="flash-deal-body">
                             <small class="flash-deal-cat">{{ $dealItem->category?->name ?? 'Zacatecas Centro' }}</small>

@@ -187,6 +187,80 @@
             color: #ffffff;
             border-color: var(--accent);
         }
+        [data-theme="dark"] .category-card-slide.active-cat {
+            background: linear-gradient(135deg, var(--accent) 0%, #b85438 100%);
+            color: #ffffff;
+            border-color: var(--accent);
+            box-shadow: 0 8px 24px rgba(217, 107, 69, 0.4);
+        }
+        [data-theme="dark"] .category-card-slide.active-cat small {
+            color: rgba(255, 255, 255, 0.9);
+        }
+        [data-theme="dark"] .category-card-slide.active-cat .category-icon-box {
+            background: rgba(255, 255, 255, 0.22);
+            color: #ffffff;
+        }
+        [data-theme="dark"] .btn-flash-add-cart {
+            background: var(--accent);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 4px 14px rgba(217, 107, 69, 0.35);
+        }
+        [data-theme="dark"] .btn-flash-add-cart:hover {
+            background: #e05e3b;
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(217, 107, 69, 0.5);
+        }
+        [data-theme="dark"] .flash-deal-thumb {
+            background: #10131a;
+        }
+        [data-theme="dark"] .carousel-btn {
+            background: #181c24;
+            border-color: rgba(255, 255, 255, 0.14);
+            color: #f3f4f6;
+        }
+        [data-theme="dark"] .carousel-btn:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #ffffff;
+            transform: scale(1.08);
+        }
+        [data-theme="dark"] .btn-quick-view {
+            background: rgba(217, 107, 69, 0.18);
+            color: #ff9e80;
+            border: 1px solid rgba(217, 107, 69, 0.3);
+        }
+        [data-theme="dark"] .btn-quick-view:hover {
+            background: var(--accent);
+            color: #ffffff;
+            border-color: var(--accent);
+        }
+        [data-theme="dark"] .btn-card-add-cart {
+            background: rgba(217, 107, 69, 0.22);
+            color: #ff9e80;
+            border: 1px solid rgba(217, 107, 69, 0.35);
+        }
+        [data-theme="dark"] .btn-card-add-cart:hover {
+            background: var(--accent);
+            color: #ffffff;
+            border-color: var(--accent);
+        }
+        [data-theme="dark"] .announcement-bar {
+            background: #0d0f14;
+            color: #f3f4f6;
+            border-bottom-color: rgba(255, 255, 255, 0.08);
+        }
+        [data-theme="dark"] .admin-direct-link {
+            background: #1e232e;
+            color: #f3f4f6;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+        [data-theme="dark"] .toast-notify {
+            background: #1e232e;
+            color: #f3f4f6;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
         [data-theme="dark"] .network-store-card {
             background: #15181f;
             border-color: rgba(255, 255, 255, 0.08);
@@ -1207,6 +1281,10 @@
             color: #ffffff;
         }
         .category-card-slide.active-cat small { color: rgba(255,255,255,.7); }
+        .category-card-slide.active-cat .category-icon-box {
+            background: rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+        }
         .category-icon-box {
             width: 60px;
             height: 60px;
@@ -1981,7 +2059,7 @@
             display: grid;
             place-items: center;
             box-shadow: 0 12px 28px rgba(37, 211, 102, 0.45);
-            z-index: 999;
+            z-index: 9996;
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             animation: pulse-wa 2.5s infinite;
         }
@@ -2787,8 +2865,8 @@
             .btn-modal-action { width: 100%; justify-content: center; }
             .modal-related-grid { grid-template-columns: 1fr; }
 
-            .whatsapp-float { width: 50px; height: 50px; bottom: 18px; right: 18px; }
-            .whatsapp-float svg { width: 26px; height: 26px; }
+            .whatsapp-float { width: 52px; height: 52px; bottom: 82px; right: 16px; z-index: 9996; }
+            .whatsapp-float svg { width: 28px; height: 28px; }
 
             .footer-grid { grid-template-columns: 1fr; gap: 24px; }
             .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
@@ -3542,15 +3620,21 @@
             transition: transform .18s ease, box-shadow .18s ease;
         }
         .pwa-fab-home {
-            background: rgba(32, 33, 30, 0.92);
+            background: rgba(28, 30, 36, 0.92);
             color: #ffffff;
-            border: 1.5px solid rgba(255,255,255,0.22);
+            border: 1.5px solid rgba(255, 255, 255, 0.2);
             flex: 1;
         }
         [data-theme="dark"] .pwa-fab-home {
-            background: rgba(255, 255, 255, 0.94);
-            color: #121212;
-            border-color: rgba(255,255,255,0.4);
+            background: rgba(24, 27, 34, 0.95);
+            color: #f1f5f9;
+            border: 1.5px solid rgba(255, 255, 255, 0.16);
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
+        }
+        [data-theme="dark"] .pwa-fab-home:hover {
+            background: rgba(36, 40, 50, 0.98);
+            border-color: var(--accent);
+            color: #ffffff;
         }
         .pwa-fab-cart {
             background: var(--accent);
@@ -3564,9 +3648,9 @@
         }
         @media (min-width: 900px) {
             .pwa-floating-bottom-bar {
-                left: auto;
-                right: 24px;
-                bottom: 24px;
+                left: 28px;
+                right: auto;
+                bottom: 28px;
             }
             .pwa-fab-home {
                 flex: initial;
