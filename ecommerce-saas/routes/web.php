@@ -43,6 +43,29 @@ foreach ($centralDomains as $domain) {
         Route::get('/api/reviews', [CentralPortalController::class, 'getReviews'])->name('central.api.reviews.index');
         Route::post('/api/reviews', [CentralPortalController::class, 'storeReview'])->name('central.api.reviews.store');
         Route::get('/api/walking-route', [CentralPortalController::class, 'getWalkingRoute'])->name('central.api.walking_route');
+        Route::get('/api/system-diag', function () {
+            $logFile = storage_path('logs/laravel.log');
+            $logContent = file_exists($logFile) ? file_get_contents($logFile) : 'No log file found.';
+            $lastLog = substr($logContent, -25000);
+
+            $writeTestPublic = false;
+            $writeTestError = null;
+            try {
+                \Illuminate\Support\Facades\Storage::disk('public')->put('products/test_diag.txt', 'test');
+                $writeTestPublic = \Illuminate\Support\Facades\Storage::disk('public')->exists('products/test_diag.txt');
+            } catch (\Throwable $e) {
+                $writeTestError = $e->getMessage();
+            }
+
+            return response()->json([
+                'php_upload_max_filesize' => ini_get('upload_max_filesize'),
+                'php_post_max_size' => ini_get('post_max_size'),
+                'php_memory_limit' => ini_get('memory_limit'),
+                'write_test_public' => $writeTestPublic,
+                'write_test_error' => $writeTestError,
+                'last_log' => $lastLog,
+            ]);
+        });
 
         // Direct Mobile / LAN Storefront Route (No custom DNS required on mobile devices)
         Route::get('/tienda/{tenant}', function (string $tenantId) {
