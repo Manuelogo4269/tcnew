@@ -50,8 +50,11 @@ class InitializeTenancyForTenantAdmin
             }
         }
 
-        // 2. Identify by Query Parameter (?tenant=acropolis) or Session on Central Domain
-        $tenantParam = $request->query('tenant') ?: session('tenant_admin_tenant_id');
+        // 2. Identify by Query Parameter (?tenant=acropolis), Session, or Cookie on Central Domain
+        $tenantParam = $request->query('tenant') 
+            ?: session('tenant_admin_tenant_id') 
+            ?: $request->cookie('tenant_admin_tenant_id');
+
         if ($tenantParam) {
             $tenant = Tenant::where('id', $tenantParam)
                 ->orWhereRaw('LOWER(id) = ?', [strtolower($tenantParam)])
@@ -60,11 +63,24 @@ class InitializeTenancyForTenantAdmin
             if ($tenant) {
                 tenancy()->initialize($tenant);
                 session(['tenant_admin_tenant_id' => $tenant->id]);
+                cookie()->queue(cookie('tenant_admin_tenant_id', $tenant->id, 60 * 24 * 30));
                 return $next($request);
             }
         }
 
-        // 3. Fallback: If logged into Central Super Admin, redirect to Tenants list
+        // 3. Fallback: If no tenant specified, default to first active tenant so admin login can render
+        $defaultTenant = Tenant::where('id', 'acropolis')->first() 
+            ?? Tenant::where('id', 'not like', 'test%')->first() 
+            ?? Tenant::first();
+
+        if ($defaultTenant) {
+            tenancy()->initialize($defaultTenant);
+            session(['tenant_admin_tenant_id' => $defaultTenant->id]);
+            cookie()->queue(cookie('tenant_admin_tenant_id', $defaultTenant->id, 60 * 24 * 30));
+            return $next($request);
+        }
+
+        // 4. Fallback: If logged into Central Super Admin, redirect to Tenants list
         if (auth()->guard('web')->check()) {
             return redirect('/admin/tenants');
         }
@@ -73,3 +89,4 @@ class InitializeTenancyForTenantAdmin
         return redirect('/');
     }
 }
+

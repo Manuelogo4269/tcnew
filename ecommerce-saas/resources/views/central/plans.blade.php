@@ -672,6 +672,9 @@
                 <a href="{{ url('/admin') }}" target="_blank" class="btn-superadmin-header" style="display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: 999px; background: rgba(99, 102, 241, 0.12); color: #6366f1; border: 1px solid rgba(99, 102, 241, 0.25); text-decoration: none; font-size: 13px; font-weight: 700; transition: all .2s ease;">
                     <span>⚙️</span> <span>Super Admin</span>
                 </a>
+                <a href="{{ url('/tenant-admin') }}" target="_blank" class="btn-tenantadmin-header" style="display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: 999px; background: rgba(244, 63, 94, 0.12); color: #f43f5e; border: 1px solid rgba(244, 63, 94, 0.25); text-decoration: none; font-size: 13px; font-weight: 700; transition: all .2s ease;">
+                    <span>🏬</span> <span>Panel Tienda</span>
+                </a>
                 <button type="button" class="btn-theme-toggle" onclick="toggleTheme()" aria-label="Cambiar tema">
                     <span class="theme-icon-light">🌙</span>
                     <span class="theme-icon-dark" style="display: none;">☀️</span>
@@ -945,6 +948,8 @@
             <a href="{{ url('/') }}" style="color: var(--accent);">← Volver al Directorio de Zacatecas</a>
             <span style="color: var(--line);">|</span>
             <a href="{{ url('/admin') }}" target="_blank" style="color: var(--ink);">⚙️ Panel Super Admin</a>
+            <span style="color: var(--line);">|</span>
+            <a href="{{ url('/tenant-admin') }}" target="_blank" style="color: #f43f5e;">🏬 Panel de tu Tienda</a>
             <span style="color: var(--line);">|</span>
             <a href="{{ url('/admin/tenants') }}" target="_blank" style="color: var(--ink);">🏢 Gestión de Empresas</a>
         </div>

@@ -3544,13 +3544,14 @@
             <span class="nav-item-arrow">›</span>
         </a>
 
-        <a href="{{ url('/tenant-admin') }}" class="drawer-nav-item" onclick="closeStoreMenu()">
+        <a href="{{ url('/tienda/' . ($tenantId ?? 'acropolis') . '/admin') }}" class="drawer-nav-item" onclick="closeStoreMenu()">
             <div class="nav-item-icon" style="background: rgba(30, 41, 59, 0.15); color: var(--ink);">⚙️</div>
             <div class="nav-item-text">
                 <div class="nav-item-title">Panel Administrativo</div>
                 <div class="nav-item-sub">Gestión de productos y pedidos</div>
             </div>
             <span class="nav-item-arrow">›</span>
+        </a>
     </nav>
 
     <!-- Mobile Drawer Cart Action Button -->
@@ -3888,7 +3889,7 @@
                 <div style="grid-column: 1 / -1; text-align:center; padding: 60px 20px; background:var(--card); border-radius:18px; border:1px dashed var(--line);">
                     <h3>No hay productos registrados</h3>
                     <p style="color:var(--muted); margin: 10px 0 20px;">Crea productos desde el panel administrativo de la tienda.</p>
-                    <a href="{{ url('/tenant-admin/products/create') }}" class="btn-brand-primary">Añadir Primer Producto</a>
+                    <a href="{{ url('/tienda/' . ($tenantId ?? 'acropolis') . '/admin') }}" class="btn-brand-primary">Añadir Primer Producto</a>
                 </div>
             @endforelse
         </div>
@@ -4087,7 +4088,7 @@
                 <ul class="footer-links">
                     <li><a href="#opiniones">Garantía y Envíos</a></li>
                     <li><a href="#contacto">Contacto Directo</a></li>
-                    <li><a href="{{ url('/tenant-admin') }}">Panel de la Tienda</a></li>
+                    <li><a href="{{ url('/tienda/' . ($tenantId ?? 'acropolis') . '/admin') }}">Panel de la Tienda</a></li>
                 </ul>
             </div>
             <div class="footer-col">

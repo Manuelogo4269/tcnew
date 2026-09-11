@@ -5709,6 +5709,9 @@
                 <div class="nav-item-title" data-i18n="nav_buscar">Búsqueda Global de Productos</div>
                 <div class="nav-item-sub" data-i18n="nav_buscar_sub">Catálogo completo de todas las tiendas</div>
             </div>
+            <span class="nav-item-arrow">›</span>
+        </a>
+
         <a href="{{ url('/planes') }}" class="drawer-nav-item" onclick="closeMobileMenu();">
             <div class="nav-item-icon" style="background: rgba(168, 85, 247, 0.15); color: #9333ea;">💎</div>
             <div class="nav-item-text">
@@ -5825,7 +5828,7 @@
                 <span class="hero-action-arrow">➔</span>
             </button>
 
-            <a href="#mas-visitados" class="hero-action-card" onclick="switchMainTab('feed')">
+            <a href="javascript:void(0)" class="hero-action-card" onclick="switchMainTab('feed', true)">
                 <div class="hero-action-icon" style="background: rgba(245, 158, 11, 0.12); color: #f59e0b;">⭐</div>
                 <div class="hero-action-text">
                     <strong>Reseñas y Opiniones</strong>
@@ -8019,8 +8022,7 @@ window.addEventListener('scroll', () => {
     const sections = [
         { id: 'buscar', link: jumpBar.querySelector('a[href="#buscar"]') },
         { id: 'cercanas', link: jumpBar.querySelector('a[href="#cercanas"]') },
-        { id: 'empresas', link: jumpBar.querySelector('a[href="#empresas"]') },
-        { id: 'planes', link: jumpBar.querySelector('a[href="#planes"]') }
+        { id: 'empresas', link: jumpBar.querySelector('a[href="#empresas"]') }
     ];
 
     const scrollY = window.scrollY + 140;

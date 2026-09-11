@@ -266,6 +266,12 @@
             <span class="theme-icon-dark" style="display: none;">☀️</span>
         </button>
 
+        <div style="margin-top: 18px; padding-top: 14px; border-top: 1px solid rgba(0,0,0,0.06); font-size: 12.5px; color: #6b6a64; display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
+            <span>¿Eres administrador?</span>
+            <a href="{{ url('/admin') }}" target="_blank" style="color: #6366f1; font-weight: 700; text-decoration: underline;">⚙️ Super Admin</a>
+            <a href="{{ url('/tenant-admin') }}" target="_blank" style="color: #f43f5e; font-weight: 700; text-decoration: underline;">🏬 Panel de Tienda</a>
+        </div>
+
         <a href="{{ url('/') }}" class="back-link">← Volver al Portal Principal</a>
     </div>
 

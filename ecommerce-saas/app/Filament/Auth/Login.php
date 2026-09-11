@@ -54,6 +54,80 @@ class Login extends BaseLogin
             $authenticated = Filament::auth()->attempt($altCredentials, $remember);
         }
 
+        // 3. Multi-Tenant Auto-Discovery: If not authenticated in current tenant DB, discover correct tenant
+        if (! $authenticated && Filament::getCurrentPanel()?->getId() === 'tenant' && !empty($credentials['email'])) {
+            $inputEmail = strtolower(trim($credentials['email']));
+            
+            // A. Check by email domain (e.g. admin@donajulia.com -> donajulia)
+            $candidateTenantId = null;
+            if (str_contains($inputEmail, '@')) {
+                $domainPart = explode('@', $inputEmail)[1];
+                $candidateTenantId = explode('.', $domainPart)[0];
+            }
+            
+            $candidateTenant = null;
+            if ($candidateTenantId) {
+                $candidateTenant = Tenant::where('id', $candidateTenantId)
+                    ->orWhereRaw('LOWER(id) = ?', [strtolower($candidateTenantId)])
+                    ->first();
+            }
+
+            // If candidate tenant found, switch tenancy and attempt authentication
+            if ($candidateTenant) {
+                if (function_exists('tenancy') && tenancy()->initialized) {
+                    tenancy()->end();
+                }
+                tenancy()->initialize($candidateTenant);
+                session(['tenant_admin_tenant_id' => $candidateTenant->id]);
+                cookie()->queue(cookie('tenant_admin_tenant_id', $candidateTenant->id, 60 * 24 * 30));
+
+                $authenticated = Filament::auth()->attempt($credentials, $remember);
+                if (! $authenticated && isset($credentials['password']) && in_array($credentials['password'], ['password', 'password123'])) {
+                    $altPassword = $credentials['password'] === 'password' ? 'password123' : 'password';
+                    $altCredentials = array_merge($credentials, ['password' => $altPassword]);
+                    $authenticated = Filament::auth()->attempt($altCredentials, $remember);
+                }
+            }
+
+            // B. If still not authenticated, search across all real tenants
+            if (! $authenticated) {
+                $allTenants = Tenant::where('id', 'not like', 'test%')->get();
+                foreach ($allTenants as $t) {
+                    if ($candidateTenant && $t->id === $candidateTenant->id) {
+                        continue;
+                    }
+                    $userExists = $t->run(function () use ($inputEmail) {
+                        return \App\Models\TenantUser::whereRaw('LOWER(email) = ?', [$inputEmail])->exists();
+                    });
+
+                    if ($userExists) {
+                        if (function_exists('tenancy') && tenancy()->initialized) {
+                            tenancy()->end();
+                        }
+                        tenancy()->initialize($t);
+                        session(['tenant_admin_tenant_id' => $t->id]);
+                        cookie()->queue(cookie('tenant_admin_tenant_id', $t->id, 60 * 24 * 30));
+
+                        $authenticated = Filament::auth()->attempt($credentials, $remember);
+                        if (! $authenticated && isset($credentials['password']) && in_array($credentials['password'], ['password', 'password123'])) {
+                            $altPassword = $credentials['password'] === 'password' ? 'password123' : 'password';
+                            $altCredentials = array_merge($credentials, ['password' => $altPassword]);
+                            $authenticated = Filament::auth()->attempt($altCredentials, $remember);
+                        }
+
+                        if ($authenticated) {
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        if ($authenticated && Filament::getCurrentPanel()?->getId() === 'tenant' && function_exists('tenancy') && tenancy()->initialized) {
+            session(['tenant_admin_tenant_id' => tenant('id')]);
+            cookie()->queue(cookie('tenant_admin_tenant_id', tenant('id'), 60 * 24 * 30));
+        }
+
         if (!$authenticated) {
             $this->throwFailureValidationException();
         }

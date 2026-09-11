@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Review extends Model
 {
+    protected $connection = 'central';
+
     protected $fillable = [
         'reviewable_type',
         'reviewable_id',
