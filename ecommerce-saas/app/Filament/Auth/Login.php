@@ -35,7 +35,6 @@ class Login extends BaseLogin
                 $adminEmail = $tenant->run(fn () => \App\Models\TenantUser::value('email')) ?? "admin@{$tenant->id}.com";
                 $this->form->fill([
                     'email' => $adminEmail,
-                    'password' => 'password123',
                     'remember' => true,
                 ]);
             }
