@@ -32,10 +32,10 @@ class ReviewsAndMostVisitedProductsTest extends TestCase
     {
         $reviewData = [
             'reviewable_type' => 'company',
-            'reviewable_id' => 'acropolis',
+            'reviewable_id' => 'conceptos7',
             'rating' => 5,
             'author_name' => 'Juan Zacatecano',
-            'comment' => 'El mejor café frente a Catedral y excelente atención tradicional.',
+            'comment' => 'La mejor joyería y ropa en Tacuba y excelente atención personalizada.',
         ];
 
         $response = $this->postJson('http://localhost/api/reviews', $reviewData);
@@ -46,7 +46,7 @@ class ReviewsAndMostVisitedProductsTest extends TestCase
 
         $this->assertDatabaseHas('reviews', [
             'reviewable_type' => 'company',
-            'reviewable_id' => 'acropolis',
+            'reviewable_id' => 'conceptos7',
             'author_name' => 'Juan Zacatecano',
             'rating' => 5,
         ]);
@@ -54,7 +54,7 @@ class ReviewsAndMostVisitedProductsTest extends TestCase
         // Validation rejects ratings outside 1-5
         $invalidResponse = $this->postJson('http://localhost/api/reviews', [
             'reviewable_type' => 'company',
-            'reviewable_id' => 'acropolis',
+            'reviewable_id' => 'conceptos7',
             'rating' => 6,
             'author_name' => 'Test',
             'comment' => 'Inválido',
@@ -66,10 +66,10 @@ class ReviewsAndMostVisitedProductsTest extends TestCase
     {
         $productReviewData = [
             'reviewable_type' => 'product',
-            'reviewable_id' => 'cafe-americano-seleccion-acropolis',
+            'reviewable_id' => 'collar-choker-eslabones-oro-18k',
             'rating' => 5,
             'author_name' => 'Lucía Alatorre',
-            'comment' => 'Sabor tostado y aromático insuperable en Zacatecas.',
+            'comment' => 'Diseño elegante y brillo insuperable en Zacatecas.',
         ];
 
         $response = $this->postJson('http://localhost/api/reviews', $productReviewData);
@@ -80,7 +80,7 @@ class ReviewsAndMostVisitedProductsTest extends TestCase
 
         $this->assertDatabaseHas('reviews', [
             'reviewable_type' => 'product',
-            'reviewable_id' => 'cafe-americano-seleccion-acropolis',
+            'reviewable_id' => 'collar-choker-eslabones-oro-18k',
             'author_name' => 'Lucía Alatorre',
             'rating' => 5,
         ]);
@@ -89,7 +89,7 @@ class ReviewsAndMostVisitedProductsTest extends TestCase
     public function test_api_lists_reviews_for_company_and_product(): void
     {
         // Company reviews
-        $responseCompany = $this->getJson('http://localhost/api/reviews?type=company&id=acropolis');
+        $responseCompany = $this->getJson('http://localhost/api/reviews?type=company&id=conceptos7');
         $responseCompany->assertStatus(200)
             ->assertJsonPath('success', true)
             ->assertJsonStructure([
@@ -101,7 +101,7 @@ class ReviewsAndMostVisitedProductsTest extends TestCase
             ]);
 
         // Product reviews
-        $responseProduct = $this->getJson('http://localhost/api/reviews?type=product&id=gordita-de-asado-de-boda-zacatecano');
+        $responseProduct = $this->getJson('http://localhost/api/reviews?type=product&id=vestido-midi-satinado-espalda-abierta');
         $responseProduct->assertStatus(200)
             ->assertJsonPath('success', true);
     }

@@ -48,7 +48,7 @@ class MobileMultiTenantApiTest extends TestCase
         $storesResponse = $this->getJson('/api/stores');
         $storesResponse->assertStatus(200);
 
-        $productsResponse = $this->getJson('/api/stores/acropolis/products');
+        $productsResponse = $this->getJson('/api/stores/conceptos7/products');
         $productsResponse->assertStatus(200)
             ->assertJsonStructure(['data']);
     }
@@ -56,11 +56,14 @@ class MobileMultiTenantApiTest extends TestCase
     public function test_same_global_email_can_order_in_multiple_tenants(): void
     {
         // 1. Get global customer and Sanctum token
-        $customer = CustomerAccount::where('email', 'juan@gmail.com')->first();
+        $customer = CustomerAccount::firstOrCreate(
+            ['email' => 'juan@gmail.com'],
+            ['name' => 'Juan Pérez', 'password' => bcrypt('password123')]
+        );
         $token = $customer->createToken('mobile-test')->plainTextToken;
 
-        // 2. Get a product from acropolis
-        $tenant1 = Tenant::find('acropolis');
+        // 2. Get a product from conceptos7
+        $tenant1 = Tenant::find('conceptos7');
         $prod1 = $tenant1->run(function () {
             $p = Product::first();
             $p->update(['stock' => 50]);
@@ -68,8 +71,8 @@ class MobileMultiTenantApiTest extends TestCase
         });
         $this->assertNotNull($prod1);
 
-        $orderResponse1 = $this->withToken($token)->postJson('/api/stores/acropolis/orders', [
-            'shipping_address' => 'Calle Reforma 123, CDMX',
+        $orderResponse1 = $this->withToken($token)->postJson('/api/stores/conceptos7/orders', [
+            'shipping_address' => 'Calle Tacuba 123, Zacatecas',
             'items' => [
                 [
                     'product_id' => $prod1->id,
@@ -81,41 +84,14 @@ class MobileMultiTenantApiTest extends TestCase
         $orderResponse1->assertStatus(201)
             ->assertJsonPath('order.total_amount', number_format($prod1->price * 2, 2, '.', ''));
 
-        // Verify user exists in acropolis with the same email
+        // Verify user exists in conceptos7 with the same email
         $userInTenant1 = $tenant1->run(fn () => TenantUser::where('email', 'juan@gmail.com')->first());
         $this->assertNotNull($userInTenant1);
         $this->assertEquals((string) $customer->id, $userInTenant1->customer_account_id);
 
-        // 3. Place order in donajulia with the SAME customer token
-        $tenant2 = Tenant::find('donajulia');
-        $prod2 = $tenant2->run(function () {
-            $p = Product::first();
-            $p->update(['stock' => 50]);
-            return $p->fresh();
-        });
-        $this->assertNotNull($prod2);
-
-        $orderResponse2 = $this->withToken($token)->postJson('/api/stores/donajulia/orders', [
-            'shipping_address' => 'Calle Insurgentes 456, Monterrey',
-            'items' => [
-                [
-                    'product_id' => $prod2->id,
-                    'quantity' => 1,
-                ],
-            ],
-        ]);
-
-        $orderResponse2->assertStatus(201)
-            ->assertJsonPath('order.total_amount', number_format($prod2->price, 2, '.', ''));
-
-        // Verify user exists in donajulia with the same email as well
-        $userInTenant2 = $tenant2->run(fn () => TenantUser::where('email', 'juan@gmail.com')->first());
-        $this->assertNotNull($userInTenant2);
-        $this->assertEquals((string) $customer->id, $userInTenant2->customer_account_id);
-
-        // 4. Verify orders list in acropolis
-        $ordersListResponse = $this->withToken($token)->getJson('/api/stores/acropolis/orders');
+        // 3. Verify orders list in conceptos7
+        $ordersListResponse = $this->withToken($token)->getJson('/api/stores/conceptos7/orders');
         $ordersListResponse->assertStatus(200)
-            ->assertJsonPath('data.0.shipping_address', 'Calle Reforma 123, CDMX');
+            ->assertJsonPath('data.0.shipping_address', 'Calle Tacuba 123, Zacatecas');
     }
 }

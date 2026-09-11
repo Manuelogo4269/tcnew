@@ -113,7 +113,14 @@ class CentralPortalController extends Controller
                         ->where(function ($query) use ($searchQuery, $searchNormalized) {
                             $query->where('name', 'like', "%{$searchQuery}%")
                                 ->orWhere('description', 'like', "%{$searchQuery}%")
-                                ->orWhere('slug', 'like', "%{$searchQuery}%");
+                                ->orWhere('slug', 'like', "%{$searchQuery}%")
+                                ->orWhereHas('category', function ($cq) use ($searchQuery, $searchNormalized) {
+                                    $cq->where('name', 'like', "%{$searchQuery}%")
+                                        ->orWhere('slug', 'like', "%{$searchQuery}%");
+                                    if ($searchNormalized !== '') {
+                                        $cq->orWhere('slug', 'like', "%{$searchNormalized}%");
+                                    }
+                                });
                             if ($searchNormalized !== '') {
                                 $query->orWhere('slug', 'like', "%{$searchNormalized}%");
                             }
@@ -380,7 +387,14 @@ class CentralPortalController extends Controller
                     ->where(function ($query) use ($q, $searchNormalized) {
                         $query->where('name', 'like', "%{$q}%")
                             ->orWhere('description', 'like', "%{$q}%")
-                            ->orWhere('slug', 'like', "%{$q}%");
+                            ->orWhere('slug', 'like', "%{$q}%")
+                            ->orWhereHas('category', function ($cq) use ($q, $searchNormalized) {
+                                $cq->where('name', 'like', "%{$q}%")
+                                    ->orWhere('slug', 'like', "%{$q}%");
+                                if ($searchNormalized !== '') {
+                                    $cq->orWhere('slug', 'like', "%{$searchNormalized}%");
+                                }
+                            });
                         if ($searchNormalized !== '') {
                             $query->orWhere('slug', 'like', "%{$searchNormalized}%");
                         }

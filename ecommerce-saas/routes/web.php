@@ -13,6 +13,27 @@ $centralDomains = (array) config('tenancy.central_domains', [
     'atelier-zacatecas.onrender.com',
 ]);
 
+if (!function_exists('findTenantBySlugOrDomain')) {
+    function findTenantBySlugOrDomain(string $tenantId): ?\App\Models\Tenant
+    {
+        $tenant = \App\Models\Tenant::where('id', $tenantId)
+            ->orWhereRaw('LOWER(id) = ?', [strtolower($tenantId)])
+            ->orWhereHas('domains', fn ($q) => $q->where('domain', $tenantId)->orWhere('domain', strtolower($tenantId)))
+            ->first();
+
+        if (!$tenant) {
+            $cleanId = strtolower(preg_replace('/[^a-zA-Z0-9]/', '', $tenantId));
+            if ($cleanId !== '') {
+                $tenant = \App\Models\Tenant::all()->first(function ($t) use ($cleanId) {
+                    return strtolower(preg_replace('/[^a-zA-Z0-9]/', '', $t->id)) === $cleanId;
+                });
+            }
+        }
+
+        return $tenant;
+    }
+}
+
 foreach ($centralDomains as $domain) {
     Route::domain($domain)->group(function () {
         Route::get('/', [CentralPortalController::class, 'index'])->name('central.home');
@@ -25,7 +46,7 @@ foreach ($centralDomains as $domain) {
 
         // Direct Mobile / LAN Storefront Route (No custom DNS required on mobile devices)
         Route::get('/tienda/{tenant}', function (string $tenantId) {
-            $tenant = \App\Models\Tenant::where('id', $tenantId)->orWhereRaw('LOWER(id) = ?', [strtolower($tenantId)])->first();
+            $tenant = findTenantBySlugOrDomain($tenantId);
             if (!$tenant) {
                 abort(404, 'Tienda no encontrada.');
             }
@@ -36,7 +57,7 @@ foreach ($centralDomains as $domain) {
             $hasFacebookKeys = !empty(config('services.facebook.client_id')) && !empty(config('services.facebook.client_secret'));
 
             $settings = \App\Models\StoreSetting::first();
-            $storeName = $settings?->store_name ?? str($tenantId)->replace(['-', '_'], ' ')->title()->toString();
+            $storeName = $settings?->store_name ?? str($tenant->id)->replace(['-', '_'], ' ')->title()->toString();
             $categories = \App\Models\Category::withCount('products')->get();
             $products = \App\Models\Product::where('is_active', true)->with('category')->latest()->get();
             $featuredProducts = $products->take(8);
@@ -44,17 +65,22 @@ foreach ($centralDomains as $domain) {
             $cachedStores = \Illuminate\Support\Facades\Cache::remember('platform_official_stores_list', 120, function () {
                 return tenancy()->central(function () {
                     return \App\Models\Tenant::with('domains')->get()->map(function ($t) {
+                        $sName = null;
+                        try {
+                            $sName = $t->run(fn () => \App\Models\StoreSetting::value('store_name'));
+                        } catch (\Throwable $e) {}
+
                         return [
                             'id' => (string) $t->id,
-                            'name' => str($t->id)->replace(['-', '_'], ' ')->title()->toString(),
+                            'name' => $sName ?: str($t->id)->replace(['-', '_'], ' ')->title()->toString(),
                             'url' => url("/tienda/{$t->id}"),
                         ];
                     })->toArray();
                 });
             });
 
-            $officialStores = array_map(function ($store) use ($tenantId) {
-                $store['is_current'] = strtolower((string)$store['id']) === strtolower($tenantId);
+            $officialStores = array_map(function ($store) use ($tenant) {
+                $store['is_current'] = strtolower((string)$store['id']) === strtolower($tenant->id);
                 return $store;
             }, (array) $cachedStores);
 
@@ -65,7 +91,7 @@ foreach ($centralDomains as $domain) {
 
         // Universal Path-Based Store Management Route (No DNS setup required)
         Route::get('/tienda/{tenant}/admin', function (string $tenantId) {
-            $tenant = \App\Models\Tenant::where('id', $tenantId)->orWhereRaw('LOWER(id) = ?', [strtolower($tenantId)])->first();
+            $tenant = findTenantBySlugOrDomain($tenantId);
             if (!$tenant) {
                 abort(404, 'Tienda no encontrada.');
             }
@@ -147,7 +173,7 @@ Route::get('/offline.html', function () {
 Route::post('/api/tienda/{tenant}/checkout', [\App\Http\Controllers\CheckoutController::class, 'processCheckout']);
 
 Route::get('/tienda/{tenant}/admin', function (string $tenantId) {
-    $tenant = \App\Models\Tenant::where('id', $tenantId)->orWhereRaw('LOWER(id) = ?', [strtolower($tenantId)])->first();
+    $tenant = findTenantBySlugOrDomain($tenantId);
     if (!$tenant) {
         abort(404, 'Tienda no encontrada.');
     }
@@ -156,4 +182,49 @@ Route::get('/tienda/{tenant}/admin', function (string $tenantId) {
 
     return redirect('/tenant-admin');
 });
+
+Route::get('/tienda/{tenant}', function (string $tenantId) {
+    $tenant = findTenantBySlugOrDomain($tenantId);
+    if (!$tenant) {
+        abort(404, 'Tienda no encontrada.');
+    }
+
+    tenancy()->initialize($tenant);
+
+    $user = \Illuminate\Support\Facades\Auth::guard('web')->user();
+    $hasFacebookKeys = !empty(config('services.facebook.client_id')) && !empty(config('services.facebook.client_secret'));
+
+    $settings = \App\Models\StoreSetting::first();
+    $storeName = $settings?->store_name ?? str($tenant->id)->replace(['-', '_'], ' ')->title()->toString();
+    $categories = \App\Models\Category::withCount('products')->get();
+    $products = \App\Models\Product::where('is_active', true)->with('category')->latest()->get();
+    $featuredProducts = $products->take(8);
+
+    $cachedStores = \Illuminate\Support\Facades\Cache::remember('platform_official_stores_list', 120, function () {
+        return tenancy()->central(function () {
+            return \App\Models\Tenant::with('domains')->get()->map(function ($t) {
+                $sName = null;
+                try {
+                    $sName = $t->run(fn () => \App\Models\StoreSetting::value('store_name'));
+                } catch (\Throwable $e) {}
+
+                return [
+                    'id' => (string) $t->id,
+                    'name' => $sName ?: str($t->id)->replace(['-', '_'], ' ')->title()->toString(),
+                    'url' => url("/tienda/{$t->id}"),
+                ];
+            })->toArray();
+        });
+    });
+
+    $officialStores = array_map(function ($store) use ($tenant) {
+        $store['is_current'] = strtolower((string)$store['id']) === strtolower($tenant->id);
+        return $store;
+    }, (array) $cachedStores);
+
+    $layoutBlocks = $settings ? $settings->getEffectiveLayoutBlocks() : \App\Models\StoreSetting::defaultLayoutBlocks();
+
+    return view('tenant.store', compact('storeName', 'tenantId', 'settings', 'categories', 'products', 'featuredProducts', 'officialStores', 'user', 'hasFacebookKeys', 'layoutBlocks'));
+});
+
 

@@ -11,37 +11,39 @@ use Tests\TestCase;
 
 class ModularStorefrontBuilderTest extends TestCase
 {
+    protected ?array $savedBlocks = null;
+
     protected function setUp(): void
     {
         parent::setUp();
 
-        // Create or get tenant
         $tenant = Tenant::firstOrCreate(
-            ['id' => 'acropolis'],
-            ['tenancy_admin_email' => 'admin@acropolis.test']
+            ['id' => 'conceptos7'],
+            ['plan_name' => 'Corporativo']
         );
 
         tenancy()->initialize($tenant);
 
         $settings = StoreSetting::first();
         if ($settings) {
+            $this->savedBlocks = $settings->layout_blocks;
             $settings->layout_blocks = null;
             $settings->save();
         }
 
         // Ensure a product exists
         $cat = Category::firstOrCreate(
-            ['slug' => 'artesanias'],
-            ['name' => 'Artesanías Zacatecas']
+            ['slug' => 'joyeria-y-accesorio'],
+            ['name' => 'Joyería y Accesorio ✨']
         );
 
         Product::firstOrCreate(
-            ['slug' => 'plata-zacatecana'],
+            ['slug' => 'collar-choker-eslabones-oro-18k'],
             [
                 'category_id' => $cat->id,
-                'name' => 'Dije de Cantera y Plata',
-                'description' => 'Joya zacatecana artesanal',
-                'price' => 450.00,
+                'name' => 'Collar Choker de Eslabones en Baño de Oro 18K',
+                'description' => 'Collar gargantilla moderno',
+                'price' => 690.00,
                 'stock' => 15,
                 'is_active' => true,
             ]
@@ -52,20 +54,22 @@ class ModularStorefrontBuilderTest extends TestCase
 
     protected function tearDown(): void
     {
-        tenancy()->initialize('acropolis');
-        $settings = StoreSetting::first();
-        if ($settings) {
-            $settings->layout_blocks = null;
-            $settings->save();
+        if (Tenant::find('conceptos7')) {
+            tenancy()->initialize('conceptos7');
+            $settings = StoreSetting::first();
+            if ($settings) {
+                $settings->layout_blocks = $this->savedBlocks;
+                $settings->save();
+            }
+            tenancy()->end();
         }
-        tenancy()->end();
 
         parent::tearDown();
     }
 
     public function test_default_modular_storefront_renders_all_sections(): void
     {
-        $response = $this->get('/tienda/acropolis');
+        $response = $this->get('/tienda/conceptos7');
         $response->assertStatus(200);
 
         // Check that default sections exist in body
@@ -79,7 +83,7 @@ class ModularStorefrontBuilderTest extends TestCase
 
     public function test_hiding_a_section_removes_it_from_storefront(): void
     {
-        $tenant = Tenant::find('acropolis');
+        $tenant = Tenant::find('conceptos7');
         tenancy()->initialize($tenant);
 
         $settings = StoreSetting::first();
@@ -100,7 +104,7 @@ class ModularStorefrontBuilderTest extends TestCase
         $settings->save();
         tenancy()->end();
 
-        $response = $this->get('/tienda/acropolis');
+        $response = $this->get('/tienda/conceptos7');
         $response->assertStatus(200);
         $response->assertDontSee('<section class="flash-deals-section"', false);
         $response->assertDontSee('⏳ La oferta finaliza en:');
@@ -109,7 +113,7 @@ class ModularStorefrontBuilderTest extends TestCase
 
     public function test_reordering_sections_changes_rendered_order(): void
     {
-        $tenant = Tenant::find('acropolis');
+        $tenant = Tenant::find('conceptos7');
         tenancy()->initialize($tenant);
 
         $settings = StoreSetting::first();
@@ -146,7 +150,7 @@ class ModularStorefrontBuilderTest extends TestCase
         $settings->save();
         tenancy()->end();
 
-        $response = $this->get('/tienda/acropolis');
+        $response = $this->get('/tienda/conceptos7');
         $response->assertStatus(200);
 
         $content = $response->getContent();

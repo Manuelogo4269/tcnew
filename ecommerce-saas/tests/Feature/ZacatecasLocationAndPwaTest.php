@@ -46,17 +46,17 @@ class ZacatecasLocationAndPwaTest extends TestCase
 
     public function test_tenant_storefront_displays_zacatecas_location_and_whatsapp_details(): void
     {
-        $tenant = Tenant::find('acropolis');
+        $tenant = Tenant::find('conceptos7');
         if (!$tenant) {
-            $this->markTestSkipped('Tenant acropolis does not exist.');
+            $this->markTestSkipped('Tenant conceptos7 does not exist.');
         }
 
-        $response = $this->get('http://acropolis.localhost/');
+        $response = $this->get('http://conceptos7.localhost/');
         $response->assertStatus(200);
 
         // Verify location information in modal / storefront
         $response->assertSee('Sucursal Zacatecas Centro');
-        $response->assertSee('Av. Hidalgo');
+        $response->assertSee('Calle Tacuba');
         $response->assertSee('Google Maps');
 
         // Verify WhatsApp integration includes physical address & maps URL
@@ -66,18 +66,18 @@ class ZacatecasLocationAndPwaTest extends TestCase
 
     public function test_direct_tienda_route_with_database_session_and_cache(): void
     {
-        $tenant = Tenant::find('acropolis');
+        $tenant = Tenant::find('conceptos7');
         if (!$tenant) {
-            $this->markTestSkipped('Tenant acropolis does not exist.');
+            $this->markTestSkipped('Tenant conceptos7 does not exist.');
         }
 
         // Enforce database session to test production behavior
         config(['session.driver' => 'database']);
 
-        $response = $this->get('/tienda/acropolis');
+        $response = $this->get('/tienda/conceptos7');
         $response->assertStatus(200);
-        $response->assertSee('Café Acrópolis');
-        $response->assertSee('acropolis');
+        $response->assertSee('D & R CONCEPTOS');
+        $response->assertSee('conceptos7');
     }
 
     public function test_logo_and_pwa_icons_are_accessible_and_rendered_properly(): void
@@ -104,7 +104,7 @@ class ZacatecasLocationAndPwaTest extends TestCase
         $portalResponse->assertSee('Volver al Inicio de Zacatecas');
 
         // 2. Tenant Storefront Return to Home Controls
-        $storeResponse = $this->get('/tienda/acropolis');
+        $storeResponse = $this->get('/tienda/conceptos7');
         $storeResponse->assertStatus(200);
         $storeResponse->assertSee('btnHeaderBackPortal');
         $storeResponse->assertSee('Inicio Zacatecas');

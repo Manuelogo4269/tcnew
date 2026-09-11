@@ -34,7 +34,7 @@ class TenantCheckoutAndRouteOptimizerTest extends TestCase
 
     public function test_tenant_storefront_displays_cart_drawer_and_checkout_modal(): void
     {
-        $response = $this->get('http://localhost/tienda/acropolis');
+        $response = $this->get('http://localhost/tienda/conceptos7');
         $response->assertStatus(200);
 
         $response->assertSee('btnCartHeader');
@@ -62,9 +62,9 @@ class TenantCheckoutAndRouteOptimizerTest extends TestCase
 
     public function test_checkout_api_creates_order_with_folio_and_coupon(): void
     {
-        $tenant = Tenant::find('acropolis');
+        $tenant = Tenant::find('conceptos7');
         if (!$tenant) {
-            $this->markTestSkipped('Tenant acropolis does not exist.');
+            $this->markTestSkipped('Tenant conceptos7 does not exist.');
         }
 
         $product = $tenant->run(function () {
@@ -72,7 +72,7 @@ class TenantCheckoutAndRouteOptimizerTest extends TestCase
         });
 
         if (!$product) {
-            $this->markTestSkipped('No product available in acropolis.');
+            $this->markTestSkipped('No product available in conceptos7.');
         }
 
         $payload = [
@@ -92,7 +92,7 @@ class TenantCheckoutAndRouteOptimizerTest extends TestCase
             ]
         ];
 
-        $response = $this->postJson('http://localhost/api/tienda/acropolis/checkout', $payload);
+        $response = $this->postJson('http://localhost/api/tienda/conceptos7/checkout', $payload);
         $response->assertStatus(200);
 
         $json = $response->json();

@@ -22,7 +22,7 @@ class CustomerCrossStoreAuthTest extends TestCase
         );
 
         // Log in on central and visit tenant store
-        $response = $this->actingAs($user, 'web')->get('http://localhost/tienda/acropolis');
+        $response = $this->actingAs($user, 'web')->get('http://localhost/tienda/conceptos7');
         $response->assertStatus(200);
 
         // Verify that web auth check remains true

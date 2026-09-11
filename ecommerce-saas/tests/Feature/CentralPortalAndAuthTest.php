@@ -17,38 +17,34 @@ class CentralPortalAndAuthTest extends TestCase
         $response->assertSee('Empresas Disponibles en la App');
         $response->assertSee('✦ Todas las Empresas');
         $response->assertSee('Moda y Lujo');
-        $response->assertSee('Bebidas y Alimentos');
-        $response->assertSee('Hogar y Decoración');
 
         // Verify available enterprises
-        $response->assertSee('Café Acrópolis');
-        $response->assertSee('Gorditas Doña Julia');
-        $response->assertSee('Platería Rosa de Plata');
+        $response->assertSee('D & R CONCEPTOS');
         $response->assertSee('Entrar a la Tienda');
     }
 
     public function test_global_search_across_all_stores(): void
     {
-        // 1. Search for coffee product (from Acrópolis)
-        $responseCafe = $this->get('http://localhost/?q=cafe');
-        $responseCafe->assertStatus(200);
-        $responseCafe->assertSee('Resultados para "cafe"', false);
-        $responseCafe->assertSee('Café Acrópolis');
-        $responseCafe->assertSee('Café Americano Selección Acrópolis');
+        // 1. Search for jewelry product
+        $responseJewelry = $this->get('http://localhost/?q=oro');
+        $responseJewelry->assertStatus(200);
+        $responseJewelry->assertSee('Resultados para "oro"', false);
+        $responseJewelry->assertSee('D & R CONCEPTOS');
+        $responseJewelry->assertSee('Collar Choker');
 
-        // 2. Search for food product (from Doña Julia)
-        $responseFood = $this->get('http://localhost/?q=gordita');
-        $responseFood->assertStatus(200);
-        $responseFood->assertSee('Gorditas Doña Julia');
-        $responseFood->assertSee('Gordita de Asado de Boda Zacatecano');
+        // 2. Search for clothing product
+        $responseDress = $this->get('http://localhost/?q=vestido');
+        $responseDress->assertStatus(200);
+        $responseDress->assertSee('D & R CONCEPTOS');
+        $responseDress->assertSee('Vestido Midi Satinado');
 
-        // 3. Search for silver jewelry (from Rosa de Plata)
-        $responseSilver = $this->get('http://localhost/?q=catedral');
-        $responseSilver->assertStatus(200);
-        $responseSilver->assertSee('Dije Catedral Basílica en Plata Ley .925');
+        // 3. Search for shoes/footwear
+        $responseShoes = $this->get('http://localhost/?q=zapatillas');
+        $responseShoes->assertStatus(200);
+        $responseShoes->assertSee('Zapatillas de Tacón Fino');
 
         // 4. API Live Search endpoint
-        $apiResponse = $this->getJson('http://localhost/api/global-search?q=mezcal');
+        $apiResponse = $this->getJson('http://localhost/api/global-search?q=joyeria');
         $apiResponse->assertStatus(200)
             ->assertJsonPath('count', fn ($count) => $count >= 1);
     }

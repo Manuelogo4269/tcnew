@@ -88,7 +88,7 @@ class TenantSubscriptionPlansTest extends TestCase
     {
         $postData = [
             'company_name' => 'Empresa Duplicada',
-            'subdomain' => 'acropolis', // Already exists
+            'subdomain' => 'conceptos7', // Already exists
             'plan_slug' => 'emprendedor',
             'billing_cycle' => 'monthly',
             'owner_name' => 'Juan Clon',

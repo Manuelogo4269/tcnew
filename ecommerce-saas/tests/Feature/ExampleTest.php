@@ -13,7 +13,7 @@ class ExampleTest extends TestCase
      */
     public function test_the_application_returns_a_successful_response(): void
     {
-        $response = $this->get('http://acropolis.localhost/');
+        $response = $this->get('http://conceptos7.localhost/');
 
         $response->assertStatus(200);
     }
@@ -23,11 +23,11 @@ class ExampleTest extends TestCase
      */
     public function test_tenant_admin_dashboard_renders_with_working_buttons(): void
     {
-        $tenant = Tenant::find('acropolis');
-        $user = $tenant->run(fn () => TenantUser::where('email', 'admin@acropolis.com')->first());
+        $tenant = Tenant::find('conceptos7');
+        $user = $tenant->run(fn () => TenantUser::where('email', 'admin@conceptos7.com')->first());
 
         $response = $this->actingAs($user, 'tenant')
-            ->get('http://acropolis.localhost/tenant-admin');
+            ->get('http://conceptos7.localhost/tenant-admin');
 
         $response->assertStatus(200);
         $response->assertSee('/tenant-admin/products/create');
