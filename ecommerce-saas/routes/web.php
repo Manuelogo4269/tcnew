@@ -58,6 +58,9 @@ foreach ($centralDomains as $domain) {
             }
 
             return response()->json([
+                'db_driver' => \Illuminate\Support\Facades\DB::connection()->getDriverName(),
+                'db_database' => \Illuminate\Support\Facades\DB::connection()->getDatabaseName(),
+                'template_tenant_connection' => config('tenancy.database.template_tenant_connection'),
                 'php_upload_max_filesize' => ini_get('upload_max_filesize'),
                 'php_post_max_size' => ini_get('post_max_size'),
                 'php_memory_limit' => ini_get('memory_limit'),
