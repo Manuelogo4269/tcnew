@@ -71,6 +71,15 @@ class ProductResource extends Resource
                             ->default(0)
                             ->required()
                             ->minValue(0),
+                        Forms\Components\Placeholder::make('current_image_preview')
+                            ->label('Vista previa actual')
+                            ->visible(fn (?Product $record) => !empty($record?->image_url))
+                            ->content(fn (?Product $record) => new \Illuminate\Support\HtmlString(
+                                '<div style="display:flex;align-items:center;gap:12px;padding:6px 0;">' .
+                                '<img src="' . e($record->image_url) . '" style="width:64px;height:64px;object-fit:cover;border-radius:8px;border:1px solid #d1d5db;box-shadow:0 1px 2px rgba(0,0,0,0.05);" alt="Foto actual">' .
+                                '<span style="font-size:12px;color:#6b7280;">Imagen activa en la tienda. Si deseas cambiarla, sube una foto nueva a continuación.</span>' .
+                                '</div>'
+                            )),
                         Forms\Components\FileUpload::make('image_url')
                             ->label('Fotografía del Producto')
                             ->image()
@@ -106,6 +115,7 @@ class ProductResource extends Resource
                     ->label('Imagen')
                     ->disk('public')
                     ->circular()
+                    ->checkFileExistence(false)
                     ->defaultImageUrl('https://placehold.co/100x100?text=Sin+Foto'),
                 Tables\Columns\TextColumn::make('name')
                     ->label('Producto')
