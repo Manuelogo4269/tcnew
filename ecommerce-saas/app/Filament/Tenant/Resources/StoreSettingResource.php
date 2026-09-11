@@ -238,6 +238,93 @@ class StoreSettingResource extends Resource
                             ->helperText('Se incluye en el mensaje automático de WhatsApp para guiar al cliente hasta la sucursal.')
                             ->columnSpanFull(),
                     ])->columns(3),
+
+                Forms\Components\Section::make('🧩 Constructor de Secciones y Bloques (Page Builder)')
+                    ->description('Reordena, activa o desactiva y personaliza los bloques de la página principal de tu tienda (Carrusel, Ofertas Relámpago, Categorías, Catálogo, Historia del Negocio, Ubicación/Mapa, etc.).')
+                    ->icon('heroicon-o-squares-plus')
+                    ->collapsible()
+                    ->schema([
+                        Forms\Components\Repeater::make('layout_blocks')
+                            ->label('Bloques de la Tienda')
+                            ->helperText('Arrastra o usa las flechas para cambiar el orden en que aparecen las secciones en tu tienda pública.')
+                            ->reorderableWithButtons()
+                            ->collapsible()
+                            ->collapsed(false)
+                            ->cloneable(false)
+                            ->default(fn () => StoreSetting::defaultLayoutBlocks())
+                            ->itemLabel(fn (array $state): ?string => match ($state['type'] ?? '') {
+                                'banner_carousel' => '🎠 Carrusel de Banners Principal (' . (($state['is_visible'] ?? true) ? 'Visible' : 'Oculto') . ')',
+                                'trust_bar' => '🛡️ Barra de Beneficios y Envíos (' . (($state['is_visible'] ?? true) ? 'Visible' : 'Oculto') . ')',
+                                'flash_deals' => '⚡ Descuentos & Ofertas Relámpago (' . (($state['is_visible'] ?? true) ? 'Visible' : 'Oculto') . ')',
+                                'categories' => '📂 Explorar por Categorías (' . (($state['is_visible'] ?? true) ? 'Visible' : 'Oculto') . ')',
+                                'featured_products' => '⭐ Tendencias / Productos Destacados (' . (($state['is_visible'] ?? true) ? 'Visible' : 'Oculto') . ')',
+                                'full_catalog' => '📦 Catálogo Completo con Buscador y Filtros (' . (($state['is_visible'] ?? true) ? 'Visible' : 'Oculto') . ')',
+                                'about_story' => '📖 Historia del Local / Quiénes Somos (' . (($state['is_visible'] ?? true) ? 'Visible' : 'Oculto') . ')',
+                                'map_location' => '📍 Ubicación Física y Horarios (' . (($state['is_visible'] ?? true) ? 'Visible' : 'Oculto') . ')',
+                                'testimonials' => '💬 Testimonios y Reseñas de Clientes (' . (($state['is_visible'] ?? true) ? 'Visible' : 'Oculto') . ')',
+                                'contact_box' => '✉️ Caja de Contacto y WhatsApp (' . (($state['is_visible'] ?? true) ? 'Visible' : 'Oculto') . ')',
+                                'official_stores' => '🏬 Directorio de Negocios Aliados (' . (($state['is_visible'] ?? true) ? 'Visible' : 'Oculto') . ')',
+                                default => ($state['title'] ?? 'Bloque') . ' (' . (($state['is_visible'] ?? true) ? 'Visible' : 'Oculto') . ')',
+                            })
+                            ->schema([
+                                Forms\Components\Grid::make(3)->schema([
+                                    Forms\Components\Select::make('type')
+                                        ->label('Tipo de Bloque')
+                                        ->options([
+                                            'banner_carousel' => '🎠 Carrusel de Banners',
+                                            'trust_bar' => '🛡️ Barra de Beneficios y Envíos',
+                                            'flash_deals' => '⚡ Descuentos & Ofertas Relámpago',
+                                            'categories' => '📂 Explorar por Categorías',
+                                            'featured_products' => '⭐ Productos Destacados',
+                                            'full_catalog' => '📦 Catálogo Completo',
+                                            'about_story' => '📖 Historia del Local / Quiénes Somos',
+                                            'map_location' => '📍 Ubicación Física y Horarios',
+                                            'testimonials' => '💬 Testimonios y Reseñas',
+                                            'contact_box' => '✉️ Caja de Contacto y WhatsApp',
+                                            'official_stores' => '🏬 Red de Tiendas Oficiales',
+                                        ])
+                                        ->required()
+                                        ->reactive(),
+
+                                    Forms\Components\TextInput::make('title')
+                                        ->label('Título de la Sección')
+                                        ->placeholder('Ej. Ofertas Especiales de la Semana')
+                                        ->required(),
+
+                                    Forms\Components\Toggle::make('is_visible')
+                                        ->label('Mostrar en Tienda')
+                                        ->default(true)
+                                        ->inline(false),
+                                ]),
+
+                                Forms\Components\Fieldset::make('Opciones del Bloque')
+                                    ->schema([
+                                        Forms\Components\TextInput::make('data.eyebrow')
+                                            ->label('Insignia Superior (Eyebrow)')
+                                            ->placeholder('Ej. Colección 2026, ¡Por tiempo limitado!'),
+
+                                        Forms\Components\TextInput::make('data.subtitle')
+                                            ->label('Subtítulo o Descripción')
+                                            ->placeholder('Texto secundario de la sección'),
+
+                                        Forms\Components\TextInput::make('data.discount_badge')
+                                            ->label('Etiqueta de Descuento (Para Ofertas Relámpago)')
+                                            ->placeholder('Ej. 30% OFF, 2x1')
+                                            ->visible(fn (Forms\Get $get) => $get('type') === 'flash_deals'),
+
+                                        Forms\Components\TextInput::make('data.image_url')
+                                            ->label('URL de Imagen (Para Historia o Banner)')
+                                            ->url()
+                                            ->placeholder('https://.../foto.jpg')
+                                            ->visible(fn (Forms\Get $get) => in_array($get('type'), ['about_story', 'banner_carousel'])),
+
+                                        Forms\Components\Textarea::make('data.content')
+                                            ->label('Texto Extenso (Para Historia del Negocio)')
+                                            ->rows(3)
+                                            ->visible(fn (Forms\Get $get) => $get('type') === 'about_story'),
+                                    ])->columns(2),
+                            ]),
+                    ]),
             ]);
     }
 

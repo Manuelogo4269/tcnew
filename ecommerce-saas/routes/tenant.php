@@ -54,7 +54,9 @@ foreach (['{tenant}.localhost', '{tenant}.127.0.0.1.nip.io', '{tenant}.192.168.0
             return $store;
         }, (array) $cachedStores);
 
-        return view('tenant.store', compact('storeName', 'tenantId', 'settings', 'categories', 'products', 'featuredProducts', 'officialStores', 'user', 'hasFacebookKeys'));
+        $layoutBlocks = $settings ? $settings->getEffectiveLayoutBlocks() : StoreSetting::defaultLayoutBlocks();
+
+        return view('tenant.store', compact('storeName', 'tenantId', 'settings', 'categories', 'products', 'featuredProducts', 'officialStores', 'user', 'hasFacebookKeys', 'layoutBlocks'));
     });
 
     Route::get('/manifest.json', function () {

@@ -3581,6 +3581,385 @@
         .drawer-nav-item-portal-home:hover {
             background: rgba(217, 107, 69, 0.15) !important;
         }
+
+        /* ---------------------------------------------------- */
+        /* MODULAR BLOCKS: FLASH DEALS, STORY, LOCATION         */
+        /* ---------------------------------------------------- */
+        .flash-deals-section {
+            margin: 40px 0;
+        }
+        .flash-deals-banner {
+            background: linear-gradient(135deg, rgba(217, 107, 69, 0.08) 0%, rgba(217, 107, 69, 0.02) 100%);
+            border: 1.5px solid rgba(217, 107, 69, 0.25);
+            border-radius: 28px;
+            padding: 36px 32px;
+        }
+        [data-theme="dark"] .flash-deals-banner {
+            background: linear-gradient(135deg, rgba(217, 107, 69, 0.15) 0%, rgba(30, 41, 59, 0.6) 100%);
+            border-color: rgba(217, 107, 69, 0.35);
+        }
+        .flash-deals-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin-bottom: 28px;
+        }
+        .flash-badge-pulse {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 999px;
+            background: #ef4444;
+            color: #fff;
+            font-size: 11.5px;
+            font-weight: 800;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            animation: pulse-badge 2s infinite ease-in-out;
+            margin-bottom: 8px;
+        }
+        @keyframes pulse-badge {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.04); opacity: 0.9; }
+        }
+        .flash-deals-title {
+            font-size: 28px;
+            font-weight: 900;
+            margin: 4px 0 6px;
+            color: var(--ink);
+        }
+        .flash-deals-desc {
+            font-size: 14px;
+            color: var(--muted);
+            max-width: 520px;
+            line-height: 1.5;
+        }
+        .flash-countdown-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            padding: 16px 20px;
+            border-radius: 18px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+        }
+        .countdown-label {
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            color: var(--accent);
+        }
+        .flash-countdown-boxes {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .countdown-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: var(--ink);
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 10px;
+            min-width: 54px;
+        }
+        [data-theme="dark"] .countdown-box {
+            background: #0f172a;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .countdown-num {
+            font-size: 20px;
+            font-weight: 900;
+            line-height: 1;
+        }
+        .countdown-unit {
+            font-size: 9px;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: rgba(255,255,255,0.7);
+            margin-top: 3px;
+        }
+        .countdown-sep {
+            font-size: 20px;
+            font-weight: 900;
+            color: var(--accent);
+        }
+        .flash-deals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 18px;
+        }
+        .flash-deal-card {
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            border-radius: 18px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .flash-deal-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            border-color: var(--accent);
+        }
+        .flash-deal-thumb {
+            position: relative;
+            width: 100%;
+            height: 180px;
+            overflow: hidden;
+            background: #f1f5f9;
+        }
+        .flash-deal-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        .flash-deal-card:hover .flash-deal-thumb img {
+            transform: scale(1.06);
+        }
+        .flash-deal-discount {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: #ef4444;
+            color: #fff;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 800;
+            z-index: 2;
+        }
+        .flash-deal-body {
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+        .flash-deal-cat {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: .05em;
+        }
+        .flash-deal-name {
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--ink);
+            margin: 4px 0 10px;
+            line-height: 1.3;
+        }
+        .flash-deal-pricing {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: auto;
+            margin-bottom: 12px;
+        }
+        .flash-price-now {
+            font-size: 18px;
+            font-weight: 900;
+            color: #ef4444;
+        }
+        .flash-price-old {
+            font-size: 13px;
+            text-decoration: line-through;
+            color: var(--muted);
+        }
+        .btn-flash-add-cart {
+            width: 100%;
+            background: var(--ink);
+            color: #fff;
+            border: none;
+            padding: 9px 12px;
+            border-radius: 10px;
+            font-size: 12.5px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+        .btn-flash-add-cart:hover {
+            background: var(--accent);
+        }
+
+        /* ABOUT STORY SECTION */
+        .about-story-section {
+            margin: 50px 0;
+        }
+        .about-story-card {
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            border-radius: 28px;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+        }
+        @media (max-width: 800px) {
+            .about-story-card {
+                grid-template-columns: 1fr;
+            }
+        }
+        .about-story-media {
+            position: relative;
+            height: 100%;
+            min-height: 340px;
+        }
+        .about-story-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .about-story-tag {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .about-story-content {
+            padding: 44px;
+        }
+        .about-story-title {
+            font-size: 28px;
+            font-weight: 900;
+            margin: 6px 0 16px;
+            color: var(--ink);
+        }
+        .about-story-divider {
+            width: 48px;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 2px;
+            margin-bottom: 20px;
+        }
+        .about-story-text {
+            font-size: 15px;
+            color: var(--muted);
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+        .about-story-highlights {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        .about-hl-item {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+        .about-hl-icon {
+            font-size: 20px;
+        }
+        .about-hl-item strong {
+            display: block;
+            font-size: 13.5px;
+            color: var(--ink);
+        }
+        .about-hl-item small {
+            font-size: 11.5px;
+            color: var(--muted);
+            line-height: 1.3;
+        }
+
+        /* LOCATION & MAP SECTION */
+        .store-location-section {
+            margin: 50px 0;
+        }
+        .store-location-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 24px;
+            align-items: stretch;
+        }
+        @media (max-width: 860px) {
+            .store-location-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .location-details-box {
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 36px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .loc-badge-zone {
+            display: inline-block;
+            font-size: 11.5px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            color: var(--accent);
+            background: rgba(217, 107, 69, 0.1);
+            padding: 5px 12px;
+            border-radius: 999px;
+            margin-bottom: 12px;
+            align-self: flex-start;
+        }
+        .location-details-box h3 {
+            font-size: 24px;
+            font-weight: 900;
+            margin-bottom: 6px;
+            color: var(--ink);
+        }
+        .loc-info-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin: 16px 0;
+        }
+        .loc-info-item {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+        .loc-info-icon {
+            font-size: 20px;
+            line-height: 1;
+        }
+        .loc-info-item strong {
+            display: block;
+            font-size: 13.5px;
+            color: var(--ink);
+            margin-bottom: 2px;
+        }
+        .loc-info-item p {
+            font-size: 13px;
+            color: var(--muted);
+            margin: 0;
+            line-height: 1.4;
+        }
+        .location-map-box {
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            overflow: hidden;
+            min-height: 360px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+        }
     </style>
 </head>
 <body>
@@ -3886,442 +4265,11 @@
 </aside>
 
 <main class="shell" id="inicio">
-
-    <!-- 1. HERO CAROUSEL -->
-    <section class="hero-carousel-container" id="heroCarousel">
-        <div class="hero-track" id="heroTrack">
-            <!-- Slide 1: Principal de la tienda -->
-            <div class="hero-slide" style="background-image: url('{{ $heroBanner }}');">
-                <div class="hero-slide-overlay"></div>
-                <div class="hero-slide-content">
-                    <span class="hero-badge">Colección 2026</span>
-                    <h2>{!! nl2br(e($settings?->hero_title ?? 'Calidad y diseño. Hecho para ti.')) !!}</h2>
-                    <p>{{ $settings?->hero_subtitle ?? 'Explora nuestra cuidada selección de piezas y productos de alta gama con garantía de satisfacción y control de inventario.' }}</p>
-                    <div class="hero-cta-group">
-                        <a href="#catalogo" class="btn-brand-primary">{{ $settings?->hero_button_text ?? 'Explorar Catálogo' }} <span>↓</span></a>
-                        <a href="#destacados" class="btn-brand-outline">Ver Tendencias <span>→</span></a>
-                    </div>
-                </div>
-                <div class="hero-floating-tag">
-                    <strong>{{ $storeTitle }}</strong>
-                    <small>Garantía de Satisfacción 100%</small>
-                </div>
-            </div>
-
-            <!-- Slide 2: Alta Artesanía -->
-            <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1400&q=80');">
-                <div class="hero-slide-overlay"></div>
-                <div class="hero-slide-content">
-                    <span class="hero-badge">Materiales Nobles & Estilo</span>
-                    <h2>Elegancia atemporal.<br><em>Detalles que inspiran.</em></h2>
-                    <p>Diseños exclusivos confeccionados con las mejores materias primas. Estilo impecable tanto para tu día a día como para ocasiones memorables.</p>
-                    <div class="hero-cta-group">
-                        <a href="#catalogo" class="btn-brand-primary">Ver Colección <span>↓</span></a>
-                        <a href="#categorias" class="btn-brand-outline">Explorar Categorías</a>
-                    </div>
-                </div>
-                <div class="hero-floating-tag">
-                    <strong>Edición Exclusiva</strong>
-                    <small>Stock Limitado & Envíos Rápidos</small>
-                </div>
-            </div>
-
-            <!-- Slide 3: Promoción & Envíos -->
-            <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?auto=format&fit=crop&w=1400&q=80');">
-                <div class="hero-slide-overlay"></div>
-                <div class="hero-slide-content">
-                    <span class="hero-badge">Promoción Especial</span>
-                    <h2>Tu pedido en tu puerta.<br><em>Sin complicaciones.</em></h2>
-                    <p>Disfruta de atención directa vía WhatsApp, empaque de regalo de lujo y envíos prioritarios protegidos a cualquier destino.</p>
-                    <div class="hero-cta-group">
-                        <a href="#catalogo" class="btn-brand-primary">Comprar Ahora <span>→</span></a>
-                        @if(!empty($settings?->whatsapp_number))
-                            @php $waNum = preg_replace('/[^0-9]/', '', $settings->whatsapp_number); @endphp
-                            <a href="https://wa.me/{{ $waNum }}" target="_blank" class="btn-brand-outline">Pedir por WhatsApp <span>💬</span></a>
-                        @endif
-                        <a href="#negocios" class="btn-brand-outline">Explorar Tiendas <span>🏢</span></a>
-                    </div>
-                </div>
-                <div class="hero-floating-tag">
-                    <strong>Atención Directa</strong>
-                    <small>Respuesta Inmediata</small>
-                </div>
-            </div>
-        </div>
-
-        <!-- Navigation Controls -->
-        <button class="hero-nav-arrow hero-nav-prev" id="heroPrev" aria-label="Anterior">‹</button>
-        <button class="hero-nav-arrow hero-nav-next" id="heroNext" aria-label="Siguiente">›</button>
-
-        <!-- Dots -->
-        <div class="hero-dots" id="heroDots">
-            <span class="hero-dot active" data-index="0"></span>
-            <span class="hero-dot" data-index="1"></span>
-            <span class="hero-dot" data-index="2"></span>
-        </div>
-    </section>
-
-    <!-- 2. VALUE PROPOSITION BAR -->
-    <section class="trust-bar">
-        <div class="trust-item">
-            <div class="trust-icon">🚚</div>
-            <div>
-                <strong>Envíos Express Protegidos</strong>
-                <small>Rastreo y entrega asegurada</small>
-            </div>
-        </div>
-        <div class="trust-item">
-            <div class="trust-icon">🛡️</div>
-            <div>
-                <strong>Garantía de Calidad</strong>
-                <small>30 días para cambios y devoluciones</small>
-            </div>
-        </div>
-        <div class="trust-item">
-            <div class="trust-icon">💳</div>
-            <div>
-                <strong>Pagos 100% Cifrados</strong>
-                <small>Seguridad de datos de nivel bancario</small>
-            </div>
-        </div>
-        <div class="trust-item">
-            <div class="trust-icon">💬</div>
-            <div>
-                <strong>Atención por WhatsApp</strong>
-                <small>Asesoría personalizada en vivo</small>
-            </div>
-        </div>
-    </section>
-
-    <!-- 3. CATEGORIES CAROUSEL -->
-    @if($categories->count() > 0)
-    <section class="categories-carousel-wrap" id="categorias">
-        <div class="section-header">
-            <div>
-                <span class="section-eyebrow">Navegación Interactiva</span>
-                <h2 class="section-title">Explorar por Categoría</h2>
-            </div>
-            <div class="carousel-arrows">
-                <button class="carousel-btn" id="catPrev" aria-label="Categorías anteriores">←</button>
-                <button class="carousel-btn" id="catNext" aria-label="Siguientes categorías">→</button>
-            </div>
-        </div>
-
-        <div class="categories-track" id="catTrack">
-            <div class="category-card-slide active-cat" data-category="all" onclick="selectCategory('all', 'Todos los productos')">
-                <div class="category-icon-box">✦</div>
-                <strong>Todos</strong>
-                <small>{{ $products->count() }} piezas</small>
-            </div>
-            @foreach($categories as $cat)
-                <div class="category-card-slide" data-category="{{ $cat->slug }}" onclick="selectCategory('{{ $cat->slug }}', '{{ addslashes($cat->name) }}')">
-                    <div class="category-icon-box">
-                        {{ match($cat->slug) {
-                            'bolsos-marroquineria' => '👜',
-                            'relojeria-cronografos' => '⌚',
-                            'joyeria-accesorios' => '💍',
-                            'ropa-accesorios', 'moda-alta-costura' => '🧥',
-                            'hogar-decoracion', 'hogar-diseno' => '🏺',
-                            'fragancias-cuidado' => '🌿',
-                            'tecnologia-accesorios', 'audio-tecnologia' => '🎧',
-                            'coleccion-gourmet' => '🫒',
-                            default => '🏷️'
-                        } }}
-                    </div>
-                    <strong>{{ $cat->name }}</strong>
-                    <small>{{ $cat->products_count }} disponibles</small>
-                </div>
-            @endforeach
-        </div>
-    </section>
-    @endif
-
-    <!-- 4. FEATURED PRODUCTS CAROUSEL -->
-    @if($featuredProducts->count() > 0)
-    <section class="featured-carousel-wrap" id="destacados">
-        <div class="section-header">
-            <div>
-                <span class="section-eyebrow">Selección Especial</span>
-                <h2 class="section-title">Tendencias de la Semana</h2>
-            </div>
-            <div class="carousel-arrows">
-                <button class="carousel-btn" id="featPrev" aria-label="Anterior">←</button>
-                <button class="carousel-btn" id="featNext" aria-label="Siguiente">→</button>
-            </div>
-        </div>
-
-        <div class="featured-track" id="featTrack">
-            @foreach($featuredProducts as $item)
-                <div class="featured-item">
-                    <article class="product-card">
-                        <div class="product-card-thumb" onclick="openProductById({{ $item->id }})">
-                            @if($item->category)
-                                <span class="product-badge-cat" onclick="event.stopPropagation(); selectCategory('{{ $item->category->slug }}', '{{ addslashes($item->category->name) }}')">
-                                    {{ $item->category->name }}
-                                </span>
-                            @endif
-                            <span class="product-stock-tag {{ $item->stock > 10 ? 'stock-available' : ($item->stock > 0 ? 'stock-low' : 'stock-none') }}">
-                                {{ $item->stock > 0 ? ($item->stock . ' en stock') : 'Agotado' }}
-                            </span>
-                            <img src="{{ !empty($item->image_url) ? $item->image_url : 'https://placehold.co/600x600?text=' . urlencode($item->name) }}" alt="{{ $item->name }}" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/600x600?text=Zacatecas';">
-                        </div>
-                        <div class="product-card-body">
-                            <h3 onclick="openProductById({{ $item->id }})">{{ $item->name }}</h3>
-                            <p>{{ Str::limit($item->description, 80) }}</p>
-                            <div class="product-card-footer">
-                                <span class="product-price">${{ number_format($item->price, 2) }}</span>
-                                <div style="display: flex; gap: 6px; align-items: center;">
-                                    <button class="btn-quick-view" onclick="openProductById({{ $item->id }})">Ver detalles ↗</button>
-                                    <button type="button" class="btn-card-add-cart" onclick="event.stopPropagation(); addCartItem({{ $item->id }})" title="Añadir al Carrito">🛒 +</button>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-            @endforeach
-        </div>
-    </section>
-    @endif
-
-    <!-- 5. FULL CATALOG WITH REAL-TIME CATEGORY FILTERING & SEARCH -->
-    <section id="catalogo">
-        <div class="section-header">
-            <div>
-                <span class="section-eyebrow">Catálogo Completo</span>
-                <h2 class="section-title">Nuestra Colección de Productos</h2>
-            </div>
-        </div>
-
-        <!-- Interactive Category Filter Pills directly above grid -->
-        <div class="category-pills-bar" id="categoryPills">
-            <button class="cat-pill active" data-category="all" onclick="selectCategory('all', 'Todos los productos')">
-                ✦ Todos <span class="cat-pill-count">{{ $products->count() }}</span>
-            </button>
-            @foreach($categories as $cat)
-                <button class="cat-pill" data-category="{{ $cat->slug }}" onclick="selectCategory('{{ $cat->slug }}', '{{ addslashes($cat->name) }}')">
-                    {{ match($cat->slug) {
-                        'bolsos-marroquineria' => '👜',
-                        'relojeria-cronografos' => '⌚',
-                        'joyeria-accesorios' => '💍',
-                        'ropa-accesorios', 'moda-alta-costura' => '🧥',
-                        'hogar-decoracion', 'hogar-diseno' => '🏺',
-                        'fragancias-cuidado' => '🌿',
-                        'tecnologia-accesorios', 'audio-tecnologia' => '🎧',
-                        'coleccion-gourmet' => '🫒',
-                        default => '🏷️'
-                    } }} {{ $cat->name }} <span class="cat-pill-count">{{ $cat->products_count }}</span>
-                </button>
-            @endforeach
-        </div>
-
-        <div class="catalog-filter-bar">
-            <div class="search-box">
-                <svg viewBox="0 0 24 24"><path d="M10 2a8 8 0 015.293 13.707l5 5a1 1 0 01-1.414 1.414l-5-5A8 8 0 1110 2zm0 2a6 6 0 100 12 6 6 0 000-12z"/></svg>
-                <input type="text" id="catalogSearch" placeholder="Buscar por nombre, categoría o material...">
-            </div>
-            <div class="filter-status-info">
-                <div class="active-filter-badge" id="activeFilterBadge" style="display: none;">
-                    <span id="activeFilterLabel">Filtrando por: Categoría</span>
-                    <button class="btn-clear-filter" onclick="selectCategory('all', 'Todos los productos')" title="Quitar filtro">✕</button>
-                </div>
-                <div class="catalog-stats-count" id="catalogCounter">
-                    Mostrando {{ $products->count() }} producto(s) disponibles
-                </div>
-            </div>
-        </div>
-
-        <div class="products-grid" id="productsGrid">
-            @forelse($products as $product)
-                <article class="product-card product-grid-item" 
-                    data-id="{{ $product->id }}"
-                    data-slug="{{ $product->slug }}"
-                    data-name="{{ strtolower($product->name) }}" 
-                    data-desc="{{ strtolower($product->description ?? '') }}" 
-                    data-category="{{ $product->category?->slug ?? 'sin-categoria' }}"
-                    data-category-name="{{ $product->category?->name ?? 'General' }}">
-                    <div class="product-card-thumb" onclick="openProductById({{ $product->id }})">
-                        @if($product->category)
-                            <span class="product-badge-cat" onclick="event.stopPropagation(); selectCategory('{{ $product->category->slug }}', '{{ addslashes($product->category->name) }}')">
-                                {{ $product->category->name }}
-                            </span>
-                        @endif
-                        <span class="product-stock-tag {{ $product->stock > 10 ? 'stock-available' : ($product->stock > 0 ? 'stock-low' : 'stock-none') }}">
-                            {{ $product->stock > 0 ? ($product->stock . ' en stock') : 'Agotado' }}
-                        </span>
-                        <img src="{{ !empty($product->image_url) ? $product->image_url : 'https://placehold.co/600x600?text=' . urlencode($product->name) }}" alt="{{ $product->name }}" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/600x600?text=Zacatecas';">
-                    </div>
-                    <div class="product-card-body">
-                        <h3 onclick="openProductById({{ $product->id }})">{{ $product->name }}</h3>
-                        <p>{{ Str::limit($product->description, 85) }}</p>
-                        <div class="product-card-footer">
-                            <span class="product-price">${{ number_format($product->price, 2) }}</span>
-                            <div style="display: flex; gap: 6px; align-items: center;">
-                                <button class="btn-quick-view" onclick="openProductById({{ $product->id }})">Ver detalles ↗</button>
-                                <button type="button" class="btn-card-add-cart" onclick="event.stopPropagation(); addCartItem({{ $product->id }})" title="Añadir al Carrito">🛒 +</button>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-            @empty
-                <div style="grid-column: 1 / -1; text-align:center; padding: 60px 20px; background:var(--card); border-radius:18px; border:1px dashed var(--line);">
-                    <h3>No hay productos registrados</h3>
-                    <p style="color:var(--muted); margin: 10px 0 20px;">Crea productos desde el panel administrativo de la tienda.</p>
-                    <a href="{{ url('/tienda/' . ($tenantId ?? 'acropolis') . '/admin') }}" class="btn-brand-primary">Añadir Primer Producto</a>
-                </div>
-            @endforelse
-        </div>
-    </section>
-
-    <!-- 6. RED DE NEGOCIOS Y TIENDAS (BOTONES DE REDIRECCIÓN A NEGOCIOS) -->
-    <section class="official-network-section" id="negocios">
-        <div class="section-header" style="margin-bottom: 10px;">
-            <div>
-                <span class="section-eyebrow">Ecosistema Multi-Tienda</span>
-                <h2 class="section-title">Directorio de Negocios</h2>
-            </div>
-        </div>
-        <p style="color: var(--muted); font-size: 14px; max-width: 700px;">
-            Navega entre los diferentes comercios y tiendas registradas en nuestra plataforma. Cada negocio cuenta con catálogo independiente, atención directa y productos locales.
-        </p>
-
-        <div class="network-grid">
-            @foreach($officialStores ?? [] as $store)
-                <div class="network-card {{ $store['is_current'] ? 'is-current-card' : '' }}">
-                    <div>
-                        <div class="network-card-top">
-                            <div class="network-logo-badge">
-                                {{ strtoupper(substr($store['id'], 0, 1)) }}
-                            </div>
-                            <div>
-                                <strong style="font-size: 16px;">{{ $store['name'] }}</strong>
-                                <small style="display: block; color: var(--muted); font-size: 11.5px;">{{ parse_url($store['url'], PHP_URL_HOST) }}</small>
-                            </div>
-                        </div>
-                        <p style="font-size: 12.5px; color: var(--muted); margin-bottom: 18px; line-height: 1.5;">
-                            {{ $store['tagline'] ?? match($store['id']) {
-                                'acropolis' => 'La cafetería y galería de arte más emblemática de Zacatecas desde 1943.',
-                                'donajulia' => 'El sabor auténtico de Zacatecas, gorditas hechas a mano con guisados al comal.',
-                                'rosadeplata' => 'Joyería fina en plata ley .925 cincelada a mano por maestros plateros.',
-                                'elserranito' => 'Tradición dulce zacatecana: quesos de tuna, ates, cajetas de Jerez y artesanías.',
-                                'quinceletras' => 'La cantina más legendaria de Zacatecas desde 1906. Maestros del mezcal artesanal.',
-                                'libreriaandrea' => 'Libros de historia colonial de Zacatecas, novela, poesía, arte y papelería fina.',
-                                default => 'Comercio emblemático en el Centro Histórico de Zacatecas.'
-                            } }}
-                        </p>
-                    </div>
-
-                    @if($store['is_current'])
-                        <div class="network-card-btn network-card-btn-primary">
-                            <span>✓</span> Te encuentras en esta tienda
-                        </div>
-                    @else
-                        <a href="{{ $store['url'] }}" target="_blank" class="network-card-btn network-card-btn-outline">
-                            Visitar Tienda <span>↗</span>
-                        </a>
-                    @endif
-                </div>
-            @endforeach
-        </div>
-    </section>
-
-    <!-- 7. TESTIMONIALS CAROUSEL -->
-    <section class="testimonials-section" id="opiniones">
-        <div class="section-header">
-            <div>
-                <span class="section-eyebrow">Experiencias Reales</span>
-                <h2 class="section-title">Lo que dicen nuestros clientes</h2>
-            </div>
-            <div class="carousel-arrows">
-                <button class="carousel-btn" id="testPrev" aria-label="Anterior">←</button>
-                <button class="carousel-btn" id="testNext" aria-label="Siguiente">→</button>
-            </div>
-        </div>
-
-        <div class="testimonials-track" id="testTrack">
-            <div class="testimonial-card">
-                <div class="testimonial-stars">★★★★★</div>
-                <p class="testimonial-quote">"El bolso de cuero llegó en un empaque soberbio. La calidad de las costuras y el tacto del material superaron ampliamente mis expectativas."</p>
-                <div class="testimonial-author">
-                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="Camila R." class="testimonial-avatar">
-                    <div>
-                        <strong>Camila Restrepo</strong>
-                        <small>Compradora Verificada · CDMX</small>
-                    </div>
-                </div>
-            </div>
-
-            <div class="testimonial-card">
-                <div class="testimonial-stars">★★★★★</div>
-                <p class="testimonial-quote">"Compré el cronógrafo suizo y la atención por WhatsApp fue inmediata y muy cordial. El reloj es una pieza de relojería de primer nivel."</p>
-                <div class="testimonial-author">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80" alt="Mateo V." class="testimonial-avatar">
-                    <div>
-                        <strong>Mateo Valenzuela</strong>
-                        <small>Comprador Verificado · Monterrey</small>
-                    </div>
-                </div>
-            </div>
-
-            <div class="testimonial-card">
-                <div class="testimonial-stars">★★★★★</div>
-                <p class="testimonial-quote">"La lámpara de cerámica y las velas botánicas transformaron mi sala por completo. Los aromas son exquisitos y duraderos."</p>
-                <div class="testimonial-author">
-                    <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=100&q=80" alt="Lucía M." class="testimonial-avatar">
-                    <div>
-                        <strong>Lucía Mendoza</strong>
-                        <small>Compradora Verificada · Guadalajara</small>
-                    </div>
-                </div>
-            </div>
-
-            <div class="testimonial-card">
-                <div class="testimonial-stars">★★★★★</div>
-                <p class="testimonial-quote">"Plataforma impecable y entrega en menos de 48 horas. Sin duda repetiré mis compras en esta tienda."</p>
-                <div class="testimonial-author">
-                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&q=80" alt="Rodrigo S." class="testimonial-avatar">
-                    <div>
-                        <strong>Rodrigo Santos</strong>
-                        <small>Comprador Verificado · Querétaro</small>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 8. CONTACT BOX -->
-    <section id="contacto" style="margin-bottom: 60px;">
-        <div style="background: var(--card); border: 1px solid var(--card-border); border-radius: 24px; padding: 48px; display: flex; justify-content: space-between; align-items: center; gap: 30px; flex-wrap: wrap;">
-            <div>
-                <span class="section-eyebrow">Atención Directa</span>
-                <h2 style="font-size: 32px; margin-bottom: 8px;">¿Deseas una cotización o pedido especial?</h2>
-                <p style="color: var(--muted); font-size: 14px; max-width: 520px;">Estamos disponibles para responder cualquier duda sobre catálogo, personalizaciones o envíos nacionales e internacionales.</p>
-            </div>
-            <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
-                @if(!empty($settings?->contact_email))
-                    <a href="mailto:{{ $settings->contact_email }}" class="btn-brand-outline" style="border-color: var(--line); color: var(--ink);">
-                        ✉ Escribir Correo
-                    </a>
-                @endif
-                @if(!empty($settings?->whatsapp_number))
-                    @php $waNum = preg_replace('/[^0-9]/', '', $settings->whatsapp_number); @endphp
-                    <a href="https://wa.me/{{ $waNum }}?text={{ urlencode('¡Hola! Me comunico desde la tienda ' . $storeTitle) }}" target="_blank" class="btn-brand-primary" style="background:#25d366; box-shadow:0 8px 20px rgba(37,211,102,.4);">
-                        <span>💬</span> Chat por WhatsApp
-                    </a>
-                @endif
-                @if(!empty($settings?->facebook_url))
-                    <a href="{{ $settings->facebook_url }}" target="_blank" class="btn-brand-outline" style="border-color: #1877f2; color: #1877f2;">
-                        <span>📘</span> Facebook ↗
-                    </a>
-                @endif
-                @if(!empty($settings?->instagram_url))
-                    <a href="{{ $settings->instagram_url }}" target="_blank" class="btn-brand-outline" style="border-color: #e1306c; color: #e1306c;">
-                        <span>📸</span> Instagram ↗
-                    </a>
-                @endif
-            </div>
-        </div>
-    </section>
-
+    @foreach($layoutBlocks as $block)
+        @if($block['is_visible'] ?? true)
+            @includeIf('tenant.sections.' . $block['type'], ['block' => $block, 'data' => $block['data'] ?? []])
+        @endif
+    @endforeach
 </main>
 
 <!-- FOOTER -->
@@ -6481,6 +6429,28 @@ document.addEventListener('click', function(e) {
             fabBadge.textContent = headerBadge.textContent;
         }
     };
+
+    // Flash Deals Live Countdown Timer
+    (function initFlashDealsCountdown() {
+        const hoursEl = document.getElementById('cdHours');
+        const minsEl = document.getElementById('cdMinutes');
+        const secsEl = document.getElementById('cdSeconds');
+        if (!hoursEl || !minsEl || !secsEl) return;
+
+        let totalSeconds = 7 * 3600 + 45 * 60 + 20;
+        setInterval(() => {
+            if (totalSeconds <= 0) {
+                totalSeconds = 8 * 3600; // Reset loop
+            }
+            totalSeconds--;
+            const h = Math.floor(totalSeconds / 3600);
+            const m = Math.floor((totalSeconds % 3600) / 60);
+            const s = totalSeconds % 60;
+            hoursEl.textContent = String(h).padStart(2, '0');
+            minsEl.textContent = String(m).padStart(2, '0');
+            secsEl.textContent = String(s).padStart(2, '0');
+        }, 1000);
+    })();
 })();
 </script>
 </body>

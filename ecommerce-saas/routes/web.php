@@ -58,7 +58,9 @@ foreach ($centralDomains as $domain) {
                 return $store;
             }, (array) $cachedStores);
 
-            return view('tenant.store', compact('storeName', 'tenantId', 'settings', 'categories', 'products', 'featuredProducts', 'officialStores', 'user', 'hasFacebookKeys'));
+            $layoutBlocks = $settings ? $settings->getEffectiveLayoutBlocks() : \App\Models\StoreSetting::defaultLayoutBlocks();
+
+            return view('tenant.store', compact('storeName', 'tenantId', 'settings', 'categories', 'products', 'featuredProducts', 'officialStores', 'user', 'hasFacebookKeys', 'layoutBlocks'));
         })->name('central.tenant.store');
 
         // Universal Path-Based Store Management Route (No DNS setup required)
