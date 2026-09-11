@@ -15,24 +15,26 @@ class ZacatecasRealBusinessesSeeder extends Seeder
 {
     public function run(): void
     {
-        // 1. Delete all existing tenants and their domains
-        $existingTenants = Tenant::all();
-        foreach ($existingTenants as $t) {
-            try {
-                $t->domains()->delete();
-                $t->delete();
-            } catch (\Throwable $e) {
-                // Ignore if already deleted
-            }
-        }
+        // List of previous sample product slugs to clean up so the user has an empty/clean catalog
+        $sampleSlugs = [
+            'gargantilla-oro-14k-solitaria',
+            'aretes-huggies-doble-aro',
+            'brazalete-eslabon-veneciano',
+            'anillo-ajustable-twist-oro',
+            'set-cadenas-layering-medalla',
+            'vestido-midi-satinado-espalda-abierta',
+            'conjunto-blazer-crop-wide-leg',
+            'top-cuello-halter-lino-suave',
+            'falda-plisada-tiro-alto-champana',
+            'zapatillas-tacon-fino-tira-minimalista',
+            'mules-punta-herraje-joya',
+            'sandalias-plataforma-tonos-neutros',
+            'bolso-bandolera-acolchado-cadena-dorada',
+            'clutch-mano-rigido-noche',
+            'collar-choker-eslabones-oro-18k',
+        ];
 
-        // Clean up leftover sqlite files in database/ matching tenant_*.sqlite
-        $sqliteFiles = File::glob(database_path('tenant_*.sqlite'));
-        foreach ($sqliteFiles as $file) {
-            @unlink($file);
-        }
-
-        // 2. Definition of the Single New Business: D & R CONCEPTOS (@conceptos.7)
+        // 1. Definition of the Single Real Business: D & R CONCEPTOS (@conceptos.7)
         $businesses = [
             [
                 'id' => 'conceptos7',
@@ -171,167 +173,50 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                         'name' => 'Joyería y Accesorio ✨',
                         'slug' => 'joyeria-y-accesorios',
                         'description' => 'Gargantillas, aretes, pulseras y anillos en chapa de oro 14K y plata fina.',
-                        'products' => [
-                            [
-                                'name' => 'Gargantilla Chapa de Oro 14K con Circonia Solitaria',
-                                'slug' => 'gargantilla-oro-14k-solitaria',
-                                'description' => 'Cadena de tejido fino con dije de circonia corte brillante, hipoalergénica con baño protector.',
-                                'price' => 480.00,
-                                'stock' => 35,
-                                'image_url' => 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=700&q=80',
-                            ],
-                            [
-                                'name' => 'Aretes Huggies Doble Aro con Incrustaciones Brillantes',
-                                'slug' => 'aretes-huggies-doble-aro',
-                                'description' => 'Aretes pequeños tipo huggie con cierre de clic y micro pavé de circonias.',
-                                'price' => 320.00,
-                                'stock' => 50,
-                                'image_url' => 'https://images.unsplash.com/photo-1630019852942-f89202989a59?auto=format&fit=crop&w=700&q=80',
-                            ],
-                            [
-                                'name' => 'Brazalete Eslabón Veneciano Ajustable con Dijes',
-                                'slug' => 'brazalete-eslabon-veneciano',
-                                'description' => 'Pulsera ajustable para cualquier muñeca con eslabones pulidos de alto brillo.',
-                                'price' => 450.00,
-                                'stock' => 40,
-                                'image_url' => 'https://images.unsplash.com/photo-1573408301185-9146fe634ad0?auto=format&fit=crop&w=700&q=80',
-                            ],
-                            [
-                                'name' => 'Anillo Ajustable Twist en Plata Fina y Oro',
-                                'slug' => 'anillo-ajustable-twist-oro',
-                                'description' => 'Anillo de diseño cruzado entrelazado, adaptable a cualquier medida con acabado espejado.',
-                                'price' => 390.00,
-                                'stock' => 30,
-                                'image_url' => 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=700&q=80',
-                            ],
-                            [
-                                'name' => 'Set de Cadenas Layering con Medalla Minimalista',
-                                'slug' => 'set-cadenas-layering-medalla',
-                                'description' => 'Dúo de collares combinados para escote en tendencia, look moderno y sofisticado.',
-                                'price' => 550.00,
-                                'stock' => 25,
-                                'image_url' => 'https://images.unsplash.com/photo-1599643477877-530eb83abc8e?auto=format&fit=crop&w=700&q=80',
-                            ],
-                        ],
                     ],
                     [
                         'name' => 'Ropa & Tendencia 👗',
                         'slug' => 'ropa-y-tendencia',
                         'description' => 'Prendas de temporada, vestidos satinados, sastrería femenina y tops en tendencia.',
-                        'products' => [
-                            [
-                                'name' => 'Vestido Midi Satinado con Espalda Abierta',
-                                'slug' => 'vestido-midi-satinado-espalda-abierta',
-                                'description' => 'Vestido en satín sedoso con caída fluida, escote drapeado y tirantes ajustables cruzados.',
-                                'price' => 890.00,
-                                'stock' => 20,
-                                'image_url' => 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=700&q=80',
-                            ],
-                            [
-                                'name' => 'Conjunto Sastreado Blazer Crop & Pantalón Wide Leg',
-                                'slug' => 'conjunto-blazer-crop-wide-leg',
-                                'description' => 'Set de dos piezas en mezcla de lino de verano con corte estructurado contemporáneo.',
-                                'price' => 1290.00,
-                                'stock' => 15,
-                                'image_url' => 'https://images.unsplash.com/photo-1584273143981-41c073dfe8f8?auto=format&fit=crop&w=700&q=80',
-                            ],
-                            [
-                                'name' => 'Top Elegante Cuello Halter en Lino Suave',
-                                'slug' => 'top-cuello-halter-lino-suave',
-                                'description' => 'Top sin mangas de silueta favorecedora ideal para combinar con faldas y palazzos.',
-                                'price' => 450.00,
-                                'stock' => 35,
-                                'image_url' => 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=700&q=80',
-                            ],
-                            [
-                                'name' => 'Falda Plisada de Tiro Alto Color Champaña',
-                                'slug' => 'falda-plisada-tiro-alto-champana',
-                                'description' => 'Falda midi con pretina elástica y tejido satinado plisado con movimiento espectacular.',
-                                'price' => 580.00,
-                                'stock' => 25,
-                                'image_url' => 'https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?auto=format&fit=crop&w=700&q=80',
-                            ],
-                        ],
                     ],
                     [
                         'name' => 'Calzado & Tacones 👠',
                         'slug' => 'calzado-y-tacones',
                         'description' => 'Zapatillas de tacón, mules destalonados y sandalias de plataforma confort.',
-                        'products' => [
-                            [
-                                'name' => 'Zapatillas de Tacón Fino y Tira Minimalista',
-                                'slug' => 'zapatillas-tacon-fino-tira-minimalista',
-                                'description' => 'Tacón de 8 cm con plantilla acojinada y pulsera al tobillo para máxima seguridad.',
-                                'price' => 850.00,
-                                'stock' => 25,
-                                'image_url' => 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=700&q=80',
-                            ],
-                            [
-                                'name' => 'Mules en Punta con Herraje Metálico Joya',
-                                'slug' => 'mules-punta-herraje-joya',
-                                'description' => 'Zapato plano destalonado en piel sintética suave con hebilla decorativa brillante.',
-                                'price' => 780.00,
-                                'stock' => 30,
-                                'image_url' => 'https://images.unsplash.com/photo-1535043934128-cf0b28d52f95?auto=format&fit=crop&w=700&q=80',
-                            ],
-                            [
-                                'name' => 'Sandalias de Plataforma en Tonos Neutros',
-                                'slug' => 'sandalias-plataforma-tonos-neutros',
-                                'description' => 'Plataforma ligera de 6 cm con correas suaves para caminar cómodo por Zacatecas Centro.',
-                                'price' => 690.00,
-                                'stock' => 20,
-                                'image_url' => 'https://images.unsplash.com/photo-1562273138-f46be4ebdf33?auto=format&fit=crop&w=700&q=80',
-                            ],
-                        ],
                     ],
                     [
                         'name' => 'Bolsos & Complementos 👜',
                         'slug' => 'bolsos-y-complementos',
                         'description' => 'Bolsos crossbody, clutches de noche y carteras en tonos neutros.',
-                        'products' => [
-                            [
-                                'name' => 'Bolso Bandolera Acolchado con Cadena Dorada',
-                                'slug' => 'bolso-bandolera-acolchado-cadena-dorada',
-                                'description' => 'Diseño acolchado con solapa magnética, compartimento interior con cremallera y herrajes dorados.',
-                                'price' => 680.00,
-                                'stock' => 20,
-                                'image_url' => 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=700&q=80',
-                            ],
-                            [
-                                'name' => 'Clutch de Mano Rígido para Noche y Eventos',
-                                'slug' => 'clutch-mano-rigido-noche',
-                                'description' => 'Bolso de fiesta con textura nacarada y broche metálico superior, incluye cadena opcional.',
-                                'price' => 540.00,
-                                'stock' => 15,
-                                'image_url' => 'https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?auto=format&fit=crop&w=700&q=80',
-                            ],
-                        ],
                     ],
                 ],
             ],
         ];
 
-        // 3. Create Tenant and Populate Isolated Database
+        // 2. Create Tenant if not exists, and Configure Isolated Database
         foreach ($businesses as $biz) {
             $tenantId = $biz['id'];
 
-            // Create Tenant
-            $tenant = Tenant::create([
-                'id' => $tenantId,
-                'plan_name' => $biz['plan_name'],
-                'billing_cycle' => $biz['billing_cycle'],
-                'subscription_status' => 'active',
-                'subscription_amount' => $biz['subscription_amount'],
-                'subscription_ends_at' => now()->addYear(),
-                'address' => $biz['address'],
-                'neighborhood_zone' => $biz['neighborhood_zone'],
-                'city' => $biz['city'],
-                'latitude' => $biz['latitude'],
-                'longitude' => $biz['longitude'],
-                'maps_url' => $biz['maps_url'],
-                'opening_hours' => $biz['opening_hours'],
-                'location_reference' => $biz['location_reference'],
-            ]);
+            // Find or Create Tenant (do NOT overwrite or wipe)
+            $tenant = Tenant::find($tenantId);
+            if (! $tenant) {
+                $tenant = Tenant::create([
+                    'id' => $tenantId,
+                    'plan_name' => $biz['plan_name'],
+                    'billing_cycle' => $biz['billing_cycle'],
+                    'subscription_status' => 'active',
+                    'subscription_amount' => $biz['subscription_amount'],
+                    'subscription_ends_at' => now()->addYear(),
+                    'address' => $biz['address'],
+                    'neighborhood_zone' => $biz['neighborhood_zone'],
+                    'city' => $biz['city'],
+                    'latitude' => $biz['latitude'],
+                    'longitude' => $biz['longitude'],
+                    'maps_url' => $biz['maps_url'],
+                    'opening_hours' => $biz['opening_hours'],
+                    'location_reference' => $biz['location_reference'],
+                ]);
+            }
 
             // Assign Domains (standard + aliases)
             $domains = [
@@ -349,12 +234,14 @@ class ZacatecasRealBusinessesSeeder extends Seeder
 
             foreach (array_unique($domains) as $dom) {
                 try {
-                    $tenant->createDomain($dom);
+                    if (! $tenant->domains()->where('domain', $dom)->exists()) {
+                        $tenant->createDomain($dom);
+                    }
                 } catch (\Throwable $e) {}
             }
 
             // Seed Tenant Isolated DB
-            $tenant->run(function () use ($biz) {
+            $tenant->run(function () use ($biz, $sampleSlugs) {
                 // Ensure StoreSetting
                 StoreSetting::updateOrCreate(
                     ['id' => 1],
@@ -420,31 +307,19 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                     );
                 }
 
-                // Populate Categories & Products
+                // Populate Categories only (NO dummy products; store starts clean for user to add products)
                 foreach ($biz['categories'] as $catData) {
-                    $category = Category::updateOrCreate(
+                    Category::firstOrCreate(
                         ['slug' => $catData['slug']],
                         [
                             'name' => $catData['name'],
-                            'description' => $catData['description'],
+                            'description' => $catData['description'] ?? null,
                         ]
                     );
-
-                    foreach ($catData['products'] as $prodData) {
-                        Product::updateOrCreate(
-                            ['slug' => $prodData['slug']],
-                            [
-                                'category_id' => $category->id,
-                                'name' => $prodData['name'],
-                                'description' => $prodData['description'],
-                                'price' => $prodData['price'],
-                                'stock' => $prodData['stock'] ?? 30,
-                                'image_url' => $prodData['image_url'],
-                                'is_active' => true,
-                            ]
-                        );
-                    }
                 }
+
+                // Delete any previous sample products so user has a clean catalog
+                Product::whereIn('slug', $sampleSlugs)->delete();
             });
         }
 

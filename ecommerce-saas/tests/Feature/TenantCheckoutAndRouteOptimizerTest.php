@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Category;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Tenant;
@@ -9,6 +10,16 @@ use Tests\TestCase;
 
 class TenantCheckoutAndRouteOptimizerTest extends TestCase
 {
+    protected function tearDown(): void
+    {
+        $tenant = Tenant::find('conceptos7');
+        if ($tenant) {
+            $tenant->run(function () {
+                Product::where('slug', 'test-checkout-prod')->delete();
+            });
+        }
+        parent::tearDown();
+    }
     public function test_central_portal_displays_smart_shopping_route_optimizer(): void
     {
         $response = $this->get('http://localhost/');
@@ -68,12 +79,19 @@ class TenantCheckoutAndRouteOptimizerTest extends TestCase
         }
 
         $product = $tenant->run(function () {
-            return Product::where('is_active', true)->first();
+            $cat = Category::firstOrCreate(['slug' => 'joyeria-y-accesorios'], ['name' => 'Joyería y Accesorio ✨']);
+            return Product::firstOrCreate(
+                ['slug' => 'test-checkout-prod'],
+                [
+                    'category_id' => $cat->id,
+                    'name' => 'Producto Checkout Test',
+                    'description' => 'Test checkout',
+                    'price' => 150.00,
+                    'stock' => 20,
+                    'is_active' => true,
+                ]
+            );
         });
-
-        if (!$product) {
-            $this->markTestSkipped('No product available in conceptos7.');
-        }
 
         $payload = [
             'customer_name' => 'Turista Zacatecas',

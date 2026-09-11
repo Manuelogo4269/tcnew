@@ -2,7 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\Models\Category;
 use App\Models\CentralUser;
+use App\Models\Product;
 use App\Models\Tenant;
 use Tests\TestCase;
 
@@ -12,6 +14,21 @@ class CentralPortalAndAuthTest extends TestCase
     {
         parent::setUp();
         \Illuminate\Support\Facades\Cache::flush();
+    }
+
+    protected function tearDown(): void
+    {
+        $tenant = Tenant::find('conceptos7');
+        if ($tenant) {
+            $tenant->run(function () {
+                Product::whereIn('slug', [
+                    'collar-choker-eslabones-oro-18k',
+                    'vestido-midi-satinado-espalda-abierta',
+                    'zapatillas-tacon-fino-tira-minimalista',
+                ])->delete();
+            });
+        }
+        parent::tearDown();
     }
 
     public function test_central_portal_displays_categorized_enterprises(): void
@@ -31,6 +48,43 @@ class CentralPortalAndAuthTest extends TestCase
 
     public function test_global_search_across_all_stores(): void
     {
+        $tenant = Tenant::find('conceptos7');
+        if ($tenant) {
+            $tenant->run(function () {
+                $cat = Category::firstOrCreate(['slug' => 'joyeria-y-accesorios'], ['name' => 'Joyería y Accesorio ✨']);
+                Product::firstOrCreate(
+                    ['slug' => 'collar-choker-eslabones-oro-18k'],
+                    [
+                        'category_id' => $cat->id,
+                        'name' => 'Collar Choker de Eslabones en Baño de Oro 18K',
+                        'price' => 590.00,
+                        'stock' => 15,
+                        'is_active' => true,
+                    ]
+                );
+                Product::firstOrCreate(
+                    ['slug' => 'vestido-midi-satinado-espalda-abierta'],
+                    [
+                        'category_id' => $cat->id,
+                        'name' => 'Vestido Midi Satinado con Espalda Abierta',
+                        'price' => 890.00,
+                        'stock' => 20,
+                        'is_active' => true,
+                    ]
+                );
+                Product::firstOrCreate(
+                    ['slug' => 'zapatillas-tacon-fino-tira-minimalista'],
+                    [
+                        'category_id' => $cat->id,
+                        'name' => 'Zapatillas de Tacón Fino y Tira Minimalista',
+                        'price' => 850.00,
+                        'stock' => 25,
+                        'is_active' => true,
+                    ]
+                );
+            });
+        }
+
         // 1. Search for jewelry product
         $responseJewelry = $this->get('http://localhost/?q=oro');
         $responseJewelry->assertStatus(200);

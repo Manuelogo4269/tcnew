@@ -61,6 +61,7 @@ class ModularStorefrontBuilderTest extends TestCase
                 $settings->layout_blocks = $this->savedBlocks;
                 $settings->save();
             }
+            Product::where('slug', 'collar-choker-eslabones-oro-18k')->delete();
             tenancy()->end();
         }
 

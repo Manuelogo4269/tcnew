@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Category;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Tenant;
@@ -10,6 +11,17 @@ use Tests\TestCase;
 
 class TenantAdminOrderManagementTest extends TestCase
 {
+    protected function tearDown(): void
+    {
+        $tenant = Tenant::find('conceptos7');
+        if ($tenant) {
+            $tenant->run(function () {
+                Product::whereIn('slug', ['test-order-fixture-1', 'test-order-fixture-2'])->delete();
+            });
+        }
+        parent::tearDown();
+    }
+
     public function test_tenant_admin_orders_page_is_accessible_with_authenticated_admin(): void
     {
         $tenant = Tenant::findOrFail('conceptos7');
@@ -31,6 +43,15 @@ class TenantAdminOrderManagementTest extends TestCase
         }
 
         tenancy()->initialize($tenant);
+        $cat = Category::firstOrCreate(['slug' => 'joyeria-y-accesorios'], ['name' => 'Joyería y Accesorio ✨']);
+        Product::firstOrCreate(
+            ['slug' => 'test-order-fixture-1'],
+            ['category_id' => $cat->id, 'name' => 'Producto Pedido 1', 'price' => 150.00, 'stock' => 25, 'is_active' => true]
+        );
+        Product::firstOrCreate(
+            ['slug' => 'test-order-fixture-2'],
+            ['category_id' => $cat->id, 'name' => 'Producto Pedido 2', 'price' => 250.00, 'stock' => 25, 'is_active' => true]
+        );
         $products = Product::where('is_active', true)->take(2)->get();
         $this->assertGreaterThanOrEqual(2, $products->count(), 'At least 2 products should exist for this test.');
 

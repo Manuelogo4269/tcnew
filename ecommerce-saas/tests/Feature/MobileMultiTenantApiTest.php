@@ -13,6 +13,17 @@ use Tests\TestCase;
 
 class MobileMultiTenantApiTest extends TestCase
 {
+    protected function tearDown(): void
+    {
+        $tenant1 = Tenant::find('conceptos7');
+        if ($tenant1) {
+            $tenant1->run(function () {
+                Product::whereIn('slug', ['collar-choker-eslabones-oro-18k', 'mobile-test-product'])->delete();
+            });
+        }
+        parent::tearDown();
+    }
+
     public function test_mobile_customer_can_register_and_login_globally(): void
     {
         $uniqueEmail = 'user_' . uniqid() . '@example.com';
@@ -65,7 +76,17 @@ class MobileMultiTenantApiTest extends TestCase
         // 2. Get a product from conceptos7
         $tenant1 = Tenant::find('conceptos7');
         $prod1 = $tenant1->run(function () {
-            $p = Product::first();
+            $cat = Category::firstOrCreate(['slug' => 'joyeria-y-accesorios'], ['name' => 'Joyería y Accesorio ✨']);
+            $p = Product::firstOrCreate(
+                ['slug' => 'collar-choker-eslabones-oro-18k'],
+                [
+                    'category_id' => $cat->id,
+                    'name' => 'Collar Choker de Eslabones en Baño de Oro 18K',
+                    'price' => 590.00,
+                    'stock' => 50,
+                    'is_active' => true,
+                ]
+            );
             $p->update(['stock' => 50]);
             return $p->fresh();
         });
