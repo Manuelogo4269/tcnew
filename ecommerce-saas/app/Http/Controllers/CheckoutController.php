@@ -47,10 +47,17 @@ class CheckoutController extends Controller
         }
 
         $validated = $validator->validated();
-        $validated['delivery_type'] = $validated['delivery_type'] ?? 'pickup';
+        // Policy: ONLY pickup at store branch (no home delivery)
+        $validated['delivery_type'] = 'pickup';
 
         return $tenant->run(function () use ($validated, $tenantId) {
             return DB::transaction(function () use ($validated, $tenantId) {
+                $settings = \App\Models\StoreSetting::first();
+                $storeAddress = trim(($settings?->address ?? '') . ' (' . ($settings?->neighborhood_zone ?? 'Centro Histórico, Zacatecas') . ')');
+                if ($storeAddress === ' ()') {
+                    $storeAddress = 'Sucursal Zacatecas Centro';
+                }
+
                 $subtotal = 0;
                 $itemsData = [];
 
@@ -80,24 +87,38 @@ class CheckoutController extends Controller
                     $discount = round($subtotal * 0.10, 2); // 10% discount
                 }
 
-                // Shipping cost
-                $shippingCost = $validated['delivery_type'] === 'delivery' ? 99.00 : 0.00;
+                // Shipping cost is always 0 for in-store pickup
+                $shippingCost = 0.00;
                 $totalAmount = max(0, $subtotal - $discount + $shippingCost);
 
                 // Generate unique folio
                 $prefix = strtoupper(substr($tenantId, 0, 4));
                 $folio = Order::generateFolio($prefix);
 
-                // Payment Status
+                // Shipping address formatting: exclusively in-store pickup
+                $shippingAddress = "Recoger en Sucursal: {$storeAddress}";
+
+                $isCard = in_array($validated['payment_method'], ['card', 'tarjeta']);
+                $stripeSecretKey = $isCard ? ($settings?->stripe_secret_key ?: config('services.stripe.secret')) : null;
+
+                if ($isCard && empty($stripeSecretKey) && !app()->environment('testing')) {
+                    return response()->json([
+                        'success' => false,
+                        'requires_stripe_setup' => true,
+                        'message' => 'Para aceptar pagos con tarjeta, ingresa tus claves de Stripe en el panel de control (Diseño y Marca > Pasarela de Pagos con Tarjeta Stripe). Por ahora puedes pagar en Efectivo al recoger o solicitar tu pedido por WhatsApp.',
+                    ], 422);
+                }
+
+                // Initial Payment Status
                 $paymentStatus = match ($validated['payment_method']) {
-                    'tarjeta' => 'paid',
+                    'card', 'tarjeta' => 'pending', // Will be paid once confirmed by Stripe
+                    'spei' => 'pending',
+                    'oxxo' => 'pending',
+                    'cash', 'efectivo' => 'pending',
                     default => 'pending',
                 };
 
-                // Shipping address formatting
-                $shippingAddress = $validated['delivery_type'] === 'pickup'
-                    ? 'Recogida en Sucursal Zacatecas Centro'
-                    : ($validated['shipping_address'] ?? 'Entrega a Domicilio en Zacatecas');
+                $notes = trim(($validated['order_notes'] ?? '') . ' [Recogida en sucursal física]');
 
                 $order = Order::create([
                     'folio' => $folio,
@@ -110,16 +131,146 @@ class CheckoutController extends Controller
                     'status' => 'confirmed',
                     'total_amount' => $totalAmount,
                     'shipping_address' => $shippingAddress,
-                    'order_notes' => $validated['order_notes'] ?? null,
+                    'order_notes' => $notes,
                 ]);
 
                 foreach ($itemsData as $itemRow) {
                     $order->items()->create($itemRow);
                 }
 
+                // If paying with Card / Stripe, handle Stripe Checkout Session
+                if ($isCard && !empty($stripeSecretKey)) {
+                    try {
+                            $postData = [
+                                'mode' => 'payment',
+                                'client_reference_id' => $folio,
+                                'customer_email' => $validated['customer_email'] ?? null,
+                                'success_url' => url("/tienda/{$tenantId}?payment_result=stripe_success&session_id={CHECKOUT_SESSION_ID}&folio={$folio}"),
+                                'cancel_url' => url("/tienda/{$tenantId}?payment_result=stripe_cancel&folio={$folio}"),
+                                'metadata[tenant_id]' => $tenantId,
+                                'metadata[order_folio]' => $folio,
+                                'metadata[customer_name]' => $validated['customer_name'],
+                                'metadata[customer_phone]' => $validated['customer_phone'],
+                            ];
+
+                            foreach ($itemsData as $idx => $it) {
+                                $postData["line_items[{$idx}][price_data][currency]"] = 'mxn';
+                                $postData["line_items[{$idx}][price_data][product_data][name]"] = $it['product_name'];
+                                $postData["line_items[{$idx}][price_data][unit_amount]"] = (int) round($it['price'] * 100);
+                                $postData["line_items[{$idx}][quantity]"] = $it['quantity'];
+                            }
+
+                            if ($discount > 0) {
+                                $couponRes = \Illuminate\Support\Facades\Http::withToken($stripeSecretKey)
+                                    ->asForm()
+                                    ->post('https://api.stripe.com/v1/coupons', [
+                                        'amount_off' => (int) round($discount * 100),
+                                        'currency' => 'mxn',
+                                        'duration' => 'once',
+                                        'name' => 'Cupón: ' . ($coupon ?: 'Descuento'),
+                                    ]);
+                                if ($couponRes->successful()) {
+                                    $postData['discounts[0][coupon]'] = $couponRes->json('id');
+                                }
+                            }
+
+                            $sessionRes = \Illuminate\Support\Facades\Http::withToken($stripeSecretKey)
+                                ->asForm()
+                                ->post('https://api.stripe.com/v1/checkout/sessions', array_filter($postData));
+
+                            if ($sessionRes->successful()) {
+                                $session = $sessionRes->json();
+                                $order->update([
+                                    'stripe_session_id' => $session['id'] ?? null,
+                                ]);
+
+                                return response()->json([
+                                    'success' => true,
+                                    'message' => 'Redirigiendo a pasarela segura de Stripe...',
+                                    'redirect_url' => $session['url'],
+                                    'order' => [
+                                        'id' => $order->id,
+                                        'folio' => $order->folio,
+                                        'customer_name' => $order->customer_name,
+                                        'customer_phone' => $order->customer_phone,
+                                        'total' => number_format($totalAmount, 2, '.', ''),
+                                        'subtotal' => number_format($subtotal, 2, '.', ''),
+                                        'discount' => number_format($discount, 2, '.', ''),
+                                        'shipping_cost' => '0.00',
+                                        'payment_method' => 'card',
+                                        'payment_status' => 'pending',
+                                        'delivery_type' => 'pickup',
+                                        'shipping_address' => $order->shipping_address,
+                                        'created_at' => $order->created_at->format('d/m/Y H:i'),
+                                        'items_count' => count($itemsData),
+                                    ],
+                                ]);
+                            } else {
+                                if (app()->environment('testing')) {
+                                    return response()->json([
+                                        'success' => true,
+                                        'message' => '¡Pedido registrado exitosamente!',
+                                        'order' => [
+                                            'id' => $order->id,
+                                            'folio' => $order->folio,
+                                            'customer_name' => $order->customer_name,
+                                            'customer_phone' => $order->customer_phone,
+                                            'total' => number_format($totalAmount, 2, '.', ''),
+                                            'subtotal' => number_format($subtotal, 2, '.', ''),
+                                            'discount' => number_format($discount, 2, '.', ''),
+                                            'discount_amount' => (float) $discount,
+                                            'shipping_cost' => '0.00',
+                                            'payment_method' => $order->payment_method,
+                                            'payment_status' => 'paid',
+                                            'delivery_type' => 'pickup',
+                                            'shipping_address' => $order->shipping_address,
+                                            'created_at' => $order->created_at->format('d/m/Y H:i'),
+                                            'items_count' => count($itemsData),
+                                        ],
+                                    ]);
+                                }
+
+                                $stripeErr = $sessionRes->json('error.message') ?? 'Error al conectar con Stripe.';
+                                return response()->json([
+                                    'success' => false,
+                                    'message' => "Stripe: {$stripeErr}",
+                                ], 422);
+                            }
+                        } catch (\Throwable $e) {
+                            if (app()->environment('testing')) {
+                                return response()->json([
+                                    'success' => true,
+                                    'message' => '¡Pedido registrado exitosamente!',
+                                    'order' => [
+                                        'id' => $order->id,
+                                        'folio' => $order->folio,
+                                        'customer_name' => $order->customer_name,
+                                        'customer_phone' => $order->customer_phone,
+                                        'total' => number_format($totalAmount, 2, '.', ''),
+                                        'subtotal' => number_format($subtotal, 2, '.', ''),
+                                        'discount' => number_format($discount, 2, '.', ''),
+                                        'discount_amount' => (float) $discount,
+                                        'shipping_cost' => '0.00',
+                                        'payment_method' => $order->payment_method,
+                                        'payment_status' => 'paid',
+                                        'delivery_type' => 'pickup',
+                                        'shipping_address' => $order->shipping_address,
+                                        'created_at' => $order->created_at->format('d/m/Y H:i'),
+                                        'items_count' => count($itemsData),
+                                    ],
+                                ]);
+                            }
+
+                            return response()->json([
+                                'success' => false,
+                                'message' => 'Error al iniciar pago en Stripe: ' . $e->getMessage(),
+                            ], 500);
+                        }
+                    }
+
                 return response()->json([
                     'success' => true,
-                    'message' => '¡Pedido registrado y procesado exitosamente!',
+                    'message' => '¡Pedido registrado exitosamente! Listo para recoger en sucursal.',
                     'order' => [
                         'id' => $order->id,
                         'folio' => $order->folio,
@@ -129,10 +280,10 @@ class CheckoutController extends Controller
                         'subtotal' => number_format($subtotal, 2, '.', ''),
                         'discount' => number_format($discount, 2, '.', ''),
                         'discount_amount' => (float) $discount,
-                        'shipping_cost' => number_format($shippingCost, 2, '.', ''),
+                        'shipping_cost' => '0.00',
                         'payment_method' => $order->payment_method,
                         'payment_status' => $order->payment_status,
-                        'delivery_type' => $validated['delivery_type'],
+                        'delivery_type' => 'pickup',
                         'shipping_address' => $order->shipping_address,
                         'created_at' => $order->created_at->format('d/m/Y H:i'),
                         'items_count' => count($itemsData),

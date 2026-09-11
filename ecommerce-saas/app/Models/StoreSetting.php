@@ -35,10 +35,14 @@ class StoreSetting extends Model
         'location_reference',
         'footer_text',
         'layout_blocks',
+        'stripe_enabled',
+        'stripe_publishable_key',
+        'stripe_secret_key',
     ];
 
     protected $casts = [
         'show_announcement' => 'boolean',
+        'stripe_enabled' => 'boolean',
         'layout_blocks' => 'array',
     ];
 

@@ -20,6 +20,8 @@ class Order extends Model
         'total_amount',
         'shipping_address',
         'order_notes',
+        'stripe_session_id',
+        'stripe_payment_intent_id',
     ];
 
     public static function generateFolio(string $prefix = 'ZAC'): string

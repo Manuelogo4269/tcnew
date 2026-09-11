@@ -47,13 +47,13 @@
             </div>
         </div>
 
-        <!-- Slide 3: Promoción & Envíos -->
+        <!-- Slide 3: Promoción & Recogida en Tienda -->
         <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?auto=format&fit=crop&w=1400&q=80');">
             <div class="hero-slide-overlay"></div>
             <div class="hero-slide-content">
-                <span class="hero-badge">Promoción Especial</span>
-                <h2>Tu pedido en tu puerta.<br><em>Sin complicaciones.</em></h2>
-                <p>Disfruta de atención directa vía WhatsApp, empaque de regalo de lujo y envíos prioritarios protegidos a cualquier destino.</p>
+                <span class="hero-badge">Recogida Exclusiva</span>
+                <h2>Aparta en línea y recoge en tienda.<br><em>Fácil, rápido y seguro.</em></h2>
+                <p>Disfruta de atención directa vía WhatsApp, empaque especial y recogida inmediata en nuestra sucursal del Centro Histórico.</p>
                 <div class="hero-cta-group">
                     <a href="#catalogo" class="btn-brand-primary">Comprar Ahora <span>→</span></a>
                     @if(!empty($settings?->whatsapp_number))

@@ -4848,20 +4848,19 @@
                     <label for="checkCustPhone">Teléfono / WhatsApp *</label>
                     <input type="tel" id="checkCustPhone" required placeholder="492 123 4567">
                 </div>
-                <div class="checkout-field">
-                    <label for="checkDeliveryType">Método de Entrega</label>
-                    <select id="checkDeliveryType" onchange="toggleShippingAddressField(this.value)">
-                        <option value="pickup">🛍️ Recoger en Sucursal Centro (Gratis)</option>
-                        <option value="delivery">🚚 Envío a Domicilio en Zacatecas (Gratis)</option>
-                    </select>
-                </div>
-                <div class="checkout-field checkout-grid-full" id="shippingAddressWrap" style="display: none;">
-                    <label for="checkCustAddress">Dirección de Entrega (Calle, Número, Colonia, C.P.) *</label>
-                    <input type="text" id="checkCustAddress" placeholder="Ej. Av. Hidalgo #123, Col. Centro, C.P. 98000, Zacatecas">
+                <div class="checkout-field checkout-grid-full" style="background: rgba(217, 107, 69, 0.08); border: 1.5px solid rgba(217, 107, 69, 0.25); border-radius: 12px; padding: 12px 16px; margin: 4px 0 8px;">
+                    <div style="font-size: 13px; font-weight: 800; color: var(--accent); display: flex; align-items: center; gap: 8px;">
+                        <span>🛍️</span> <span>Recogida Exclusiva en Sucursal (Sin Envíos a Domicilio)</span>
+                    </div>
+                    <div style="font-size: 12px; color: var(--ink); margin-top: 4px; line-height: 1.4;">
+                        📍 <strong>{{ $storeAddress }}</strong> ({{ $storeZone }}).
+                        @if(!empty($storeHours)) <br>🕒 <em>Horario de entrega: {{ $storeHours }}</em> @endif
+                    </div>
+                    <input type="hidden" id="checkDeliveryType" value="pickup">
                 </div>
                 <div class="checkout-field checkout-grid-full">
-                    <label for="checkCustNotes">Notas o Instrucciones Especiales (Opcional)</label>
-                    <input type="text" id="checkCustNotes" placeholder="Ej. Empaque para regalo, timbre blanco, etc.">
+                    <label for="checkCustNotes">Notas o Instrucciones para tu Recogida (Opcional)</label>
+                    <input type="text" id="checkCustNotes" placeholder="Ej. Paso hoy por la tarde, empaque para regalo, etc.">
                 </div>
             </div>
 
@@ -4873,7 +4872,7 @@
             <div class="payment-methods-tabs">
                 <div class="payment-tab-btn active" data-method="card" onclick="switchPaymentTab('card', this)">
                     <span>💳</span>
-                    <small>Tarjeta Débito/Crédito</small>
+                    <small>Tarjeta Débito/Crédito (Stripe)</small>
                 </div>
                 <div class="payment-tab-btn" data-method="spei" onclick="switchPaymentTab('spei', this)">
                     <span>🏦</span>
@@ -4885,7 +4884,7 @@
                 </div>
                 <div class="payment-tab-btn" data-method="cash" onclick="switchPaymentTab('cash', this)">
                     <span>💵</span>
-                    <small>Contra Entrega</small>
+                    <small>Contra Entrega / Recoger</small>
                 </div>
                 <div class="payment-tab-btn" data-method="whatsapp" onclick="switchPaymentTab('whatsapp', this)">
                     <span>💬</span>
@@ -4893,28 +4892,20 @@
                 </div>
             </div>
 
-            <!-- Card Payment Panel -->
+            <!-- Card / Stripe Payment Panel -->
             <div class="payment-method-panel active" id="payPanel_card">
-                <div style="font-size: 12.5px; color: var(--muted); margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between;">
-                    <span>Tarjetas aceptadas: Visa, Mastercard, American Express</span>
-                    <span style="color: #10b981; font-weight: 700;">✓ 3D Secure Activo</span>
-                </div>
-                <div class="checkout-grid">
-                    <div class="checkout-field checkout-grid-full">
-                        <label>Titular de la Tarjeta</label>
-                        <input type="text" id="cardHolderName" placeholder="Nombre como aparece en el plástico">
+                <div style="background: rgba(217, 107, 69, 0.04); border: 1.5px solid rgba(217, 107, 69, 0.2); border-radius: 12px; padding: 18px 16px; text-align: center;">
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 6px;">
+                        <span style="font-size: 22px;">💳</span>
+                        <strong style="font-size: 15px; color: var(--ink);">Pasarela Oficial Stripe</strong>
                     </div>
-                    <div class="checkout-field checkout-grid-full">
-                        <label>Número de Tarjeta</label>
-                        <input type="text" id="cardNumber" placeholder="4152 •••• •••• 1234" maxlength="19" oninput="formatCreditCardNumber(this)">
-                    </div>
-                    <div class="checkout-field">
-                        <label>Vencimiento (MM/AA)</label>
-                        <input type="text" id="cardExpiry" placeholder="MM/AA" maxlength="5" oninput="formatCardExpiry(this)">
-                    </div>
-                    <div class="checkout-field">
-                        <label>CVV / CVC</label>
-                        <input type="password" id="cardCvv" placeholder="•••" maxlength="4">
+                    <p style="font-size: 13px; color: var(--muted); margin: 0 0 12px; line-height: 1.45;">
+                        Al hacer clic en pagar, serás redirigido a la pasarela segura de <strong>Stripe</strong> para completar tu pago con tarjeta de crédito o débito (Visa, Mastercard, AMEX) con autenticación bancaria 3D Secure.
+                    </p>
+                    <div style="display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 12px; font-size: 11.5px; color: #10b981; font-weight: 700;">
+                        <span>🔒 Cifrado SSL 256 bits</span>
+                        <span>🛡️ Protección Antifraude</span>
+                        <span>⚡ Confirmación Inmediata</span>
                     </div>
                 </div>
             </div>
@@ -4953,13 +4944,13 @@
                 </div>
             </div>
 
-            <!-- Cash on Delivery Panel -->
+            <!-- Cash on Pickup Panel -->
             <div class="payment-method-panel" id="payPanel_cash">
                 <div style="font-size: 13px; color: var(--ink); margin-bottom: 6px;">
-                    💵 <strong>Pago Contra Entrega en Zacatecas Centro:</strong>
+                    💵 <strong>Pago en Efectivo al Recoger en Sucursal:</strong>
                 </div>
                 <p style="font-size: 12.5px; color: var(--muted); margin: 0; line-height: 1.4;">
-                    Paga en efectivo en moneda nacional al momento de recibir tu paquete en tu domicilio o al recoger en mostrador en nuestra sucursal de <strong>{{ $storeAddress }}</strong>.
+                    Paga en efectivo en moneda nacional al acudir a recoger tu pedido directamente en mostrador en nuestra sucursal de <strong>{{ $storeAddress }}</strong>.
                 </p>
             </div>
 
@@ -5572,10 +5563,18 @@ async function processOrderCheckout() {
         const data = await response.json();
 
         if (response.ok && data.success) {
+            if (data.redirect_url) {
+                // Redirigir a la pasarela segura de Stripe Checkout
+                clearCart();
+                window.location.href = data.redirect_url;
+                return;
+            }
             lastCompletedOrder = data.order;
             handleOrderSuccess(data.order, payload);
+            return;
         } else {
-            throw new Error(data.message || 'Error al procesar la orden en el servidor');
+            alert(data.message || 'Error al procesar la orden en el servidor');
+            return;
         }
     } catch (error) {
         console.warn('[Checkout Note]: Guardando comprobante offline resiliente:', error);
@@ -6568,5 +6567,57 @@ document.addEventListener('click', function(e) {
     })();
 })();
 </script>
+
+@if(!empty($confirmedOrder))
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    try {
+        if (typeof clearCart === 'function') clearCart();
+        const orderData = @json($confirmedOrder);
+        const formatted = {
+            id: orderData.id,
+            folio: orderData.folio,
+            customer_name: orderData.customer_name,
+            customer_phone: orderData.customer_phone,
+            customer_email: orderData.customer_email,
+            total: orderData.total_amount,
+            subtotal: orderData.total_amount,
+            shipping_cost: '0.00',
+            discount_amount: 0,
+            payment_method: 'card',
+            payment_status: 'paid',
+            shipping_address: orderData.shipping_address,
+            items: (orderData.items || []).map(function(i) {
+                return {
+                    product_name: i.product_name,
+                    quantity: i.quantity,
+                    unit_price: i.price,
+                    subtotal: i.price * i.quantity
+                };
+            })
+        };
+        handleOrderSuccess(formatted, formatted);
+        if (typeof showToast === 'function') {
+            showToast('✓ ¡Pago con Tarjeta completado exitosamente a través de Stripe!');
+        }
+    } catch (e) {
+        console.error('Error al inicializar orden confirmada de Stripe:', e);
+    }
+});
+</script>
+@endif
+
+@if(request('payment_result') === 'stripe_cancel')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    if (typeof showToast === 'function') {
+        showToast('⚠️ El pago con tarjeta en Stripe fue cancelado. Puedes intentar nuevamente cuando gustes.');
+    } else {
+        alert('El pago con tarjeta en Stripe fue cancelado.');
+    }
+});
+</script>
+@endif
+
 </body>
 </html>

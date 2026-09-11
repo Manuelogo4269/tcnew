@@ -112,7 +112,41 @@ foreach ($centralDomains as $domain) {
 
             $layoutBlocks = $settings ? $settings->getEffectiveLayoutBlocks() : \App\Models\StoreSetting::defaultLayoutBlocks();
 
-            return view('tenant.store', compact('storeName', 'tenantId', 'settings', 'categories', 'products', 'featuredProducts', 'officialStores', 'user', 'hasFacebookKeys', 'layoutBlocks'));
+            $confirmedOrder = null;
+            $paymentResult = request('payment_result');
+            $stripeSessionId = request('session_id');
+            $folio = request('folio');
+
+            if ($paymentResult === 'stripe_success' && $stripeSessionId && $folio) {
+                $order = \App\Models\Order::where('folio', $folio)
+                    ->orWhere('stripe_session_id', $stripeSessionId)
+                    ->first();
+
+                if ($order) {
+                    $secretKey = $settings?->stripe_secret_key ?: config('services.stripe.secret');
+                    if ($secretKey) {
+                        try {
+                            $sessionCheck = \Illuminate\Support\Facades\Http::withToken($secretKey)
+                                ->get("https://api.stripe.com/v1/checkout/sessions/{$stripeSessionId}");
+                            if ($sessionCheck->successful() && $sessionCheck->json('payment_status') === 'paid') {
+                                $order->update([
+                                    'payment_status' => 'paid',
+                                    'status' => 'confirmed',
+                                    'stripe_payment_intent_id' => $sessionCheck->json('payment_intent'),
+                                ]);
+                            }
+                        } catch (\Throwable $e) {}
+                    } else {
+                        $order->update([
+                            'payment_status' => 'paid',
+                            'status' => 'confirmed',
+                        ]);
+                    }
+                    $confirmedOrder = $order->load('items');
+                }
+            }
+
+            return view('tenant.store', compact('storeName', 'tenantId', 'settings', 'categories', 'products', 'featuredProducts', 'officialStores', 'user', 'hasFacebookKeys', 'layoutBlocks', 'confirmedOrder', 'paymentResult'));
         })->name('central.tenant.store');
 
         // Universal Path-Based Store Management Route (No DNS setup required)
@@ -264,7 +298,41 @@ Route::get('/tienda/{tenant}', function (string $tenantId) {
 
     $layoutBlocks = $settings ? $settings->getEffectiveLayoutBlocks() : \App\Models\StoreSetting::defaultLayoutBlocks();
 
-    return view('tenant.store', compact('storeName', 'tenantId', 'settings', 'categories', 'products', 'featuredProducts', 'officialStores', 'user', 'hasFacebookKeys', 'layoutBlocks'));
+    $confirmedOrder = null;
+    $paymentResult = request('payment_result');
+    $stripeSessionId = request('session_id');
+    $folio = request('folio');
+
+    if ($paymentResult === 'stripe_success' && $stripeSessionId && $folio) {
+        $order = \App\Models\Order::where('folio', $folio)
+            ->orWhere('stripe_session_id', $stripeSessionId)
+            ->first();
+
+        if ($order) {
+            $secretKey = $settings?->stripe_secret_key ?: config('services.stripe.secret');
+            if ($secretKey) {
+                try {
+                    $sessionCheck = \Illuminate\Support\Facades\Http::withToken($secretKey)
+                        ->get("https://api.stripe.com/v1/checkout/sessions/{$stripeSessionId}");
+                    if ($sessionCheck->successful() && $sessionCheck->json('payment_status') === 'paid') {
+                        $order->update([
+                            'payment_status' => 'paid',
+                            'status' => 'confirmed',
+                            'stripe_payment_intent_id' => $sessionCheck->json('payment_intent'),
+                        ]);
+                    }
+                } catch (\Throwable $e) {}
+            } else {
+                $order->update([
+                    'payment_status' => 'paid',
+                    'status' => 'confirmed',
+                ]);
+            }
+            $confirmedOrder = $order->load('items');
+        }
+    }
+
+    return view('tenant.store', compact('storeName', 'tenantId', 'settings', 'categories', 'products', 'featuredProducts', 'officialStores', 'user', 'hasFacebookKeys', 'layoutBlocks', 'confirmedOrder', 'paymentResult'));
 });
 
 

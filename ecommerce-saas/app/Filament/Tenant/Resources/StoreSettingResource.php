@@ -140,7 +140,7 @@ class StoreSettingResource extends Resource
 
                         Forms\Components\TextInput::make('announcement_text')
                             ->label('Texto del Anuncio')
-                            ->placeholder('¡Envíos gratis en compras mayores a $50! · Tienda Oficial')
+                            ->placeholder('¡Aparta en línea y recoge en tienda hoy mismo! · Tienda Oficial')
                             ->columnSpan(2),
                     ])->columns(3),
 
@@ -176,6 +176,31 @@ class StoreSettingResource extends Resource
                             ->label('Texto de Pie de Página')
                             ->placeholder('© 2026 Tu Tienda. Todos los derechos reservados.')
                             ->columnSpanFull(),
+                    ])->columns(3),
+
+                Forms\Components\Section::make('Pasarela de Pagos con Tarjeta (Stripe)')
+                    ->description('Habilita cobros bancarios seguros con tarjeta de crédito/débito directamente en tu tienda.')
+                    ->icon('heroicon-o-credit-card')
+                    ->collapsible()
+                    ->schema([
+                        Forms\Components\Toggle::make('stripe_enabled')
+                            ->label('Aceptar Pagos con Tarjeta (Stripe)')
+                            ->helperText('Permite a los clientes pagar con tarjeta bancaria Visa, Mastercard y American Express.')
+                            ->default(true),
+
+                        Forms\Components\TextInput::make('stripe_publishable_key')
+                            ->label('Clave Publicable de Stripe (Publishable Key)')
+                            ->placeholder('pk_test_... o pk_live_...')
+                            ->helperText('Obtenla en tu panel de Stripe > Desarrolladores > Claves de API.')
+                            ->maxLength(255),
+
+                        Forms\Components\TextInput::make('stripe_secret_key')
+                            ->label('Clave Secreta de Stripe (Secret Key)')
+                            ->placeholder('sk_test_... o sk_live_...')
+                            ->password()
+                            ->revealable()
+                            ->helperText('Tu clave privada para procesar cargos bancarios de forma segura.')
+                            ->maxLength(255),
                     ])->columns(3),
 
                 Forms\Components\Section::make('Ubicación Física en Zacatecas Centro')

@@ -47,4 +47,10 @@ return [
         'redirect' => env('FACEBOOK_REDIRECT_URI', 'https://atelier-zacatecas.onrender.com/auth/facebook/callback'),
     ],
 
+    'stripe' => [
+        'key' => env('STRIPE_KEY'),
+        'secret' => env('STRIPE_SECRET'),
+        'webhook_secret' => env('STRIPE_WEBHOOK_SECRET'),
+    ],
+
 ];
