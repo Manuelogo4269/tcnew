@@ -27,4 +27,17 @@ class Product extends Model
     {
         return $this->hasMany(OrderItem::class);
     }
+
+    public function getImageUrlAttribute(?string $value): ?string
+    {
+        if (blank($value)) {
+            return null;
+        }
+
+        if (str_starts_with($value, 'http://') || str_starts_with($value, 'https://') || str_starts_with($value, '//') || str_starts_with($value, 'data:')) {
+            return $value;
+        }
+
+        return asset('storage/' . ltrim($value, '/'));
+    }
 }

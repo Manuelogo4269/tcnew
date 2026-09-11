@@ -61,10 +61,23 @@ class ProductResource extends Resource
                             ->default(0)
                             ->required()
                             ->minValue(0),
-                        Forms\Components\TextInput::make('image_url')
-                            ->label('URL de Imagen')
-                            ->url()
-                            ->placeholder('https://images.unsplash.com/...'),
+                        Forms\Components\FileUpload::make('image_url')
+                            ->label('Fotografía del Producto')
+                            ->image()
+                            ->disk('public')
+                            ->directory('products')
+                            ->visibility('public')
+                            ->imageEditor()
+                            ->maxSize(10240)
+                            ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/svg+xml'])
+                            ->helperText('Arrastra o selecciona una foto desde tu dispositivo (JPG, PNG, WEBP, GIF hasta 10MB).')
+                            ->hint(function (?Product $record) {
+                                if ($record && !empty($record->getRawOriginal('image_url')) && (str_starts_with($record->getRawOriginal('image_url'), 'http://') || str_starts_with($record->getRawOriginal('image_url'), 'https://'))) {
+                                    return 'Tiene una imagen externa activa. Sube un archivo nuevo si deseas reemplazarla.';
+                                }
+                                return null;
+                            })
+                            ->hintIcon('heroicon-m-photo'),
                         Forms\Components\Toggle::make('is_active')
                             ->label('Producto Activo para la Venta')
                             ->default(true)
@@ -83,6 +96,7 @@ class ProductResource extends Resource
             ->columns([
                 Tables\Columns\ImageColumn::make('image_url')
                     ->label('Imagen')
+                    ->disk('public')
                     ->circular()
                     ->defaultImageUrl('https://placehold.co/100x100?text=Sin+Foto'),
                 Tables\Columns\TextColumn::make('name')
