@@ -11,6 +11,10 @@ class CreateProduct extends CreateRecord
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
+        if (is_array($data['image_url'] ?? null)) {
+            $data['image_url'] = reset($data['image_url']) ?: null;
+        }
+
         if (empty($data['slug']) && !empty($data['name'])) {
             $data['slug'] = \Illuminate\Support\Str::slug($data['name']);
         }

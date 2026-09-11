@@ -34,6 +34,11 @@ class EditProduct extends EditRecord
 
     protected function mutateFormDataBeforeSave(array $data): array
     {
+        // Normalize array to string if Filament passed an array of paths
+        if (is_array($data['image_url'] ?? null)) {
+            $data['image_url'] = reset($data['image_url']) ?: null;
+        }
+
         $currentRaw = $this->record->getRawOriginal('image_url');
 
         // If user didn't upload a new file, and record currently has an external URL, retain it

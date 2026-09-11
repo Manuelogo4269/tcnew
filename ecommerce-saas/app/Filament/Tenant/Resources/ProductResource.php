@@ -77,13 +77,11 @@ class ProductResource extends Resource
                             ->disk('public')
                             ->directory('products')
                             ->visibility('public')
-                            ->imageEditor()
-                            ->maxSize(10240)
-                            ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/svg+xml'])
-                            ->helperText('Arrastra o selecciona una foto desde tu dispositivo (JPG, PNG, WEBP, GIF hasta 10MB).')
+                            ->maxSize(20480)
+                            ->helperText('Arrastra o selecciona una foto desde tu dispositivo (hasta 20MB).')
                             ->hint(function (?Product $record) {
                                 if ($record && !empty($record->getRawOriginal('image_url')) && (str_starts_with($record->getRawOriginal('image_url'), 'http://') || str_starts_with($record->getRawOriginal('image_url'), 'https://'))) {
-                                    return 'Tiene una imagen externa activa. Sube un archivo nuevo si deseas reemplazarla.';
+                                    return 'Tiene una imagen activa. Sube un archivo nuevo si deseas reemplazarla.';
                                 }
                                 return null;
                             })

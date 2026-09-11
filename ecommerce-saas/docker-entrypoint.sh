@@ -13,6 +13,14 @@ export DB_CACHE_CONNECTION="${DB_CACHE_CONNECTION:-central}"
 export DB_QUEUE_CONNECTION="${DB_QUEUE_CONNECTION:-central}"
 
 mkdir -p /var/www/html/database
+mkdir -p /var/www/html/storage/app/public/products
+mkdir -p /var/www/html/storage/app/public
+mkdir -p /var/www/html/storage/app/private/livewire-tmp
+mkdir -p /var/www/html/storage/app/livewire-tmp
+mkdir -p /var/www/html/storage/framework/cache/data
+mkdir -p /var/www/html/storage/framework/sessions
+mkdir -p /var/www/html/storage/framework/views
+mkdir -p /var/www/html/storage/logs
 touch /var/www/html/database/central.sqlite
 touch /var/www/html/database/database.sqlite
 
@@ -28,10 +36,9 @@ php artisan config:clear
 php artisan route:clear
 php artisan view:clear
 
-# Ensure www-data and Apache have full read-write permissions on all SQLite files & directory
+# Ensure www-data and Apache have full read-write permissions on all directories and SQLite files
 chown -R www-data:www-data /var/www/html/database /var/www/html/storage /var/www/html/bootstrap/cache
-chmod -R 777 /var/www/html/database
-chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
+chmod -R 777 /var/www/html/database /var/www/html/storage /var/www/html/bootstrap/cache
 chmod 666 /var/www/html/database/*.sqlite* 2>/dev/null || true
 
 exec "$@"
