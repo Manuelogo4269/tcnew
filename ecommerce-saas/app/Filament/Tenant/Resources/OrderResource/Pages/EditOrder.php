@@ -16,4 +16,14 @@ class EditOrder extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
+
+    protected function mutateFormDataBeforeSave(array $data): array
+    {
+        if (empty($data['folio']) && $this->record) {
+            $prefix = strtoupper(substr(tenant('id') ?? 'CONC', 0, 4));
+            $data['folio'] = $this->record->folio ?: \App\Models\Order::generateFolio($prefix);
+        }
+
+        return $data;
+    }
 }
