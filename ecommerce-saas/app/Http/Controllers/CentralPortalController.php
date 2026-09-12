@@ -304,9 +304,6 @@ class CentralPortalController extends Controller
 
         // 3. Initialize isolated database and populate initial settings & admin user
         $tenant->run(function () use ($validated, $subdomain) {
-            // Seed base catalog structure
-            (new \Database\Seeders\TenantSeeder())->run();
-
             // Set custom brand settings
             \App\Models\StoreSetting::updateOrCreate(
                 ['id' => 1],
