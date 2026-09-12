@@ -1139,8 +1139,18 @@
             font-size: 22px;
             font-weight: 800;
             font-family: 'Playfair Display', serif;
-            box-shadow: 0 6px 16px rgba(0,0,0,.12);
+            box-shadow: 0 4px 14px rgba(0,0,0,.08);
             flex-shrink: 0;
+            overflow: hidden;
+            background: #ffffff;
+            position: relative;
+        }
+        .company-badge-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 12px;
+            display: block;
         }
         .company-cat-tag {
             font-size: 11px;
@@ -6202,16 +6212,31 @@
                              id="routeChip_{{ $b['id'] }}"
                              data-store-id="{{ $b['id'] }}" 
                              onclick="toggleStoreRouteSelection('{{ $b['id'] }}', this)">
-                            <div class="route-chip-icon" style="background: {{ $b['primary_color'] ?? '#c86d63' }};">
-                                {{ match($b['business_category'] ?? '') {
-                                    'Moda y Lujo' => '👗',
-                                    'Bebidas y Alimentos' => '☕',
-                                    'Joyería y Platería', 'Platería y Joyería' => '💍',
-                                    'Artesanías y Recuerdos', 'Arte y Souvenirs' => '🏺',
-                                    'Librería y Cultura', 'Libros y Café' => '📚',
-                                    'Cantinas Tradicionales', 'Gastronomía y Tradición' => '🍷',
-                                    default => '🏬'
-                                } }}
+                            <div class="route-chip-icon" style="background: {{ !empty($b['logo_url']) ? '#ffffff' : ($b['primary_color'] ?? '#c86d63') }}; border: {{ !empty($b['logo_url']) ? '1px solid var(--card-border)' : 'none' }}; overflow: hidden; padding: {{ !empty($b['logo_url']) ? '2px' : '0' }};">
+                                @if(!empty($b['logo_url']))
+                                    <img src="{{ $b['logo_url'] }}" alt="{{ $b['store_name'] }}" style="width: 100%; height: 100%; object-fit: contain; border-radius: 6px;" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='inline';">
+                                    <span style="display: none;">
+                                        {{ match($b['business_category'] ?? '') {
+                                            'Moda y Lujo' => '👗',
+                                            'Bebidas y Alimentos' => '☕',
+                                            'Joyería y Platería', 'Platería y Joyería' => '💍',
+                                            'Artesanías y Recuerdos', 'Arte y Souvenirs' => '🏺',
+                                            'Librería y Cultura', 'Libros y Café' => '📚',
+                                            'Cantinas Tradicionales', 'Gastronomía y Tradición' => '🍷',
+                                            default => '🏬'
+                                        } }}
+                                    </span>
+                                @else
+                                    {{ match($b['business_category'] ?? '') {
+                                        'Moda y Lujo' => '👗',
+                                        'Bebidas y Alimentos' => '☕',
+                                        'Joyería y Platería', 'Platería y Joyería' => '💍',
+                                        'Artesanías y Recuerdos', 'Arte y Souvenirs' => '🏺',
+                                        'Librería y Cultura', 'Libros y Café' => '📚',
+                                        'Cantinas Tradicionales', 'Gastronomía y Tradición' => '🍷',
+                                        default => '🏬'
+                                    } }}
+                                @endif
                             </div>
                             <div class="route-chip-info">
                                 <strong>{{ $b['store_name'] }}</strong>
@@ -6299,9 +6324,18 @@
                      data-hours="{{ $company['opening_hours'] }}">
                     <div>
                         <div class="company-header">
-                            <div class="company-badge-logo" style="background: {{ $company['primary_color'] }};">
-                                {{ strtoupper(substr($company['store_name'], 0, 1)) }}
-                            </div>
+                            @if(!empty($company['logo_url']))
+                                <div class="company-badge-logo" style="background: #ffffff; border: 1.5px solid var(--card-border); padding: 4px;">
+                                    <img src="{{ $company['logo_url'] }}" alt="{{ $company['store_name'] }}" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='grid';">
+                                    <div style="display: none; width: 100%; height: 100%; place-items: center; background: {{ $company['primary_color'] }}; border-radius: 10px; color: #ffffff; font-weight: 800; font-size: 22px; font-family: 'Playfair Display', serif;">
+                                        {{ strtoupper(substr($company['store_name'], 0, 1)) }}
+                                    </div>
+                                </div>
+                            @else
+                                <div class="company-badge-logo" style="background: {{ $company['primary_color'] }};">
+                                    {{ strtoupper(substr($company['store_name'], 0, 1)) }}
+                                </div>
+                            @endif
                             <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 4px;">
                                 <span class="company-cat-tag">
                                     {{ $company['business_category'] }}
@@ -7997,13 +8031,22 @@ function renderStoreMarkers(stores) {
             ? `<div style="font-size:10px; font-weight:700; color:#c86d63; margin-bottom:4px; display:inline-block; background:rgba(200,109,99,0.1); padding:2px 6px; border-radius:6px;">🏛️ ${store.tradition_badge}</div>` 
             : '';
 
+        const storeLogoHtml = store.logo_url 
+            ? `<div style="width:34px; height:34px; border-radius:8px; border:1px solid #e2e8f0; overflow:hidden; background:#fff; display:grid; place-items:center; flex-shrink:0; padding:2px;">
+                <img src="${store.logo_url}" style="width:100%; height:100%; object-fit:contain;" alt="${store.store_name}" onerror="this.parentElement.style.display='none'">
+               </div>`
+            : '';
+
         const popupContent = `
             <div style="font-family: 'Plus Jakarta Sans', sans-serif; min-width: 220px; padding: 4px;">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px; gap:8px;">
                     <span style="font-size: 10px; font-weight: 800; text-transform: uppercase; color: ${store.primary_color || 'var(--accent)'}; letter-spacing: .06em;">${store.business_category}</span>
                     ${openBadgeHtml}
                 </div>
-                <h4 style="font-size: 15px; margin: 2px 0 3px; font-weight: 800;">${store.store_name}</h4>
+                <div style="display:flex; align-items:center; gap:8px; margin: 3px 0 4px;">
+                    ${storeLogoHtml}
+                    <h4 style="font-size: 15px; margin: 0; font-weight: 800; line-height: 1.25;">${store.store_name}</h4>
+                </div>
                 <div style="font-size:11px; color:#d97706; font-weight:700; margin-bottom:4px;">★ ${Number(store.rating || 4.9).toFixed(1)} <span style="color:#6b7280; font-weight:500;">(${store.reviews_count || 180} ${currentLang === 'en' ? 'reviews' : 'reseñas'})</span></div>
                 ${traditionHtml}
                 <p style="font-size: 11.5px; color: #555; margin: 0 0 6px; line-height: 1.35;">📍 ${store.address}</p>

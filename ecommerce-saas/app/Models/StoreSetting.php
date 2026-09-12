@@ -45,6 +45,16 @@ class StoreSetting extends Model
     {
         static::saving(function (StoreSetting $setting) {
             $val = $setting->attributes['logo_url'] ?? null;
+
+            // Automatically extract real direct image URL if user pasted a Google Images search link
+            if (!empty($val) && str_contains($val, 'google.') && str_contains($val, 'imgurl=')) {
+                parse_str(parse_url($val, PHP_URL_QUERY) ?? '', $query);
+                if (!empty($query['imgurl'])) {
+                    $setting->attributes['logo_url'] = $query['imgurl'];
+                    $val = $query['imgurl'];
+                }
+            }
+
             if (!empty($val) && !str_starts_with($val, 'http://') && !str_starts_with($val, 'https://') && !str_starts_with($val, '//') && !str_starts_with($val, 'data:')) {
                 $possiblePaths = [
                     storage_path('app/public/' . ltrim($val, '/')),
@@ -68,6 +78,14 @@ class StoreSetting extends Model
     {
         if (blank($value)) {
             return !empty($this->attributes['logo_data']) ? $this->attributes['logo_data'] : null;
+        }
+
+        // Auto-extract real image URL if user has a Google Images search result link
+        if (str_contains($value, 'google.') && str_contains($value, 'imgurl=')) {
+            parse_str(parse_url($value, PHP_URL_QUERY) ?? '', $query);
+            if (!empty($query['imgurl'])) {
+                return $query['imgurl'];
+            }
         }
 
         if (str_starts_with($value, 'http://') || str_starts_with($value, 'https://') || str_starts_with($value, '//') || str_starts_with($value, 'data:')) {

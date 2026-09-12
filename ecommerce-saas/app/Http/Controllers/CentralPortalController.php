@@ -16,7 +16,7 @@ class CentralPortalController extends Controller
 
         $tenants = Tenant::with('domains')->where('id', 'not like', 'test%')->get();
         $cacheKey = 'central_portal_businesses_list_' . md5($request->getHost() . ':' . $request->getPort());
-        $businesses = \Illuminate\Support\Facades\Cache::remember($cacheKey, 60, function () use ($tenants, $request) {
+        $businesses = \Illuminate\Support\Facades\Cache::remember($cacheKey, 10, function () use ($tenants, $request) {
             $list = [];
             foreach ($tenants as $t) {
                 $storeUrl = $this->resolveStoreUrl($t, $request);
