@@ -11,6 +11,7 @@ class StoreSetting extends Model
         'business_category',
         'tagline',
         'logo_url',
+        'logo_data',
         'contact_email',
         'primary_color',
         'secondary_color',
@@ -39,6 +40,53 @@ class StoreSetting extends Model
         'stripe_publishable_key',
         'stripe_secret_key',
     ];
+
+    protected static function booted(): void
+    {
+        static::saving(function (StoreSetting $setting) {
+            $val = $setting->attributes['logo_url'] ?? null;
+            if (!empty($val) && !str_starts_with($val, 'http://') && !str_starts_with($val, 'https://') && !str_starts_with($val, '//') && !str_starts_with($val, 'data:')) {
+                $possiblePaths = [
+                    storage_path('app/public/' . ltrim($val, '/')),
+                    public_path('storage/' . ltrim($val, '/')),
+                ];
+                foreach ($possiblePaths as $p) {
+                    if (file_exists($p) && is_file($p)) {
+                        $mime = mime_content_type($p) ?: 'image/png';
+                        $data = file_get_contents($p);
+                        if ($data !== false && strlen($data) > 0 && strlen($data) <= 15000000) {
+                            $setting->logo_data = 'data:' . $mime . ';base64,' . base64_encode($data);
+                            break;
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    public function getLogoUrlAttribute(?string $value): ?string
+    {
+        if (blank($value)) {
+            return !empty($this->attributes['logo_data']) ? $this->attributes['logo_data'] : null;
+        }
+
+        if (str_starts_with($value, 'http://') || str_starts_with($value, 'https://') || str_starts_with($value, '//') || str_starts_with($value, 'data:')) {
+            return $value;
+        }
+
+        // If local file exists (or is faked in tests), serve via asset URL
+        $path = storage_path('app/public/' . ltrim($value, '/'));
+        if (file_exists($path) || \Illuminate\Support\Facades\Storage::disk('public')->exists(ltrim($value, '/'))) {
+            return asset('storage/' . ltrim($value, '/'));
+        }
+
+        // If local file is missing (e.g. after container redeploy), fallback to persisted base64 image data
+        if (!empty($this->attributes['logo_data'])) {
+            return $this->attributes['logo_data'];
+        }
+
+        return asset('storage/' . ltrim($value, '/'));
+    }
 
     protected $casts = [
         'show_announcement' => 'boolean',

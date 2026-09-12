@@ -31,6 +31,7 @@ fi
 
 mkdir -p /var/www/html/database
 mkdir -p /var/www/html/storage/app/public/products
+mkdir -p /var/www/html/storage/app/public/logos
 mkdir -p /var/www/html/storage/app/public
 mkdir -p /var/www/html/storage/app/private/livewire-tmp
 mkdir -p /var/www/html/storage/app/livewire-tmp

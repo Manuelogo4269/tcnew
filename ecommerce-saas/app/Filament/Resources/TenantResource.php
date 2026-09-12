@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\TenantResource\Pages;
 use App\Filament\Resources\TenantResource\RelationManagers;
+use App\Models\StoreSetting;
 use App\Models\Tenant;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -147,10 +148,34 @@ class TenantResource extends Resource
                             ->email()
                             ->maxLength(255),
 
-                        Forms\Components\TextInput::make('logo_url')
-                            ->label('URL del Logo')
-                            ->url()
-                            ->placeholder('https://.../logo.png')
+                        Forms\Components\Placeholder::make('current_logo_preview')
+                            ->label('Logotipo Actual')
+                            ->visible(fn (?Tenant $record) => !empty($record?->run(fn () => StoreSetting::first()?->logo_url)))
+                            ->content(function (?Tenant $record) {
+                                $url = $record ? $record->run(fn () => StoreSetting::first()?->logo_url) : null;
+                                return $url ? new \Illuminate\Support\HtmlString(
+                                    '<div style="display:flex;align-items:center;gap:14px;padding:8px 0;">' .
+                                    '<div style="width:72px;height:72px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.06);">' .
+                                    '<img src="' . e($url) . '" style="max-width:100%;max-height:100%;object-fit:contain;" alt="Logotipo actual">' .
+                                    '</div>' .
+                                    '<div>' .
+                                    '<strong style="display:block;font-size:13px;color:#1e293b;font-weight:600;">Logotipo activo de la empresa</strong>' .
+                                    '<span style="font-size:12px;color:#64748b;">Si deseas reemplazarlo, selecciona o arrastra una nueva imagen a continuación.</span>' .
+                                    '</div>' .
+                                    '</div>'
+                                ) : null;
+                            })
+                            ->columnSpanFull(),
+
+                        Forms\Components\FileUpload::make('logo_url')
+                            ->label('Subir Logotipo de la Empresa')
+                            ->image()
+                            ->disk('public')
+                            ->directory('logos')
+                            ->visibility('public')
+                            ->maxSize(15360)
+                            ->helperText('Selecciona o arrastra la imagen de tu logotipo (PNG, JPG, SVG o WEBP, hasta 15MB).')
+                            ->hintIcon('heroicon-m-photo')
                             ->columnSpanFull(),
                     ])->columns(3),
 

@@ -44,7 +44,12 @@ class EditTenant extends EditRecord
             $data['primary_color'] = $settings->primary_color ?? '#d96b45';
             $data['secondary_color'] = $settings->secondary_color ?? '#f4efe7';
             $data['font_family'] = $settings->font_family ?? 'DM Sans';
-            $data['logo_url'] = $settings->logo_url;
+            $rawLogo = $settings->getRawOriginal('logo_url');
+            if ($rawLogo && (str_starts_with($rawLogo, 'http://') || str_starts_with($rawLogo, 'https://'))) {
+                $data['logo_url'] = null;
+            } else {
+                $data['logo_url'] = $rawLogo;
+            }
             $data['banner_url'] = $settings->banner_url;
             $data['hero_title'] = $settings->hero_title;
             $data['hero_subtitle'] = $settings->hero_subtitle;
@@ -67,6 +72,16 @@ class EditTenant extends EditRecord
         $formData = $this->data;
 
         $tenant->run(function () use ($formData) {
+            $rawLogo = $formData['logo_url'] ?? null;
+            if (is_array($rawLogo)) {
+                $rawLogo = reset($rawLogo) ?: null;
+            }
+            $existing = StoreSetting::first();
+            $currentRaw = $existing?->getRawOriginal('logo_url');
+            if (empty($rawLogo) && !empty($currentRaw) && (str_starts_with($currentRaw, 'http://') || str_starts_with($currentRaw, 'https://'))) {
+                $rawLogo = $currentRaw;
+            }
+
             StoreSetting::updateOrCreate(
                 ['id' => 1],
                 [
@@ -77,7 +92,7 @@ class EditTenant extends EditRecord
                     'primary_color' => $formData['primary_color'] ?? '#d96b45',
                     'secondary_color' => $formData['secondary_color'] ?? '#f4efe7',
                     'font_family' => $formData['font_family'] ?? 'DM Sans',
-                    'logo_url' => $formData['logo_url'] ?? null,
+                    'logo_url' => $rawLogo,
                     'banner_url' => $formData['banner_url'] ?? null,
                     'hero_title' => $formData['hero_title'] ?? null,
                     'hero_subtitle' => $formData['hero_subtitle'] ?? null,

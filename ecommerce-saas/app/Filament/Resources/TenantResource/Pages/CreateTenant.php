@@ -37,6 +37,11 @@ class CreateTenant extends CreateRecord
                 ]
             );
 
+            $rawLogo = $formData['logo_url'] ?? null;
+            if (is_array($rawLogo)) {
+                $rawLogo = reset($rawLogo) ?: null;
+            }
+
             // 2. Initialize Store Settings (Clean catalog, no demo products)
             StoreSetting::updateOrCreate(
                 ['id' => 1],
@@ -47,7 +52,7 @@ class CreateTenant extends CreateRecord
                     'primary_color' => $formData['primary_color'] ?? '#d96b45',
                     'secondary_color' => $formData['secondary_color'] ?? '#f4efe7',
                     'font_family' => $formData['font_family'] ?? 'DM Sans',
-                    'logo_url' => $formData['logo_url'] ?? null,
+                    'logo_url' => $rawLogo,
                     'banner_url' => $formData['banner_url'] ?? null,
                     'hero_title' => $formData['hero_title'] ?? null,
                     'hero_subtitle' => $formData['hero_subtitle'] ?? null,
