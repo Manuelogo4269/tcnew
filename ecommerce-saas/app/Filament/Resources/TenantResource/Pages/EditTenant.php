@@ -106,6 +106,20 @@ class EditTenant extends EditRecord
                     'footer_text' => $formData['footer_text'] ?? null,
                 ]
             );
+
+            // Update Admin User credentials if provided
+            if (!empty($formData['admin_email'])) {
+                $userUpdates = [
+                    'name' => !empty($formData['admin_name']) ? trim($formData['admin_name']) : 'Admin',
+                ];
+                if (!empty($formData['admin_password'])) {
+                    $userUpdates['password'] = \Illuminate\Support\Facades\Hash::make($formData['admin_password']);
+                }
+                \App\Models\TenantUser::updateOrCreate(
+                    ['email' => trim($formData['admin_email'])],
+                    $userUpdates
+                );
+            }
         });
     }
 }

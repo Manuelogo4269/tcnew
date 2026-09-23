@@ -6681,5 +6681,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 @endif
 
+@include('tenant.partials.live-modular-editor')
+
 </body>
 </html>

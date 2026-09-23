@@ -295,8 +295,11 @@ class StoreSettingResource extends Resource
                     ->icon('heroicon-o-squares-plus')
                     ->collapsible()
                     ->schema([
+                        Forms\Components\View::make('filament.tenant.components.visual-layout-builder')
+                            ->columnSpanFull(),
+
                         Forms\Components\Repeater::make('layout_blocks')
-                            ->label('Bloques de la Tienda')
+                            ->label('Configuración Detallada de Bloques')
                             ->helperText('Arrastra o usa las flechas para cambiar el orden en que aparecen las secciones en tu tienda pública.')
                             ->reorderableWithButtons()
                             ->collapsible()

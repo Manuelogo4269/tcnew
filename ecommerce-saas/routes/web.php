@@ -77,6 +77,16 @@ foreach ($centralDomains as $domain) {
                 abort(404, 'Tienda no encontrada.');
             }
 
+            $isAdmin = (session('tenant_admin_tenant_id') === $tenant->id) || auth()->guard('tenant')->check();
+            if (!$tenant->hasActiveSubscription() && !$isAdmin) {
+                $settings = null;
+                try {
+                    $settings = $tenant->run(fn () => \App\Models\StoreSetting::first());
+                } catch (\Throwable $e) {}
+                $storeName = $settings?->store_name ?? str($tenant->id)->replace(['-', '_'], ' ')->title()->toString();
+                return response()->view('tenant.subscription_inactive', compact('tenant', 'settings', 'storeName'), 402);
+            }
+
             tenancy()->initialize($tenant);
 
             $user = \Illuminate\Support\Facades\Auth::guard('web')->user();
@@ -170,6 +180,32 @@ foreach ($centralDomains as $domain) {
 
         Route::post('/api/tienda/{tenant}/checkout', [\App\Http\Controllers\CheckoutController::class, 'processCheckout'])->name('central.tenant.checkout');
 
+        Route::post('/api/tienda/{tenant}/layout', function (string $tenantId, \Illuminate\Http\Request $request) {
+            $tenant = findTenantBySlugOrDomain($tenantId);
+            if (!$tenant) {
+                return response()->json(['success' => false, 'message' => 'Tienda no encontrada.'], 404);
+            }
+
+            $validated = $request->validate([
+                'layout_blocks' => 'required|array',
+                'layout_blocks.*.type' => 'required|string',
+                'layout_blocks.*.is_visible' => 'nullable|boolean',
+            ]);
+
+            $tenant->run(function () use ($validated) {
+                $settings = \App\Models\StoreSetting::first();
+                if ($settings) {
+                    $settings->layout_blocks = $validated['layout_blocks'];
+                    $settings->save();
+                }
+            });
+
+            return response()->json([
+                'success' => true,
+                'message' => '¡Diseño y orden de bloques actualizado con éxito!',
+            ]);
+        })->name('central.tenant.layout.update');
+
         Route::get('/login', [CentralAuthController::class, 'showLogin'])->name('login');
         Route::post('/login', [CentralAuthController::class, 'login'])->name('login.submit');
         Route::post('/register', [CentralAuthController::class, 'register'])->name('register.submit');
@@ -239,6 +275,32 @@ Route::get('/offline.html', function () {
 
 Route::post('/api/tienda/{tenant}/checkout', [\App\Http\Controllers\CheckoutController::class, 'processCheckout']);
 
+Route::post('/api/tienda/{tenant}/layout', function (string $tenantId, \Illuminate\Http\Request $request) {
+    $tenant = findTenantBySlugOrDomain($tenantId);
+    if (!$tenant) {
+        return response()->json(['success' => false, 'message' => 'Tienda no encontrada.'], 404);
+    }
+
+    $validated = $request->validate([
+        'layout_blocks' => 'required|array',
+        'layout_blocks.*.type' => 'required|string',
+        'layout_blocks.*.is_visible' => 'nullable|boolean',
+    ]);
+
+    $tenant->run(function () use ($validated) {
+        $settings = \App\Models\StoreSetting::first();
+        if ($settings) {
+            $settings->layout_blocks = $validated['layout_blocks'];
+            $settings->save();
+        }
+    });
+
+    return response()->json([
+        'success' => true,
+        'message' => '¡Diseño y orden de bloques actualizado con éxito!',
+    ]);
+});
+
 Route::get('/tienda/{tenant}/admin', function (string $tenantId) {
     $tenant = findTenantBySlugOrDomain($tenantId);
     if (!$tenant) {
@@ -261,6 +323,16 @@ Route::get('/tienda/{tenant}', function (string $tenantId) {
     $tenant = findTenantBySlugOrDomain($tenantId);
     if (!$tenant) {
         abort(404, 'Tienda no encontrada.');
+    }
+
+    $isAdmin = (session('tenant_admin_tenant_id') === $tenant->id) || auth()->guard('tenant')->check();
+    if (!$tenant->hasActiveSubscription() && !$isAdmin) {
+        $settings = null;
+        try {
+            $settings = $tenant->run(fn () => \App\Models\StoreSetting::first());
+        } catch (\Throwable $e) {}
+        $storeName = $settings?->store_name ?? str($tenant->id)->replace(['-', '_'], ' ')->title()->toString();
+        return response()->view('tenant.subscription_inactive', compact('tenant', 'settings', 'storeName'), 402);
     }
 
     tenancy()->initialize($tenant);

@@ -927,6 +927,7 @@
                 <div class="auth-field">
                     <label for="rentOwnerPassword">Contraseña del Panel de Control *</label>
                     <input type="password" name="owner_password" id="rentOwnerPassword" placeholder="Crea una contraseña segura (mín. 6 carácteres)" required minlength="6">
+                    <small style="font-size: 11.5px; color: var(--muted); display: block; margin-top: 4px;">🔒 Este correo y contraseña serán tus credenciales oficiales para iniciar sesión en tu panel de control privado (<strong>/tenant-admin</strong>).</small>
                 </div>
 
                 <button type="submit" class="btn-submit-rent" id="btnRentSubmit">

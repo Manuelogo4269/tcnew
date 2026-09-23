@@ -163,4 +163,49 @@ class ModularStorefrontBuilderTest extends TestCase
         $this->assertTrue($flashPos < $heroPos, 'flash-deals-section must appear BEFORE hero-carousel-container in body');
         $response->assertSee('SUPER OFERTA EXCLUSIVA');
     }
+
+    public function test_live_modular_editor_is_rendered_for_tenant_admin(): void
+    {
+        $response = $this->withSession(['tenant_admin_tenant_id' => 'conceptos7'])
+            ->get('/tienda/conceptos7');
+
+        $response->assertStatus(200);
+        $response->assertSee('liveModularEditorApp');
+        $response->assertSee('Personalizar Diseño');
+        $response->assertSee('Constructor Visual');
+        $response->assertSee('saveLiveLayoutChanges');
+    }
+
+    public function test_api_updates_store_layout_blocks(): void
+    {
+        $tenant = Tenant::find('conceptos7');
+        $this->assertNotNull($tenant);
+
+        $newBlocks = [
+            [
+                'type' => 'flash_deals',
+                'is_visible' => true,
+                'title' => 'Ofertas desde API',
+            ],
+            [
+                'type' => 'categories',
+                'is_visible' => false,
+                'title' => 'Categorías Ocultas',
+            ],
+        ];
+
+        $response = $this->postJson('/api/tienda/conceptos7/layout', [
+            'layout_blocks' => $newBlocks,
+        ]);
+
+        $response->assertStatus(200);
+        $response->assertJson([
+            'success' => true,
+        ]);
+
+        $saved = $tenant->run(fn () => StoreSetting::first()->layout_blocks);
+        $this->assertCount(2, $saved);
+        $this->assertEquals('flash_deals', $saved[0]['type']);
+        $this->assertFalse($saved[1]['is_visible']);
+    }
 }

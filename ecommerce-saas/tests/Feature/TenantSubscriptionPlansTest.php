@@ -103,4 +103,32 @@ class TenantSubscriptionPlansTest extends TestCase
         $response->assertStatus(422)
             ->assertJsonValidationErrors(['subdomain']);
     }
+
+    public function test_storefront_requires_active_subscription(): void
+    {
+        $tenant = Tenant::firstOrCreate(
+            ['id' => 'conceptos7'],
+            ['plan_name' => 'Corporativo', 'subscription_status' => 'active']
+        );
+
+        // 1. Active subscription returns 200
+        $tenant->update(['subscription_status' => 'active', 'plan_name' => 'Corporativo']);
+        $this->assertTrue($tenant->hasActiveSubscription());
+
+        $resActive = $this->get('/tienda/conceptos7');
+        $resActive->assertStatus(200);
+
+        // 2. Inactive/cancelled subscription returns 402 with inactive view
+        $tenant->update(['subscription_status' => 'cancelled']);
+        $this->assertFalse($tenant->hasActiveSubscription());
+
+        $resInactive = $this->get('/tienda/conceptos7');
+        $resInactive->assertStatus(402);
+        $resInactive->assertSee('Tienda en Pausa de Suscripción');
+        $resInactive->assertSee('Suscripción Requerida');
+        $resInactive->assertSee('Planes Disponibles para Activar la Tienda');
+
+        // Restore for other tests
+        $tenant->update(['subscription_status' => 'active', 'plan_name' => 'Corporativo']);
+    }
 }

@@ -12,6 +12,33 @@ class CreateTenant extends CreateRecord
 {
     protected static string $resource = TenantResource::class;
 
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        // 1. Ensure one of the 3 subscriptions is active
+        $validPlans = ['Emprendedor', 'Crecimiento', 'Corporativo'];
+        if (empty($data['plan_name']) || !in_array($data['plan_name'], $validPlans, true)) {
+            $data['plan_name'] = 'Emprendedor';
+        }
+
+        $data['subscription_status'] = 'active';
+
+        if (empty($data['subscription_ends_at'])) {
+            $data['subscription_ends_at'] = ($data['billing_cycle'] ?? 'monthly') === 'annual'
+                ? now()->addYear()
+                : now()->addMonth();
+        }
+
+        if (empty($data['subscription_amount'])) {
+            $data['subscription_amount'] = match ($data['plan_name']) {
+                'Corporativo' => ($data['billing_cycle'] ?? 'monthly') === 'annual' ? 852.00 : 89.00,
+                'Crecimiento' => ($data['billing_cycle'] ?? 'monthly') === 'annual' ? 372.00 : 39.00,
+                default => ($data['billing_cycle'] ?? 'monthly') === 'annual' ? 180.00 : 19.00,
+            };
+        }
+
+        return $data;
+    }
+
     protected function afterCreate(): void
     {
         $tenant = $this->record;
@@ -24,16 +51,20 @@ class CreateTenant extends CreateRecord
         $formData = $this->data;
 
         $tenant->run(function () use ($formData, $tenant) {
-            // 1. Create Tenant Admin User
+            // 1. Create Tenant Admin User with provided credentials
             $cleanId = strtolower(preg_replace('/[^a-zA-Z0-9]/', '', $tenant->id));
-            $adminEmail = !empty($formData['contact_email']) ? $formData['contact_email'] : "admin@{$cleanId}.com";
+            $adminEmail = !empty($formData['admin_email']) 
+                ? trim($formData['admin_email']) 
+                : (!empty($formData['contact_email']) ? trim($formData['contact_email']) : "admin@{$cleanId}.com");
+            $adminPassword = !empty($formData['admin_password']) ? $formData['admin_password'] : 'password';
             $storeTitle = $formData['store_name'] ?? str($tenant->id)->replace(['-', '_'], ' ')->title()->toString();
+            $adminName = !empty($formData['admin_name']) ? trim($formData['admin_name']) : "Admin {$storeTitle}";
 
-            TenantUser::firstOrCreate(
+            TenantUser::updateOrCreate(
                 ['email' => $adminEmail],
                 [
-                    'name' => "Admin {$storeTitle}",
-                    'password' => Hash::make('password'),
+                    'name' => $adminName,
+                    'password' => Hash::make($adminPassword),
                 ]
             );
 

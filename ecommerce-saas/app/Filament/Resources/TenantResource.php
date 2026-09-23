@@ -44,6 +44,37 @@ class TenantResource extends Resource
                                 : 'Se utilizará como subdominio y nombre de base de datos aislada (ej. tenant_empresa.sqlite).'),
                     ]),
 
+                Forms\Components\Section::make('👤 Administrador de la Empresa (Credenciales de Acceso)')
+                    ->description('Define el correo y contraseña exclusivos que utilizará el administrador para acceder al panel privado de esta empresa (/tenant-admin).')
+                    ->icon('heroicon-o-user-plus')
+                    ->schema([
+                        Forms\Components\TextInput::make('admin_name')
+                            ->label('Nombre del Administrador')
+                            ->placeholder('Ej. Elena Rostova')
+                            ->default(fn (?Tenant $record) => $record ? $record->run(fn () => \App\Models\TenantUser::first()?->name) : null)
+                            ->maxLength(100),
+
+                        Forms\Components\TextInput::make('admin_email')
+                            ->label('Correo Electrónico del Administrador')
+                            ->email()
+                            ->required(fn (string $operation): bool => $operation === 'create')
+                            ->placeholder('admin@tuempresa.com')
+                            ->default(fn (?Tenant $record) => $record ? $record->run(fn () => \App\Models\TenantUser::first()?->email) : null)
+                            ->maxLength(150),
+
+                        Forms\Components\TextInput::make('admin_password')
+                            ->label('Contraseña de Acceso')
+                            ->password()
+                            ->revealable()
+                            ->required(fn (string $operation): bool => $operation === 'create')
+                            ->placeholder('Mínimo 6 caracteres')
+                            ->minLength(6)
+                            ->helperText(fn (string $operation): ?string => $operation === 'edit'
+                                ? 'Deja este campo en blanco si no deseas cambiar la contraseña actual del administrador.'
+                                : 'Contraseña obligatoria para el primer inicio de sesión del administrador.')
+                            ->maxLength(100),
+                    ])->columns(3),
+
                 Forms\Components\Section::make('Plan de Renta SaaS y Suscripción')
                     ->description('Gestiona el plan contratado, ciclo de facturación y vigencia del alquiler de la tienda.')
                     ->icon('heroicon-o-credit-card')

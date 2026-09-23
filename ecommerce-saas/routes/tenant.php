@@ -26,6 +26,14 @@ foreach (['{tenant}.localhost', '{tenant}.127.0.0.1.nip.io', '{tenant}.192.168.0
     ])->group(function () {
     Route::get('/', function () {
         $tenantId = (string) tenant('id');
+        $tenant = tenant();
+        $isAdmin = (session('tenant_admin_tenant_id') === $tenantId) || auth()->guard('tenant')->check();
+        if ($tenant && !$tenant->hasActiveSubscription() && !$isAdmin) {
+            $settings = StoreSetting::first();
+            $storeName = $settings?->store_name ?? str($tenantId)->replace(['-', '_'], ' ')->title()->toString();
+            return response()->view('tenant.subscription_inactive', compact('tenant', 'settings', 'storeName'), 402);
+        }
+
         $user = \Illuminate\Support\Facades\Auth::guard('web')->user();
         $hasFacebookKeys = !empty(config('services.facebook.client_id')) && !empty(config('services.facebook.client_secret'));
         $settings = StoreSetting::first();
