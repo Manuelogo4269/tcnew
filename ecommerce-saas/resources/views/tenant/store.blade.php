@@ -4129,8 +4129,8 @@
             @endif
 
             <!-- Shopping Cart Header Button -->
-            <button type="button" class="btn-cart-header" id="btnCartHeader" onclick="toggleCartDrawer()" aria-label="Ver Carrito de Compras" title="Ver Carrito de Compras">
-                <span>🛒</span> <span class="cart-btn-text">Carrito</span> <span id="headerCartBadge" class="header-cart-badge">0</span>
+            <button type="button" class="btn-cart-header" id="btnCartHeader" onclick="toggleCartDrawer()" aria-label="Ver Carrito de Compras" title="{{ $user ? 'Ver Carrito de Compras' : 'Inicia sesión para tener tu carrito de compras' }}">
+                <span>🛒</span> <span class="cart-btn-text">Carrito</span> <span id="headerCartBadge" class="header-cart-badge">{{ $user ? '0' : '🔒' }}</span>
             </button>
 
             <!-- Dark / Light Theme Toggle -->
@@ -5028,13 +5028,23 @@ let currentModalQty = 1;
 // ========================================================
 // E-COMMERCE SHOPPING CART & CHECKOUT MANAGER
 // ========================================================
+const IS_USER_LOGGED_IN = @json(!empty($user));
+const CURRENT_USER = @json($user ? ['id' => $user->id, 'name' => $user->name, 'email' => $user->email] : null);
 const TENANT_ID = @json($tenantId);
-const CART_STORAGE_KEY = 'atelier_cart_' + TENANT_ID;
+const CART_STORAGE_KEY = 'atelier_cart_' + (CURRENT_USER ? ('u' + CURRENT_USER.id + '_') : '') + TENANT_ID;
 let storeCart = [];
 let appliedCoupon = null;
 let selectedPaymentMethod = 'card';
 
 function initCart() {
+    if (!IS_USER_LOGGED_IN) {
+        storeCart = [];
+        try {
+            localStorage.removeItem('atelier_cart_' + TENANT_ID);
+        } catch (e) {}
+        updateCartUI();
+        return;
+    }
     try {
         const saved = localStorage.getItem(CART_STORAGE_KEY);
         if (saved) {
@@ -5047,6 +5057,11 @@ function initCart() {
 }
 
 function saveCart() {
+    if (!IS_USER_LOGGED_IN) {
+        storeCart = [];
+        updateCartUI();
+        return;
+    }
     try {
         localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(storeCart));
         syncTenantCartToGlobalRegistry(TENANT_ID, @json($storeTitle), storeCart);
@@ -5055,6 +5070,7 @@ function saveCart() {
 }
 
 function syncTenantCartToGlobalRegistry(storeId, storeName, items) {
+    if (!IS_USER_LOGGED_IN) return;
     try {
         let registry = JSON.parse(localStorage.getItem('atelier_unified_cart') || '{}');
         if (!items || items.length === 0) {
@@ -5082,6 +5098,11 @@ function showToast(message) {
 }
 
 function toggleCartDrawer() {
+    if (!IS_USER_LOGGED_IN) {
+        openStoreAuthModal('login');
+        showToast('🔒 Inicia sesión para tener tu carrito de compras.');
+        return;
+    }
     const drawer = document.getElementById('storeCartDrawer');
     const backdrop = document.getElementById('cartDrawerBackdrop');
     if (!drawer) return;
@@ -5171,6 +5192,7 @@ function detectProductInquiryType(product) {
 let __cartInquiryTimer = null;
 
 function showCartInquiryBanner(prod, qty = 1) {
+    if (!IS_USER_LOGGED_IN) return;
     const banner = document.getElementById('cartInquiryBanner');
     if (!banner) return;
 
@@ -5224,6 +5246,11 @@ function closeCartInquiryBanner() {
 }
 
 function addCartItem(productId, qty = 1) {
+    if (!IS_USER_LOGGED_IN) {
+        openStoreAuthModal('login');
+        showToast('🔒 Inicia sesión para tener tu carrito de compras.');
+        return;
+    }
     const list = window.ALL_PRODUCTS || (typeof ALL_PRODUCTS !== 'undefined' ? ALL_PRODUCTS : []);
     if (!list || !Array.isArray(list) || list.length === 0) return;
     const prod = list.find(p => String(p.id) === String(productId) || p.slug === String(productId));
@@ -5322,16 +5349,24 @@ function applyCartCoupon() {
 }
 
 function updateCartUI() {
-    const totalItems = storeCart.reduce((sum, item) => sum + item.quantity, 0);
-    const subtotal = storeCart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    const discount = appliedCoupon ? (subtotal * (appliedCoupon.discountPercent / 100)) : 0;
+    const totalItems = IS_USER_LOGGED_IN ? storeCart.reduce((sum, item) => sum + item.quantity, 0) : 0;
+    const subtotal = IS_USER_LOGGED_IN ? storeCart.reduce((sum, item) => sum + (item.price * item.quantity), 0) : 0;
+    const discount = (IS_USER_LOGGED_IN && appliedCoupon) ? (subtotal * (appliedCoupon.discountPercent / 100)) : 0;
     const total = Math.max(0, subtotal - discount);
 
     // Badges
     const headerBadge = document.getElementById('headerCartBadge');
     const drawerBadge = document.getElementById('drawerCartBadge');
     const drawerCount = document.getElementById('cartDrawerCount');
-    if (headerBadge) headerBadge.textContent = totalItems;
+    if (headerBadge) {
+        if (!IS_USER_LOGGED_IN) {
+            headerBadge.textContent = '🔒';
+            headerBadge.title = 'Inicia sesión para tener tu carrito de compras';
+        } else {
+            headerBadge.textContent = totalItems;
+            headerBadge.title = 'Ver mi Carrito de Compras';
+        }
+    }
     if (drawerBadge) drawerBadge.textContent = totalItems;
     if (drawerCount) drawerCount.textContent = totalItems;
 
@@ -5340,6 +5375,23 @@ function updateCartUI() {
     const footer = document.getElementById('cartDrawerFooter');
 
     if (body) {
+        if (!IS_USER_LOGGED_IN) {
+            body.innerHTML = `
+                <div class="cart-empty-state" style="padding: 32px 16px; text-align: center;">
+                    <span class="cart-empty-icon" style="font-size: 38px;">🔒</span>
+                    <h4 style="font-size: 16px; margin: 10px 0 6px;">Carrito Exclusivo para Usuarios</h4>
+                    <p style="font-size: 13px; color: var(--muted); margin: 0 auto 18px; max-width: 280px; line-height: 1.45;">
+                        Para tener un carrito de compras, guardar tus productos y realizar pedidos en ${STORE_TITLE}, inicia sesión o crea tu cuenta gratuita.
+                    </p>
+                    <button type="button" class="btn-brand-primary" onclick="openStoreAuthModal('login')" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-size: 13.5px; padding: 11px 22px; border-radius: 999px;">
+                        <span>👤</span> <span>Iniciar Sesión / Registrarme</span>
+                    </button>
+                </div>
+            `;
+            if (footer) footer.style.display = 'none';
+            return;
+        }
+
         if (storeCart.length === 0) {
             body.innerHTML = `
                 <div class="cart-empty-state">
@@ -5405,6 +5457,11 @@ function updateCartUI() {
 
 // CHECKOUT MODAL ACTIONS
 function openCheckoutModal() {
+    if (!IS_USER_LOGGED_IN) {
+        openStoreAuthModal('login');
+        showToast('🔒 Inicia sesión para realizar pedidos.');
+        return;
+    }
     if (storeCart.length === 0) {
         alert('Tu carrito está vacío. Agrega al menos un producto antes de proceder al pago.');
         return;
@@ -5503,6 +5560,11 @@ function copySpeiClabe() {
 let lastCompletedOrder = null;
 
 async function processOrderCheckout() {
+    if (!IS_USER_LOGGED_IN) {
+        openStoreAuthModal('login');
+        showToast('🔒 Inicia sesión para completar tu compra.');
+        return;
+    }
     if (storeCart.length === 0) {
         alert('El carrito está vacío.');
         return;

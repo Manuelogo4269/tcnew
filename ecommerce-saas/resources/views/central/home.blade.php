@@ -5583,9 +5583,9 @@
         </nav>
 
         <div class="portal-auth-actions">
-            <button type="button" class="btn-central-cart" id="btnCentralCart" onclick="goToCartRoutePlanner()" title="Ver productos en mi Carrito y calcular ruta">
+            <button type="button" class="btn-central-cart" id="btnCentralCart" onclick="goToCartRoutePlanner()" title="{{ $user ? 'Ver productos en mi Carrito y calcular ruta' : 'Inicia sesión para tener tu carrito de compras' }}">
                 <span>🛒</span> <span class="central-cart-label">Mi Carrito</span>
-                <span class="central-cart-badge" id="centralCartBadge">0</span>
+                <span class="central-cart-badge" id="centralCartBadge">{{ $user ? '0' : '🔒' }}</span>
             </button>
 
             
@@ -5687,7 +5687,7 @@
         <a href="#zacatecasMap" class="drawer-nav-item" onclick="closeMobileMenu(); goToCartRoutePlanner();">
             <div class="nav-item-icon" style="background: rgba(200, 109, 99, 0.15); color: #c86d63;">🛒</div>
             <div class="nav-item-text">
-                <div class="nav-item-title">Mi Carrito de Compras (<span id="drawerCartBadge">0</span>)</div>
+                <div class="nav-item-title">Mi Carrito de Compras (<span id="drawerCartBadge">{{ $user ? '0' : '🔒' }}</span>)</div>
                 <div class="nav-item-sub">Ruta para ver y comprar tus artículos en tiendas</div>
             </div>
             <span class="nav-item-arrow">›</span>
@@ -6967,6 +6967,9 @@
 
 <!-- JAVASCRIPT FOR LIVE SEARCH & MODAL -->
 <script>
+const IS_USER_LOGGED_IN = @json(!empty($user));
+const CURRENT_USER = @json($user ? ['id' => $user->id, 'name' => $user->name, 'email' => $user->email] : null);
+
 // ========================================================
 // 1 TO 5 STARS RATING & COMMENTS SYSTEM (PRODUCTS & COMPANIES)
 // ========================================================
@@ -7572,6 +7575,11 @@ let currentCentralProduct = null;
 
 function addCurrentModalProductToRouteCart() {
     if (!currentCentralProduct) return;
+    if (!IS_USER_LOGGED_IN) {
+        openAuthModal('login');
+        showToast('🔒 Inicia sesión para tener tu carrito de compras.');
+        return;
+    }
     addGlobalCartItem(currentCentralProduct);
     closeCentralProductModal();
     showToast(`🛒 "${currentCentralProduct.name}" añadido a tu carrito para la ruta`);
@@ -8283,6 +8291,12 @@ function matchCategoryIcon(category) {
 
 // UNIFIED CART STORAGE FOR PHYSICAL SHOPPING ROUTE
 function getUnifiedCart() {
+    if (!IS_USER_LOGGED_IN) {
+        try {
+            localStorage.removeItem('atelier_unified_cart');
+        } catch (e) {}
+        return {};
+    }
     let registry = {};
     try {
         registry = JSON.parse(localStorage.getItem('atelier_unified_cart') || '{}');
@@ -8294,8 +8308,9 @@ function getUnifiedCart() {
     try {
         for (let i = 0; i < localStorage.length; i++) {
             const key = localStorage.key(i);
-            if (key && key.startsWith('atelier_cart_') && key !== 'atelier_cart_') {
-                const tenantId = key.replace('atelier_cart_', '');
+            const userPrefix = CURRENT_USER ? ('u' + CURRENT_USER.id + '_') : '';
+            if (key && (key.startsWith('atelier_cart_' + userPrefix) || key.startsWith('atelier_cart_')) && key !== 'atelier_cart_') {
+                const tenantId = key.replace('atelier_cart_' + userPrefix, '').replace('atelier_cart_', '');
                 const items = JSON.parse(localStorage.getItem(key) || '[]');
                 if (Array.isArray(items) && items.length > 0) {
                     const storeObj = businessesData.find(b => String(b.id) === String(tenantId));
@@ -8315,10 +8330,17 @@ function getUnifiedCart() {
 }
 
 function saveUnifiedCart(cart) {
+    if (!IS_USER_LOGGED_IN) {
+        try {
+            localStorage.removeItem('atelier_unified_cart');
+        } catch (e) {}
+        updateHeaderCartBadge();
+        return;
+    }
     try {
         localStorage.setItem('atelier_unified_cart', JSON.stringify(cart));
         businessesData.forEach(b => {
-            const key = 'atelier_cart_' + b.id;
+            const key = 'atelier_cart_' + (CURRENT_USER ? ('u' + CURRENT_USER.id + '_') : '') + b.id;
             if (cart[b.id] && cart[b.id].items && cart[b.id].items.length > 0) {
                 localStorage.setItem(key, JSON.stringify(cart[b.id].items));
             } else {
@@ -8330,6 +8352,11 @@ function saveUnifiedCart(cart) {
 }
 
 function addGlobalCartItem(prod) {
+    if (!IS_USER_LOGGED_IN) {
+        openAuthModal('login');
+        showRouteToast('🔒 Inicia sesión para tener tu carrito de compras.');
+        return false;
+    }
     const cart = getUnifiedCart();
     let storeId = prod.store_id || '';
     if (!storeId && prod.store_name) {
@@ -8502,6 +8529,11 @@ function closeCentralCartInquiryBanner() {
 
 function quickAddProductToRouteCart(prod) {
     if (!prod) return;
+    if (!IS_USER_LOGGED_IN) {
+        openAuthModal('login');
+        showToast('🔒 Inicia sesión para tener tu carrito de compras.');
+        return;
+    }
     addGlobalCartItem(prod);
     renderCartForRoute();
     updateHeaderCartBadge();
@@ -8556,6 +8588,11 @@ function clearCartRouteItems() {
 }
 
 function loadSampleCartForRouteDemo() {
+    if (!IS_USER_LOGGED_IN) {
+        openAuthModal('login');
+        showToast('🔒 Inicia sesión para tener tu carrito de compras.');
+        return;
+    }
     const sampleItems = {
         'acropolis': {
             store_id: 'acropolis',
@@ -8618,6 +8655,18 @@ function loadSampleCartForRouteDemo() {
 }
 
 function updateHeaderCartBadge(count) {
+    if (!IS_USER_LOGGED_IN) {
+        const badge = document.getElementById('centralCartBadge');
+        if (badge) badge.textContent = '🔒';
+        const drawerBadge = document.getElementById('drawerCartBadge');
+        if (drawerBadge) drawerBadge.textContent = '🔒';
+        const bottomNavBadge = document.getElementById('bottomNavCartBadge');
+        if (bottomNavBadge) {
+            bottomNavBadge.textContent = '🔒';
+            bottomNavBadge.style.display = 'inline-flex';
+        }
+        return;
+    }
     if (typeof count !== 'number') {
         const cart = getUnifiedCart();
         count = 0;
@@ -8669,6 +8718,11 @@ function toggleRoutePanel(forceOpen) {
 }
 
 function goToCartRoutePlanner() {
+    if (!IS_USER_LOGGED_IN) {
+        openAuthModal('login');
+        showToast('🔒 Inicia sesión para tener tu carrito y planificar tu ruta.');
+        return;
+    }
     switchMainTab('map', false);
     toggleRoutePanel(true);
     const panel = document.getElementById('routeOptimizerPanel');
@@ -8680,6 +8734,40 @@ function goToCartRoutePlanner() {
 function renderCartForRoute() {
     const container = document.getElementById('cartRouteItemsContainer');
     if (!container) return;
+
+    if (!IS_USER_LOGGED_IN) {
+        updateHeaderCartBadge();
+        const badgePill = document.getElementById('routeCartBadgePill');
+        if (badgePill) {
+            badgePill.style.display = 'inline-block';
+            badgePill.textContent = '🔒 Bloqueado';
+        }
+        const clearBtn = document.getElementById('btnClearRouteCart');
+        if (clearBtn) clearBtn.style.display = 'none';
+        const floatBar = document.getElementById('floatingRouteCartBar');
+        if (floatBar) floatBar.style.display = 'none';
+
+        container.innerHTML = `
+            <div class="cart-route-empty-min" style="border: 2px dashed rgba(217, 119, 6, 0.4); background: rgba(254, 243, 199, 0.4); padding: 18px; border-radius: 14px;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <span style="font-size: 26px;">🔒</span>
+                    <div>
+                        <strong style="font-size: 14px; color: var(--ink);">Carrito exclusivo para usuarios registrados</strong>
+                        <div style="font-size: 12px; color: var(--muted); margin-top: 2px;">Inicia sesión o regístrate en Atelier para guardar productos en tu carrito, conservar tus compras y optimizar tu ruta física en el Centro Histórico.</div>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-top: 10px;">
+                    <button type="button" class="btn-seed-sample-cart-min" style="background: var(--ink); color: #fff; border: none; font-weight: 700; padding: 7px 16px; border-radius: 999px; cursor: pointer;" onclick="openAuthModal('login')">
+                        <span>🔑</span> Iniciar Sesión / Registrarme
+                    </button>
+                    <button type="button" class="btn-route-origin-pill" onclick="toggleManualStoreSelector(true)">
+                        <span>⚙</span> Explorar Tiendas sin Carrito ▾
+                    </button>
+                </div>
+            </div>
+        `;
+        return;
+    }
 
     const cart = getUnifiedCart();
     const storeIds = Object.keys(cart).filter(sId => cart[sId]?.items?.length > 0);

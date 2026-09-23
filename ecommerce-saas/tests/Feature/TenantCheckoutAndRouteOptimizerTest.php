@@ -129,4 +129,39 @@ class TenantCheckoutAndRouteOptimizerTest extends TestCase
         $this->assertCount(1, $orderInDb->items);
         $this->assertEquals(2, $orderInDb->items[0]->quantity);
     }
+
+    public function test_cart_behavior_guest_vs_authenticated_user(): void
+    {
+        // 1. Guest visitor on central portal sees locked badge
+        $guestCentral = $this->get('http://localhost/');
+        $guestCentral->assertStatus(200);
+        $guestCentral->assertSee('const IS_USER_LOGGED_IN = false;', false);
+        $guestCentral->assertSee('id="centralCartBadge">🔒</span>', false);
+
+        // 2. Guest visitor on tenant storefront sees locked badge
+        $guestTenant = $this->get('http://localhost/tienda/conceptos7');
+        $guestTenant->assertStatus(200);
+        $guestTenant->assertSee('const IS_USER_LOGGED_IN = false;', false);
+        $guestTenant->assertSee('id="headerCartBadge" class="header-cart-badge">🔒</span>', false);
+
+        // 3. Authenticated user sees open cart badge
+        $user = \App\Models\CentralUser::firstOrCreate(
+            ['email' => 'cliente.cart.test@gmail.com'],
+            [
+                'name' => 'Cliente Cart Test',
+                'password' => bcrypt('secret123'),
+                'auth_provider' => 'email',
+            ]
+        );
+
+        $authCentral = $this->actingAs($user, 'web')->get('http://localhost/');
+        $authCentral->assertStatus(200);
+        $authCentral->assertSee('const IS_USER_LOGGED_IN = true;', false);
+        $authCentral->assertSee('id="centralCartBadge">0</span>', false);
+
+        $authTenant = $this->actingAs($user, 'web')->get('http://localhost/tienda/conceptos7');
+        $authTenant->assertStatus(200);
+        $authTenant->assertSee('const IS_USER_LOGGED_IN = true;', false);
+        $authTenant->assertSee('id="headerCartBadge" class="header-cart-badge">0</span>', false);
+    }
 }

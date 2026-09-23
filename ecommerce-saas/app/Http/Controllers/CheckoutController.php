@@ -120,11 +120,13 @@ class CheckoutController extends Controller
 
                 $notes = trim(($validated['order_notes'] ?? '') . ' [Recogida en sucursal física]');
 
+                $currentUser = auth()->user() ?? auth('web')->user();
+
                 $order = Order::create([
                     'folio' => $folio,
-                    'user_id' => null,
-                    'customer_name' => $validated['customer_name'],
-                    'customer_email' => $validated['customer_email'] ?? null,
+                    'user_id' => $currentUser?->id,
+                    'customer_name' => $validated['customer_name'] ?: ($currentUser?->name ?? 'Cliente Zacatecas'),
+                    'customer_email' => $validated['customer_email'] ?? $currentUser?->email,
                     'customer_phone' => $validated['customer_phone'],
                     'payment_method' => $validated['payment_method'],
                     'payment_status' => $paymentStatus,
