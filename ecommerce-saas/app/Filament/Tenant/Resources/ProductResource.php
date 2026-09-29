@@ -104,6 +104,28 @@ class ProductResource extends Resource
                             ->rows(4)
                             ->columnSpanFull(),
                     ])->columns(2),
+
+                Forms\Components\Section::make('Modalidad de Citas y Servicios')
+                    ->description('Habilita esta opción si este producto es un servicio profesional que requiere reserva de horario.')
+                    ->schema([
+                        Forms\Components\Toggle::make('is_service')
+                            ->label('Es un Servicio / Cita Agendable')
+                            ->default(false)
+                            ->live(),
+                        Forms\Components\TextInput::make('duration_minutes')
+                            ->label('Duración del Servicio (minutos)')
+                            ->numeric()
+                            ->default(30)
+                            ->visible(fn (Forms\Get $get) => (bool) $get('is_service'))
+                            ->required(fn (Forms\Get $get) => (bool) $get('is_service')),
+                        Forms\Components\Select::make('staff')
+                            ->label('Profesionales / Especialistas que lo brindan')
+                            ->relationship('staff', 'name')
+                            ->multiple()
+                            ->preload()
+                            ->visible(fn (Forms\Get $get) => (bool) $get('is_service'))
+                            ->columnSpanFull(),
+                    ])->columns(2),
             ]);
     }
 
@@ -134,6 +156,10 @@ class ProductResource extends Resource
                     ->label('Stock')
                     ->numeric()
                     ->sortable(),
+                Tables\Columns\IconColumn::make('is_service')
+                    ->label('Servicio')
+                    ->boolean()
+                    ->sortable(),
                 Tables\Columns\IconColumn::make('is_active')
                     ->label('Activo')
                     ->boolean()
@@ -148,6 +174,8 @@ class ProductResource extends Resource
                 Tables\Filters\SelectFilter::make('category')
                     ->relationship('category', 'name')
                     ->label('Filtrar por Categoría'),
+                Tables\Filters\TernaryFilter::make('is_service')
+                    ->label('Tipo (Servicio / Producto)'),
                 Tables\Filters\TernaryFilter::make('is_active')
                     ->label('Solo Activos'),
             ])

@@ -50,4 +50,14 @@ class TenantUser extends Authenticatable implements FilamentUser
     {
         return $this->belongsTo(CustomerAccount::class, 'customer_account_id');
     }
+
+    public function appointments(): HasMany
+    {
+        return $this->hasMany(Appointment::class, 'user_id');
+    }
+
+    public function customerMemberships(): HasMany
+    {
+        return $this->hasMany(CustomerMembership::class, 'tenant_user_id');
+    }
 }

@@ -67,6 +67,28 @@ foreach (['{tenant}.localhost', '{tenant}.127.0.0.1.nip.io', '{tenant}.192.168.0
         return view('tenant.store', compact('storeName', 'tenantId', 'settings', 'categories', 'products', 'featuredProducts', 'officialStores', 'user', 'hasFacebookKeys', 'layoutBlocks'));
     });
 
+    // Subdomain API endpoints for Appointments & Memberships
+    Route::get('/api/services', fn () => app(\App\Http\Controllers\AppointmentController::class)->services((string) tenant('id')));
+    Route::get('/api/staff', fn () => app(\App\Http\Controllers\AppointmentController::class)->staff((string) tenant('id')));
+    Route::get('/api/appointments/available-slots', fn (\Illuminate\Http\Request $req) => app(\App\Http\Controllers\AppointmentController::class)->availableSlots($req, (string) tenant('id')));
+    Route::post('/api/appointments', fn (\Illuminate\Http\Request $req) => app(\App\Http\Controllers\AppointmentController::class)->book($req, (string) tenant('id')));
+    Route::get('/api/appointments/my-appointments', fn (\Illuminate\Http\Request $req) => app(\App\Http\Controllers\AppointmentController::class)->myAppointments($req, (string) tenant('id')));
+    Route::get('/api/memberships/plans', fn () => app(\App\Http\Controllers\AppointmentController::class)->membershipPlans((string) tenant('id')));
+    Route::get('/api/memberships/my-card', fn (\Illuminate\Http\Request $req) => app(\App\Http\Controllers\AppointmentController::class)->myMembership($req, (string) tenant('id')));
+    Route::post('/api/push/subscribe', fn (\Illuminate\Http\Request $req) => app(\App\Http\Controllers\AppointmentController::class)->subscribePush($req, (string) tenant('id')));
+    Route::post('/api/push/send-test', fn (\Illuminate\Http\Request $req) => app(\App\Http\Controllers\AppointmentController::class)->sendTestPush($req, (string) tenant('id')));
+
+    // Universal path compatibility under subdomain
+    Route::get('/api/tienda/{tenant}/services', fn (string $t) => app(\App\Http\Controllers\AppointmentController::class)->services($t));
+    Route::get('/api/tienda/{tenant}/staff', fn (string $t) => app(\App\Http\Controllers\AppointmentController::class)->staff($t));
+    Route::get('/api/tienda/{tenant}/appointments/available-slots', fn (\Illuminate\Http\Request $req, string $t) => app(\App\Http\Controllers\AppointmentController::class)->availableSlots($req, $t));
+    Route::post('/api/tienda/{tenant}/appointments', fn (\Illuminate\Http\Request $req, string $t) => app(\App\Http\Controllers\AppointmentController::class)->book($req, $t));
+    Route::get('/api/tienda/{tenant}/appointments/my-appointments', fn (\Illuminate\Http\Request $req, string $t) => app(\App\Http\Controllers\AppointmentController::class)->myAppointments($req, $t));
+    Route::get('/api/tienda/{tenant}/memberships/plans', fn (string $t) => app(\Http\Controllers\AppointmentController::class)->membershipPlans($t));
+    Route::get('/api/tienda/{tenant}/memberships/my-card', fn (\Illuminate\Http\Request $req, string $t) => app(\App\Http\Controllers\AppointmentController::class)->myMembership($req, $t));
+    Route::post('/api/tienda/{tenant}/push/subscribe', fn (\Illuminate\Http\Request $req, string $t) => app(\App\Http\Controllers\AppointmentController::class)->subscribePush($req, $t));
+    Route::post('/api/tienda/{tenant}/push/send-test', fn (\Illuminate\Http\Request $req, string $t) => app(\App\Http\Controllers\AppointmentController::class)->sendTestPush($req, $t));
+
     Route::get('/manifest.json', function () {
         return response(file_get_contents(public_path('manifest.json')), 200, [
             'Content-Type' => 'application/manifest+json',

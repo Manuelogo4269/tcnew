@@ -93,6 +93,16 @@
         border-radius: 999px;
     }
 
+    @media (max-width: 768px) {
+        .btn-floating-visual-editor {
+            bottom: calc(134px + env(safe-area-inset-bottom, 0px)) !important;
+            left: 16px !important;
+            font-size: 11.5px !important;
+            padding: 6px 12px !important;
+            z-index: 9996 !important;
+        }
+    }
+
     .visual-editor-backdrop {
         position: fixed;
         inset: 0;

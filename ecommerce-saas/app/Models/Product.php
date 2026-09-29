@@ -11,11 +11,17 @@ class Product extends Model
     protected $fillable = [
         'category_id', 'name', 'slug', 'description', 'price',
         'stock', 'image_url', 'image_data', 'is_active',
+        'is_service', 'duration_minutes',
     ];
 
     protected function casts(): array
     {
-        return ['price' => 'decimal:2', 'is_active' => 'boolean'];
+        return [
+            'price' => 'decimal:2',
+            'is_active' => 'boolean',
+            'is_service' => 'boolean',
+            'duration_minutes' => 'integer',
+        ];
     }
 
     protected static function booted(): void
@@ -49,6 +55,26 @@ class Product extends Model
     public function orderItems(): HasMany
     {
         return $this->hasMany(OrderItem::class);
+    }
+
+    public function staff(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Staff::class, 'staff_service', 'product_id', 'staff_id');
+    }
+
+    public function appointments(): HasMany
+    {
+        return $this->hasMany(Appointment::class, 'product_id');
+    }
+
+    public function scopeServices($query)
+    {
+        return $query->where('is_service', true);
+    }
+
+    public function scopeGoods($query)
+    {
+        return $query->where('is_service', false);
     }
 
     public function getImageUrlAttribute(?string $value): ?string

@@ -180,6 +180,17 @@ foreach ($centralDomains as $domain) {
 
         Route::post('/api/tienda/{tenant}/checkout', [\App\Http\Controllers\CheckoutController::class, 'processCheckout'])->name('central.tenant.checkout');
 
+        // Services, Staff, Appointments & Memberships
+        Route::get('/api/tienda/{tenant}/services', [\App\Http\Controllers\AppointmentController::class, 'services'])->name('central.tenant.services');
+        Route::get('/api/tienda/{tenant}/staff', [\App\Http\Controllers\AppointmentController::class, 'staff'])->name('central.tenant.staff');
+        Route::get('/api/tienda/{tenant}/appointments/available-slots', [\App\Http\Controllers\AppointmentController::class, 'availableSlots'])->name('central.tenant.appointments.slots');
+        Route::post('/api/tienda/{tenant}/appointments', [\App\Http\Controllers\AppointmentController::class, 'book'])->name('central.tenant.appointments.book');
+        Route::get('/api/tienda/{tenant}/appointments/my-appointments', [\App\Http\Controllers\AppointmentController::class, 'myAppointments'])->name('central.tenant.appointments.my');
+        Route::get('/api/tienda/{tenant}/memberships/plans', [\App\Http\Controllers\AppointmentController::class, 'membershipPlans'])->name('central.tenant.memberships.plans');
+        Route::get('/api/tienda/{tenant}/memberships/my-card', [\App\Http\Controllers\AppointmentController::class, 'myMembership'])->name('central.tenant.memberships.card');
+        Route::post('/api/tienda/{tenant}/push/subscribe', [\App\Http\Controllers\AppointmentController::class, 'subscribePush'])->name('central.tenant.push.subscribe');
+        Route::post('/api/tienda/{tenant}/push/send-test', [\App\Http\Controllers\AppointmentController::class, 'sendTestPush'])->name('central.tenant.push.test');
+
         Route::post('/api/tienda/{tenant}/layout', function (string $tenantId, \Illuminate\Http\Request $request) {
             $tenant = findTenantBySlugOrDomain($tenantId);
             if (!$tenant) {

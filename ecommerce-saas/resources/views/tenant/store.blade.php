@@ -4106,6 +4106,8 @@
             <a href="#inicio" class="active">Inicio</a>
             <a href="#categorias">Categorías</a>
             <a href="#catalogo">Catálogo</a>
+            <a href="javascript:void(0)" onclick="openAppointmentsModal()" style="color: var(--accent); font-weight: 700;">📅 Agendar Cita</a>
+            <a href="javascript:void(0)" onclick="openMembershipsModal()" style="font-weight: 700;">⭐ Membresía</a>
             <a href="#contacto">Ubicación</a>
         </nav>
 
@@ -4227,6 +4229,24 @@
             <div class="nav-item-text">
                 <div class="nav-item-title">Categorías</div>
                 <div class="nav-item-sub">Explora por departamento</div>
+            </div>
+            <span class="nav-item-arrow">›</span>
+        </a>
+
+        <a href="javascript:void(0)" class="drawer-nav-item" onclick="openAppointmentsModal(); closeStoreMenu();">
+            <div class="nav-item-icon" style="background: rgba(217, 107, 69, 0.15); color: var(--accent);">📅</div>
+            <div class="nav-item-text">
+                <div class="nav-item-title" style="color: var(--accent); font-weight: 800;">Agendar Cita / Servicio</div>
+                <div class="nav-item-sub">Reserva con tu profesional preferido</div>
+            </div>
+            <span class="nav-item-arrow" style="color: var(--accent);">›</span>
+        </a>
+
+        <a href="javascript:void(0)" class="drawer-nav-item" onclick="openMembershipsModal(); closeStoreMenu();">
+            <div class="nav-item-icon" style="background: rgba(234, 179, 8, 0.15); color: #ca8a04;">⭐</div>
+            <div class="nav-item-text">
+                <div class="nav-item-title">Club de Membresías &amp; Puntos</div>
+                <div class="nav-item-sub">Tarjeta digital y beneficios exclusivos</div>
             </div>
             <span class="nav-item-arrow">›</span>
         </a>
@@ -6518,8 +6538,16 @@ document.addEventListener('click', function(e) {
 <div class="pwa-floating-bottom-bar" id="pwaFloatingBottomBar">
     <a href="{{ $portalHomeUrl }}" class="pwa-fab-home" id="pwaFabHomeBtn" title="Regresar al Inicio del Portal">
         <span class="pwa-fab-icon">🏠</span>
-        <span class="pwa-fab-text">Volver al Inicio</span>
+        <span class="pwa-fab-text">Inicio</span>
     </a>
+    <button type="button" class="pwa-fab-home pwa-fab-appt" onclick="openAppointmentsModal()" title="Agendar Cita">
+        <span class="pwa-fab-icon">📅</span>
+        <span class="pwa-fab-text">Citas</span>
+    </button>
+    <button type="button" class="pwa-fab-home pwa-fab-memb" onclick="openMembershipsModal()" title="Mi Membresía">
+        <span class="pwa-fab-icon">⭐</span>
+        <span class="pwa-fab-text">Socio</span>
+    </button>
     <button type="button" class="pwa-fab-cart" onclick="toggleCartDrawer()" aria-label="Ver Carrito">
         <span class="pwa-fab-icon">🛒</span>
         <span class="pwa-fab-text">Carrito (<span id="fabCartCount">0</span>)</span>
@@ -6681,6 +6709,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 @endif
 
+@include('tenant.partials.appointments-memberships-modal')
 @include('tenant.partials.live-modular-editor')
 
 </body>

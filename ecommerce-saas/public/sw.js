@@ -134,3 +134,71 @@ self.addEventListener('fetch', (event) => {
         })
     );
 });
+
+// 5. NOTIFICACIONES PUSH EN SEGUNDO PLANO (Citas, Recordatorios y Membresías)
+self.addEventListener('push', (event) => {
+    let payload = {
+        title: 'Atelier · Actualización',
+        body: 'Tienes una nueva notificación de tu servicio o membresía.',
+        icon: '/app-icons/icon-192.png',
+        badge: '/app-icons/icon-192.png',
+        url: '/',
+        data: {}
+    };
+
+    if (event.data) {
+        try {
+            const json = event.data.json();
+            payload = { ...payload, ...json };
+        } catch (e) {
+            payload.body = event.data.text();
+        }
+    }
+
+    const options = {
+        body: payload.body,
+        icon: payload.icon || '/app-icons/icon-192.png',
+        badge: payload.badge || '/app-icons/icon-192.png',
+        vibrate: [100, 50, 100],
+        data: {
+            url: payload.url || '/',
+            ...(payload.data || {})
+        },
+        actions: [
+            { action: 'open', title: 'Ver Detalles' },
+            { action: 'close', title: 'Cerrar' }
+        ]
+    };
+
+    event.waitUntil(
+        self.registration.showNotification(payload.title, options)
+    );
+});
+
+// 6. CLIC EN NOTIFICACIÓN: Abrir la tienda o URL de la cita
+self.addEventListener('notificationclick', (event) => {
+    event.notification.close();
+
+    if (event.action === 'close') {
+        return;
+    }
+
+    const targetUrl = (event.notification.data && event.notification.data.url) 
+        ? event.notification.data.url 
+        : '/';
+
+    event.waitUntil(
+        clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clientList) => {
+            for (const client of clientList) {
+                if (client.url.includes(self.location.origin) && 'focus' in client) {
+                    client.navigate(targetUrl);
+                    return client.focus();
+                }
+            }
+            if (clients.openWindow) {
+                return clients.openWindow(targetUrl);
+            }
+        })
+    );
+});
+
