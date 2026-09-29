@@ -118,4 +118,32 @@ class StoreCustomizationTest extends TestCase
         $response->assertSee('id="modalRelatedGrid"', false);
         $response->assertSee('copyProductDirectLink', false);
     }
+
+    public function test_standalone_company_page_is_accessible_directly_without_entering_app(): void
+    {
+        // 1. Direct vanity URL /{tenant} (e.g. /conceptos7) operates as an independent web page
+        $directResponse = $this->get('/conceptos7');
+        $directResponse->assertStatus(200);
+        $directResponse->assertSee('btn-share-store', false);
+        $directResponse->assertSee('copyStoreUrl', false);
+        $directResponse->assertSee('href="#inicio"', false);
+        $directResponse->assertSee('id="pwaFabHomeBtn"', false);
+        $directResponse->assertSee('Página web oficial', false);
+
+        // 2. Standard path /tienda/{tenant} also routes seamlessly
+        $tiendaResponse = $this->get('/tienda/conceptos7');
+        $tiendaResponse->assertStatus(200);
+        $tiendaResponse->assertSee('btn-share-store', false);
+        $tiendaResponse->assertSee('copyStoreUrl', false);
+
+        // 3. Verify Admin Settings displays the independent website link
+        $tenant = Tenant::findOrFail('conceptos7');
+        $adminUser = $tenant->run(fn () => \App\Models\TenantUser::where('email', 'admin@conceptos7.com')->first());
+        $adminResponse = $this->actingAs($adminUser, 'tenant')
+            ->get('http://conceptos7.localhost/tenant-admin/store-settings/1/edit');
+        $adminResponse->assertStatus(200);
+        $adminResponse->assertSee('Página Web Oficial e Independiente de tu Empresa');
+        $adminResponse->assertSee('/conceptos7', false);
+    }
 }
+

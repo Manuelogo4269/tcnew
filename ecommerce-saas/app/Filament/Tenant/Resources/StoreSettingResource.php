@@ -28,6 +28,43 @@ class StoreSettingResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\Section::make('🌐 Página Web Oficial e Independiente de tu Empresa')
+                    ->description('Tu negocio tiene su propio sitio web público e independiente, accesible directamente sin que tus clientes tengan que descargar ni ingresar a ninguna aplicación.')
+                    ->icon('heroicon-o-globe-alt')
+                    ->schema([
+                        Forms\Components\Placeholder::make('independent_store_url')
+                            ->label('Dirección Web Pública (URL Directa)')
+                            ->content(function () {
+                                $tenantId = tenant('id') ?? session('tenant_admin_tenant_id') ?? 'empresa';
+                                $directUrl = url("/{$tenantId}");
+                                return new \Illuminate\Support\HtmlString('
+                                    <div style="background: #f0fdf4; border: 1.5px solid #86efac; border-radius: 12px; padding: 18px; margin-top: 4px;">
+                                        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+                                            <div>
+                                                <div style="font-size: 11px; font-weight: 700; color: #15803d; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px;">
+                                                    ✓ Sitio Web Activo y Listo para Compartir
+                                                </div>
+                                                <a href="' . e($directUrl) . '" target="_blank" style="font-size: 16px; font-weight: 800; color: #166534; text-decoration: underline; word-break: break-all;">
+                                                    ' . e($directUrl) . ' ↗
+                                                </a>
+                                            </div>
+                                            <div style="display: flex; gap: 8px;">
+                                                <a href="' . e($directUrl) . '" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #16a34a; color: #ffffff; border-radius: 8px; font-size: 13px; font-weight: 700; text-decoration: none; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">
+                                                    <span>🌐</span> Visitar Mi Web
+                                                </a>
+                                                <button type="button" onclick="navigator.clipboard.writeText(\'' . e($directUrl) . '\'); alert(\'¡Enlace copiado al portapapeles!\');" style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: #ffffff; color: #166534; border: 1px solid #86efac; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer;">
+                                                    <span>📋</span> Copiar Enlace
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <p style="margin-top: 10px; font-size: 12.5px; color: #374151; line-height: 1.5;">
+                                            Comparte este enlace directamente en tu biografía de <strong>Instagram</strong>, <strong>WhatsApp Business</strong>, <strong>Facebook</strong> o tarjetas de presentación. Tus clientes ingresan directamente a tu tienda, catálogo, reservas de citas y membresías <strong>sin tener que pasar por ninguna aplicación central</strong>.
+                                        </p>
+                                    </div>
+                                ');
+                            }),
+                    ]),
+
                 Forms\Components\Section::make('Paleta de Colores y Estilo')
                     ->description('Personaliza los tonos principales y la identidad cromática de tu tienda pública.')
                     ->icon('heroicon-o-swatch')

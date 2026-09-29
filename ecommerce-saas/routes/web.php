@@ -71,93 +71,12 @@ foreach ($centralDomains as $domain) {
         });
 
         // Direct Mobile / LAN Storefront Route (No custom DNS required on mobile devices)
-        Route::get('/tienda/{tenant}', function (string $tenantId) {
-            $tenant = findTenantBySlugOrDomain($tenantId);
-            if (!$tenant) {
-                abort(404, 'Tienda no encontrada.');
-            }
+        Route::get('/tienda/{tenant}', [\App\Http\Controllers\StorefrontController::class, 'show'])->name('central.tenant.store');
 
-            $isAdmin = (session('tenant_admin_tenant_id') === $tenant->id) || auth()->guard('tenant')->check();
-            if (!$tenant->hasActiveSubscription() && !$isAdmin) {
-                $settings = null;
-                try {
-                    $settings = $tenant->run(fn () => \App\Models\StoreSetting::first());
-                } catch (\Throwable $e) {}
-                $storeName = $settings?->store_name ?? str($tenant->id)->replace(['-', '_'], ' ')->title()->toString();
-                return response()->view('tenant.subscription_inactive', compact('tenant', 'settings', 'storeName'), 402);
-            }
-
-            tenancy()->initialize($tenant);
-
-            $user = \Illuminate\Support\Facades\Auth::guard('web')->user();
-            $hasFacebookKeys = !empty(config('services.facebook.client_id')) && !empty(config('services.facebook.client_secret'));
-
-            $settings = \App\Models\StoreSetting::first();
-            $storeName = $settings?->store_name ?? str($tenant->id)->replace(['-', '_'], ' ')->title()->toString();
-            $categories = \App\Models\Category::withCount('products')->get();
-            $products = \App\Models\Product::where('is_active', true)->with('category')->latest()->get();
-            $featuredProducts = $products->take(8);
-
-            $cachedStores = \Illuminate\Support\Facades\Cache::remember('platform_official_stores_list', 120, function () {
-                return tenancy()->central(function () {
-                    return \App\Models\Tenant::with('domains')->get()->map(function ($t) {
-                        $sName = null;
-                        try {
-                            $sName = $t->run(fn () => \App\Models\StoreSetting::value('store_name'));
-                        } catch (\Throwable $e) {}
-
-                        return [
-                            'id' => (string) $t->id,
-                            'name' => $sName ?: str($t->id)->replace(['-', '_'], ' ')->title()->toString(),
-                            'url' => url("/tienda/{$t->id}"),
-                        ];
-                    })->toArray();
-                });
-            });
-
-            $officialStores = array_map(function ($store) use ($tenant) {
-                $store['is_current'] = strtolower((string)$store['id']) === strtolower($tenant->id);
-                return $store;
-            }, (array) $cachedStores);
-
-            $layoutBlocks = $settings ? $settings->getEffectiveLayoutBlocks() : \App\Models\StoreSetting::defaultLayoutBlocks();
-
-            $confirmedOrder = null;
-            $paymentResult = request('payment_result');
-            $stripeSessionId = request('session_id');
-            $folio = request('folio');
-
-            if ($paymentResult === 'stripe_success' && $stripeSessionId && $folio) {
-                $order = \App\Models\Order::where('folio', $folio)
-                    ->orWhere('stripe_session_id', $stripeSessionId)
-                    ->first();
-
-                if ($order) {
-                    $secretKey = $settings?->stripe_secret_key ?: config('services.stripe.secret');
-                    if ($secretKey) {
-                        try {
-                            $sessionCheck = \Illuminate\Support\Facades\Http::withToken($secretKey)
-                                ->get("https://api.stripe.com/v1/checkout/sessions/{$stripeSessionId}");
-                            if ($sessionCheck->successful() && $sessionCheck->json('payment_status') === 'paid') {
-                                $order->update([
-                                    'payment_status' => 'paid',
-                                    'status' => 'confirmed',
-                                    'stripe_payment_intent_id' => $sessionCheck->json('payment_intent'),
-                                ]);
-                            }
-                        } catch (\Throwable $e) {}
-                    } else {
-                        $order->update([
-                            'payment_status' => 'paid',
-                            'status' => 'confirmed',
-                        ]);
-                    }
-                    $confirmedOrder = $order->load('items');
-                }
-            }
-
-            return view('tenant.store', compact('storeName', 'tenantId', 'settings', 'categories', 'products', 'featuredProducts', 'officialStores', 'user', 'hasFacebookKeys', 'layoutBlocks', 'confirmedOrder', 'paymentResult'));
-        })->name('central.tenant.store');
+        // Direct Company Standalone Page (e.g. /conceptos7, /acropolis) without entering the central app
+        Route::get('/{tenant}', [\App\Http\Controllers\StorefrontController::class, 'show'])
+            ->where('tenant', '^(?!planes|rentar-tienda|login|register|logout|manifest\.json|sw\.js|offline\.html|tenant-admin|admin|api|tienda|auth|storage|livewire|telescope).*$')
+            ->name('central.tenant.direct');
 
         // Universal Path-Based Store Management Route (No DNS setup required)
         Route::get('/tienda/{tenant}/admin', function (string $tenantId) {
@@ -330,92 +249,7 @@ Route::get('/tienda/{tenant}/admin', function (string $tenantId) {
     return redirect("/tenant-admin?tenant={$tenant->id}");
 });
 
-Route::get('/tienda/{tenant}', function (string $tenantId) {
-    $tenant = findTenantBySlugOrDomain($tenantId);
-    if (!$tenant) {
-        abort(404, 'Tienda no encontrada.');
-    }
+Route::get('/tienda/{tenant}', [\App\Http\Controllers\StorefrontController::class, 'show']);
 
-    $isAdmin = (session('tenant_admin_tenant_id') === $tenant->id) || auth()->guard('tenant')->check();
-    if (!$tenant->hasActiveSubscription() && !$isAdmin) {
-        $settings = null;
-        try {
-            $settings = $tenant->run(fn () => \App\Models\StoreSetting::first());
-        } catch (\Throwable $e) {}
-        $storeName = $settings?->store_name ?? str($tenant->id)->replace(['-', '_'], ' ')->title()->toString();
-        return response()->view('tenant.subscription_inactive', compact('tenant', 'settings', 'storeName'), 402);
-    }
-
-    tenancy()->initialize($tenant);
-
-    $user = \Illuminate\Support\Facades\Auth::guard('web')->user();
-    $hasFacebookKeys = !empty(config('services.facebook.client_id')) && !empty(config('services.facebook.client_secret'));
-
-    $settings = \App\Models\StoreSetting::first();
-    $storeName = $settings?->store_name ?? str($tenant->id)->replace(['-', '_'], ' ')->title()->toString();
-    $categories = \App\Models\Category::withCount('products')->get();
-    $products = \App\Models\Product::where('is_active', true)->with('category')->latest()->get();
-    $featuredProducts = $products->take(8);
-
-    $cachedStores = \Illuminate\Support\Facades\Cache::remember('platform_official_stores_list', 120, function () {
-        return tenancy()->central(function () {
-            return \App\Models\Tenant::with('domains')->get()->map(function ($t) {
-                $sName = null;
-                try {
-                    $sName = $t->run(fn () => \App\Models\StoreSetting::value('store_name'));
-                } catch (\Throwable $e) {}
-
-                return [
-                    'id' => (string) $t->id,
-                    'name' => $sName ?: str($t->id)->replace(['-', '_'], ' ')->title()->toString(),
-                    'url' => url("/tienda/{$t->id}"),
-                ];
-            })->toArray();
-        });
-    });
-
-    $officialStores = array_map(function ($store) use ($tenant) {
-        $store['is_current'] = strtolower((string)$store['id']) === strtolower($tenant->id);
-        return $store;
-    }, (array) $cachedStores);
-
-    $layoutBlocks = $settings ? $settings->getEffectiveLayoutBlocks() : \App\Models\StoreSetting::defaultLayoutBlocks();
-
-    $confirmedOrder = null;
-    $paymentResult = request('payment_result');
-    $stripeSessionId = request('session_id');
-    $folio = request('folio');
-
-    if ($paymentResult === 'stripe_success' && $stripeSessionId && $folio) {
-        $order = \App\Models\Order::where('folio', $folio)
-            ->orWhere('stripe_session_id', $stripeSessionId)
-            ->first();
-
-        if ($order) {
-            $secretKey = $settings?->stripe_secret_key ?: config('services.stripe.secret');
-            if ($secretKey) {
-                try {
-                    $sessionCheck = \Illuminate\Support\Facades\Http::withToken($secretKey)
-                        ->get("https://api.stripe.com/v1/checkout/sessions/{$stripeSessionId}");
-                    if ($sessionCheck->successful() && $sessionCheck->json('payment_status') === 'paid') {
-                        $order->update([
-                            'payment_status' => 'paid',
-                            'status' => 'confirmed',
-                            'stripe_payment_intent_id' => $sessionCheck->json('payment_intent'),
-                        ]);
-                    }
-                } catch (\Throwable $e) {}
-            } else {
-                $order->update([
-                    'payment_status' => 'paid',
-                    'status' => 'confirmed',
-                ]);
-            }
-            $confirmedOrder = $order->load('items');
-        }
-    }
-
-    return view('tenant.store', compact('storeName', 'tenantId', 'settings', 'categories', 'products', 'featuredProducts', 'officialStores', 'user', 'hasFacebookKeys', 'layoutBlocks', 'confirmedOrder', 'paymentResult'));
-});
 
 

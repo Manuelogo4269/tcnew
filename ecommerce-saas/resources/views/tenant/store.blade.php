@@ -623,6 +623,40 @@
             transform: rotate(30deg);
         }
 
+        .btn-share-store {
+            height: 38px;
+            padding: 0 12px;
+            border-radius: 20px;
+            border: 1px solid var(--line);
+            background: var(--card);
+            color: var(--ink);
+            font-size: 13px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: all .2s ease;
+            flex-shrink: 0;
+            text-decoration: none;
+        }
+        .btn-share-store:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+            background: rgba(217, 107, 69, 0.05);
+        }
+        @media (max-width: 640px) {
+            .btn-share-store .share-btn-text {
+                display: none;
+            }
+            .btn-share-store {
+                width: 38px;
+                padding: 0;
+                justify-content: center;
+                border-radius: 50%;
+            }
+        }
+
         .nav-menu { display: flex; gap: 24px; font-size: 13.5px; font-weight: 500; }
         .nav-menu a { color: var(--muted); transition: color .2s ease; }
         .nav-menu a:hover, .nav-menu a.active { color: var(--accent); font-weight: 600; }
@@ -4141,6 +4175,11 @@
                 <span class="theme-icon-dark" style="display: none;">☀️</span>
             </button>
 
+            <!-- Share Store Direct Web Link -->
+            <button type="button" class="btn-share-store" onclick="copyStoreUrl()" title="Compartir enlace oficial de esta página web" aria-label="Compartir Tienda">
+                <span>🔗</span> <span class="share-btn-text">Compartir</span>
+            </button>
+
             <!-- Store Admin Panel Direct Access -->
             <a href="{{ url('/tenant-admin/login?tenant=' . ($tenantId ?? 'acropolis')) }}" class="btn-admin-gear" title="Panel de Administración ({{ $storeTitle }})" aria-label="Panel Admin">
                 <span>⚙</span>
@@ -4206,22 +4245,23 @@
     <!-- Navigation Options -->
     <div class="store-drawer-section-title">Navegación de la Tienda</div>
     <nav class="store-drawer-nav-list">
-        <!-- FIRST OPTION: RETURN TO CENTRAL PORTAL -->
-        <a href="{{ $portalHomeUrl }}" class="drawer-nav-item drawer-nav-item-portal-home" onclick="closeStoreMenu()">
+        <!-- MAIN STORE ACTIONS -->
+        <a href="#inicio" class="drawer-nav-item" onclick="closeStoreMenu()">
             <div class="nav-item-icon" style="background: var(--accent); color: #fff;">🏠</div>
             <div class="nav-item-text">
-                <div class="nav-item-title" style="color: var(--accent); font-weight: 800;">Volver al Inicio del Portal</div>
-                <div class="nav-item-sub">Zacatecas Centro · Directorio &amp; Mapa</div>
+                <div class="nav-item-title" style="color: var(--accent); font-weight: 800;">Inicio de la Tienda</div>
+                <div class="nav-item-sub">Página web oficial de {{ $storeTitle }}</div>
             </div>
-            <span class="nav-item-arrow" style="color: var(--accent); font-weight: 800;">‹</span>
+            <span class="nav-item-arrow" style="color: var(--accent); font-weight: 800;">›</span>
         </a>
-        <a href="#inicio" class="drawer-nav-item" onclick="closeStoreMenu()">
-            <div class="nav-item-icon" style="background: rgba(200, 109, 99, 0.15); color: var(--accent);">🏠</div>
+
+        <a href="javascript:void(0)" class="drawer-nav-item" onclick="copyStoreUrl(); closeStoreMenu();">
+            <div class="nav-item-icon" style="background: rgba(16, 185, 129, 0.15); color: #10b981;">🔗</div>
             <div class="nav-item-text">
-                <div class="nav-item-title">Inicio &amp; Portada</div>
-                <div class="nav-item-sub">Catálogo y novedades de {{ $storeTitle }}</div>
+                <div class="nav-item-title" style="color: #059669; font-weight: 700;">Compartir Página Web</div>
+                <div class="nav-item-sub">Copiar enlace oficial de {{ $storeTitle }}</div>
             </div>
-            <span class="nav-item-arrow">›</span>
+            <span class="nav-item-arrow" style="color: #059669;">📋</span>
         </a>
 
         <a href="#categorias" class="drawer-nav-item" onclick="closeStoreMenu()">
@@ -4287,10 +4327,10 @@
             <span class="nav-item-arrow">›</span>
         </a>
 
-        <a href="{{ $portalHomeUrl }}" class="drawer-nav-item" onclick="closeStoreMenu()">
+        <a href="{{ $portalHomeUrl }}" class="drawer-nav-item drawer-nav-item-portal-home" onclick="closeStoreMenu()">
             <div class="nav-item-icon" style="background: rgba(200, 109, 99, 0.15); color: #c86d63;">📍</div>
             <div class="nav-item-text">
-                <div class="nav-item-title">Portal Zacatecas Centro ↗</div>
+                <div class="nav-item-title">Volver al Inicio del Portal ↗</div>
                 <div class="nav-item-sub">Directorio general y mapa interactivo</div>
             </div>
             <span class="nav-item-arrow">›</span>
@@ -6344,11 +6384,34 @@ function copyProductDirectLink() {
 }
 
 function copyCurrentStoreLink() {
-    navigator.clipboard.writeText(window.location.href).then(() => {
-        showToast(`¡Enlace de la tienda copiado!`);
-    }).catch(() => {
-        showToast('Enlace copiado');
-    });
+    copyStoreUrl();
+}
+
+function copyStoreUrl() {
+    const directUrl = @json($companyDirectUrl ?? url('/' . ($tenantId ?? ''))) || window.location.href;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(directUrl).then(() => {
+            showToast('¡Enlace de la página web copiado!');
+        }).catch(() => {
+            fallbackCopy(directUrl);
+        });
+    } else {
+        fallbackCopy(directUrl);
+    }
+}
+
+function fallbackCopy(text) {
+    try {
+        const tempInput = document.createElement('input');
+        tempInput.value = text;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempInput);
+        showToast('¡Enlace copiado al portapapeles!');
+    } catch(e) {
+        showToast('Enlace: ' + text);
+    }
 }
 
 // Mobile Store Navigation Drawer Toggle, Open & Close
@@ -6536,7 +6599,7 @@ document.addEventListener('click', function(e) {
 
 <!-- FLOATING PWA HOME & CART ACTION BAR -->
 <div class="pwa-floating-bottom-bar" id="pwaFloatingBottomBar">
-    <a href="{{ $portalHomeUrl }}" class="pwa-fab-home" id="pwaFabHomeBtn" title="Regresar al Inicio del Portal">
+    <a href="#inicio" class="pwa-fab-home" id="pwaFabHomeBtn" title="Inicio de {{ $storeTitle }}" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">
         <span class="pwa-fab-icon">🏠</span>
         <span class="pwa-fab-text">Inicio</span>
     </a>
