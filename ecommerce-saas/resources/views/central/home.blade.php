@@ -7509,14 +7509,14 @@ function switchBillingCycle(cycle) {
     const badge = document.getElementById('annualSavingsBadge');
 
     if (cycle === 'annual') {
-        btnAnnual.classList.add('active');
-        btnMonthly.classList.remove('active');
+        if (btnAnnual) btnAnnual.classList.add('active');
+        if (btnMonthly) btnMonthly.classList.remove('active');
         if (badge) badge.style.opacity = '1';
         document.querySelectorAll('.price-annual-box').forEach(el => el.style.display = 'block');
         document.querySelectorAll('.price-monthly-box').forEach(el => el.style.display = 'none');
     } else {
-        btnMonthly.classList.add('active');
-        btnAnnual.classList.remove('active');
+        if (btnMonthly) btnMonthly.classList.add('active');
+        if (btnAnnual) btnAnnual.classList.remove('active');
         if (badge) badge.style.opacity = '0.4';
         document.querySelectorAll('.price-annual-box').forEach(el => el.style.display = 'none');
         document.querySelectorAll('.price-monthly-box').forEach(el => el.style.display = 'block');
