@@ -38,6 +38,12 @@ foreach ($centralDomains as $domain) {
     Route::domain($domain)->group(function () {
         Route::get('/', [CentralPortalController::class, 'index'])->name('central.home');
         Route::get('/planes', [CentralPortalController::class, 'showPlans'])->name('central.plans');
+        Route::get('/pwa', function () {
+            return response()->file(public_path('pwa.html'));
+        })->name('central.pwa');
+        Route::get('/app', function () {
+            return response()->file(public_path('pwa.html'));
+        })->name('central.app');
         Route::post('/rentar-tienda', [CentralPortalController::class, 'registerTenant'])->name('central.rent.tenant');
         Route::get('/api/global-search', [CentralPortalController::class, 'apiSearch'])->name('central.api.search');
         Route::get('/api/reviews', [CentralPortalController::class, 'getReviews'])->name('central.api.reviews.index');

@@ -5578,6 +5578,7 @@
         </a>
 
         <nav class="portal-nav-links">
+            <a href="{{ url('/pwa') }}" style="display: inline-flex; align-items: center; gap: 6px; color: #c86d63; font-weight: 800; background: rgba(200, 109, 99, 0.12); padding: 5px 12px; border-radius: 999px; border: 1px solid rgba(200, 109, 99, 0.3); text-decoration: none;" title="Abrir App PWA Móvil">📲 App PWA Móvil</a>
             <a href="javascript:void(0)" onclick="focusGlobalSearch()">🔍 Búsqueda Global</a>
             <a href="{{ url('/planes') }}" style="display: inline-flex; align-items: center; gap: 6px; color: #9333ea; font-weight: 800; background: rgba(168, 85, 247, 0.1); padding: 5px 12px; border-radius: 999px; border: 1px solid rgba(168, 85, 247, 0.25); text-decoration: none;" title="Planes de Renta de Tiendas para Empresas">💎 Planes de Suscripción</a>
         </nav>
@@ -7927,7 +7928,8 @@ if ('serviceWorker' in navigator) {
     });
 
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js', { updateViaCache: 'none' })
+        navigator.serviceWorker.register('/service-worker.js', { updateViaCache: 'none' })
+            .catch(() => navigator.serviceWorker.register('/sw.js', { updateViaCache: 'none' }))
             .then((registration) => {
                 console.log('[PWA] Service Worker Zacatecas activo:', registration.scope);
 

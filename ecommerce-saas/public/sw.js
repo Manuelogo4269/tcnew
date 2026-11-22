@@ -1,13 +1,16 @@
 // Atelier Zacatecas - Service Worker PWA Ultrarrápido con Resiliencia Offline
-// Versión 3.0.0: Precachea la página principal y soporta Render spin-up con timeout fallback
-const CACHE_NAME = 'atelier-zacatecas-v3.0.0';
+// Versión 3.1.0: Precachea la página principal y soporta Render spin-up con timeout fallback
+const CACHE_NAME = 'atelier-zacatecas-v3.1.0';
 
-// Recursos estáticos iniciales
+// Recursos estáticos iniciales para funcionamiento offline
 const STATIC_ASSETS = [
     '/',
     '/?source=pwa',
+    '/pwa',
     '/manifest.json',
     '/offline.html',
+    '/service-worker.js',
+    '/sw.js',
     '/app-icons/icon.svg',
     '/app-icons/icon-192.png',
     '/app-icons/icon-512.png',
@@ -73,7 +76,7 @@ self.addEventListener('fetch', (event) => {
             new Promise((resolve) => {
                 let resolved = false;
 
-                // Timeout de 3.5 segundos: si Render está despertando o la señal es débil,
+                // Timeout de 3.5 segundos: si el servidor está en frío o la señal es débil,
                 // responde de inmediato con la copia guardada en caché para no congelar la pantalla.
                 const timeoutId = setTimeout(() => {
                     if (!resolved) {
@@ -135,11 +138,11 @@ self.addEventListener('fetch', (event) => {
     );
 });
 
-// 5. NOTIFICACIONES PUSH EN SEGUNDO PLANO (Citas, Recordatorios y Membresías)
+// 5. NOTIFICACIONES PUSH EN SEGUNDO PLANO
 self.addEventListener('push', (event) => {
     let payload = {
-        title: 'Atelier · Actualización',
-        body: 'Tienes una nueva notificación de tu servicio o membresía.',
+        title: 'Atelier Zacatecas',
+        body: 'Tienes una nueva actualización en tu app.',
         icon: '/app-icons/icon-192.png',
         badge: '/app-icons/icon-192.png',
         url: '/',
@@ -163,42 +166,10 @@ self.addEventListener('push', (event) => {
         data: {
             url: payload.url || '/',
             ...(payload.data || {})
-        },
-        actions: [
-            { action: 'open', title: 'Ver Detalles' },
-            { action: 'close', title: 'Cerrar' }
-        ]
+        }
     };
 
     event.waitUntil(
         self.registration.showNotification(payload.title, options)
     );
 });
-
-// 6. CLIC EN NOTIFICACIÓN: Abrir la tienda o URL de la cita
-self.addEventListener('notificationclick', (event) => {
-    event.notification.close();
-
-    if (event.action === 'close') {
-        return;
-    }
-
-    const targetUrl = (event.notification.data && event.notification.data.url) 
-        ? event.notification.data.url 
-        : '/';
-
-    event.waitUntil(
-        clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clientList) => {
-            for (const client of clientList) {
-                if (client.url.includes(self.location.origin) && 'focus' in client) {
-                    client.navigate(targetUrl);
-                    return client.focus();
-                }
-            }
-            if (clients.openWindow) {
-                return clients.openWindow(targetUrl);
-            }
-        })
-    );
-});
-

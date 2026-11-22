@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Atelier Zacatecas — PWA Móvil & Gestor de Compras</title>
+  
+  <!-- Configuración Esencial PWA -->
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#c86d63">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Atelier ZAC">
+  <link rel="apple-touch-icon" href="./app-icons/icon-192.png">
+  <link rel="icon" type="image/svg+xml" href="./app-icons/icon.svg">
+
+  <style>
+    :root {
+      --primary: #c86d63;
+      --primary-hover: #b1554a;
+      --primary-soft: rgba(200, 109, 99, 0.12);
+      --bg: #0f1219;
+      --surface: #181d28;
+      --surface-card: #202634;
+      --surface-border: rgba(255, 255, 255, 0.08);
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #e28c81;
+      --success: #10b981;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --radius: 16px;
+      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: var(--font);
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 80px;
+    }
+
+    /* Top Header */
+    header.app-header {
+      background: rgba(24, 29, 40, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--surface-border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .brand img {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: var(--surface-card);
+      border: 1px solid var(--primary);
+    }
+
+    .brand-info h1 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      line-height: 1.2;
+    }
+
+    .brand-info span {
+      font-size: 0.75rem;
+      color: var(--accent);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--success);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .status-badge.offline {
+      background: rgba(239, 68, 68, 0.15);
+      color: var(--danger);
+      border-color: rgba(239, 68, 68, 0.3);
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: currentColor;
+      box-shadow: 0 0 8px currentColor;
+    }
+
+    .btn-install {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.2s;
+    }
+
+    .btn-install:hover {
+      background: var(--primary-hover);
+    }
+
+    /* Main Container & Screens */
+    main.content-area {
+      max-width: 780px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 20px 16px;
+      flex: 1;
+    }
+
+    .screen {
+      display: none;
+      animation: fadeIn 0.25s ease-out;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Headings */
+    .section-title {
+      font-size: 1.4rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+
+    .section-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius);
+      padding: 18px;
+      margin-bottom: 16px;
+    }
+
+    /* SCREEN 1: Directorio & Búsqueda */
+    .search-box {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .search-input {
+      flex: 1;
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      color: var(--text);
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      outline: none;
+    }
+
+    .search-input:focus {
+      border-color: var(--primary);
+    }
+
+    .categories-bar {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 10px;
+      margin-bottom: 16px;
+      scrollbar-width: none;
+    }
+
+    .categories-bar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .cat-pill {
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      color: var(--text-muted);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .cat-pill.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    .stores-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 14px;
+    }
+
+    .store-item {
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      border-radius: 14px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 12px;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .store-item:hover {
+      border-color: rgba(200, 109, 99, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .store-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .store-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: var(--primary-soft);
+      display: grid;
+      place-items: center;
+      font-size: 1.4rem;
+    }
+
+    .store-info h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .store-info span {
+      font-size: 0.78rem;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .store-desc {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    .store-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 8px;
+      border-top: 1px solid var(--surface-border);
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .btn-quick-add {
+      background: var(--surface);
+      border: 1px solid var(--primary);
+      color: var(--accent);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-quick-add:hover {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    /* SCREEN 2: Funcionalidad Activa con localStorage */
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .form-control {
+      width: 100%;
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      color: var(--text);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 0.92rem;
+      outline: none;
+    }
+
+    .form-control:focus {
+      border-color: var(--primary);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .btn-submit {
+      width: 100%;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 6px;
+      transition: background 0.2s;
+    }
+
+    .btn-submit:hover {
+      background: var(--primary-hover);
+    }
+
+    .stats-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius);
+      padding: 14px;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    .stat-box h4 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .stat-box span {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .filter-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .filter-tabs {
+      display: flex;
+      gap: 6px;
+    }
+
+    .filter-btn {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      color: var(--text-muted);
+      padding: 5px 12px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .filter-btn.active {
+      background: var(--surface-card);
+      color: var(--text);
+      border-color: var(--primary);
+    }
+
+    .btn-clear {
+      background: transparent;
+      border: none;
+      color: var(--danger);
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 4px 8px;
+    }
+
+    .btn-clear:hover {
+      text-decoration: underline;
+    }
+
+    /* Tasks/Order List */
+    .task-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .task-item {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: 12px;
+      padding: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      transition: all 0.2s;
+    }
+
+    .task-item.completed {
+      opacity: 0.6;
+      border-color: rgba(255, 255, 255, 0.04);
+    }
+
+    .task-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+      cursor: pointer;
+    }
+
+    .task-checkbox {
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      border: 2px solid var(--primary);
+      display: grid;
+      place-items: center;
+      font-size: 0.8rem;
+      color: #fff;
+      flex-shrink: 0;
+      transition: all 0.2s;
+    }
+
+    .task-item.completed .task-checkbox {
+      background: var(--success);
+      border-color: var(--success);
+    }
+
+    .task-content h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+      transition: text-decoration 0.2s;
+    }
+
+    .task-item.completed .task-content h4 {
+      text-decoration: line-through;
+      color: var(--text-muted);
+    }
+
+    .task-tags {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+      font-size: 0.74rem;
+    }
+
+    .badge-cat {
+      background: var(--surface-card);
+      color: var(--text-muted);
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .badge-priority {
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 700;
+    }
+
+    .badge-priority.urgente {
+      background: rgba(239, 68, 68, 0.2);
+      color: var(--danger);
+    }
+
+    .badge-priority.normal {
+      background: rgba(16, 185, 129, 0.2);
+      color: var(--success);
+    }
+
+    .btn-delete-task {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      cursor: pointer;
+      padding: 6px;
+      border-radius: 6px;
+      transition: color 0.2s;
+    }
+
+    .btn-delete-task:hover {
+      color: var(--danger);
+    }
+
+    .empty-placeholder {
+      text-align: center;
+      padding: 40px 20px;
+      background: var(--surface);
+      border: 1px dashed var(--surface-border);
+      border-radius: var(--radius);
+      color: var(--text-muted);
+    }
+
+    .empty-placeholder span {
+      font-size: 2.2rem;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    /* SCREEN 3: Info & Centro PWA */
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    .tech-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px;
+      background: var(--surface-card);
+      border-radius: 12px;
+      border: 1px solid var(--surface-border);
+    }
+
+    .tech-icon {
+      font-size: 1.6rem;
+      flex-shrink: 0;
+    }
+
+    .tech-details h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .tech-details p {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    .btn-action-outline {
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      color: var(--text);
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-right: 8px;
+      margin-top: 10px;
+      transition: all 0.2s;
+    }
+
+    .btn-action-outline:hover {
+      border-color: var(--primary);
+      color: var(--accent);
+    }
+
+    /* Bottom Navigation Bar (Mobile First) */
+    nav.bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 64px;
+      background: rgba(24, 29, 40, 0.95);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-top: 1px solid var(--surface-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      z-index: 200;
+      padding: 0 10px;
+    }
+
+    .nav-tab {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.74rem;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 8px 16px;
+      border-radius: 12px;
+      transition: all 0.2s;
+    }
+
+    .nav-tab .tab-icon {
+      font-size: 1.3rem;
+    }
+
+    .nav-tab.active {
+      color: var(--primary);
+    }
+
+    .nav-tab.active .tab-icon {
+      transform: scale(1.1);
+    }
+
+    /* Toast Notification */
+    #toast-msg {
+      position: fixed;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%) translateY(30px);
+      background: var(--primary);
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 1000;
+      white-space: nowrap;
+    }
+
+    #toast-msg.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top App Bar -->
+  <header class="app-header">
+    <a href="#" class="brand">
+      <img src="./app-icons/icon-192.png" alt="Atelier Zacatecas">
+      <div class="brand-info">
+        <h1>Atelier Zacatecas</h1>
+        <span>PWA Móvil</span>
+      </div>
+    </a>
+
+    <div class="header-actions">
+      <div id="net-status-badge" class="status-badge">
+        <span class="status-dot"></span>
+        <span id="net-status-text">Online</span>
+      </div>
+      <button id="btn-install-app" class="btn-install">
+        <span>📲</span> Instalar
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content Area with 3 Sections -->
+  <main class="content-area">
+
+    <!-- SECCIÓN 1: Directorio & Comercios (Inicio) -->
+    <section id="screen-home" class="screen active">
+      <h2 class="section-title">Comercios del Centro Histórico</h2>
+      <p class="section-desc">Explora tiendas, platerías y cafeterías emblemáticas de Zacatecas con disponibilidad offline.</p>
+
+      <!-- Barra de Búsqueda -->
+      <div class="search-box">
+        <input type="text" id="store-search" class="search-input" placeholder="Buscar comercio o producto (ej. café, plata)...">
+      </div>
+
+      <!-- Filtro de Categorías -->
+      <div class="categories-bar">
+        <button class="cat-pill active" data-category="all">Todos</button>
+        <button class="cat-pill" data-category="Cafetería">Cafeterías</button>
+        <button class="cat-pill" data-category="Platería">Platería & Joyas</button>
+        <button class="cat-pill" data-category="Moda">Moda & Ropa</button>
+        <button class="cat-pill" data-category="Artesanías">Artesanías</button>
+        <button class="cat-pill" data-category="Librería">Libros & Cultura</button>
+      </div>
+
+      <!-- Grid de Tiendas -->
+      <div id="stores-container" class="stores-grid">
+        <!-- Renderizado dinámico vía JavaScript -->
+      </div>
+    </section>
+
+    <!-- SECCIÓN 2: Mis Pedidos & Tareas (Funcionalidad Activa con localStorage) -->
+    <section id="screen-tasks" class="screen">
+      <h2 class="section-title">Mis Pedidos & Notas de Compra</h2>
+      <p class="section-desc">Gestor con persistencia local permanente (localStorage). Tus notas se guardan aunque no tengas internet.</p>
+
+      <!-- Tarjeta de Estadísticas Rápidas -->
+      <div class="stats-card">
+        <div class="stat-box">
+          <h4 id="stat-total">0</h4>
+          <span>Total</span>
+        </div>
+        <div class="stat-box">
+          <h4 id="stat-pending">0</h4>
+          <span>Pendientes</span>
+        </div>
+        <div class="stat-box">
+          <h4 id="stat-done">0</h4>
+          <span>Listos</span>
+        </div>
+      </div>
+
+      <!-- Formulario para Agregar Tarea / Pedido -->
+      <div class="card">
+        <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 12px; color: var(--accent);">+ Agregar Artículo o Encargo</h3>
+        <form id="task-form">
+          <div class="form-group">
+            <label for="task-title">Artículo o Encargo *</label>
+            <input type="text" id="task-title" class="form-control" placeholder="Ej. Dije de plata Virgen del Patrocinio" required>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="task-category">Comercio / Tipo</label>
+              <select id="task-category" class="form-control">
+                <option value="Platería">Platería</option>
+                <option value="Cafetería">Cafetería</option>
+                <option value="Moda">Moda</option>
+                <option value="Artesanías">Artesanías</option>
+                <option value="General">General</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="task-priority">Prioridad</label>
+              <select id="task-priority" class="form-control">
+                <option value="normal">Normal</option>
+                <option value="urgente">Urgente</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="task-notes">Notas u observaciones (opcional)</label>
+            <input type="text" id="task-notes" class="form-control" placeholder="Ej. Comprar antes de las 4 PM en Av. Hidalgo">
+          </div>
+
+          <button type="submit" class="btn-submit">
+            <span>💾</span> Guardar en localStorage
+          </button>
+        </form>
+      </div>
+
+      <!-- Filtros y Acciones de la Lista -->
+      <div class="filter-actions">
+        <div class="filter-tabs">
+          <button class="filter-btn active" data-filter="all">Todos</button>
+          <button class="filter-btn" data-filter="pending">Pendientes</button>
+          <button class="filter-btn" data-filter="completed">Completados</button>
+        </div>
+        <button id="btn-clear-all" class="btn-clear">Vaciar lista</button>
+      </div>
+
+      <!-- Lista de Tareas / Pedidos -->
+      <div id="task-list-container" class="task-list">
+        <!-- Renderizado dinámico -->
+      </div>
+    </section>
+
+    <!-- SECCIÓN 3: Información & Centro de Control PWA -->
+    <section id="screen-info" class="screen">
+      <h2 class="section-title">Centro de Control & Tecnologías PWA</h2>
+      <p class="section-desc">Detalles técnicos del funcionamiento como Aplicación Web Progresiva instalable y resiliente sin conexión.</p>
+
+      <div class="card">
+        <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 12px; color: var(--accent);">Arquitectura de la Aplicación</h3>
+        
+        <div class="info-grid">
+          <div class="tech-item">
+            <div class="tech-icon">⚙️</div>
+            <div class="tech-details">
+              <h4>Service Worker Activo</h4>
+              <p>Intercepta las solicitudes de red mediante un proxy inverso en segundo plano con estrategia <em>Network-first con fallback a Cache Storage</em> y timeout de 3.5 segundos.</p>
+            </div>
+          </div>
+
+          <div class="tech-item">
+            <div class="tech-icon">📦</div>
+            <div class="tech-details">
+              <h4>Almacenamiento Local (Cache Storage & localStorage)</h4>
+              <p>Los archivos de la App Shell (HTML, CSS, JS e Iconos) se almacenan en <code>Cache Storage</code>, mientras que los pedidos y notas del usuario persisten en <code>localStorage</code>.</p>
+            </div>
+          </div>
+
+          <div class="tech-item">
+            <div class="tech-icon">📱</div>
+            <div class="tech-details">
+              <h4>Web App Manifest Configurado</h4>
+              <p>Contiene iconos responsive de 192×192 y 512×512, modo <code>standalone</code>, color temático <code>#c86d63</code> y definición de accesos directos.</p>
+            </div>
+          </div>
+
+          <div class="tech-item">
+            <div class="tech-icon">⚡</div>
+            <div class="tech-details">
+              <h4>Tolerancia a Desconexión (Offline)</h4>
+              <p>Si la red se interrumpe, la app sigue navegando entre sus secciones y permite crear o editar notas de compras sin mostrar errores de conexión.</p>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--surface-border);">
+          <button id="btn-force-update" class="btn-action-outline">
+            <span>🔄</span> Comprobar Actualización del SW
+          </button>
+          <button id="btn-trigger-install" class="btn-action-outline">
+            <span>📲</span> Instalar en Pantalla Principal
+          </button>
+        </div>
+      </div>
+
+      <!-- Resumen Académico del Proyecto -->
+      <div class="card">
+        <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 10px; color: var(--accent);">Ficha del Proyecto PWA</h3>
+        <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.6;">
+          <strong>Tema:</strong> Directorio Comercial del Centro Histórico de Zacatecas y Gestor de Pedidos Offline.<br>
+          <strong>Funciones Principales:</strong> Búsqueda de comercios por rubro, sistema interactivo de pedidos con persistencia en <code>localStorage</code>, detección de estado Online/Offline en tiempo real e instalación nativa en dispositivos móviles o escritorio.<br>
+          <strong>Implementación PWA:</strong> Registro de <code>service-worker.js</code> con precacheo de recursos estáticos, respuesta offline ante fallos de red y configuración completa en <code>manifest.json</code> con iconos de alta resolución.
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Bottom Navigation Bar -->
+  <nav class="bottom-nav">
+    <button class="nav-tab active" data-target="screen-home">
+      <span class="tab-icon">🏪</span>
+      <span>Inicio</span>
+    </button>
+    <button class="nav-tab" data-target="screen-tasks">
+      <span class="tab-icon">📝</span>
+      <span>Mis Pedidos</span>
+    </button>
+    <button class="nav-tab" data-target="screen-info">
+      <span class="tab-icon">ℹ️</span>
+      <span>Info PWA</span>
+    </button>
+  </nav>
+
+  <!-- Toast Notification -->
+  <div id="toast-msg">Mensaje de notificación</div>
+
+  <!-- Lógica JavaScript de la Aplicación -->
+  <script>
+    // ==========================================
+    // 1. DATOS PRECARGADOS DE TIENDAS LOCALES
+    // ==========================================
+    const DEFAULT_STORES = [
+      { id: 1, name: "Platería El Minero Zacatecano", cat: "Platería", icon: "💍", desc: "Joyería fina en plata ley .925 tradicional y piezas coloniales.", loc: "Av. Hidalgo #104", sched: "10:00 - 20:00" },
+      { id: 2, name: "Café Acrópolis Centro", cat: "Cafetería", icon: "☕", desc: "Café de altura, repostería artesanal y museo en el corazón de Zacatecas.", loc: "Mercado González Ortega", sched: "08:30 - 22:00" },
+      { id: 3, name: "Conceptos 7 Boutique", cat: "Moda", icon: "👗", desc: "Moda urbana contemporánea, calzado y accesorios de diseñador.", loc: "Calle Tacuba #22", sched: "11:00 - 20:30" },
+      { id: 4, name: "Arte Huichol & Cantera Rosa", cat: "Artesanías", icon: "🎨", desc: "Figuras con chaquira, telares tradicionales y souvenirs en cantera.", loc: "Plaza Bicentenario", sched: "09:00 - 19:30" },
+      { id: 5, name: "Librería del Virreinato", cat: "Librería", icon: "📚", desc: "Ediciones históricas, novelas zacatecanas y material académico.", loc: "Calle Allende #45", sched: "10:00 - 19:00" },
+      { id: 6, name: "Dulcería Tradicional El Portal", cat: "Artesanías", icon: "🍯", desc: "Cocadas, ates de membrillo, mezcal zacatecano y cajeta artesanal.", loc: "Portal de Rosales", sched: "09:30 - 21:00" }
+    ];
+
+    // ==========================================
+    // 2. GESTIÓN DE NAVEGACIÓN ENTRE SECCIONES
+    // ==========================================
+    const navTabs = document.querySelectorAll('.nav-tab');
+    const screens = document.querySelectorAll('.screen');
+
+    navTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const targetId = tab.getAttribute('data-target');
+        
+        navTabs.forEach(t => t.classList.remove('active'));
+        screens.forEach(s => s.classList.remove('active'));
+
+        tab.classList.add('active');
+        const activeScreen = document.getElementById(targetId);
+        if (activeScreen) activeScreen.classList.add('active');
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+
+    // ==========================================
+    // 3. RENDERIZADO DEL DIRECTORIO DE TIENDAS
+    // ==========================================
+    const storesContainer = document.getElementById('stores-container');
+    const storeSearch = document.getElementById('store-search');
+    const categoryPills = document.querySelectorAll('.cat-pill');
+    let currentCategory = 'all';
+
+    function renderStores(query = '') {
+      if (!storesContainer) return;
+      storesContainer.innerHTML = '';
+
+      const filtered = DEFAULT_STORES.filter(store => {
+        const matchesCat = (currentCategory === 'all' || store.cat.toLowerCase() === currentCategory.toLowerCase());
+        const matchesQuery = store.name.toLowerCase().includes(query.toLowerCase()) || 
+                             store.desc.toLowerCase().includes(query.toLowerCase()) ||
+                             store.cat.toLowerCase().includes(query.toLowerCase());
+        return matchesCat && matchesQuery;
+      });
+
+      if (filtered.length === 0) {
+        storesContainer.innerHTML = `
+          <div class="empty-placeholder" style="grid-column: 1 / -1;">
+            <span>🔍</span>
+            <p>No se encontraron comercios con esa búsqueda.</p>
+          </div>
+        `;
+        return;
+      }
+
+      filtered.forEach(store => {
+        const card = document.createElement('div');
+        card.className = 'store-item';
+        card.innerHTML = `
+          <div>
+            <div class="store-head">
+              <div class="store-icon">${store.icon}</div>
+              <div class="store-info">
+                <h3>${store.name}</h3>
+                <span>${store.cat}</span>
+              </div>
+            </div>
+            <p class="store-desc" style="margin-top: 10px;">${store.desc}</p>
+          </div>
+          <div class="store-meta">
+            <div>
+              <div>📍 ${store.loc}</div>
+              <div style="font-size: 0.72rem; color: #64748b; margin-top: 2px;">🕒 ${store.sched}</div>
+            </div>
+            <button class="btn-quick-add" onclick="quickAddOrder('${escapeHtml(store.name)}', '${escapeHtml(store.cat)}')">
+              + Encargar
+            </button>
+          </div>
+        `;
+        storesContainer.appendChild(card);
+      });
+    }
+
+    if (storeSearch) {
+      storeSearch.addEventListener('input', (e) => {
+        renderStores(e.target.value);
+      });
+    }
+
+    categoryPills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        categoryPills.forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+        currentCategory = pill.getAttribute('data-category');
+        renderStores(storeSearch ? storeSearch.value : '');
+      });
+    });
+
+    function quickAddOrder(storeName, category) {
+      const task = {
+        id: Date.now(),
+        title: `Visita o compra en ${storeName}`,
+        category: category,
+        priority: 'normal',
+        notes: 'Agregado desde el directorio de tiendas',
+        completed: false,
+        createdAt: new Date().toLocaleDateString('es-MX')
+      };
+      saveTaskToStorage(task);
+      showToast(`Encargo para "${storeName}" guardado.`);
+    }
+
+    // ==========================================
+    // 4. FUNCIONALIDAD ACTIVA CON LOCALSTORAGE
+    // ==========================================
+    const STORAGE_KEY = 'atelier_pwa_orders_v1';
+    let tasks = loadTasksFromStorage();
+
+    function loadTasksFromStorage() {
+      try {
+        const data = localStorage.getItem(STORAGE_KEY);
+        return data ? JSON.parse(data) : [
+          { id: 101, title: "Comprar pulsera de plata en Av. Hidalgo", category: "Platería", priority: "urgente", notes: "Talla mediana, acabado pulido", completed: false, createdAt: "22/11/2026" },
+          { id: 102, title: "Probar café de olla zacatecano", category: "Cafetería", priority: "normal", notes: "En Café Acrópolis", completed: true, createdAt: "22/11/2026" }
+        ];
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function saveAllTasks() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+      } catch (e) {
+        console.error("Error al guardar en localStorage", e);
+      }
+      renderTasks();
+      updateStats();
+    }
+
+    function saveTaskToStorage(newTask) {
+      tasks.unshift(newTask);
+      saveAllTasks();
+    }
+
+    function toggleTask(id) {
+      tasks = tasks.map(t => t.id === id ? { ...t, completed: !t.completed } : t);
+      saveAllTasks();
+    }
+
+    function deleteTask(id) {
+      tasks = tasks.filter(t => t.id !== id);
+      saveAllTasks();
+      showToast("Elemento eliminado.");
+    }
+
+    let currentFilter = 'all';
+    const filterBtns = document.querySelectorAll('.filter-btn');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentFilter = btn.getAttribute('data-filter');
+        renderTasks();
+      });
+    });
+
+    const btnClearAll = document.getElementById('btn-clear-all');
+    if (btnClearAll) {
+      btnClearAll.addEventListener('click', () => {
+        if (tasks.length === 0) return;
+        if (confirm("¿Seguro que deseas vaciar todos los pedidos y notas de la lista?")) {
+          tasks = [];
+          saveAllTasks();
+          showToast("Lista vaciada correctamente.");
+        }
+      });
+    }
+
+    const taskForm = document.getElementById('task-form');
+    if (taskForm) {
+      taskForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const titleInput = document.getElementById('task-title');
+        const catInput = document.getElementById('task-category');
+        const priorityInput = document.getElementById('task-priority');
+        const notesInput = document.getElementById('task-notes');
+
+        if (!titleInput.value.trim()) return;
+
+        const newTask = {
+          id: Date.now(),
+          title: titleInput.value.trim(),
+          category: catInput.value,
+          priority: priorityInput.value,
+          notes: notesInput.value.trim(),
+          completed: false,
+          createdAt: new Date().toLocaleDateString('es-MX')
+        };
+
+        saveTaskToStorage(newTask);
+        taskForm.reset();
+        showToast("✓ Nota guardada en localStorage.");
+      });
+    }
+
+    const taskListContainer = document.getElementById('task-list-container');
+
+    function renderTasks() {
+      if (!taskListContainer) return;
+      taskListContainer.innerHTML = '';
+
+      const filtered = tasks.filter(t => {
+        if (currentFilter === 'pending') return !t.completed;
+        if (currentFilter === 'completed') return t.completed;
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        taskListContainer.innerHTML = `
+          <div class="empty-placeholder">
+            <span>📝</span>
+            <p>No hay artículos en esta vista.</p>
+            <small style="display:block; margin-top:4px;">Usa el formulario arriba para agregar tu primer encargo.</small>
+          </div>
+        `;
+        return;
+      }
+
+      filtered.forEach(task => {
+        const item = document.createElement('div');
+        item.className = `task-item ${task.completed ? 'completed' : ''}`;
+        item.innerHTML = `
+          <div class="task-left" onclick="toggleTask(${task.id})">
+            <div class="task-checkbox">${task.completed ? '✓' : ''}</div>
+            <div class="task-content">
+              <h4>${escapeHtml(task.title)}</h4>
+              <div class="task-tags">
+                <span class="badge-cat">${escapeHtml(task.category)}</span>
+                <span class="badge-priority ${task.priority}">${task.priority.toUpperCase()}</span>
+                ${task.notes ? `<span style="color:#64748b;">• ${escapeHtml(task.notes)}</span>` : ''}
+              </div>
+            </div>
+          </div>
+          <button class="btn-delete-task" title="Eliminar" onclick="deleteTask(${task.id})">✕</button>
+        `;
+        taskListContainer.appendChild(item);
+      });
+    }
+
+    function updateStats() {
+      const total = tasks.length;
+      const done = tasks.filter(t => t.completed).length;
+      const pending = total - done;
+
+      const elTotal = document.getElementById('stat-total');
+      const elPending = document.getElementById('stat-pending');
+      const elDone = document.getElementById('stat-done');
+
+      if (elTotal) elTotal.textContent = total;
+      if (elPending) elPending.textContent = pending;
+      if (elDone) elDone.textContent = done;
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text || '';
+      return div.innerHTML;
+    }
+
+    // ==========================================
+    // 5. ESTADO ONLINE / OFFLINE EN TIEMPO REAL
+    // ==========================================
+    const netBadge = document.getElementById('net-status-badge');
+    const netText = document.getElementById('net-status-text');
+
+    function updateOnlineStatus() {
+      if (navigator.onLine) {
+        netBadge.classList.remove('offline');
+        netText.textContent = 'Online';
+      } else {
+        netBadge.classList.add('offline');
+        netText.textContent = 'Offline';
+        showToast('⚠️ Modo sin conexión activo (Caché SW)');
+      }
+    }
+
+    window.addEventListener('online', updateOnlineStatus);
+    window.addEventListener('offline', updateOnlineStatus);
+    updateOnlineStatus();
+
+    // ==========================================
+    // 6. INSTALACIÓN DE LA PWA (beforeinstallprompt)
+    // ==========================================
+    let deferredPrompt = null;
+    const btnInstallHeader = document.getElementById('btn-install-app');
+    const btnTriggerInstall = document.getElementById('btn-trigger-install');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      if (btnInstallHeader) btnInstallHeader.style.display = 'inline-flex';
+    });
+
+    function triggerPwaInstall() {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choice) => {
+          if (choice.outcome === 'accepted') {
+            showToast('¡App instalada con éxito!');
+          }
+          deferredPrompt = null;
+          if (btnInstallHeader) btnInstallHeader.style.display = 'none';
+        });
+      } else {
+        showToast('Para instalar: Menú de tu navegador (⋮) > "Agregar a la pantalla principal"');
+      }
+    }
+
+    if (btnInstallHeader) btnInstallHeader.addEventListener('click', triggerPwaInstall);
+    if (btnTriggerInstall) btnTriggerInstall.addEventListener('click', triggerPwaInstall);
+
+    window.addEventListener('appinstalled', () => {
+      showToast('✓ Aplicación instalada en tu dispositivo');
+      if (btnInstallHeader) btnInstallHeader.style.display = 'none';
+    });
+
+    // ==========================================
+    // 7. REGISTRO Y GESTIÓN DEL SERVICE WORKER
+    // ==========================================
+    let swReg = null;
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./service-worker.js', { updateViaCache: 'none' })
+          .then((registration) => {
+            swReg = registration;
+            console.log('[PWA] Service Worker registrado con éxito:', registration.scope);
+          })
+          .catch((err) => {
+            console.warn('[PWA] Fallo de registro, intentando sw.js...', err);
+            navigator.serviceWorker.register('./sw.js').catch(e => console.error('[PWA]', e));
+          });
+      });
+    }
+
+    const btnForceUpdate = document.getElementById('btn-force-update');
+    if (btnForceUpdate) {
+      btnForceUpdate.addEventListener('click', () => {
+        if (swReg) {
+          swReg.update().then(() => showToast('Service Worker verificado y actualizado.'));
+        } else {
+          showToast('Service Worker en funcionamiento.');
+        }
+      });
+    }
+
+    // ==========================================
+    // 8. TOAST NOTIFICACIONES VISUALES
+    // ==========================================
+    const toast = document.getElementById('toast-msg');
+    let toastTimeout = null;
+
+    function showToast(message) {
+      if (!toast) return;
+      toast.textContent = message;
+      toast.classList.add('show');
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    // Inicializar vistas
+    renderStores();
+    renderTasks();
+    updateStats();
+  </script>
+</body>
+</html>
