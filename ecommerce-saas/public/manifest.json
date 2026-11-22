@@ -39,18 +39,25 @@
   ],
   "shortcuts": [
     {
-      "name": "Tiendas Cercanas",
-      "short_name": "Cercanas",
-      "description": "Ver tiendas cercanas en Zacatecas Centro",
-      "url": "/#cercanas",
-      "icons": [{ "src": "/app-icons/icon.svg", "sizes": "192x192" }]
+      "name": "Mis Pedidos & Notas",
+      "short_name": "Pedidos",
+      "description": "Gestionar pedidos y lista de compras offline",
+      "url": "/pwa#screen-tasks",
+      "icons": [{ "src": "/app-icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Directorio de Tiendas",
+      "short_name": "Tiendas",
+      "description": "Directorio de comercios del Centro Histórico",
+      "url": "/pwa#screen-home",
+      "icons": [{ "src": "/app-icons/icon-192.png", "sizes": "192x192" }]
     },
     {
       "name": "Planes de Renta",
       "short_name": "Planes",
       "description": "Planes para rentar tu tienda en Zacatecas",
       "url": "/#planes",
-      "icons": [{ "src": "/app-icons/icon.svg", "sizes": "192x192" }]
+      "icons": [{ "src": "/app-icons/icon-192.png", "sizes": "192x192" }]
     }
   ]
 }

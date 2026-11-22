@@ -13,7 +13,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Atelier ZAC">
   <link rel="apple-touch-icon" href="./app-icons/icon-192.png">
-  <link rel="icon" type="image/svg+xml" href="./app-icons/icon.svg">
+  <link rel="icon" type="image/png" href="./favicon.ico">
 
   <style>
     :root {
@@ -34,6 +34,17 @@
       --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
 
+    [data-theme="light"] {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --surface-card: #f1f5f9;
+      --surface-border: #e2e8f0;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --accent: #b15146;
+      --primary-soft: rgba(200, 109, 99, 0.1);
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -49,6 +60,7 @@
       display: flex;
       flex-direction: column;
       padding-bottom: 80px;
+      transition: background-color 0.25s, color 0.25s;
     }
 
     /* Top Header */
@@ -60,37 +72,41 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      padding: 12px 20px;
+      padding: 12px 18px;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
 
+    [data-theme="light"] header.app-header {
+      background: rgba(255, 255, 255, 0.9);
+    }
+
     .brand {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       text-decoration: none;
       color: var(--text);
     }
 
     .brand img {
-      width: 38px;
-      height: 38px;
+      width: 36px;
+      height: 36px;
       border-radius: 10px;
       background: var(--surface-card);
       border: 1px solid var(--primary);
     }
 
     .brand-info h1 {
-      font-size: 1.05rem;
+      font-size: 1rem;
       font-weight: 800;
       letter-spacing: -0.3px;
       line-height: 1.2;
     }
 
     .brand-info span {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       color: var(--accent);
       font-weight: 600;
       text-transform: uppercase;
@@ -100,7 +116,25 @@
     .header-actions {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
+    }
+
+    .btn-icon-toggle {
+      background: var(--surface-card);
+      border: 1px solid var(--surface-border);
+      color: var(--text);
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-icon-toggle:hover {
+      border-color: var(--primary);
     }
 
     .status-badge {
@@ -175,16 +209,16 @@
 
     /* Headings */
     .section-title {
-      font-size: 1.4rem;
+      font-size: 1.35rem;
       font-weight: 800;
       margin-bottom: 6px;
       color: var(--text);
     }
 
     .section-desc {
-      font-size: 0.88rem;
+      font-size: 0.86rem;
       color: var(--text-muted);
-      margin-bottom: 20px;
+      margin-bottom: 18px;
       line-height: 1.5;
     }
 
@@ -195,13 +229,14 @@
       border-radius: var(--radius);
       padding: 18px;
       margin-bottom: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
     }
 
-    /* SCREEN 1: Directorio & Búsqueda */
+    /* Search & Categories */
     .search-box {
       display: flex;
       gap: 10px;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
     .search-input {
@@ -209,9 +244,9 @@
       background: var(--surface-card);
       border: 1px solid var(--surface-border);
       color: var(--text);
-      padding: 12px 16px;
+      padding: 10px 14px;
       border-radius: 12px;
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       outline: none;
     }
 
@@ -238,7 +273,7 @@
       color: var(--text-muted);
       padding: 6px 14px;
       border-radius: 999px;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       font-weight: 600;
       white-space: nowrap;
       cursor: pointer;
@@ -291,13 +326,13 @@
     }
 
     .store-info h3 {
-      font-size: 1rem;
+      font-size: 0.98rem;
       font-weight: 700;
       color: var(--text);
     }
 
     .store-info span {
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       color: var(--accent);
       font-weight: 600;
     }
@@ -335,17 +370,17 @@
       color: #fff;
     }
 
-    /* SCREEN 2: Funcionalidad Activa con localStorage */
+    /* Forms */
     .form-group {
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
     .form-group label {
       display: block;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       font-weight: 600;
       color: var(--text-muted);
-      margin-bottom: 6px;
+      margin-bottom: 5px;
     }
 
     .form-control {
@@ -353,9 +388,9 @@
       background: var(--surface-card);
       border: 1px solid var(--surface-border);
       color: var(--text);
-      padding: 10px 14px;
+      padding: 10px 12px;
       border-radius: 10px;
-      font-size: 0.92rem;
+      font-size: 0.9rem;
       outline: none;
     }
 
@@ -366,7 +401,7 @@
     .form-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
+      gap: 10px;
     }
 
     .btn-submit {
@@ -374,16 +409,16 @@
       background: var(--primary);
       color: #fff;
       border: none;
-      padding: 12px;
+      padding: 11px;
       border-radius: 10px;
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       font-weight: 700;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      margin-top: 6px;
+      margin-top: 4px;
       transition: background 0.2s;
     }
 
@@ -391,6 +426,7 @@
       background: var(--primary-hover);
     }
 
+    /* Stats & Share Toolbar */
     .stats-card {
       display: flex;
       align-items: center;
@@ -398,25 +434,25 @@
       background: var(--surface);
       border: 1px solid var(--surface-border);
       border-radius: var(--radius);
-      padding: 14px;
-      margin-bottom: 16px;
+      padding: 12px;
+      margin-bottom: 14px;
       text-align: center;
     }
 
     .stat-box h4 {
-      font-size: 1.4rem;
+      font-size: 1.3rem;
       font-weight: 800;
       color: var(--primary);
     }
 
     .stat-box span {
-      font-size: 0.74rem;
+      font-size: 0.72rem;
       color: var(--text-muted);
       text-transform: uppercase;
       font-weight: 700;
     }
 
-    .filter-actions {
+    .toolbar-actions {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -434,7 +470,7 @@
       background: var(--surface);
       border: 1px solid var(--surface-border);
       color: var(--text-muted);
-      padding: 5px 12px;
+      padding: 5px 10px;
       border-radius: 8px;
       font-size: 0.78rem;
       font-weight: 600;
@@ -447,50 +483,63 @@
       border-color: var(--primary);
     }
 
-    .btn-clear {
-      background: transparent;
-      border: none;
-      color: var(--danger);
-      font-size: 0.78rem;
+    .extra-tools {
+      display: flex;
+      gap: 6px;
+    }
+
+    .btn-tool {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      color: var(--text);
+      padding: 5px 10px;
+      border-radius: 8px;
+      font-size: 0.76rem;
       font-weight: 600;
       cursor: pointer;
-      padding: 4px 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
     }
 
-    .btn-clear:hover {
-      text-decoration: underline;
+    .btn-tool:hover {
+      border-color: var(--primary);
     }
 
-    /* Tasks/Order List */
+    .btn-tool.danger {
+      color: var(--danger);
+    }
+
+    /* Task list */
     .task-list {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 8px;
     }
 
     .task-item {
       background: var(--surface);
       border: 1px solid var(--surface-border);
       border-radius: 12px;
-      padding: 14px;
+      padding: 12px 14px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
+      gap: 10px;
       transition: all 0.2s;
     }
 
     .task-item.completed {
       opacity: 0.6;
-      border-color: rgba(255, 255, 255, 0.04);
     }
 
     .task-left {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       flex: 1;
       cursor: pointer;
+      min-width: 0;
     }
 
     .task-checkbox {
@@ -500,7 +549,7 @@
       border: 2px solid var(--primary);
       display: grid;
       place-items: center;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       color: #fff;
       flex-shrink: 0;
       transition: all 0.2s;
@@ -511,11 +560,18 @@
       border-color: var(--success);
     }
 
+    .task-content {
+      min-width: 0;
+      flex: 1;
+    }
+
     .task-content h4 {
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       font-weight: 700;
       color: var(--text);
-      transition: text-decoration 0.2s;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     .task-item.completed .task-content h4 {
@@ -526,20 +582,21 @@
     .task-tags {
       display: flex;
       align-items: center;
-      gap: 8px;
-      margin-top: 4px;
-      font-size: 0.74rem;
+      gap: 6px;
+      margin-top: 3px;
+      font-size: 0.72rem;
+      flex-wrap: wrap;
     }
 
     .badge-cat {
       background: var(--surface-card);
       color: var(--text-muted);
-      padding: 2px 8px;
+      padding: 2px 6px;
       border-radius: 4px;
     }
 
     .badge-priority {
-      padding: 2px 8px;
+      padding: 2px 6px;
       border-radius: 4px;
       font-weight: 700;
     }
@@ -554,24 +611,35 @@
       color: var(--success);
     }
 
-    .btn-delete-task {
+    .task-actions {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+
+    .btn-task-action {
       background: transparent;
       border: none;
       color: var(--text-muted);
-      font-size: 1.1rem;
+      font-size: 0.95rem;
       cursor: pointer;
       padding: 6px;
       border-radius: 6px;
       transition: color 0.2s;
     }
 
-    .btn-delete-task:hover {
+    .btn-task-action:hover {
+      color: var(--primary);
+    }
+
+    .btn-task-action.delete:hover {
       color: var(--danger);
     }
 
     .empty-placeholder {
       text-align: center;
-      padding: 40px 20px;
+      padding: 36px 18px;
       background: var(--surface);
       border: 1px dashed var(--surface-border);
       border-radius: var(--radius);
@@ -579,41 +647,91 @@
     }
 
     .empty-placeholder span {
-      font-size: 2.2rem;
+      font-size: 2rem;
       display: block;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
-    /* SCREEN 3: Info & Centro PWA */
+    /* Modal for Editing */
+    .modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 500;
+      display: none;
+      place-items: center;
+      padding: 16px;
+    }
+
+    .modal-backdrop.show {
+      display: grid;
+    }
+
+    .modal-card {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius);
+      padding: 22px;
+      max-width: 460px;
+      width: 100%;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      animation: fadeIn 0.2s ease-out;
+    }
+
+    .modal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .modal-head h3 {
+      font-size: 1.1rem;
+      font-weight: 800;
+    }
+
+    .modal-close {
+      background: transparent;
+      border: none;
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+
+    /* Screen 3: Info & Tech */
     .info-grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 14px;
+      gap: 12px;
     }
 
     .tech-item {
       display: flex;
       align-items: flex-start;
-      gap: 14px;
-      padding: 14px;
+      gap: 12px;
+      padding: 12px;
       background: var(--surface-card);
       border-radius: 12px;
       border: 1px solid var(--surface-border);
     }
 
     .tech-icon {
-      font-size: 1.6rem;
+      font-size: 1.5rem;
       flex-shrink: 0;
     }
 
     .tech-details h4 {
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       font-weight: 700;
-      margin-bottom: 4px;
+      margin-bottom: 3px;
     }
 
     .tech-details p {
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       color: var(--text-muted);
       line-height: 1.4;
     }
@@ -622,15 +740,15 @@
       background: var(--surface-card);
       border: 1px solid var(--surface-border);
       color: var(--text);
-      padding: 10px 16px;
+      padding: 9px 14px;
       border-radius: 10px;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       font-weight: 600;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      margin-right: 8px;
+      gap: 6px;
+      margin-right: 6px;
       margin-top: 10px;
       transition: all 0.2s;
     }
@@ -640,13 +758,13 @@
       color: var(--accent);
     }
 
-    /* Bottom Navigation Bar (Mobile First) */
+    /* Bottom Navigation Bar */
     nav.bottom-nav {
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
-      height: 64px;
+      height: 60px;
       background: rgba(24, 29, 40, 0.95);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
@@ -655,7 +773,11 @@
       align-items: center;
       justify-content: space-around;
       z-index: 200;
-      padding: 0 10px;
+      padding: 0 8px;
+    }
+
+    [data-theme="light"] nav.bottom-nav {
+      background: rgba(255, 255, 255, 0.95);
     }
 
     .nav-tab {
@@ -665,17 +787,17 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 4px;
-      font-size: 0.74rem;
+      gap: 3px;
+      font-size: 0.72rem;
       font-weight: 600;
       cursor: pointer;
-      padding: 8px 16px;
-      border-radius: 12px;
+      padding: 6px 14px;
+      border-radius: 10px;
       transition: all 0.2s;
     }
 
     .nav-tab .tab-icon {
-      font-size: 1.3rem;
+      font-size: 1.25rem;
     }
 
     .nav-tab.active {
@@ -689,16 +811,16 @@
     /* Toast Notification */
     #toast-msg {
       position: fixed;
-      bottom: 80px;
+      bottom: 74px;
       left: 50%;
       transform: translateX(-50%) translateY(30px);
       background: var(--primary);
       color: #fff;
-      padding: 10px 20px;
+      padding: 9px 18px;
       border-radius: 999px;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       font-weight: 700;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
       opacity: 0;
       pointer-events: none;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -714,7 +836,7 @@
 </head>
 <body>
 
-  <!-- Top App Bar -->
+  <!-- Top Header -->
   <header class="app-header">
     <a href="#" class="brand">
       <img src="./app-icons/icon-192.png" alt="Atelier Zacatecas">
@@ -725,6 +847,9 @@
     </a>
 
     <div class="header-actions">
+      <!-- Selector de Tema Claro / Oscuro -->
+      <button id="btn-theme-toggle" class="btn-icon-toggle" title="Cambiar Tema">🌙</button>
+
       <div id="net-status-badge" class="status-badge">
         <span class="status-dot"></span>
         <span id="net-status-text">Online</span>
@@ -743,12 +868,10 @@
       <h2 class="section-title">Comercios del Centro Histórico</h2>
       <p class="section-desc">Explora tiendas, platerías y cafeterías emblemáticas de Zacatecas con disponibilidad offline.</p>
 
-      <!-- Barra de Búsqueda -->
       <div class="search-box">
         <input type="text" id="store-search" class="search-input" placeholder="Buscar comercio o producto (ej. café, plata)...">
       </div>
 
-      <!-- Filtro de Categorías -->
       <div class="categories-bar">
         <button class="cat-pill active" data-category="all">Todos</button>
         <button class="cat-pill" data-category="Cafetería">Cafeterías</button>
@@ -758,18 +881,14 @@
         <button class="cat-pill" data-category="Librería">Libros & Cultura</button>
       </div>
 
-      <!-- Grid de Tiendas -->
-      <div id="stores-container" class="stores-grid">
-        <!-- Renderizado dinámico vía JavaScript -->
-      </div>
+      <div id="stores-container" class="stores-grid"></div>
     </section>
 
     <!-- SECCIÓN 2: Mis Pedidos & Tareas (Funcionalidad Activa con localStorage) -->
     <section id="screen-tasks" class="screen">
       <h2 class="section-title">Mis Pedidos & Notas de Compra</h2>
-      <p class="section-desc">Gestor con persistencia local permanente (localStorage). Tus notas se guardan aunque no tengas internet.</p>
+      <p class="section-desc">Gestor interactivo con almacenamiento local permanente (localStorage). Tus notas se guardan aunque no tengas internet.</p>
 
-      <!-- Tarjeta de Estadísticas Rápidas -->
       <div class="stats-card">
         <div class="stat-box">
           <h4 id="stat-total">0</h4>
@@ -781,13 +900,13 @@
         </div>
         <div class="stat-box">
           <h4 id="stat-done">0</h4>
-          <span>Listos</span>
+          <span>Completados</span>
         </div>
       </div>
 
       <!-- Formulario para Agregar Tarea / Pedido -->
       <div class="card">
-        <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 12px; color: var(--accent);">+ Agregar Artículo o Encargo</h3>
+        <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 12px; color: var(--accent);">+ Agregar Artículo o Encargo</h3>
         <form id="task-form">
           <div class="form-group">
             <label for="task-title">Artículo o Encargo *</label>
@@ -796,7 +915,7 @@
 
           <div class="form-row">
             <div class="form-group">
-              <label for="task-category">Comercio / Tipo</label>
+              <label for="task-category">Comercio / Rubro</label>
               <select id="task-category" class="form-control">
                 <option value="Platería">Platería</option>
                 <option value="Cafetería">Cafetería</option>
@@ -826,20 +945,30 @@
         </form>
       </div>
 
-      <!-- Filtros y Acciones de la Lista -->
-      <div class="filter-actions">
+      <!-- Barra de Filtros, Búsqueda y Herramientas -->
+      <div class="search-box">
+        <input type="text" id="task-search-input" class="search-input" placeholder="Buscar en mis pedidos...">
+      </div>
+
+      <div class="toolbar-actions">
         <div class="filter-tabs">
           <button class="filter-btn active" data-filter="all">Todos</button>
           <button class="filter-btn" data-filter="pending">Pendientes</button>
-          <button class="filter-btn" data-filter="completed">Completados</button>
+          <button class="filter-btn" data-filter="completed">Listos</button>
         </div>
-        <button id="btn-clear-all" class="btn-clear">Vaciar lista</button>
+
+        <div class="extra-tools">
+          <button id="btn-share-list" class="btn-tool" title="Compartir lista o copiar para WhatsApp">
+            <span>📤</span> Compartir
+          </button>
+          <button id="btn-clear-all" class="btn-tool danger" title="Vaciar toda la lista">
+            <span>🗑️</span> Vaciar
+          </button>
+        </div>
       </div>
 
       <!-- Lista de Tareas / Pedidos -->
-      <div id="task-list-container" class="task-list">
-        <!-- Renderizado dinámico -->
-      </div>
+      <div id="task-list-container" class="task-list"></div>
     </section>
 
     <!-- SECCIÓN 3: Información & Centro de Control PWA -->
@@ -848,7 +977,7 @@
       <p class="section-desc">Detalles técnicos del funcionamiento como Aplicación Web Progresiva instalable y resiliente sin conexión.</p>
 
       <div class="card">
-        <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 12px; color: var(--accent);">Arquitectura de la Aplicación</h3>
+        <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 12px; color: var(--accent);">Arquitectura de la Aplicación</h3>
         
         <div class="info-grid">
           <div class="tech-item">
@@ -862,8 +991,8 @@
           <div class="tech-item">
             <div class="tech-icon">📦</div>
             <div class="tech-details">
-              <h4>Almacenamiento Local (Cache Storage & localStorage)</h4>
-              <p>Los archivos de la App Shell (HTML, CSS, JS e Iconos) se almacenan en <code>Cache Storage</code>, mientras que los pedidos y notas del usuario persisten en <code>localStorage</code>.</p>
+              <h4>Persistencia Doble (Cache Storage & localStorage)</h4>
+              <p>Los archivos de la App Shell se almacenan en <code>Cache Storage</code> para arrancar sin internet, y las notas y pedidos se guardan en <code>localStorage</code>.</p>
             </div>
           </div>
 
@@ -871,7 +1000,7 @@
             <div class="tech-icon">📱</div>
             <div class="tech-details">
               <h4>Web App Manifest Configurado</h4>
-              <p>Contiene iconos responsive de 192×192 y 512×512, modo <code>standalone</code>, color temático <code>#c86d63</code> y definición de accesos directos.</p>
+              <p>Contiene iconos responsive de 192×192 y 512×512, modo <code>standalone</code>, color temático <code>#c86d63</code> y accesos directos configurados.</p>
             </div>
           </div>
 
@@ -879,12 +1008,12 @@
             <div class="tech-icon">⚡</div>
             <div class="tech-details">
               <h4>Tolerancia a Desconexión (Offline)</h4>
-              <p>Si la red se interrumpe, la app sigue navegando entre sus secciones y permite crear o editar notas de compras sin mostrar errores de conexión.</p>
+              <p>Si la red se interrumpe, la app sigue navegando entre sus secciones y permite crear, editar o eliminar pedidos sin interrupciones.</p>
             </div>
           </div>
         </div>
 
-        <div style="margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--surface-border);">
+        <div style="margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--surface-border);">
           <button id="btn-force-update" class="btn-action-outline">
             <span>🔄</span> Comprobar Actualización del SW
           </button>
@@ -896,16 +1025,59 @@
 
       <!-- Resumen Académico del Proyecto -->
       <div class="card">
-        <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 10px; color: var(--accent);">Ficha del Proyecto PWA</h3>
-        <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.6;">
+        <h3 style="font-size: 1rem; font-weight: 700; margin-bottom: 8px; color: var(--accent);">Ficha del Proyecto PWA</h3>
+        <p style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.6;">
           <strong>Tema:</strong> Directorio Comercial del Centro Histórico de Zacatecas y Gestor de Pedidos Offline.<br>
-          <strong>Funciones Principales:</strong> Búsqueda de comercios por rubro, sistema interactivo de pedidos con persistencia en <code>localStorage</code>, detección de estado Online/Offline en tiempo real e instalación nativa en dispositivos móviles o escritorio.<br>
+          <strong>Funciones Principales:</strong> Búsqueda de comercios por rubro, sistema interactivo de pedidos con persistencia en <code>localStorage</code>, exportación de notas a WhatsApp, cambio de tema claro/oscuro, detección Online/Offline en tiempo real e instalación nativa.<br>
           <strong>Implementación PWA:</strong> Registro de <code>service-worker.js</code> con precacheo de recursos estáticos, respuesta offline ante fallos de red y configuración completa en <code>manifest.json</code> con iconos de alta resolución.
         </p>
       </div>
     </section>
 
   </main>
+
+  <!-- Modal de Edición de Pedido / Tarea -->
+  <div id="edit-modal" class="modal-backdrop">
+    <div class="modal-card">
+      <div class="modal-head">
+        <h3>Editar Encargo</h3>
+        <button id="modal-close-btn" class="modal-close">✕</button>
+      </div>
+      <form id="edit-form">
+        <input type="hidden" id="edit-task-id">
+        <div class="form-group">
+          <label for="edit-title">Artículo o Encargo *</label>
+          <input type="text" id="edit-title" class="form-control" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="edit-category">Rubro</label>
+            <select id="edit-category" class="form-control">
+              <option value="Platería">Platería</option>
+              <option value="Cafetería">Cafetería</option>
+              <option value="Moda">Moda</option>
+              <option value="Artesanías">Artesanías</option>
+              <option value="General">General</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="edit-priority">Prioridad</label>
+            <select id="edit-priority" class="form-control">
+              <option value="normal">Normal</option>
+              <option value="urgente">Urgente</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="edit-notes">Notas u observaciones</label>
+          <input type="text" id="edit-notes" class="form-control">
+        </div>
+        <button type="submit" class="btn-submit">
+          <span>💾</span> Actualizar Cambios
+        </button>
+      </form>
+    </div>
+  </div>
 
   <!-- Bottom Navigation Bar -->
   <nav class="bottom-nav">
@@ -929,7 +1101,32 @@
   <!-- Lógica JavaScript de la Aplicación -->
   <script>
     // ==========================================
-    // 1. DATOS PRECARGADOS DE TIENDAS LOCALES
+    // 1. TEMA CLARO / OSCURO (CON PERSISTENCIA)
+    // ==========================================
+    const THEME_KEY = 'atelier_pwa_theme';
+    const themeBtn = document.getElementById('btn-theme-toggle');
+
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      if (themeBtn) themeBtn.textContent = (theme === 'light') ? '☀️' : '🌙';
+      try { localStorage.setItem(THEME_KEY, theme); } catch(e) {}
+    }
+
+    const savedTheme = localStorage.getItem(THEME_KEY) || 
+      (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    applyTheme(savedTheme);
+
+    if (themeBtn) {
+      themeBtn.addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('data-theme') || 'dark';
+        const next = (current === 'dark') ? 'light' : 'dark';
+        applyTheme(next);
+        hapticFeedback();
+      });
+    }
+
+    // ==========================================
+    // 2. DATOS PRECARGADOS DE TIENDAS LOCALES
     // ==========================================
     const DEFAULT_STORES = [
       { id: 1, name: "Platería El Minero Zacatecano", cat: "Platería", icon: "💍", desc: "Joyería fina en plata ley .925 tradicional y piezas coloniales.", loc: "Av. Hidalgo #104", sched: "10:00 - 20:00" },
@@ -941,28 +1138,39 @@
     ];
 
     // ==========================================
-    // 2. GESTIÓN DE NAVEGACIÓN ENTRE SECCIONES
+    // 3. GESTIÓN DE NAVEGACIÓN ENTRE SECCIONES
     // ==========================================
     const navTabs = document.querySelectorAll('.nav-tab');
     const screens = document.querySelectorAll('.screen');
 
+    function switchScreen(targetId) {
+      navTabs.forEach(t => {
+        if (t.getAttribute('data-target') === targetId) t.classList.add('active');
+        else t.classList.remove('active');
+      });
+      screens.forEach(s => {
+        if (s.id === targetId) s.classList.add('active');
+        else s.classList.remove('active');
+      });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
     navTabs.forEach(tab => {
       tab.addEventListener('click', () => {
         const targetId = tab.getAttribute('data-target');
-        
-        navTabs.forEach(t => t.classList.remove('active'));
-        screens.forEach(s => s.classList.remove('active'));
-
-        tab.classList.add('active');
-        const activeScreen = document.getElementById(targetId);
-        if (activeScreen) activeScreen.classList.add('active');
-
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        switchScreen(targetId);
+        hapticFeedback();
       });
     });
 
+    // Detectar hash al cargar (ej. #screen-tasks)
+    if (window.location.hash) {
+      const hashId = window.location.hash.replace('#', '');
+      if (document.getElementById(hashId)) switchScreen(hashId);
+    }
+
     // ==========================================
-    // 3. RENDERIZADO DEL DIRECTORIO DE TIENDAS
+    // 4. RENDERIZADO DEL DIRECTORIO DE TIENDAS
     // ==========================================
     const storesContainer = document.getElementById('stores-container');
     const storeSearch = document.getElementById('store-search');
@@ -999,16 +1207,16 @@
             <div class="store-head">
               <div class="store-icon">${store.icon}</div>
               <div class="store-info">
-                <h3>${store.name}</h3>
-                <span>${store.cat}</span>
+                <h3>${escapeHtml(store.name)}</h3>
+                <span>${escapeHtml(store.cat)}</span>
               </div>
             </div>
-            <p class="store-desc" style="margin-top: 10px;">${store.desc}</p>
+            <p class="store-desc" style="margin-top: 10px;">${escapeHtml(store.desc)}</p>
           </div>
           <div class="store-meta">
             <div>
-              <div>📍 ${store.loc}</div>
-              <div style="font-size: 0.72rem; color: #64748b; margin-top: 2px;">🕒 ${store.sched}</div>
+              <div>📍 ${escapeHtml(store.loc)}</div>
+              <div style="font-size: 0.72rem; color: #64748b; margin-top: 2px;">🕒 ${escapeHtml(store.sched)}</div>
             </div>
             <button class="btn-quick-add" onclick="quickAddOrder('${escapeHtml(store.name)}', '${escapeHtml(store.cat)}')">
               + Encargar
@@ -1031,6 +1239,7 @@
         pill.classList.add('active');
         currentCategory = pill.getAttribute('data-category');
         renderStores(storeSearch ? storeSearch.value : '');
+        hapticFeedback();
       });
     });
 
@@ -1045,11 +1254,12 @@
         createdAt: new Date().toLocaleDateString('es-MX')
       };
       saveTaskToStorage(task);
-      showToast(`Encargo para "${storeName}" guardado.`);
+      hapticFeedback();
+      showToast(`✓ Encargo guardado para "${storeName}"`);
     }
 
     // ==========================================
-    // 4. FUNCIONALIDAD ACTIVA CON LOCALSTORAGE
+    // 5. FUNCIONALIDAD ACTIVA CON LOCALSTORAGE
     // ==========================================
     const STORAGE_KEY = 'atelier_pwa_orders_v1';
     let tasks = loadTasksFromStorage();
@@ -1083,17 +1293,61 @@
 
     function toggleTask(id) {
       tasks = tasks.map(t => t.id === id ? { ...t, completed: !t.completed } : t);
+      hapticFeedback();
       saveAllTasks();
     }
 
     function deleteTask(id) {
       tasks = tasks.filter(t => t.id !== id);
+      hapticFeedback();
       saveAllTasks();
       showToast("Elemento eliminado.");
     }
 
+    // Edición Modal
+    const editModal = document.getElementById('edit-modal');
+    const editForm = document.getElementById('edit-form');
+    const modalCloseBtn = document.getElementById('modal-close-btn');
+
+    function openEditModal(id) {
+      const task = tasks.find(t => t.id === id);
+      if (!task) return;
+      document.getElementById('edit-task-id').value = task.id;
+      document.getElementById('edit-title').value = task.title;
+      document.getElementById('edit-category').value = task.category;
+      document.getElementById('edit-priority').value = task.priority;
+      document.getElementById('edit-notes').value = task.notes || '';
+      editModal.classList.add('show');
+    }
+
+    if (modalCloseBtn) {
+      modalCloseBtn.addEventListener('click', () => {
+        editModal.classList.remove('show');
+      });
+    }
+
+    if (editForm) {
+      editForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const id = Number(document.getElementById('edit-task-id').value);
+        const title = document.getElementById('edit-title').value.trim();
+        const category = document.getElementById('edit-category').value;
+        const priority = document.getElementById('edit-priority').value;
+        const notes = document.getElementById('edit-notes').value.trim();
+
+        tasks = tasks.map(t => t.id === id ? { ...t, title, category, priority, notes } : t);
+        saveAllTasks();
+        editModal.classList.remove('show');
+        hapticFeedback();
+        showToast("✓ Encargo actualizado con éxito.");
+      });
+    }
+
+    // Filtros de tareas
     let currentFilter = 'all';
+    let taskSearchQuery = '';
     const filterBtns = document.querySelectorAll('.filter-btn');
+    const taskSearchInput = document.getElementById('task-search-input');
 
     filterBtns.forEach(btn => {
       btn.addEventListener('click', () => {
@@ -1101,8 +1355,16 @@
         btn.classList.add('active');
         currentFilter = btn.getAttribute('data-filter');
         renderTasks();
+        hapticFeedback();
       });
     });
+
+    if (taskSearchInput) {
+      taskSearchInput.addEventListener('input', (e) => {
+        taskSearchQuery = e.target.value.toLowerCase();
+        renderTasks();
+      });
+    }
 
     const btnClearAll = document.getElementById('btn-clear-all');
     if (btnClearAll) {
@@ -1111,11 +1373,13 @@
         if (confirm("¿Seguro que deseas vaciar todos los pedidos y notas de la lista?")) {
           tasks = [];
           saveAllTasks();
+          hapticFeedback();
           showToast("Lista vaciada correctamente.");
         }
       });
     }
 
+    // Formulario de agregar
     const taskForm = document.getElementById('task-form');
     if (taskForm) {
       taskForm.addEventListener('submit', (e) => {
@@ -1139,7 +1403,38 @@
 
         saveTaskToStorage(newTask);
         taskForm.reset();
-        showToast("✓ Nota guardada en localStorage.");
+        hapticFeedback();
+        showToast("✓ Guardado en localStorage.");
+      });
+    }
+
+    // Compartir lista vía WhatsApp / Web Share
+    const btnShareList = document.getElementById('btn-share-list');
+    if (btnShareList) {
+      btnShareList.addEventListener('click', () => {
+        if (tasks.length === 0) {
+          showToast("No hay elementos para compartir.");
+          return;
+        }
+
+        let text = "🛍️ *Mis Compras y Pedidos en Zacatecas Centro:*\n\n";
+        tasks.forEach((t, i) => {
+          const status = t.completed ? "✅ [LISTO]" : "⏳ [PENDIENTE]";
+          text += `${i + 1}. ${status} ${t.title} (${t.category})\n`;
+          if (t.notes) text += `   _Nota: ${t.notes}_\n`;
+        });
+        text += "\n📲 _Generado con Atelier Zacatecas PWA_";
+
+        if (navigator.share) {
+          navigator.share({
+            title: "Mis Pedidos · Atelier Zacatecas",
+            text: text
+          }).catch(() => {});
+        } else {
+          navigator.clipboard.writeText(text).then(() => {
+            showToast("✓ Lista copiada al portapapeles para WhatsApp");
+          });
+        }
       });
     }
 
@@ -1150,9 +1445,14 @@
       taskListContainer.innerHTML = '';
 
       const filtered = tasks.filter(t => {
-        if (currentFilter === 'pending') return !t.completed;
-        if (currentFilter === 'completed') return t.completed;
-        return true;
+        const matchesFilter = (currentFilter === 'all') || 
+                              (currentFilter === 'pending' && !t.completed) ||
+                              (currentFilter === 'completed' && t.completed);
+        const matchesSearch = !taskSearchQuery || 
+                              t.title.toLowerCase().includes(taskSearchQuery) ||
+                              t.category.toLowerCase().includes(taskSearchQuery) ||
+                              (t.notes && t.notes.toLowerCase().includes(taskSearchQuery));
+        return matchesFilter && matchesSearch;
       });
 
       if (filtered.length === 0) {
@@ -1177,11 +1477,14 @@
               <div class="task-tags">
                 <span class="badge-cat">${escapeHtml(task.category)}</span>
                 <span class="badge-priority ${task.priority}">${task.priority.toUpperCase()}</span>
-                ${task.notes ? `<span style="color:#64748b;">• ${escapeHtml(task.notes)}</span>` : ''}
+                ${task.notes ? `<span style="color:var(--text-muted);">• ${escapeHtml(task.notes)}</span>` : ''}
               </div>
             </div>
           </div>
-          <button class="btn-delete-task" title="Eliminar" onclick="deleteTask(${task.id})">✕</button>
+          <div class="task-actions">
+            <button class="btn-task-action" title="Editar" onclick="openEditModal(${task.id})">✏️</button>
+            <button class="btn-task-action delete" title="Eliminar" onclick="deleteTask(${task.id})">✕</button>
+          </div>
         `;
         taskListContainer.appendChild(item);
       });
@@ -1207,8 +1510,14 @@
       return div.innerHTML;
     }
 
+    function hapticFeedback() {
+      if ('vibrate' in navigator) {
+        try { navigator.vibrate(35); } catch(e) {}
+      }
+    }
+
     // ==========================================
-    // 5. ESTADO ONLINE / OFFLINE EN TIEMPO REAL
+    // 6. ESTADO ONLINE / OFFLINE EN TIEMPO REAL
     // ==========================================
     const netBadge = document.getElementById('net-status-badge');
     const netText = document.getElementById('net-status-text');
@@ -1229,7 +1538,7 @@
     updateOnlineStatus();
 
     // ==========================================
-    // 6. INSTALACIÓN DE LA PWA (beforeinstallprompt)
+    // 7. INSTALACIÓN DE LA PWA (beforeinstallprompt)
     // ==========================================
     let deferredPrompt = null;
     const btnInstallHeader = document.getElementById('btn-install-app');
@@ -1265,7 +1574,7 @@
     });
 
     // ==========================================
-    // 7. REGISTRO Y GESTIÓN DEL SERVICE WORKER
+    // 8. REGISTRO Y GESTIÓN DEL SERVICE WORKER
     // ==========================================
     let swReg = null;
     if ('serviceWorker' in navigator) {
@@ -1294,7 +1603,7 @@
     }
 
     // ==========================================
-    // 8. TOAST NOTIFICACIONES VISUALES
+    // 9. TOAST NOTIFICACIONES VISUALES
     // ==========================================
     const toast = document.getElementById('toast-msg');
     let toastTimeout = null;
