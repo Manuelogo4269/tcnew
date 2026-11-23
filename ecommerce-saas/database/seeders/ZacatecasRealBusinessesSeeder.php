@@ -49,7 +49,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                 'admin_email' => 'admin@conceptos7.com',
                 'categories' => [
           ['name'=>'Joyería y Accesorios','slug'=>'joyeria-y-accesorios','description'=>'Gargantillas, aretes, pulseras y anillos en chapa de oro 14K y plata fina.'],
-          ['name'=>'Ropa & Tendencia','slug'=>'ropa-y-tendencia','description'=>'Prendas de temporada, vestidos satinados y sastrería femenina.'],
+          ['name'=>'Ropa & Tendencia','slug'=>'ropa-tendencia','description'=>'Prendas de temporada, vestidos satinados y sastrería femenina.'],
           ['name'=>'Calzado & Tacones','slug'=>'calzado-y-tacones','description'=>'Zapatillas de tacón, mules destalonados y sandalias de plataforma confort.'],
           ['name'=>'Bolsos & Complementos','slug'=>'bolsos-y-complementos','description'=>'Bolsos crossbody, clutches de noche y carteras en tonos neutros.'],
                 ],

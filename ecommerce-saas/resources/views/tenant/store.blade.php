@@ -2932,6 +2932,7 @@
             .modal-tabs-header { overflow-x: auto; gap: 10px; padding-bottom: 4px; }
             .modal-tab-btn { font-size: 12px; white-space: nowrap; }
             .modal-secondary-actions { flex-direction: column; gap: 8px; }
+            .btn-modal-add-cart, .btn-modal-buy-now { flex: 1 1 100%; width: 100%; min-height: 46px; }
             .btn-modal-action { width: 100%; justify-content: center; }
             .modal-related-grid { grid-template-columns: 1fr; }
 
@@ -4335,7 +4336,7 @@
             <span class="nav-item-arrow">›</span>
         </a>
 
-        <a href="{{ url('/tienda/' . ($tenantId ?? 'acropolis') . '/admin') }}" class="drawer-nav-item" onclick="closeStoreMenu()">
+        <a href="{{ url('/' . ($tenantId ?? 'acropolis') . '/admin') }}" class="drawer-nav-item" onclick="closeStoreMenu()">
             <div class="nav-item-icon" style="background: rgba(30, 41, 59, 0.15); color: var(--ink);"><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></div>
             <div class="nav-item-text">
                 <div class="nav-item-title">Panel Administrativo</div>
@@ -4440,7 +4441,7 @@
                 <ul class="footer-links">
                     <li><a href="#contacto">Garantía y Envíos</a></li>
                     <li><a href="#contacto">Contacto Directo</a></li>
-                    <li><a href="{{ url('/tienda/' . ($tenantId ?? 'acropolis') . '/admin') }}">Panel de la Tienda</a></li>
+                    <li><a href="{{ url('/' . ($tenantId ?? 'acropolis') . '/admin') }}">Panel de la Tienda</a></li>
                 </ul>
             </div>
             <div class="footer-col">
@@ -4448,14 +4449,20 @@
                 <p style="margin-bottom: 12px;">{{ $storeAddress }}</p>
                 <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px;">
                     @if(!empty($settings?->facebook_url))
-                        <a href="{{ $settings->facebook_url }}" target="_blank" class="social-circle-btn" style="color: #1877f2;" title="Facebook">FB</a>
+                        <a href="{{ $settings->facebook_url }}" target="_blank" class="social-circle-btn" style="color: #1877f2;" title="Facebook">
+                            <svg style="width:15px; height:15px; fill:currentColor;" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        </a>
                     @endif
                     @if(!empty($settings?->instagram_url))
-                        <a href="{{ $settings->instagram_url }}" target="_blank" class="social-circle-btn" style="color: #e1306c;" title="Instagram">IG</a>
+                        <a href="{{ $settings->instagram_url }}" target="_blank" class="social-circle-btn" style="color: #e1306c;" title="Instagram">
+                            <svg style="width:15px; height:15px; fill:currentColor;" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                        </a>
                     @endif
                     @if(!empty($settings?->whatsapp_number))
                         @php $footerWa = preg_replace('/[^0-9]/', '', $settings->whatsapp_number); @endphp
-                        <a href="https://wa.me/{{ $footerWa }}?text={{ urlencode('¡Hola! Me comunico desde la tienda ' . $storeTitle) }}" target="_blank" class="social-circle-btn" style="color: #25d366;" title="WhatsApp">WA</a>
+                        <a href="https://wa.me/{{ $footerWa }}?text={{ urlencode('¡Hola! Me comunico desde la tienda ' . $storeTitle) }}" target="_blank" class="social-circle-btn" style="color: #25d366;" title="WhatsApp">
+                            <svg style="width:15px; height:15px; fill:#25d366;" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                        </a>
                     @endif
                     <a href="javascript:void(0)" onclick="copyCurrentStoreLink()" class="social-circle-btn" title="Compartir Tienda"><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></a>
                 </div>
@@ -4500,12 +4507,10 @@
                     <span class="modal-price-currency">MXN / Impuestos incluidos</span>
                 </div>
 
-                <p class="modal-desc" id="modalDesc">Descripción completa del producto.</p>
-
                 <!-- Interactive Quantity Selector with Live Subtotal -->
                 <div class="modal-qty-container">
                     <div>
-                        <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 6px;">Cantidad a comprar</span>
+                        <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 6px;">Cantidad</span>
                         <div class="qty-controls">
                             <button class="qty-btn" onclick="changeModalQty(-1)" aria-label="Disminuir cantidad">−</button>
                             <span class="qty-display" id="modalQtyDisplay">1</span>
@@ -4518,11 +4523,35 @@
                     </div>
                 </div>
 
-                <!-- Tabs: Specifications, Shipping, Guarantee -->
+                <!-- Immediate Action Buttons (Above The Fold) -->
+                <div class="modal-actions-row" style="margin-top: 2px; margin-bottom: 16px;">
+                    <div style="display: flex; gap: 8px; width: 100%; flex-wrap: wrap;">
+                        <button type="button" class="btn-modal-add-cart" onclick="addModalProductToCart()">
+                            <span><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></span> Agregar al Carrito (<span id="modalAddCartTotal">$0.00</span>)
+                        </button>
+                        <button type="button" class="btn-modal-buy-now" onclick="buyNowFromModal()">
+                            <span><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span> Comprar Ahora
+                        </button>
+                    </div>
+                    <a id="modalWhatsAppBtn" href="#" target="_blank" class="btn-whatsapp-order">
+                        <svg style="width:20px; height:20px; fill:#fff;" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                        Pedir por WhatsApp (<span id="modalBtnTotal">$0.00</span>)
+                    </a>
+                    <div class="modal-secondary-actions">
+                        <button type="button" class="btn-modal-action" onclick="copyProductDirectLink()">
+                            <span><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></span> Copiar Enlace Directo
+                        </button>
+                    </div>
+                </div>
+
+                <p class="modal-desc" id="modalDesc" style="margin-bottom: 14px;">Descripción completa del producto.</p>
+
+                <!-- Tabs: Specifications, Shipping, Guarantee, Sucursal -->
                 <div class="modal-tabs-header">
                     <button class="modal-tab-btn active" onclick="switchModalTab('specs', this)">Especificaciones</button>
-                    <button class="modal-tab-btn" onclick="switchModalTab('shipping', this)">Envíos y Devolución</button>
+                    <button class="modal-tab-btn" onclick="switchModalTab('shipping', this)">Envíos & Devolución</button>
                     <button class="modal-tab-btn" onclick="switchModalTab('guarantee', this)">Garantía</button>
+                    <button class="modal-tab-btn" onclick="switchModalTab('sucursal', this)">Sucursal Centro</button>
                 </div>
 
                 <div class="modal-tab-pane active" id="tab-specs">
@@ -4558,40 +4587,20 @@
                     <p>• <strong>Comercio Seguro:</strong> Pagos protegidos con cifrado SSL de extremo a extremo.</p>
                 </div>
 
-                <!-- Sucursal Zacatecas Centro Location Pill / Infobox -->
-                <div class="modal-zac-location-box">
-                    <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 4px;">
-                        <span style="font-size: 11.5px; font-weight: 800; color: var(--accent); text-transform: uppercase; letter-spacing: .06em; display: flex; align-items: center; gap: 5px;">
-                            <span><svg class="ui-icon" width="15" height="15" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span> Sucursal Zacatecas Centro
-                        </span>
-                        <a href="{{ $storeMapsUrl }}" target="_blank" style="font-size: 11px; font-weight: 700; color: var(--accent); text-decoration: underline;">
-                            Ver en Google Maps ↗
-                        </a>
-                    </div>
-                    <div style="font-size: 12.5px; font-weight: 600; color: var(--ink);">{{ $storeAddress }}</div>
-                    <div style="font-size: 11px; color: var(--muted); margin-top: 3px;">
-                        {{ $storeRef }} · <svg class="ui-icon" width="15" height="15" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> {{ $storeHours }}
-                    </div>
-                </div>
-
-                <!-- Action Buttons -->
-                <div class="modal-actions-row">
-                    <div style="display: flex; gap: 10px; width: 100%; flex-wrap: wrap; margin-bottom: 6px;">
-                        <button type="button" class="btn-modal-add-cart" onclick="addModalProductToCart()">
-                            <span><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></span> Agregar al Carrito (<span id="modalAddCartTotal">$0.00</span>)
-                        </button>
-                        <button type="button" class="btn-modal-buy-now" onclick="buyNowFromModal()">
-                            <span><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span> Comprar Ahora
-                        </button>
-                    </div>
-                    <a id="modalWhatsAppBtn" href="#" target="_blank" class="btn-whatsapp-order">
-                        <svg style="width:20px; height:20px; fill:#fff;" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-                        Pedir por WhatsApp (<span id="modalBtnTotal">$0.00</span>)
-                    </a>
-                    <div class="modal-secondary-actions">
-                        <button class="btn-modal-action" onclick="copyProductDirectLink()">
-                            <span><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></span> Copiar Enlace Directo
-                        </button>
+                <div class="modal-tab-pane" id="tab-sucursal">
+                    <div class="modal-zac-location-box" style="margin: 0;">
+                        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 4px;">
+                            <span style="font-size: 11.5px; font-weight: 800; color: var(--accent); text-transform: uppercase; letter-spacing: .06em; display: flex; align-items: center; gap: 5px;">
+                                <span><svg class="ui-icon" width="15" height="15" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span> Sucursal Zacatecas Centro
+                            </span>
+                            <a href="{{ $storeMapsUrl }}" target="_blank" style="font-size: 11px; font-weight: 700; color: var(--accent); text-decoration: underline;">
+                                Ver en Google Maps ↗
+                            </a>
+                        </div>
+                        <div style="font-size: 12.5px; font-weight: 600; color: var(--ink);">{{ $storeAddress }}</div>
+                        <div style="font-size: 11px; color: var(--muted); margin-top: 3px;">
+                            {{ $storeRef }} · <svg class="ui-icon" width="15" height="15" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> {{ $storeHours }}
+                        </div>
                     </div>
                 </div>
             </div>

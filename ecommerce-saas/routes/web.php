@@ -88,6 +88,11 @@ foreach ($centralDomains as $domain) {
             ->where('tenant', '^(?!planes|rentar-tienda|login|register|logout|manifest\.json|sw\.js|offline\.html|tenant-admin|admin|api|tienda|auth|storage|livewire|telescope).*$')
             ->name('central.tenant.direct');
 
+        // Clean Direct Store Admin Route /{tenant}/admin -> redirect to /tienda/{tenant}/admin
+        Route::get('/{tenant}/admin', function (string $tenant) {
+            return redirect()->to('/tienda/' . $tenant . '/admin');
+        })->where('tenant', '^(?!planes|rentar-tienda|login|register|logout|manifest\.json|sw\.js|offline\.html|tenant-admin|admin|api|tienda|auth|storage|livewire|telescope).*$');
+
         // Universal Path-Based Store Management Route (No DNS setup required)
         Route::get('/tienda/{tenant}/admin', function (string $tenantId) {
             $tenant = findTenantBySlugOrDomain($tenantId);

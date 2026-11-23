@@ -16,12 +16,12 @@
     <div class="flash-deals-banner">
         <div class="flash-deals-header-row">
             <div class="flash-deals-info">
-                <span class="flash-badge-pulse">⚡ {{ $bEyebrow }}</span>
+                <span class="flash-badge-pulse">{{ $bEyebrow }}</span>
                 <h2 class="flash-deals-title">{{ $bTitle }}</h2>
                 <p class="flash-deals-desc">{{ $bSubtitle }}</p>
             </div>
             <div class="flash-countdown-wrap">
-                <span class="countdown-label">⏳ La oferta finaliza en:</span>
+                <span class="countdown-label">Oferta finaliza en:</span>
                 <div class="flash-countdown-boxes" id="flashCountdownBoxes">
                     <div class="countdown-box">
                         <span class="countdown-num" id="cdHours">07</span>
@@ -59,7 +59,7 @@
                             <span class="flash-price-old">${{ number_format($regularPrice, 2) }}</span>
                         </div>
                         <button type="button" class="btn-flash-add-cart" onclick="event.stopPropagation(); addCartItem({{ $dealItem->id }})">
-                            🛒 Agregar con Descuento
+                            Agregar con Descuento ↗
                         </button>
                     </div>
                 </div>

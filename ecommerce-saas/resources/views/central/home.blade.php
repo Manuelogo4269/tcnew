@@ -6158,7 +6158,7 @@
         <div id="empresas" style="padding-top: 10px;">
             <div class="category-filter-pills" style="margin-bottom: 24px;">
                 <a href="{{ url('/?categoria=all' . ($searchQuery ? '&q=' . urlencode($searchQuery) : '')) }}#empresas" class="filter-pill {{ $selectedCategory === 'all' ? 'active' : '' }}">
-                    ✦ Todas ({{ count($allBusinesses) }})
+                    Todas ({{ count($allBusinesses) }})
                 </a>
                 @foreach($businessCategories as $catName)
                     @php
@@ -7271,7 +7271,7 @@ if (searchInput && liveDropdown) {
                         let html = `<div style="padding: 6px 12px; font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--line);">Productos encontrados en todas las tiendas (${data.count}):</div>`;
                         data.results.forEach(item => {
                             html += `
-                                <a href="${item.url}" target="_blank" class="live-search-item" onclick="saveUserSearchQuery('${query.replace(/'/g, "\\'")}')">
+                                <a href="${item.url}" class="live-search-item" onclick="saveUserSearchQuery('${query.replace(/'/g, "\\'")}')">
                                     <div style="display: flex; align-items: center; gap: 12px;">
                                         <img src="${item.image_url || 'https://placehold.co/100x100?text=Prod'}" class="live-search-thumb" alt="${item.name}">
                                         <div class="live-search-details">

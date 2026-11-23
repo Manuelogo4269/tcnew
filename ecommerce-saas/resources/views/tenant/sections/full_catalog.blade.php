@@ -16,21 +16,11 @@
     <!-- Interactive Category Filter Pills directly above grid -->
     <div class="category-pills-bar" id="categoryPills">
         <button class="cat-pill active" data-category="all" onclick="selectCategory('all', 'Todos los productos')">
-            ✦ Todos <span class="cat-pill-count">{{ $products->count() }}</span>
+            Todos <span class="cat-pill-count">{{ $products->count() }}</span>
         </button>
         @foreach($categories as $cat)
             <button class="cat-pill" data-category="{{ $cat->slug }}" onclick="selectCategory('{{ $cat->slug }}', '{{ addslashes($cat->name) }}')">
-                {{ match($cat->slug) {
-                    'bolsos-marroquineria' => '👜',
-                    'relojeria-cronografos' => '⌚',
-                    'joyeria-accesorios' => '💍',
-                    'ropa-accesorios', 'moda-alta-costura' => '🧥',
-                    'hogar-decoracion', 'hogar-diseno' => '🏺',
-                    'fragancias-cuidado' => '🌿',
-                    'tecnologia-accesorios', 'audio-tecnologia' => '🎧',
-                    'coleccion-gourmet' => '🫒',
-                    default => '🏷️'
-                } }} {{ $cat->name }} <span class="cat-pill-count">{{ $cat->products_count }}</span>
+                {{ $cat->name }} <span class="cat-pill-count">{{ $cat->products_count }}</span>
             </button>
         @endforeach
     </div>
@@ -54,13 +44,15 @@
     <div class="products-grid" id="productsGrid">
         @forelse($products as $product)
             <article class="product-card product-grid-item" 
+                onclick="openProductById({{ $product->id }})"
+                style="cursor: pointer;"
                 data-id="{{ $product->id }}"
                 data-slug="{{ $product->slug }}"
                 data-name="{{ strtolower($product->name) }}" 
                 data-desc="{{ strtolower($product->description ?? '') }}" 
                 data-category="{{ $product->category?->slug ?? 'sin-categoria' }}"
                 data-category-name="{{ $product->category?->name ?? 'General' }}">
-                <div class="product-card-thumb" onclick="openProductById({{ $product->id }})">
+                <div class="product-card-thumb">
                     @if($product->category)
                         <span class="product-badge-cat" onclick="event.stopPropagation(); selectCategory('{{ $product->category->slug }}', '{{ addslashes($product->category->name) }}')">
                             {{ $product->category->name }}
@@ -72,20 +64,17 @@
                     <img src="{{ !empty($product->image_url) ? $product->image_url : 'https://placehold.co/600x600?text=' . urlencode($product->name) }}" alt="{{ $product->name }}" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/600x600?text=Zacatecas';">
                 </div>
                 <div class="product-card-body">
-                    <h3 onclick="openProductById({{ $product->id }})">{{ $product->name }}</h3>
+                    <h3>{{ $product->name }}</h3>
                     <p>{{ Str::limit($product->description, 90) }}</p>
                     <div class="product-card-footer">
                         <span class="product-price">${{ number_format($product->price, 2) }}</span>
-                        <div style="display: flex; gap: 6px; align-items: center;">
-                            <button class="btn-quick-view" onclick="openProductById({{ $product->id }})">Ver detalles ↗</button>
-                            <button type="button" class="btn-card-add-cart" onclick="event.stopPropagation(); addCartItem({{ $product->id }})" title="Añadir al Carrito">🛒 +</button>
-                        </div>
+                        <button class="btn-quick-view" onclick="event.stopPropagation(); openProductById({{ $product->id }})">Ver / Comprar ↗</button>
                     </div>
                 </div>
             </article>
         @empty
             <div class="empty-state" style="grid-column: 1 / -1; padding: 60px 20px; text-align: center;">
-                <div style="font-size: 48px; margin-bottom: 12px;">🛍️</div>
+                <svg class="ui-icon" width="48" height="48" viewBox="0 0 24 24" style="margin-bottom: 12px; color: var(--muted);"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
                 <h3>Próximamente nuevas colecciones</h3>
                 <p style="color: var(--muted); margin-top: 6px;">El catálogo se encuentra en actualización de inventario.</p>
             </div>

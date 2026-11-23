@@ -23,8 +23,8 @@
     <div class="featured-track" id="featTrack">
         @foreach($itemsToShow as $item)
             <div class="featured-item">
-                <article class="product-card">
-                    <div class="product-card-thumb" onclick="openProductById({{ $item->id }})">
+                <article class="product-card" onclick="openProductById({{ $item->id }})" style="cursor: pointer;">
+                    <div class="product-card-thumb">
                         @if($item->category)
                             <span class="product-badge-cat" onclick="event.stopPropagation(); selectCategory('{{ $item->category->slug }}', '{{ addslashes($item->category->name) }}')">
                                 {{ $item->category->name }}
@@ -36,14 +36,11 @@
                         <img src="{{ !empty($item->image_url) ? $item->image_url : 'https://placehold.co/600x600?text=' . urlencode($item->name) }}" alt="{{ $item->name }}" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/600x600?text=Zacatecas';">
                     </div>
                     <div class="product-card-body">
-                        <h3 onclick="openProductById({{ $item->id }})">{{ $item->name }}</h3>
+                        <h3>{{ $item->name }}</h3>
                         <p>{{ Str::limit($item->description, 80) }}</p>
                         <div class="product-card-footer">
                             <span class="product-price">${{ number_format($item->price, 2) }}</span>
-                            <div style="display: flex; gap: 6px; align-items: center;">
-                                <button class="btn-quick-view" onclick="openProductById({{ $item->id }})">Ver detalles ↗</button>
-                                <button type="button" class="btn-card-add-cart" onclick="event.stopPropagation(); addCartItem({{ $item->id }})" title="Añadir al Carrito">🛒 +</button>
-                            </div>
+                            <button class="btn-quick-view" onclick="event.stopPropagation(); openProductById({{ $item->id }})">Ver / Comprar ↗</button>
                         </div>
                     </div>
                 </article>
