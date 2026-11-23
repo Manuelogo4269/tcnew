@@ -5706,7 +5706,7 @@
     <!-- HERO WITH MULTI-STORE GLOBAL SEARCH -->
     <section class="portal-hero" id="buscar" style="margin-bottom: 28px; text-align: center;">
         <span class="zac-location-hero-badge">Directorio Comercial del Centro Histórico</span>
-        <h1 style="font-family: 'Playfair Display', serif; font-size: clamp(26px, 4.8vw, 42px); line-height: 1.25; margin: 12px 0 10px; color: var(--ink);">
+        <h1 style="font-family: 'Playfair Display', serif; font-size: clamp(26px, 4.8vw, 42px); line-height: 1.25; margin: 12px auto 10px; max-width: 820px; text-align: center; color: var(--ink);">
             Comercios y Tiendas Locales de <em>Zacatecas Centro</em>
         </h1>
         <p style="font-size: 15px; color: var(--muted); max-width: 580px; margin: 0 auto 22px; line-height: 1.55;">
