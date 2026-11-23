@@ -429,7 +429,7 @@ class TenantResource extends Resource
                     ->label('Ver Tienda')
                     ->icon('heroicon-o-arrow-top-right-on-square')
                     ->color('gray')
-                    ->url(fn (Tenant $record): string => url('/tienda/' . strtolower($record->id)))
+                    ->url(fn (Tenant $record): string => url('/' . strtolower($record->id)))
                     ->openUrlInNewTab(),
                 Tables\Actions\Action::make('visit_admin')
                     ->label('Panel Tienda')

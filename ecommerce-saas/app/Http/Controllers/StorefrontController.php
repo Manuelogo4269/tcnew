@@ -80,7 +80,7 @@ class StorefrontController extends Controller
                     return [
                         'id' => (string) $t->id,
                         'name' => $sName ?: str($t->id)->replace(['-', '_'], ' ')->title()->toString(),
-                        'url' => url("/tienda/{$t->id}"),
+                        'url' => url("/{$t->id}"),
                     ];
                 })->toArray();
             });

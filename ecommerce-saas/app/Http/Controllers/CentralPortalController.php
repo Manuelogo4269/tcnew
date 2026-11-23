@@ -352,7 +352,7 @@ class CentralPortalController extends Controller
         \Illuminate\Support\Facades\Cache::forget('central_portal_businesses_list');
         \Illuminate\Support\Facades\Cache::forget('platform_official_stores_list');
 
-        $storeUrl = url("/tienda/{$subdomain}");
+        $storeUrl = url("/{$subdomain}");
         $adminUrl = url("/tienda/{$subdomain}/admin");
 
         if ($request->wantsJson()) {
@@ -442,7 +442,7 @@ class CentralPortalController extends Controller
      */
     protected function resolveStoreUrl($tenant, Request $request): string
     {
-        return url("/tienda/{$tenant->id}");
+        return url("/{$tenant->id}");
     }
 
     /**
@@ -486,7 +486,7 @@ class CentralPortalController extends Controller
             'media_url' => $mediaUrl,
             'caption' => $validated['caption'] ?? null,
             'cta_text' => $validated['cta_text'] ?? 'Ver Tienda',
-            'cta_url' => $validated['cta_url'] ?? (!empty($validated['tenant_id']) ? url('/tienda/' . $validated['tenant_id']) : url('/')),
+            'cta_url' => $validated['cta_url'] ?? (!empty($validated['tenant_id']) ? url('/' . $validated['tenant_id']) : url('/')),
             'whatsapp_number' => $validated['whatsapp_number'] ?? null,
             'duration_seconds' => (int) ($validated['duration_seconds'] ?? 5),
             'views_count' => 1,

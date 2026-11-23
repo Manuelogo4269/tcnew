@@ -1002,11 +1002,11 @@
                 <div class="auth-field">
                     <label for="rentSubdomain">Identificador y Enlace para tu Tienda *</label>
                     <div class="subdomain-input-wrap">
+                        <span class="subdomain-prefix" style="padding: 11px 12px; background: rgba(30, 41, 59, 0.05); color: var(--muted); font-size: 13px; font-weight: 700; border-right: 1px solid var(--line);">/</span>
                         <input type="text" name="subdomain" id="rentSubdomain" placeholder="verona" required pattern="[a-z0-9-]+" minlength="3" maxlength="30" oninput="updateSubdomainPreview(this.value)">
-                        <span class="subdomain-suffix">/tienda/</span>
                     </div>
                     <div class="subdomain-preview-text" id="subdomainLivePreview">
-                        🌐 Tu tienda estará en: <strong>https://atelier-zacatecas.onrender.com/tienda/verona</strong>
+                        🌐 Tu tienda estará en: <strong>https://atelier-zacatecas.onrender.com/verona</strong>
                     </div>
                 </div>
 
@@ -1178,7 +1178,7 @@
 
             const clean = val.toLowerCase().replace(/[^a-z0-9-]/g, '');
             const origin = window.location.origin;
-            preview.innerHTML = `🌐 Tu tienda estará en: <strong>${origin}/tienda/${clean || 'mi-tienda'}</strong>`;
+            preview.innerHTML = `🌐 Tu tienda estará en: <strong>${origin}/${clean || 'mi-tienda'}</strong>`;
         }
 
         // Theme toggle
@@ -1220,7 +1220,7 @@
             switchBillingCycle('annual');
             const preview = document.getElementById('subdomainLivePreview');
             if (preview) {
-                preview.innerHTML = `🌐 Tu tienda estará en: <strong>${window.location.origin}/tienda/verona</strong>`;
+                preview.innerHTML = `🌐 Tu tienda estará en: <strong>${window.location.origin}/verona</strong>`;
             }
         });
     </script>

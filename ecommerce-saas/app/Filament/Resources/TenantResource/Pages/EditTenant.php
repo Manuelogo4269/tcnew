@@ -18,7 +18,7 @@ class EditTenant extends EditRecord
                 ->label('Ver Tienda Pública')
                 ->icon('heroicon-o-arrow-top-right-on-square')
                 ->color('gray')
-                ->url(fn (): string => url('/tienda/' . strtolower($this->record->id)))
+                ->url(fn (): string => url('/' . strtolower($this->record->id)))
                 ->openUrlInNewTab(),
             Actions\Action::make('visit_admin')
                 ->label('Abrir Panel de la Tienda')

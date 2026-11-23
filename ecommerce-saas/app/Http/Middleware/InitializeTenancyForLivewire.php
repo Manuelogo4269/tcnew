@@ -32,8 +32,14 @@ class InitializeTenancyForLivewire
         // 2. If on a central domain, identify tenant from query, referer, or session
         $tenantId = $request->query('tenant');
 
-        if (!$tenantId && preg_match('#/tienda/([^/?]+)#', $referer, $matches)) {
+        if (!$tenantId && preg_match('#/tienda/([^/?#]+)#', $referer, $matches)) {
             $tenantId = $matches[1];
+        } elseif (!$tenantId && preg_match('#https?://[^/]+/([^/?#]+)#', $referer, $matches)) {
+            $potentialSlug = $matches[1];
+            $reserved = ['planes', 'rentar-tienda', 'login', 'register', 'logout', 'admin', 'api', 'storage', 'livewire', 'telescope', 'manifest.json', 'sw.js', 'offline.html'];
+            if (!in_array($potentialSlug, $reserved, true)) {
+                $tenantId = $potentialSlug;
+            }
         }
 
         if (!$tenantId && str_contains($referer, '/tenant-admin') && $request->hasSession()) {

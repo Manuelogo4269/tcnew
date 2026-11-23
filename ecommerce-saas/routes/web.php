@@ -76,8 +76,12 @@ foreach ($centralDomains as $domain) {
             ]);
         });
 
-        // Direct Mobile / LAN Storefront Route (No custom DNS required on mobile devices)
-        Route::get('/tienda/{tenant}', [\App\Http\Controllers\StorefrontController::class, 'show'])->name('central.tenant.store');
+        // Direct Mobile / LAN Storefront Route (Redirect to direct clean URL /{tenant})
+        Route::get('/tienda/{tenant}', function (string $tenant) {
+            $query = request()->getQueryString();
+            $target = '/' . $tenant . ($query ? '?' . $query : '');
+            return redirect()->to($target, 301);
+        })->name('central.tenant.store');
 
         // Direct Company Standalone Page (e.g. /conceptos7, /acropolis) without entering the central app
         Route::get('/{tenant}', [\App\Http\Controllers\StorefrontController::class, 'show'])
