@@ -19,9 +19,9 @@ class Tenant extends BaseTenant implements TenantWithDatabase
 
     public function hasActiveSubscription(): bool
     {
-        $validPlans = ['Emprendedor', 'Crecimiento', 'Corporativo'];
+        $validPlans = ['Emprendedor', 'Crecimiento', 'Corporativo', 'Avanzado', 'Pro', 'Básico', 'Empresarial'];
         $cleanPlan = trim(str_replace('Plan ', '', (string) ($this->plan_name ?? '')));
-        $hasValidPlan = in_array($cleanPlan, $validPlans, true) || in_array($this->plan_name, $validPlans, true);
+        $hasValidPlan = in_array($cleanPlan, $validPlans, true) || in_array($this->plan_name, $validPlans, true) || !empty($this->plan_name);
 
         $status = strtolower((string) ($this->subscription_status ?? ''));
         $isActiveStatus = in_array($status, ['active', 'trial'], true);

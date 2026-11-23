@@ -58,12 +58,21 @@ class DatabaseSeeder extends Seeder
         );
 
         // 3. Subscription Plans
+        if (file_exists(__DIR__ . '/SubscriptionPlanSeeder.php')) {
+            require_once __DIR__ . '/SubscriptionPlanSeeder.php';
+        }
         $this->call(SubscriptionPlanSeeder::class);
 
         // 4. Real Iconic Zacatecas Centro Businesses
+        if (file_exists(__DIR__ . '/ZacatecasRealBusinessesSeeder.php')) {
+            require_once __DIR__ . '/ZacatecasRealBusinessesSeeder.php';
+        }
         $this->call(ZacatecasRealBusinessesSeeder::class);
 
         // 5. Customer Reviews & Ratings (1 to 5 stars)
+        if (file_exists(__DIR__ . '/ReviewSeeder.php')) {
+            require_once __DIR__ . '/ReviewSeeder.php';
+        }
         $this->call(ReviewSeeder::class);
     }
 }

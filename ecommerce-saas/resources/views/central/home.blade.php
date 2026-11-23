@@ -6162,6 +6162,12 @@
                     <a href="{{ url('/?categoria=' . urlencode($catName) . ($searchQuery ? '&q=' . urlencode($searchQuery) : '')) }}#empresas" class="filter-pill {{ strtolower($selectedCategory) === strtolower($catName) ? 'active' : '' }}">
                         {{ match($catName) {
                             'Moda y Lujo' => '👗',
+                            'Joyería y Plata .925' => '💍',
+                            'Cafeterías y Alimentos' => '☕',
+                            'Dulces Típicos y Alimentos' => '🍬',
+                            'Vinos y Licores' => '🍷',
+                            'Artesanías y Cultura' => '🏺',
+                            'Cultura y Libros' => '📚',
                             'Tecnología y Gadgets' => '💻',
                             'Bebidas y Alimentos' => '🥤',
                             'Hogar y Decoración' => '🏺',
