@@ -114,6 +114,19 @@
     <link rel="dns-prefetch" href="https://images.unsplash.com">
     <link href="{{ $fontUrl }}" rel="stylesheet">
     <style>
+        
+        .ui-icon {
+            display: inline-block;
+            vertical-align: -2px;
+            width: 1em;
+            height: 1em;
+            stroke-width: 2;
+            stroke: currentColor;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
         :root {
             --ink: {{ $ink }};
             --muted: {{ $muted }};
@@ -4155,19 +4168,19 @@
             @else
                 <!-- Botón Iniciar Sesión en la Tienda -->
                 <button type="button" class="btn-store-auth-trigger" onclick="openStoreAuthModal('login')" title="Iniciar sesión con Google o correo">
-                    <span>👤</span> <span>Entrar</span>
+                    <span><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span> <span>Entrar</span>
                 </button>
             @endif
 
             <!-- Shopping Cart Header Button -->
             <button type="button" class="btn-cart-header" id="btnCartHeader" onclick="toggleCartDrawer()" aria-label="Ver Carrito de Compras" title="Ver Carrito de Compras">
-                <span>🛒</span> <span class="cart-btn-text">Carrito</span> <span id="headerCartBadge" class="header-cart-badge">0</span>
+                <span><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></span> <span class="cart-btn-text">Carrito</span> <span id="headerCartBadge" class="header-cart-badge">0</span>
             </button>
 
             <!-- Dark / Light Theme Toggle -->
             <button type="button" class="btn-theme-toggle" id="storeThemeToggleBtn" onclick="toggleTheme()" aria-label="Cambiar modo oscuro/claro" title="Cambiar a Modo Oscuro / Claro">
-                <span class="theme-icon-light">🌙</span>
-                <span class="theme-icon-dark" style="display: none;">☀️</span>
+                <span class="theme-icon-light"><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
+                <span class="theme-icon-dark" style="display: none;"><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></span>
             </button>
 
             <!-- Mobile Store Hamburger Toggle -->
@@ -4212,17 +4225,17 @@
     <!-- Store Physical Location & Hours Card -->
     <div class="drawer-location-card">
         <div class="drawer-location-tag">
-            <span>📍</span> {{ $storeZone }}
+            <span><svg class="ui-icon" width="15" height="15" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span> {{ $storeZone }}
         </div>
         <div class="drawer-location-address">
             {{ $storeAddress }}
         </div>
         <div class="drawer-location-hours">
-            <span>🕒</span> {{ $storeHours }}
+            <span><svg class="ui-icon" width="15" height="15" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span> {{ $storeHours }}
         </div>
         @if(!empty($storeMapsUrl))
             <a href="{{ $storeMapsUrl }}" target="_blank" class="drawer-location-maps-link">
-                <span>🗺️</span> Cómo llegar en Google Maps ↗
+                <span><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg></span> Cómo llegar en Google Maps ↗
             </a>
         @endif
     </div>
@@ -4232,7 +4245,7 @@
     <nav class="store-drawer-nav-list">
         <!-- MAIN STORE ACTIONS -->
         <a href="#inicio" class="drawer-nav-item" onclick="closeStoreMenu()">
-            <div class="nav-item-icon" style="background: var(--accent); color: #fff;">🏠</div>
+            <div class="nav-item-icon" style="background: var(--accent); color: #fff;"><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
             <div class="nav-item-text">
                 <div class="nav-item-title" style="color: var(--accent); font-weight: 800;">Inicio de la Tienda</div>
                 <div class="nav-item-sub">Página web oficial de {{ $storeTitle }}</div>
@@ -4241,16 +4254,16 @@
         </a>
 
         <a href="javascript:void(0)" class="drawer-nav-item" onclick="copyStoreUrl(); closeStoreMenu();">
-            <div class="nav-item-icon" style="background: rgba(16, 185, 129, 0.15); color: #10b981;">🔗</div>
+            <div class="nav-item-icon" style="background: rgba(16, 185, 129, 0.15); color: #10b981;"><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div>
             <div class="nav-item-text">
                 <div class="nav-item-title" style="color: #059669; font-weight: 700;">Compartir Página Web</div>
                 <div class="nav-item-sub">Copiar enlace oficial de {{ $storeTitle }}</div>
             </div>
-            <span class="nav-item-arrow" style="color: #059669;">📋</span>
+            <span class="nav-item-arrow" style="color: #059669;">›</span>
         </a>
 
         <a href="#categorias" class="drawer-nav-item" onclick="closeStoreMenu()">
-            <div class="nav-item-icon" style="background: rgba(59, 130, 246, 0.15); color: #3b82f6;">🏷️</div>
+            <div class="nav-item-icon" style="background: rgba(59, 130, 246, 0.15); color: #3b82f6;"><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></div>
             <div class="nav-item-text">
                 <div class="nav-item-title">Categorías</div>
                 <div class="nav-item-sub">Explora por departamento</div>
@@ -4259,7 +4272,7 @@
         </a>
 
         <a href="javascript:void(0)" class="drawer-nav-item" onclick="openAppointmentsModal(); closeStoreMenu();">
-            <div class="nav-item-icon" style="background: rgba(217, 107, 69, 0.15); color: var(--accent);">📅</div>
+            <div class="nav-item-icon" style="background: rgba(217, 107, 69, 0.15); color: var(--accent);"><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
             <div class="nav-item-text">
                 <div class="nav-item-title" style="color: var(--accent); font-weight: 800;">Agendar Cita / Servicio</div>
                 <div class="nav-item-sub">Reserva con tu profesional preferido</div>
@@ -4268,7 +4281,7 @@
         </a>
 
         <a href="javascript:void(0)" class="drawer-nav-item" onclick="openMembershipsModal(); closeStoreMenu();">
-            <div class="nav-item-icon" style="background: rgba(234, 179, 8, 0.15); color: #ca8a04;">⭐</div>
+            <div class="nav-item-icon" style="background: rgba(234, 179, 8, 0.15); color: #ca8a04;"><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
             <div class="nav-item-text">
                 <div class="nav-item-title">Club de Membresías &amp; Puntos</div>
                 <div class="nav-item-sub">Tarjeta digital y beneficios exclusivos</div>
@@ -4277,7 +4290,7 @@
         </a>
 
         <a href="#destacados" class="drawer-nav-item" onclick="closeStoreMenu()">
-            <div class="nav-item-icon" style="background: rgba(245, 158, 11, 0.15); color: #f59e0b;">🔥</div>
+            <div class="nav-item-icon" style="background: rgba(245, 158, 11, 0.15); color: #f59e0b;"><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
             <div class="nav-item-text">
                 <div class="nav-item-title">Tendencias</div>
                 <div class="nav-item-sub">Lo más destacado de la semana</div>
@@ -4286,7 +4299,7 @@
         </a>
 
         <a href="#catalogo" class="drawer-nav-item" onclick="closeStoreMenu()">
-            <div class="nav-item-icon" style="background: rgba(16, 185, 129, 0.15); color: #10b981;">🛍️</div>
+            <div class="nav-item-icon" style="background: rgba(16, 185, 129, 0.15); color: #10b981;"><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div>
             <div class="nav-item-text">
                 <div class="nav-item-title">Catálogo Completo</div>
                 <div class="nav-item-sub">Todos los productos con buscador</div>
@@ -4295,7 +4308,7 @@
         </a>
 
         <a href="#contacto" class="drawer-nav-item" onclick="closeStoreMenu()">
-            <div class="nav-item-icon" style="background: rgba(236, 72, 153, 0.15); color: #ec4899;">💬</div>
+            <div class="nav-item-icon" style="background: rgba(236, 72, 153, 0.15); color: #ec4899;"><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
             <div class="nav-item-text">
                 <div class="nav-item-title">Contacto &amp; Sucursal</div>
                 <div class="nav-item-sub">Atención directa y horarios</div>
@@ -4304,7 +4317,7 @@
         </a>
 
         <a href="{{ $portalHomeUrl }}" class="drawer-nav-item drawer-nav-item-portal-home" onclick="closeStoreMenu()">
-            <div class="nav-item-icon" style="background: rgba(200, 109, 99, 0.15); color: #c86d63;">📍</div>
+            <div class="nav-item-icon" style="background: rgba(200, 109, 99, 0.15); color: #c86d63;"><svg class="ui-icon" width="15" height="15" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
             <div class="nav-item-text">
                 <div class="nav-item-title">Volver al Inicio del Portal ↗</div>
                 <div class="nav-item-sub">Directorio general y mapa interactivo</div>
@@ -4313,7 +4326,7 @@
         </a>
 
         <a href="{{ url('/tienda/' . ($tenantId ?? 'acropolis') . '/admin') }}" class="drawer-nav-item" onclick="closeStoreMenu()">
-            <div class="nav-item-icon" style="background: rgba(30, 41, 59, 0.15); color: var(--ink);">⚙️</div>
+            <div class="nav-item-icon" style="background: rgba(30, 41, 59, 0.15); color: var(--ink);"><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></div>
             <div class="nav-item-text">
                 <div class="nav-item-title">Panel Administrativo</div>
                 <div class="nav-item-sub">Gestión de productos y pedidos</div>
@@ -4343,7 +4356,7 @@
     <!-- Mobile Drawer Cart Action Button -->
     <div style="padding: 12px 20px 6px;">
         <button type="button" class="btn-cart-checkout" onclick="closeStoreMenu(); toggleCartDrawer();" style="margin-top: 0; padding: 12px 18px; font-size: 14px;">
-            <span>🛒</span> Ver Mi Carrito (<span id="drawerCartBadge">0</span>)
+            <span><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></span> Ver Mi Carrito (<span id="drawerCartBadge">0</span>)
         </button>
     </div>
 
@@ -4353,17 +4366,17 @@
         @if(!empty($settings?->whatsapp_number))
             @php $drawerWa = preg_replace('/[^0-9]/', '', $settings->whatsapp_number); @endphp
             <a href="https://wa.me/{{ $drawerWa }}?text={{ urlencode('¡Hola! Me comunico desde la tienda ' . $storeTitle) }}" target="_blank" class="drawer-social-btn drawer-social-wa">
-                <span>💬</span> WhatsApp
+                <span><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></span> WhatsApp
             </a>
         @endif
         @if(!empty($settings?->facebook_url))
             <a href="{{ $settings->facebook_url }}" target="_blank" class="drawer-social-btn drawer-social-fb">
-                <span>📘</span> Facebook
+                Facebook
             </a>
         @endif
         @if(!empty($settings?->instagram_url))
             <a href="{{ $settings->instagram_url }}" target="_blank" class="drawer-social-btn drawer-social-ig">
-                <span>📷</span> Instagram
+                Instagram
             </a>
         @endif
     </div>
@@ -4371,11 +4384,11 @@
     <!-- Drawer Footer Actions -->
     <div class="drawer-footer-actions">
         <button type="button" class="btn-theme-toggle-drawer" onclick="toggleTheme()">
-            <span class="theme-text-light">🌙 Cambiar a Modo Oscuro</span>
-            <span class="theme-text-dark" style="display: none;">☀️ Cambiar a Modo Claro</span>
+            <span class="theme-text-light"><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg> Cambiar a Modo Oscuro</span>
+            <span class="theme-text-dark" style="display: none;"><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg> Cambiar a Modo Claro</span>
         </button>
         <button type="button" class="btn-share-drawer" onclick="shareStorePage()">
-            <span>📤</span> Compartir Esta Tienda
+            <span><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></span> Compartir Esta Tienda
         </button>
         <div class="drawer-brand-footer">
             <span>Atelier Zacatecas · {{ $storeTitle }}</span>
@@ -4434,7 +4447,7 @@
                         @php $footerWa = preg_replace('/[^0-9]/', '', $settings->whatsapp_number); @endphp
                         <a href="https://wa.me/{{ $footerWa }}?text={{ urlencode('¡Hola! Me comunico desde la tienda ' . $storeTitle) }}" target="_blank" class="social-circle-btn" style="color: #25d366;" title="WhatsApp">WA</a>
                     @endif
-                    <a href="javascript:void(0)" onclick="copyCurrentStoreLink()" class="social-circle-btn" title="Compartir Tienda">🔗</a>
+                    <a href="javascript:void(0)" onclick="copyCurrentStoreLink()" class="social-circle-btn" title="Compartir Tienda"><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></a>
                 </div>
             </div>
         </div>
@@ -4463,7 +4476,7 @@
                 <div class="modal-badges-row">
                     <span class="modal-chip modal-chip-sku" id="modalSku">SKU: PROD-000</span>
                     <span class="modal-chip modal-chip-stock" id="modalStock">✓ En stock</span>
-                    <span class="modal-chip modal-chip-delivery">🚚 Envío rápido 24-48h</span>
+                    <span class="modal-chip modal-chip-delivery"><svg class="ui-icon" width="15" height="15" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg> Entrega en Sucursal</span>
                 </div>
             </div>
 
@@ -4539,7 +4552,7 @@
                 <div class="modal-zac-location-box">
                     <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 4px;">
                         <span style="font-size: 11.5px; font-weight: 800; color: var(--accent); text-transform: uppercase; letter-spacing: .06em; display: flex; align-items: center; gap: 5px;">
-                            <span>📍</span> Sucursal Zacatecas Centro
+                            <span><svg class="ui-icon" width="15" height="15" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span> Sucursal Zacatecas Centro
                         </span>
                         <a href="{{ $storeMapsUrl }}" target="_blank" style="font-size: 11px; font-weight: 700; color: var(--accent); text-decoration: underline;">
                             Ver en Google Maps ↗
@@ -4547,7 +4560,7 @@
                     </div>
                     <div style="font-size: 12.5px; font-weight: 600; color: var(--ink);">{{ $storeAddress }}</div>
                     <div style="font-size: 11px; color: var(--muted); margin-top: 3px;">
-                        {{ $storeRef }} · ⏰ {{ $storeHours }}
+                        {{ $storeRef }} · <svg class="ui-icon" width="15" height="15" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> {{ $storeHours }}
                     </div>
                 </div>
 
@@ -4555,10 +4568,10 @@
                 <div class="modal-actions-row">
                     <div style="display: flex; gap: 10px; width: 100%; flex-wrap: wrap; margin-bottom: 6px;">
                         <button type="button" class="btn-modal-add-cart" onclick="addModalProductToCart()">
-                            <span>🛒</span> Agregar al Carrito (<span id="modalAddCartTotal">$0.00</span>)
+                            <span><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></span> Agregar al Carrito (<span id="modalAddCartTotal">$0.00</span>)
                         </button>
                         <button type="button" class="btn-modal-buy-now" onclick="buyNowFromModal()">
-                            <span>⚡</span> Comprar Ahora
+                            <span><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span> Comprar Ahora
                         </button>
                     </div>
                     <a id="modalWhatsAppBtn" href="#" target="_blank" class="btn-whatsapp-order">
@@ -4567,7 +4580,7 @@
                     </a>
                     <div class="modal-secondary-actions">
                         <button class="btn-modal-action" onclick="copyProductDirectLink()">
-                            <span>🔗</span> Copiar Enlace Directo
+                            <span><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></span> Copiar Enlace Directo
                         </button>
                     </div>
                 </div>
@@ -4782,7 +4795,7 @@
     </div>
     <div class="cib-actions">
         <a href="#" target="_blank" class="cib-btn-wa" id="cibBtnWa" onclick="closeCartInquiryBanner()">
-            <span id="cibBtnWaIcon">💬</span> <span id="cibBtnWaText">Preguntar por WhatsApp</span>
+            <span id="cibBtnWaIcon"><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></span> <span id="cibBtnWaText">Preguntar por WhatsApp</span>
         </a>
         <button type="button" class="cib-btn-cart" onclick="closeCartInquiryBanner(); toggleCartDrawer();">
             Ver Carrito (<span id="cibCartCount">1</span>)
@@ -4796,7 +4809,7 @@
 <!-- CART SLIDE-OVER DRAWER -->
 <aside class="store-cart-drawer" id="storeCartDrawer" aria-label="Carrito de Compras">
     <div class="cart-drawer-header">
-        <h3>🛒 Carrito (<span id="cartDrawerCount">0</span>)</h3>
+        <h3>Carrito (<span id="cartDrawerCount">0</span>)</h3>
         <button type="button" class="cart-drawer-close" onclick="toggleCartDrawer()" aria-label="Cerrar carrito">✕</button>
     </div>
 
@@ -4830,16 +4843,16 @@
         </div>
 
         <button type="button" class="btn-cart-checkout" id="btnGoToCheckout" onclick="openCheckoutModal()">
-            <span>💳</span> Proceder al Pago / Checkout
+            <span><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></span> Proceder al Pago / Checkout
         </button>
         <a href="{{ url('/?action=cart_route&store=' . $tenantId) }}" class="btn-cart-view-route" style="display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 12px; border-radius: 12px; background: rgba(200, 109, 99, 0.12); color: var(--accent); font-weight: 700; font-size: 13px; text-decoration: none; border: 1.5px solid var(--accent); margin-top: 8px; transition: all .2s ease;">
-            <span>🚶‍♂️</span> Ver Ruta en el Mapa para Visitar/Recoger
+            <span><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg></span> Ver Ruta en el Mapa para Visitar/Recoger
         </a>
         <button type="button" class="btn-cart-clear" onclick="clearCart()">
             Vaciar Carrito
         </button>
             <a href="{{ $portalHomeUrl }}" class="btn-cart-back-home" style="display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 11px; border-radius: 12px; background: rgba(217, 107, 69, 0.08); color: var(--accent); font-weight: 700; font-size: 12.5px; text-decoration: none; border: 1.5px solid rgba(217, 107, 69, 0.25); margin-top: 8px; transition: all .2s ease;">
-            <span>🏠</span> Volver al Portal Zacatecas Centro
+            <span><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span> Volver al Portal Zacatecas Centro
         </a>
 </div>
 </aside>
@@ -4850,7 +4863,7 @@
         <div class="checkout-modal-header">
             <div>
                 <h3>Pasarela de Pago Segura</h3>
-                <div class="checkout-sec-badge">🔒 Cifrado Bancario SSL · Pedido Seguro en {{ $storeTitle }}</div>
+                <div class="checkout-sec-badge"><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Cifrado Bancario SSL · Pedido Seguro en {{ $storeTitle }}</div>
             </div>
             <button type="button" class="cart-drawer-close" onclick="closeCheckoutModal()" aria-label="Cerrar checkout">✕</button>
         </div>
@@ -4876,11 +4889,11 @@
                 </div>
                 <div class="checkout-field checkout-grid-full" style="background: rgba(217, 107, 69, 0.08); border: 1.5px solid rgba(217, 107, 69, 0.25); border-radius: 12px; padding: 12px 16px; margin: 4px 0 8px;">
                     <div style="font-size: 13px; font-weight: 800; color: var(--accent); display: flex; align-items: center; gap: 8px;">
-                        <span>🛍️</span> <span>Recogida Exclusiva en Sucursal (Sin Envíos a Domicilio)</span>
+                        <span><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></span> <span>Recogida Exclusiva en Sucursal (Sin Envíos a Domicilio)</span>
                     </div>
                     <div style="font-size: 12px; color: var(--ink); margin-top: 4px; line-height: 1.4;">
-                        📍 <strong>{{ $storeAddress }}</strong> ({{ $storeZone }}).
-                        @if(!empty($storeHours)) <br>🕒 <em>Horario de entrega: {{ $storeHours }}</em> @endif
+                        <svg class="ui-icon" width="15" height="15" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> <strong>{{ $storeAddress }}</strong> ({{ $storeZone }}).
+                        @if(!empty($storeHours)) <br><svg class="ui-icon" width="15" height="15" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> <em>Horario de entrega: {{ $storeHours }}</em> @endif
                     </div>
                     <input type="hidden" id="checkDeliveryType" value="pickup">
                 </div>
@@ -4897,23 +4910,23 @@
 
             <div class="payment-methods-tabs">
                 <div class="payment-tab-btn active" data-method="card" onclick="switchPaymentTab('card', this)">
-                    <span>💳</span>
+                    <span><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></span>
                     <small>Tarjeta Débito/Crédito (Stripe)</small>
                 </div>
                 <div class="payment-tab-btn" data-method="spei" onclick="switchPaymentTab('spei', this)">
-                    <span>🏦</span>
+                    <span><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><line x1="1" y1="22" x2="23" y2="22"/><line x1="3" y1="18" x2="21" y2="18"/><polygon points="12 2 2 7 22 7 12 2"/><line x1="5" y1="18" x2="5" y2="10"/><line x1="10" y1="18" x2="10" y2="10"/><line x1="14" y1="18" x2="14" y2="10"/><line x1="19" y1="18" x2="19" y2="10"/></svg></span>
                     <small>Transferencia SPEI</small>
                 </div>
                 <div class="payment-tab-btn" data-method="oxxo" onclick="switchPaymentTab('oxxo', this)">
-                    <span>🏪</span>
+                    <span><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
                     <small>OXXO Pay Efectivo</small>
                 </div>
                 <div class="payment-tab-btn" data-method="cash" onclick="switchPaymentTab('cash', this)">
-                    <span>💵</span>
+                    <span><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2"/></svg></span>
                     <small>Contra Entrega / Recoger</small>
                 </div>
                 <div class="payment-tab-btn" data-method="whatsapp" onclick="switchPaymentTab('whatsapp', this)">
-                    <span>💬</span>
+                    <span><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></span>
                     <small>Por WhatsApp</small>
                 </div>
             </div>
@@ -4922,16 +4935,16 @@
             <div class="payment-method-panel active" id="payPanel_card">
                 <div style="background: rgba(217, 107, 69, 0.04); border: 1.5px solid rgba(217, 107, 69, 0.2); border-radius: 12px; padding: 18px 16px; text-align: center;">
                     <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 6px;">
-                        <span style="font-size: 22px;">💳</span>
+                        <span style="display: inline-flex; align-items: center;"><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></span>
                         <strong style="font-size: 15px; color: var(--ink);">Pasarela Oficial Stripe</strong>
                     </div>
                     <p style="font-size: 13px; color: var(--muted); margin: 0 0 12px; line-height: 1.45;">
                         Al hacer clic en pagar, serás redirigido a la pasarela segura de <strong>Stripe</strong> para completar tu pago con tarjeta de crédito o débito (Visa, Mastercard, AMEX) con autenticación bancaria 3D Secure.
                     </p>
                     <div style="display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 12px; font-size: 11.5px; color: #10b981; font-weight: 700;">
-                        <span>🔒 Cifrado SSL 256 bits</span>
-                        <span>🛡️ Protección Antifraude</span>
-                        <span>⚡ Confirmación Inmediata</span>
+                        <span><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Cifrado SSL 256 bits</span>
+                        <span><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Protección Antifraude</span>
+                        <span><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Confirmación Inmediata</span>
                     </div>
                 </div>
             </div>
@@ -4973,7 +4986,7 @@
             <!-- Cash on Pickup Panel -->
             <div class="payment-method-panel" id="payPanel_cash">
                 <div style="font-size: 13px; color: var(--ink); margin-bottom: 6px;">
-                    💵 <strong>Pago en Efectivo al Recoger en Sucursal:</strong>
+                    <svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2"/></svg> <strong>Pago en Efectivo al Recoger en Sucursal:</strong>
                 </div>
                 <p style="font-size: 12.5px; color: var(--muted); margin: 0; line-height: 1.4;">
                     Paga en efectivo en moneda nacional al acudir a recoger tu pedido directamente en mostrador en nuestra sucursal de <strong>{{ $storeAddress }}</strong>.
@@ -4983,7 +4996,7 @@
             <!-- WhatsApp Order Panel -->
             <div class="payment-method-panel" id="payPanel_whatsapp">
                 <div style="font-size: 13px; color: var(--ink); margin-bottom: 6px;">
-                    💬 <strong>Confirmación Asistida por WhatsApp:</strong>
+                    <svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg> <strong>Confirmación Asistida por WhatsApp:</strong>
                 </div>
                 <p style="font-size: 12.5px; color: var(--muted); margin: 0; line-height: 1.4;">
                     Al confirmar, se generará tu folio de pedido en el sistema y se abrirá una conversación directa con el asesor de {{ $storeTitle }} para acordar detalles de entrega o pago personalizado.
@@ -4993,7 +5006,7 @@
             <!-- Total Preview & Submit Button -->
             <div style="margin-top: 14px;">
                 <button type="submit" class="btn-confirm-payment" id="btnSubmitCheckout">
-                    <span id="btnPayIcon">🔒</span> <span id="btnPayText">Confirmar y Pagar</span> $<span id="checkoutPayBtnTotal">0.00</span> MXN
+                    <span id="btnPayIcon"><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span> <span id="btnPayText">Confirmar y Pagar</span> $<span id="checkoutPayBtnTotal">0.00</span> MXN
                 </button>
             </div>
         </form>
@@ -5018,10 +5031,10 @@
 
         <div class="success-actions">
             <button type="button" class="btn-print-receipt" onclick="printOrderReceipt()">
-                <span>🖨️</span> Imprimir Ticket
+                <span><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg></span> Imprimir Ticket
             </button>
             <a href="#" id="btnSuccessWhatsApp" target="_blank" class="btn-success-wa">
-                <span>💬</span> Enviar a WhatsApp
+                <span><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></span> Enviar a WhatsApp
             </a>
             <button type="button" class="btn-success-close" onclick="closeSuccessModal()">
                 Cerrar y Seguir Comprando
@@ -5126,7 +5139,7 @@ function showToast(message) {
 function toggleCartDrawer() {
     if (!IS_USER_LOGGED_IN) {
         openStoreAuthModal('login');
-        showToast('🔒 Inicia sesión para tener tu carrito de compras.');
+        showToast('Inicia sesión para tener tu carrito de compras.');
         return;
     }
     const drawer = document.getElementById('storeCartDrawer');
@@ -5165,34 +5178,34 @@ function detectProductInquiryType(product) {
     const jewelryTerms = ['plata', 'joya', 'joyeria', 'joyería', 'platería', 'plateria', 'anillo', 'dije', 'collar', 'pulsera', 'arete', 'aretes', 'cantera', 'mineral', 'oro', 'artesan', 'souvenir', 'recuerdo'];
     const isJewelry = jewelryTerms.some(term => fullText.includes(term));
 
-    let icon = '💬';
+    let icon = '';
     let btnText = 'Preguntar a la Tienda';
     let promptTitle = '¿Deseas consultar con la tienda?';
     let promptSubtitle = 'Pregunta directamente por WhatsApp sobre este producto.';
     let waMessage = '';
 
     if (isClothing) {
-        icon = '👕';
+        icon = '';
         btnText = 'Preguntar por Tallas';
-        promptTitle = '👕 ¿Tienes dudas sobre la talla o medida?';
+        promptTitle = '¿Tienes dudas sobre la talla o medida?';
         promptSubtitle = 'Pregunta por WhatsApp qué tallas están disponibles en la sucursal del Centro.';
         waMessage = `¡Hola! Vi el producto "${product.name}" en su tienda online de Zacatecas Centro. Me interesa comprarlo, ¿qué tallas tienen disponibles en existencia?`;
     } else if (isFood) {
-        icon = '🍽️';
+        icon = '';
         btnText = 'Preguntar por Existencia Hoy';
-        promptTitle = '🍽️ ¿Deseas verificar si hay existencia hoy?';
+        promptTitle = '¿Deseas verificar si hay existencia hoy?';
         promptSubtitle = 'Consulta si tienen porciones o unidades listas para recoger o consumir hoy.';
         waMessage = `¡Hola! Vi en su menú/catálogo de Zacatecas Centro "${product.name}". ¿Aún tienen disponible en existencia para hoy?`;
     } else if (isJewelry) {
-        icon = '💍';
+        icon = '';
         btnText = 'Consultar Acabado o Medida';
-        promptTitle = '💍 ¿Deseas consultar sobre esta pieza?';
+        promptTitle = '¿Deseas consultar sobre esta pieza?';
         promptSubtitle = 'Verifica acabados de plata ley .925, medidas de anillo o grabado personalizado.';
         waMessage = `¡Hola! Me interesa la pieza de joyería/platería "${product.name}" de su tienda en Zacatecas Centro. ¿Tienen medidas o piezas disponibles en sucursal?`;
     } else {
-        icon = '📦';
+        icon = '';
         btnText = 'Consultar Disponibilidad';
-        promptTitle = '📦 ¿Deseas consultar sobre este producto?';
+        promptTitle = '¿Deseas consultar sobre este producto?';
         promptSubtitle = 'Consulta directamente sobre stock o recogida física en el Centro Histórico.';
         waMessage = `¡Hola! Vi en su tienda de Zacatecas Centro el producto "${product.name}". ¿Tienen disponibilidad para entrega o recogida en sucursal?`;
     }
@@ -5274,7 +5287,7 @@ function closeCartInquiryBanner() {
 function addCartItem(productId, qty = 1) {
     if (!IS_USER_LOGGED_IN) {
         openStoreAuthModal('login');
-        showToast('🔒 Inicia sesión para tener tu carrito de compras.');
+        showToast('Inicia sesión para tener tu carrito de compras.');
         return;
     }
     const list = window.ALL_PRODUCTS || (typeof ALL_PRODUCTS !== 'undefined' ? ALL_PRODUCTS : []);
@@ -5297,7 +5310,7 @@ function addCartItem(productId, qty = 1) {
     }
 
     saveCart();
-    showToast(`🛒 "${prod.name}" añadido al carrito`);
+    showToast(`"${prod.name}" añadido al carrito`);
     showCartInquiryBanner(prod, qty);
     
     // Animate badge
@@ -5360,13 +5373,13 @@ function applyCartCoupon() {
             label.textContent = code;
             badge.style.display = 'block';
         }
-        showToast(`✓ Cupón ${code} aplicado: 10% de descuento`);
+        showToast(`Cupón ${code} aplicado: 10% de descuento`);
     } else if (!code) {
         appliedCoupon = null;
         const badge = document.getElementById('couponAppliedBadge');
         if (badge) badge.style.display = 'none';
     } else {
-        showToast('⚠️ Cupón no válido. Prueba con CENTRO10 o ZACATECAS2026');
+        showToast('Cupón no válido. Prueba con CENTRO10 o ZACATECAS2026');
         appliedCoupon = null;
         const badge = document.getElementById('couponAppliedBadge');
         if (badge) badge.style.display = 'none';
@@ -5386,7 +5399,7 @@ function updateCartUI() {
     const drawerCount = document.getElementById('cartDrawerCount');
     if (headerBadge) {
         if (!IS_USER_LOGGED_IN) {
-            headerBadge.textContent = '🔒';
+            headerBadge.textContent = '';
             headerBadge.title = 'Inicia sesión para tener tu carrito de compras';
         } else {
             headerBadge.textContent = totalItems;
@@ -5404,13 +5417,13 @@ function updateCartUI() {
         if (!IS_USER_LOGGED_IN) {
             body.innerHTML = `
                 <div class="cart-empty-state" style="padding: 32px 16px; text-align: center;">
-                    <span class="cart-empty-icon" style="font-size: 38px;">🔒</span>
+                    <span class="cart-empty-icon" style="display:flex; justify-content:center;"><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
                     <h4 style="font-size: 16px; margin: 10px 0 6px;">Carrito Exclusivo para Usuarios</h4>
                     <p style="font-size: 13px; color: var(--muted); margin: 0 auto 18px; max-width: 280px; line-height: 1.45;">
                         Para tener un carrito de compras, guardar tus productos y realizar pedidos en ${STORE_TITLE}, inicia sesión o crea tu cuenta gratuita.
                     </p>
                     <button type="button" class="btn-brand-primary" onclick="openStoreAuthModal('login')" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-size: 13.5px; padding: 11px 22px; border-radius: 999px;">
-                        <span>👤</span> <span>Iniciar Sesión / Registrarme</span>
+                        <span><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span> <span>Iniciar Sesión / Registrarme</span>
                     </button>
                 </div>
             `;
@@ -5421,7 +5434,7 @@ function updateCartUI() {
         if (storeCart.length === 0) {
             body.innerHTML = `
                 <div class="cart-empty-state">
-                    <span class="cart-empty-icon">🛍️</span>
+                    <span class="cart-empty-icon" style="display:flex; justify-content:center;"><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></span>
                     <h4>Tu carrito está vacío</h4>
                     <p style="font-size: 13px; color: var(--muted); margin: 0 0 16px;">Descubre las piezas y productos exclusivos de ${STORE_TITLE}.</p>
                     <button type="button" class="btn-brand-primary" onclick="toggleCartDrawer()" style="display: inline-block; font-size: 13px;">Explorar Catálogo</button>
@@ -5452,7 +5465,7 @@ function updateCartUI() {
                         </div>
                         <div style="text-align: right;">
                             <strong style="font-size: 13.5px; color: var(--ink); display: block; margin-bottom: 8px;">$${itemTotal}</strong>
-                            <button type="button" class="cart-item-remove" onclick="removeCartItem(${idx})" title="Eliminar del carrito">🗑️</button>
+                            <button type="button" class="cart-item-remove" onclick="removeCartItem(${idx})" title="Eliminar del carrito"><svg class="ui-icon" width="14" height="14" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
                         </div>
                     </div>
                 `;
@@ -5485,7 +5498,7 @@ function updateCartUI() {
 function openCheckoutModal() {
     if (!IS_USER_LOGGED_IN) {
         openStoreAuthModal('login');
-        showToast('🔒 Inicia sesión para realizar pedidos.');
+        showToast('Inicia sesión para realizar pedidos.');
         return;
     }
     if (storeCart.length === 0) {
@@ -5526,19 +5539,19 @@ function switchPaymentTab(method, btn) {
     if (payText && payIcon) {
         if (method === 'card') {
             payText.textContent = 'Confirmar y Pagar';
-            payIcon.textContent = '💳';
+            payIcon.innerHTML = `<svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>`;
         } else if (method === 'spei') {
             payText.textContent = 'Registrar Pedido SPEI';
-            payIcon.textContent = '🏦';
+            payIcon.innerHTML = `<svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><line x1="1" y1="22" x2="23" y2="22"/><line x1="3" y1="18" x2="21" y2="18"/><polygon points="12 2 2 7 22 7 12 2"/><line x1="5" y1="18" x2="5" y2="10"/><line x1="10" y1="18" x2="10" y2="10"/><line x1="14" y1="18" x2="14" y2="10"/><line x1="19" y1="18" x2="19" y2="10"/></svg>`;
         } else if (method === 'oxxo') {
             payText.textContent = 'Generar Ficha OXXO';
-            payIcon.textContent = '🏪';
+            payIcon.innerHTML = `<svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`;
         } else if (method === 'cash') {
             payText.textContent = 'Confirmar Contra Entrega';
-            payIcon.textContent = '💵';
+            payIcon.innerHTML = `<svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2"/></svg>`;
         } else if (method === 'whatsapp') {
             payText.textContent = 'Ordenar por WhatsApp';
-            payIcon.textContent = '💬';
+            payIcon.innerHTML = `<svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>`;
         }
     }
 }
@@ -5576,7 +5589,7 @@ function copySpeiClabe() {
     const clabe = '646903001234567890';
     if (navigator.clipboard) {
         navigator.clipboard.writeText(clabe).then(() => {
-            showToast('✓ CLABE interbancaria copiada al portapapeles');
+            showToast('CLABE interbancaria copiada al portapapeles');
         });
     } else {
         window.prompt('Copia la CLABE interbancaria:', clabe);
@@ -5588,7 +5601,7 @@ let lastCompletedOrder = null;
 async function processOrderCheckout() {
     if (!IS_USER_LOGGED_IN) {
         openStoreAuthModal('login');
-        showToast('🔒 Inicia sesión para completar tu compra.');
+        showToast('Inicia sesión para completar tu compra.');
         return;
     }
     if (storeCart.length === 0) {
@@ -6088,7 +6101,7 @@ function openProductDetail(product) {
             stockEl.style.background = '';
             stockEl.style.color = '';
         } else if (product.stock > 0) {
-            stockEl.textContent = `⚡ Stock bajo: últimas ${product.stock} unidades`;
+            stockEl.textContent = `Stock bajo: últimas ${product.stock} unidades`;
             stockEl.className = 'modal-chip';
             stockEl.style.background = '#fef9c3';
             stockEl.style.color = '#854d0e';
@@ -6200,9 +6213,9 @@ function updateModalQtyUI() {
 • Total estimado: ${formatted} MXN
 • Enlace directo: ${productUrl}
 
-📍 Sucursal / Recogida en Zacatecas Centro:
+Sucursal / Recogida en Zacatecas Centro:
 ${STORE_ADDRESS} (${STORE_REF})
-🗺️ Ubicación en Google Maps: ${STORE_MAPS_URL}
+Ubicación en Google Maps: ${STORE_MAPS_URL}
 ⏰ Horario de atención: ${STORE_HOURS}
 
 ¿Tienen disponibilidad para entrega local en Zacatecas o recogida en tienda?`);
@@ -6212,7 +6225,7 @@ ${STORE_ADDRESS} (${STORE_REF})
             waBtn.style.display = 'flex';
         } else {
             waBtn.href = `mailto:contacto@${window.location.hostname}?subject=` + encodeURIComponent(`Pedido de ${currentModalProduct.name}`);
-            waBtn.innerHTML = `✉ Consultar Disponibilidad por Correo (${formatted})`;
+            waBtn.innerHTML = `Consultar Disponibilidad por Correo (${formatted})`;
         }
     }
 }
@@ -6566,11 +6579,11 @@ document.addEventListener('click', function(e) {
 <!-- FLOATING PWA HOME & CART ACTION BAR -->
 <div class="pwa-floating-bottom-bar" id="pwaFloatingBottomBar">
     <a href="#inicio" class="pwa-fab-home" id="pwaFabHomeBtn" title="Inicio de {{ $storeTitle }}" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">
-        <span class="pwa-fab-icon">🏠</span>
+        <span class="pwa-fab-icon"><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
         <span class="pwa-fab-text">Inicio</span>
     </a>
     <button type="button" class="pwa-fab-home pwa-fab-appt" onclick="openAppointmentsModal()" title="Agendar Cita">
-        <span class="pwa-fab-icon">📅</span>
+        <span class="pwa-fab-icon"><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>
         <span class="pwa-fab-text">Citas</span>
     </button>
     <button type="button" class="pwa-fab-home pwa-fab-memb" onclick="openMembershipsModal()" title="Mi Membresía">
@@ -6578,7 +6591,7 @@ document.addEventListener('click', function(e) {
         <span class="pwa-fab-text">Socio</span>
     </button>
     <button type="button" class="pwa-fab-cart" onclick="toggleCartDrawer()" aria-label="Ver Carrito">
-        <span class="pwa-fab-icon">🛒</span>
+        <span class="pwa-fab-icon"><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></span>
         <span class="pwa-fab-text">Carrito (<span id="fabCartCount">0</span>)</span>
     </button>
 </div>
@@ -6717,7 +6730,7 @@ document.addEventListener('DOMContentLoaded', function() {
         };
         handleOrderSuccess(formatted, formatted);
         if (typeof showToast === 'function') {
-            showToast('✓ ¡Pago con Tarjeta completado exitosamente a través de Stripe!');
+            showToast('¡Pago con Tarjeta completado exitosamente a través de Stripe!');
         }
     } catch (e) {
         console.error('Error al inicializar orden confirmada de Stripe:', e);
@@ -6730,7 +6743,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     if (typeof showToast === 'function') {
-        showToast('⚠️ El pago con tarjeta en Stripe fue cancelado. Puedes intentar nuevamente cuando gustes.');
+        showToast('El pago con tarjeta en Stripe fue cancelado. Puedes intentar nuevamente cuando gustes.');
     } else {
         alert('El pago con tarjeta en Stripe fue cancelado.');
     }

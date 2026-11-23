@@ -5466,6 +5466,12 @@
                 display: block !important;
             }
         }
+        .ui-icon {
+            display: inline-block;
+            vertical-align: -2px;
+            flex-shrink: 0;
+            stroke-width: 2;
+        }
     </style>
 </head>
 <body>
@@ -5474,7 +5480,7 @@
 
 <!-- FLOATING PWA INSTALL BADGE -->
 <button type="button" class="floating-pwa-badge" id="floatingPwaBadge" onclick="triggerPwaInstall()">
-    <span>📲</span> <span>Instalar App</span>
+    <span><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></span> <span>Instalar App</span>
 </button>
 
 <!-- PWA STEP-BY-STEP GUIDE MODAL -->
@@ -5485,7 +5491,7 @@
         <div style="text-align: center; margin-bottom: 20px;">
             <div style="width: 72px; height: 72px; border-radius: 18px; margin: 0 auto 12px; box-shadow: 0 8px 22px rgba(200,109,99,0.35); overflow: hidden; border: 2.5px solid #cbd5e1; display: grid; place-items: center; background: linear-gradient(135deg, #c86d63, #b45b51);">
                 <img src="/app-icons/icon-192.png" alt="Zacatecas Centro Minimapa" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.onerror=null; this.src='/icons/icon-192.png'; this.onerror=function(){this.style.display='none'; this.nextElementSibling.style.display='grid';};">
-                <span style="display: none; font-size: 32px; color: #fff;">🏛️</span>
+                <span style="display: none; font-size: 32px; color: #fff;">🏛</span>
             </div>
             <h3 style="font-size: 20px; font-weight: 800; margin-bottom: 4px; color: #111210;">Instalar Atelier Zacatecas</h3>
             <p style="font-size: 13px; color: #6b7280;">Aplicación de comercios en el Centro Histórico de Zacatecas.</p>
@@ -5493,7 +5499,7 @@
 
         <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; padding: 16px; margin-bottom: 16px;">
             <div style="display: flex; align-items: center; gap: 8px; font-weight: 700; color: #1e293b; margin-bottom: 8px; font-size: 14px;">
-                <span>🤖</span> En Android (Google Chrome)
+                <span>•</span> En Android (Google Chrome)
             </div>
             <ol style="margin-left: 20px; font-size: 13px; color: #475569; line-height: 1.6;">
                 <li>Toca el botón de <strong>3 puntos verticales (⋮)</strong> arriba a la derecha en Chrome.</li>
@@ -5504,7 +5510,7 @@
 
         <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; padding: 16px; margin-bottom: 20px;">
             <div style="display: flex; align-items: center; gap: 8px; font-weight: 700; color: #1e293b; margin-bottom: 8px; font-size: 14px;">
-                <span>🍏</span> En iPhone / iPad (Safari)
+                <span>•</span> En iPhone / iPad (Safari)
             </div>
             <ol style="margin-left: 20px; font-size: 13px; color: #475569; line-height: 1.6;">
                 <li>Toca el botón <strong>Compartir</strong> (icono de cuadrado con flecha hacia arriba <strong>[↑]</strong>) en Safari.</li>
@@ -5536,7 +5542,7 @@
         <a href="{{ url('/') }}" class="portal-brand">
             <div class="brand-badge" style="padding: 0; overflow: hidden; background: linear-gradient(135deg, #c86d63, #b45b51); border: 1.5px solid #cbd5e1; width: 38px; height: 38px; border-radius: 10px; display: grid; place-items: center; box-shadow: 0 2px 8px rgba(0,0,0,0.12); position: relative;">
                 <img src="/app-icons/icon.svg" alt="Minimapa Zacatecas Centro" style="width: 100%; height: 100%; object-fit: cover; border-radius: 9px; display: block;" onerror="this.onerror=null; this.src='/icons/icon.svg'; this.onerror=function(){this.style.display='none'; this.nextElementSibling.style.display='grid';};">
-                <span style="display: none; width: 100%; height: 100%; place-items: center; font-size: 18px; color: #fff;">🏛️</span>
+                <span style="display: none; width: 100%; height: 100%; place-items: center; font-size: 18px; color: #fff;">🏛</span>
             </div>
             <div class="brand-text">
                 <strong>Atelier Zacatecas</strong>
@@ -5552,9 +5558,9 @@
         </nav>
 
         <div class="portal-auth-actions">
-            <button type="button" class="btn-central-cart" id="btnCentralCart" onclick="goToCartRoutePlanner()" title="{{ $user ? 'Ver productos en mi Carrito y calcular ruta' : 'Inicia sesión para tener tu carrito de compras' }}">
-                <span>🛒</span> <span class="central-cart-label">Carrito</span>
-                <span class="central-cart-badge" id="centralCartBadge">{{ $user ? '0' : '🔒' }}</span>
+            <button type="button" class="btn-central-cart" id="btnCentralCart" onclick="goToCartRoutePlanner()" title="Ver productos en mi Carrito y calcular ruta">
+                <svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg> <span class="central-cart-label">Carrito</span>
+                <span class="central-cart-badge" id="centralCartBadge">{{ $user ? '0' : '0' }}</span>
             </button>
 
             @if($user)
@@ -5578,8 +5584,8 @@
 
             <!-- Dark / Light Theme Toggle -->
             <button type="button" class="btn-theme-toggle" id="themeToggleBtn" onclick="toggleTheme()" aria-label="Cambiar modo oscuro/claro" title="Cambiar a Modo Oscuro / Claro">
-                <span class="theme-icon-light">🌙</span>
-                <span class="theme-icon-dark" style="display: none;">☀️</span>
+                <span class="theme-icon-light"><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></span>
+                <span class="theme-icon-dark" style="display: none;"><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></span>
             </button>
 
             <!-- Mobile Hamburger Toggle -->
@@ -5605,7 +5611,7 @@
         <div class="drawer-brand">
             <div class="drawer-logo-badge" style="display: grid; place-items: center; overflow: hidden; background: linear-gradient(135deg, #c86d63, #b45b51); position: relative;">
                 <img src="/app-icons/icon.svg" alt="Minimapa Zacatecas Centro" style="width: 100%; height: 100%; object-fit: cover; display: block;" onerror="this.onerror=null; this.src='/icons/icon.svg'; this.onerror=function(){this.style.display='none'; this.nextElementSibling.style.display='grid';};">
-                <span style="display: none; width: 100%; height: 100%; place-items: center; font-size: 18px; color: #fff;">🏛️</span>
+                <span style="display: none; width: 100%; height: 100%; place-items: center; font-size: 18px; color: #fff;">🏛</span>
             </div>
             <div>
                 <strong>Atelier Zacatecas</strong>
@@ -5629,9 +5635,9 @@
         </div>
     @else
         <div class="drawer-guest-box">
-            <span>👋 Bienvenido(a) a Zacatecas Centro</span>
+            <span>Bienvenido(a) a Zacatecas Centro</span>
             <button type="button" class="btn-drawer-login" onclick="closeMobileMenu(); openAuthModal('login')">
-                <span>👤</span> Iniciar Sesión / Registrarse
+                <svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> <span>Iniciar Sesión / Registrarse</span>
             </button>
         </div>
     @endif
@@ -5640,17 +5646,16 @@
     <div class="drawer-section-title">Navegación del Portal</div>
     <nav class="mobile-nav-list">
         <a href="#zacatecasMap" class="drawer-nav-item" onclick="closeMobileMenu(); goToCartRoutePlanner();">
-            <div class="nav-item-icon" style="background: rgba(200, 109, 99, 0.15); color: #c86d63;">🛒</div>
+            <div class="nav-item-icon" style="background: rgba(200, 109, 99, 0.15); color: #c86d63;"><svg class="ui-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg></div>
             <div class="nav-item-text">
-                <div class="nav-item-title">Mi Carrito de Compras (<span id="drawerCartBadge">{{ $user ? '0' : '🔒' }}</span>)</div>
+                <div class="nav-item-title">Mi Carrito de Compras (<span id="drawerCartBadge">0</span>)</div>
                 <div class="nav-item-sub">Ruta para ver y comprar tus artículos en tiendas</div>
             </div>
             <span class="nav-item-arrow">›</span>
         </a>
 
-
         <a href="javascript:void(0)" class="drawer-nav-item" onclick="closeMobileMenu(); focusGlobalSearch();">
-            <div class="nav-item-icon" style="background: rgba(16, 185, 129, 0.15); color: #10b981;">🔍</div>
+            <div class="nav-item-icon" style="background: rgba(16, 185, 129, 0.15); color: #10b981;"><svg class="ui-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>
             <div class="nav-item-text">
                 <div class="nav-item-title" data-i18n="nav_buscar">Búsqueda Global de Productos</div>
                 <div class="nav-item-sub" data-i18n="nav_buscar_sub">Catálogo completo de todas las tiendas</div>
@@ -5659,7 +5664,7 @@
         </a>
 
         <a href="{{ url('/planes') }}" class="drawer-nav-item" onclick="closeMobileMenu();">
-            <div class="nav-item-icon" style="background: rgba(168, 85, 247, 0.15); color: #9333ea;">💎</div>
+            <div class="nav-item-icon" style="background: rgba(168, 85, 247, 0.15); color: #9333ea;"><svg class="ui-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg></div>
             <div class="nav-item-text">
                 <div class="nav-item-title" style="color: #9333ea; font-weight: 800;">Planes de Suscripción</div>
                 <div class="nav-item-sub">Renta tu tienda online en Zacatecas Centro</div>
@@ -5672,17 +5677,17 @@
     <div class="drawer-footer-actions">
         <!-- Theme Toggle in Drawer -->
         <button type="button" class="btn-theme-toggle-drawer" onclick="toggleTheme()">
-            <span class="theme-text-light">🌙 Cambiar a Modo Oscuro</span>
-            <span class="theme-text-dark" style="display: none;">☀️ Cambiar a Modo Claro</span>
+            <span class="theme-text-light"><svg class="ui-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg> Cambiar a Modo Oscuro</span>
+            <span class="theme-text-dark" style="display: none;"><svg class="ui-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg> Cambiar a Modo Claro</span>
         </button>
 
         <!-- Language and Share in Drawer -->
         <div style="display: flex; gap: 8px;">
             <button type="button" class="btn-theme-toggle-drawer" style="flex: 1;" onclick="toggleLanguage()">
-                <span>🌐</span> <span class="lang-drawer-text">Español (ES)</span>
+                <span><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span> <span class="lang-drawer-text">Español (ES)</span>
             </button>
             <button type="button" class="btn-theme-toggle-drawer" style="flex: 1;" onclick="sharePortal()">
-                <span>📤</span> <span data-i18n="btn_share">Compartir</span>
+                <span><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></span> <span data-i18n="btn_share">Compartir</span>
             </button>
         </div>
 
@@ -5700,7 +5705,7 @@
 
     <!-- HERO WITH MULTI-STORE GLOBAL SEARCH -->
     <section class="portal-hero" id="buscar" style="margin-bottom: 28px; text-align: center;">
-        <span class="zac-location-hero-badge">🏛️ Directorio Comercial del Centro Histórico</span>
+        <span class="zac-location-hero-badge">Directorio Comercial del Centro Histórico</span>
         <h1 style="font-family: 'Playfair Display', serif; font-size: clamp(26px, 4.8vw, 42px); line-height: 1.25; margin: 12px 0 10px; color: var(--ink);">
             Comercios y Tiendas Locales de <em>Zacatecas Centro</em>
         </h1>
@@ -5713,7 +5718,7 @@
             <form action="{{ url('/') }}" method="GET" class="global-search-form" id="globalSearchForm">
                 <input type="text" name="q" id="globalSearchInput" class="global-search-input" value="{{ $searchQuery }}" placeholder="¿Qué buscas? (ej. café, plata ley .925, gorditas, mezcal)..." autocomplete="off">
                 <button type="submit" class="global-search-btn">
-                    <span>🔍</span> <span class="search-btn-text">Buscar</span>
+                    <svg class="ui-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg> <span class="search-btn-text">Buscar</span>
                 </button>
             </form>
 
@@ -5724,7 +5729,7 @@
 
             <!-- USER SEARCH HISTORY (SOLO SE MUESTRA SI EL USUARIO TIENE HISTORIAL DE BÚSQUEDA) -->
             <div class="search-history-row" id="userSearchHistoryContainer">
-                <span class="search-history-label">🕒 Búsquedas recientes:</span>
+                <span class="search-history-label"><svg class="ui-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> Búsquedas recientes:</span>
                 <div class="search-history-chips" id="userSearchHistoryChips"></div>
                 <button type="button" class="btn-clear-search-history" onclick="clearUserSearchHistory()" title="Borrar historial de búsqueda">✕ Limpiar</button>
             </div>
@@ -5757,13 +5762,13 @@
     <nav class="main-tab-nav-wrapper" id="mainTabNavWrapper" aria-label="Secciones principales" style="margin: 20px auto 32px;">
         <div class="main-tab-switcher">
             <button type="button" class="main-tab-btn active" id="tabBtnStores" onclick="switchMainTab('stores')">
-                <span>🏬</span> Tiendas de Zacatecas <span class="tab-badge">{{ count($allBusinesses) }}</span>
+                <svg class="ui-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg> Tiendas de Zacatecas <span class="tab-badge">{{ count($allBusinesses) }}</span>
             </button>
             <button type="button" class="main-tab-btn" id="tabBtnFeed" onclick="switchMainTab('feed')">
-                <span>🔥</span> Productos Populares
+                <svg class="ui-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg> Productos Populares
             </button>
             <button type="button" class="main-tab-btn" id="tabBtnMap" onclick="switchMainTab('map')">
-                <span>📍</span> Mapa con GPS
+                <svg class="ui-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg> Mapa con GPS
             </button>
         </div>
     </nav>
@@ -5804,7 +5809,7 @@
                                     maps_url: "https://maps.google.com/?q=22.7753,-102.5724"
                                 });'>
                                 <span class="search-store-badge-float" style="border-left: 3px solid {{ $item['store_color'] }};">
-                                    🏬 {{ $item['store_name'] }}
+                                    <svg class="ui-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> {{ $item['store_name'] }}
                                 </span>
                                 <img src="{{ !empty($item['image_url']) ? $item['image_url'] : 'https://placehold.co/600x600?text=' . urlencode($item['name']) }}" alt="{{ $item['name'] }}" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/600x600?text=Zacatecas';">
                             </div>
@@ -5856,7 +5861,7 @@
                 <p style="font-size: 13.5px; color: var(--muted); margin: 0;">Los artículos más populares y con mejores calificaciones en los comercios del Centro Histórico.</p>
             </div>
             <div class="most-visited-tag-badge">
-                🔥 Tendencias en Vivo
+                <svg class="ui-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg> Tendencias en Vivo
             </div>
         </div>
 
@@ -5882,8 +5887,8 @@
                         maps_url: @json($item["maps_url"] ?? "")
                     });'>
                         <img src="{{ !empty($item['image_url']) ? $item['image_url'] : 'https://placehold.co/600x600?text=' . urlencode($item['name']) }}" alt="{{ $item['name'] }}" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/600x600?text=Zacatecas';">
-                        <span class="visited-badge-visits">🔥 {{ number_format($item['visits_count']) }} visitas</span>
-                        <span class="visited-badge-store">🏬 {{ $item['store_name'] }}</span>
+                        <span class="visited-badge-visits"><svg class="ui-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg> {{ number_format($item['visits_count']) }} visitas</span>
+                        <span class="visited-badge-store"><svg class="ui-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg> {{ $item['store_name'] }}</span>
                     </div>
 
                     <div class="visited-product-body">
@@ -5951,19 +5956,19 @@
         <div class="how-steps-grid">
             <div class="how-step-card">
                 <div class="how-step-badge">Paso 1</div>
-                <div class="how-step-icon">🔍</div>
+                <div class="how-step-icon"><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
                 <h3>Explora Comercios &amp; Catálogos</h3>
                 <p>Navega por el mapa interactivo o directorio para ver productos, precios y horarios en tiempo real.</p>
             </div>
             <div class="how-step-card">
                 <div class="how-step-badge">Paso 2</div>
-                <div class="how-step-icon">🛒</div>
+                <div class="how-step-icon"><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></div>
                 <h3>Agrega al Carrito o Pide Directo</h3>
                 <p>Guarda artículos de diferentes tiendas en tu carrito o contacta a la tienda vía WhatsApp.</p>
             </div>
             <div class="how-step-card">
                 <div class="how-step-badge">Paso 3</div>
-                <div class="how-step-icon">🚶‍♂️</div>
+                <div class="how-step-icon"><svg class="ui-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
                 <h3>Visita con la Ruta Recomendada</h3>
                 <p>Calcula el recorrido más corto por las calles del Centro para ver tus artículos o solicita envío a domicilio.</p>
             </div>
@@ -5973,7 +5978,7 @@
     <!-- TIENDAS CERCANAS EN ZACATECAS CENTRO & MAPA INTERACTIVO -->
     <section class="companies-section" id="cercanas">
         <div class="section-intro">
-            <span class="section-eyebrow">📍 Geolocalización y Proximidad</span>
+            <span class="section-eyebrow"><svg class="ui-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Geolocalización y Proximidad</span>
             <h2 class="section-title">Tiendas Cercanas en Zacatecas Centro</h2>
             <p style="color: var(--muted); font-size: 14.5px; margin-top: 6px;">
                 Descubre los comercios más cercanos en el Centro Histórico de Zacatecas. Activa tu GPS para calcular la distancia en tiempo real o filtra por zona comercial:
@@ -5985,40 +5990,40 @@
             <div class="proximity-actions-row">
                 <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
                     <button type="button" class="btn-use-gps" id="btnGpsProximity" onclick="requestUserLocation()">
-                        <span>🎯</span> Activar Mi Ubicación (GPS)
+                        <svg class="ui-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg> Activar Mi Ubicación (GPS)
                     </button>
                     <span class="gps-status-indicator" id="gpsStatusText">Centro de Zacatecas (Plaza de Armas)</span>
                 </div>
                 <div style="font-size: 12px; color: var(--muted); font-weight: 600;">
-                    🗺️ Mapa interactivo con sucursales físicas y cálculo de cercanía
+                    Mapa interactivo con sucursales físicas y cálculo de cercanía
                 </div>
             </div>
 
             <!-- Zacatecas Zone Filter Pills -->
             <div class="zac-zones-pills">
                 <span style="font-size: 11.5px; font-weight: 700; color: var(--muted); display: inline-flex; align-items: center; gap: 4px; margin-right: 4px;">
-                    <span>📍</span> <span>Zona:</span>
+                    <svg class="ui-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> <span>Zona:</span>
                 </span>
                 <button type="button" class="zone-pill active" onclick="filterByZone('all', this)">✦ Todas las Zonas</button>
-                <button type="button" class="zone-pill" onclick="filterByZone('Hidalgo', this)">🚶 Av. Hidalgo</button>
-                <button type="button" class="zone-pill" onclick="filterByZone('Tacuba', this)">🛍️ Calle Tacuba</button>
-                <button type="button" class="zone-pill" onclick="filterByZone('Juárez', this)">🏬 Av. Juárez</button>
-                <button type="button" class="zone-pill" onclick="filterByZone('Portal de Rosales', this)">☕ Portal de Rosales</button>
-                <button type="button" class="zone-pill" onclick="filterByZone('González Ortega', this)">🏛️ Mercado González Ortega</button>
+                <button type="button" class="zone-pill" onclick="filterByZone('Hidalgo', this)">Av. Hidalgo</button>
+                <button type="button" class="zone-pill" onclick="filterByZone('Tacuba', this)">Calle Tacuba</button>
+                <button type="button" class="zone-pill" onclick="filterByZone('Juárez', this)">Av. Juárez</button>
+                <button type="button" class="zone-pill" onclick="filterByZone('Portal de Rosales', this)">Portal de Rosales</button>
+                <button type="button" class="zone-pill" onclick="filterByZone('González Ortega', this)">Mercado González Ortega</button>
             </div>
 
             <!-- Walking Distance Radius Filter Pills & Open Now Toggle -->
             <div class="walking-radius-row">
                 <span style="font-size: 11.5px; font-weight: 700; color: var(--muted); display: flex; align-items: center; gap: 4px;">
-                    <span>🚶‍♂️</span> <span data-i18n="label_walking">Distancia a pie:</span>
+                    <svg class="ui-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> <span data-i18n="label_walking">Distancia a pie:</span>
                 </span>
                 <button type="button" class="radius-pill active" onclick="filterByDistance(999, this)" data-i18n="radius_all">✦ Todo el Centro</button>
-                <button type="button" class="radius-pill" onclick="filterByDistance(0.2, this)" data-i18n="radius_200">⚡ Menos de 200 m (2 min)</button>
-                <button type="button" class="radius-pill" onclick="filterByDistance(0.5, this)" data-i18n="radius_500">🚶‍♀️ Menos de 500 m (5 min)</button>
-                <button type="button" class="radius-pill" onclick="filterByDistance(1.0, this)" data-i18n="radius_1k">🏃‍♂️ Menos de 1 km</button>
+                <button type="button" class="radius-pill" onclick="filterByDistance(0.2, this)" data-i18n="radius_200">Menos de 200 m (2 min)</button>
+                <button type="button" class="radius-pill" onclick="filterByDistance(0.5, this)" data-i18n="radius_500">Menos de 500 m (5 min)</button>
+                <button type="button" class="radius-pill" onclick="filterByDistance(1.0, this)" data-i18n="radius_1k">Menos de 1 km</button>
 
                 <button type="button" class="filter-only-open" id="btnToggleOnlyOpen" onclick="toggleFilterOnlyOpen(this)">
-                    <span>🟢</span> <span data-i18n="btn_only_open">Solo Abiertos Ahora</span>
+                    <span class="dot-online" style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#10b981;"></span> <span data-i18n="btn_only_open">Solo Abiertos Ahora</span>
                 </button>
             </div>
         </div>
@@ -6031,7 +6036,7 @@
             <div class="route-panel-toggle-wrapper">
                 <button type="button" class="btn-toggle-route-panel" id="btnToggleRoutePanel" onclick="toggleRoutePanel()">
                     <span class="route-toggle-left">
-                        <span class="toggle-icon">🗺️</span>
+                        <span class="toggle-icon"><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg></span>
                         <span class="toggle-title">Ruta de Compras según tu Carrito</span>
                         <span class="route-cart-badge-pill" id="routeCartBadgePill" style="display: none;">0 productos</span>
                     </span>
@@ -6047,12 +6052,12 @@
                 <div class="route-opt-header-minimal">
                     <div>
                         <h3 style="font-size: 15px; font-weight: 800; margin: 0; color: var(--ink); display: flex; align-items: center; gap: 8px;">
-                            <span>🗺️</span> Ruta de Compras
+                            <span><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg></span> Ruta de Compras
                         </h3>
                         <p style="font-size: 12px; color: var(--muted); margin: 2px 0 0;">Visita las tiendas físicas de los artículos en tu carrito por Zacatecas Centro.</p>
                     </div>
                     <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
-                        <button type="button" class="btn-opt-clear-min" onclick="clearCartRouteItems()" id="btnClearRouteCart" style="display: none;">🗑️ Vaciar</button>
+                        <button type="button" class="btn-opt-clear-min" onclick="clearCartRouteItems()" id="btnClearRouteCart" style="display: none;"><svg class="ui-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg> Vaciar</button>
                         <button type="button" class="btn-opt-close-min" onclick="toggleRoutePanel(false)">✕ Ocultar</button>
                     </div>
                 </div>
@@ -6065,21 +6070,21 @@
                 <!-- Selector de Ubicación de Origen / Tu Ubicación -->
                 <div class="route-origin-bar" id="routeOriginBar">
                     <div style="display: flex; align-items: center; gap: 10px;">
-                        <span style="font-size: 22px;">📍</span>
+                        <span style="display: inline-flex; align-items: center;"><svg class="ui-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
                         <div>
                             <strong style="font-size: 13px; color: var(--ink);">Tu Punto de Partida:</strong>
-                            <div style="font-size: 12px; color: var(--muted);" id="routeOriginLabel">🏛️ Plaza de Armas (Centro Histórico)</div>
+                            <div style="font-size: 12px; color: var(--muted);" id="routeOriginLabel">Plaza de Armas (Centro Histórico)</div>
                         </div>
                     </div>
                     <div style="display: flex; gap: 6px; flex-wrap: wrap;">
                         <button type="button" class="btn-route-origin-pill active" id="btnRoutePlazaArmas" onclick="setOriginPlazaDeArmas()" title="Fijar punto de partida en Plaza de Armas">
-                            <span>🏛️</span> Plaza de Armas
+                            <span><svg class="ui-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span> Plaza de Armas
                         </button>
                         <button type="button" class="btn-route-origin-pill" id="btnRouteUseGps" onclick="requestUserLocationForRoute(true)" title="Usar coordenadas GPS en tiempo real">
-                            <span>📡</span> Mi Ubicación GPS
+                            <span><svg class="ui-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="22" y1="12" x2="18" y2="12"/><line x1="6" y1="12" x2="2" y2="12"/><line x1="12" y1="6" x2="12" y2="2"/><line x1="12" y1="22" x2="12" y2="18"/></svg></span> Mi Ubicación GPS
                         </button>
                         <button type="button" class="btn-route-origin-pill" id="btnClickMapOrigin" onclick="enableMapPickOrigin()" title="Hacer clic en cualquier parte del mapa para fijar tu hotel o punto de partida">
-                            <span>🗺️</span> Elegir en Mapa
+                            <span><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg></span> Elegir en Mapa
                         </button>
                     </div>
                 </div>
@@ -6103,24 +6108,24 @@
                                     <img src="{{ $b['logo_url'] }}" alt="{{ $b['store_name'] }}" style="width: 100%; height: 100%; object-fit: contain; border-radius: 6px;" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='inline';">
                                     <span style="display: none;">
                                         {{ match($b['business_category'] ?? '') {
-                                            'Moda y Lujo' => '👗',
-                                            'Bebidas y Alimentos' => '☕',
-                                            'Joyería y Platería', 'Platería y Joyería' => '💍',
-                                            'Artesanías y Recuerdos', 'Arte y Souvenirs' => '🏺',
-                                            'Librería y Cultura', 'Libros y Café' => '📚',
-                                            'Cantinas Tradicionales', 'Gastronomía y Tradición' => '🍷',
-                                            default => '🏬'
+                                            'Moda y Lujo' => '•',
+                                            'Bebidas y Alimentos' => '•',
+                                            'Joyería y Platería', 'Platería y Joyería' => '•',
+                                            'Artesanías y Recuerdos', 'Arte y Souvenirs' => '•',
+                                            'Librería y Cultura', 'Libros y Café' => '•',
+                                            'Cantinas Tradicionales', 'Gastronomía y Tradición' => '•',
+                                            default => '•'
                                         } }}
                                     </span>
                                 @else
                                     {{ match($b['business_category'] ?? '') {
-                                        'Moda y Lujo' => '👗',
-                                        'Bebidas y Alimentos' => '☕',
-                                        'Joyería y Platería', 'Platería y Joyería' => '💍',
-                                        'Artesanías y Recuerdos', 'Arte y Souvenirs' => '🏺',
-                                        'Librería y Cultura', 'Libros y Café' => '📚',
-                                        'Cantinas Tradicionales', 'Gastronomía y Tradición' => '🍷',
-                                        default => '🏬'
+                                        'Moda y Lujo' => '•',
+                                        'Bebidas y Alimentos' => '•',
+                                        'Joyería y Platería', 'Platería y Joyería' => '•',
+                                        'Artesanías y Recuerdos', 'Arte y Souvenirs' => '•',
+                                        'Librería y Cultura', 'Libros y Café' => '•',
+                                        'Cantinas Tradicionales', 'Gastronomía y Tradición' => '•',
+                                        default => '•'
                                     } }}
                                 @endif
                             </div>
@@ -6135,7 +6140,7 @@
 
                 <div class="route-opt-trigger-row" style="margin-top: 14px;">
                     <button type="button" class="btn-calculate-route" id="btnCalculateRoute" onclick="optimizeShoppingRoute(true)">
-                        <span>🚶‍♂️</span> Calcular Ruta Recomendada
+                        <span><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg></span> Calcular Ruta Recomendada
                     </button>
                 </div>
 
@@ -6160,20 +6165,7 @@
                         $countInCat = count(array_filter($allBusinesses, fn($b) => strtolower($b['business_category']) === strtolower($catName)));
                     @endphp
                     <a href="{{ url('/?categoria=' . urlencode($catName) . ($searchQuery ? '&q=' . urlencode($searchQuery) : '')) }}#empresas" class="filter-pill {{ strtolower($selectedCategory) === strtolower($catName) ? 'active' : '' }}">
-                        {{ match($catName) {
-                            'Moda y Lujo' => '👗',
-                            'Joyería y Plata .925' => '💍',
-                            'Cafeterías y Alimentos' => '☕',
-                            'Dulces Típicos y Alimentos' => '🍬',
-                            'Vinos y Licores' => '🍷',
-                            'Artesanías y Cultura' => '🏺',
-                            'Cultura y Libros' => '📚',
-                            'Tecnología y Gadgets' => '💻',
-                            'Bebidas y Alimentos' => '🥤',
-                            'Hogar y Decoración' => '🏺',
-                            'Salud y Belleza' => '🌿',
-                            default => '🏬'
-                        } }} {{ $catName }} ({{ $countInCat }})
+                        {{ $catName }} ({{ $countInCat }})
                     </a>
                 @endforeach
             </div>
@@ -6210,7 +6202,7 @@
                                     {{ $company['business_category'] }}
                                 </span>
                                 <span class="distance-badge-pill" id="dist-badge-{{ $company['id'] }}" style="display: none;">
-                                    📍 <span class="dist-val">--</span> km
+                                    <svg class="ui-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> <span class="dist-val">--</span> km
                                 </span>
                             </div>
                         </div>
@@ -6228,19 +6220,20 @@
 
                             <!-- Physical Location in Zacatecas Centro -->
                             <div class="store-location-chip" title="Dirección física en Zacatecas Centro">
-                                <span>📍</span>
+                                <svg class="ui-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
                                 <span><strong>{{ $company['address'] }}</strong> ({{ $company['neighborhood_zone'] }})</span>
                             </div>
                             @if(!empty($company['location_reference']))
                                 <div style="font-size: 11.5px; color: var(--muted); margin-bottom: 8px; display: flex; align-items: center; gap: 5px;">
-                                    <span>🧭</span> <em>Ref: {{ $company['location_reference'] }}</em>
+                                    <svg class="ui-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+                                    <em>Ref: {{ $company['location_reference'] }}</em>
                                 </div>
                             @endif
 
                             <!-- Real-time dynamic Open / Closed status -->
                             <div class="store-hours-bar">
                                 <div class="store-hours-info">
-                                    <span>⏰</span> <span class="hours-text">{{ $company['opening_hours'] }}</span>
+                                    <svg class="ui-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> <span class="hours-text">{{ $company['opening_hours'] }}</span>
                                 </div>
                                 <span class="store-open-badge badge-closed" id="badge-open-{{ $company['id'] }}">
                                     <span class="dot"></span>
@@ -6302,7 +6295,7 @@
 
             <!-- EMPTY STATE PARA EL BUSCADOR DEL DIRECTORIO -->
             <div id="directoryEmptyState" style="display: none; grid-column: 1 / -1; text-align: center; padding: 48px 24px; background: var(--card); border: 2px dashed var(--border); border-radius: 20px;">
-                <div style="font-size: 44px; margin-bottom: 12px;">🏢🔍</div>
+                <div style="font-size: 36px; margin-bottom: 12px; color: var(--muted);"><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
                 <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 6px; color: var(--foreground);">No se encontraron empresas</h3>
                 <p style="color: var(--muted); font-size: 14px; max-width: 440px; margin: 0 auto 18px;">No encontramos comercios que coincidan con "<strong id="directorySearchTerm" style="color: var(--accent);"></strong>". Intenta con otro nombre, giro o producto.</p>
                 <button type="button" onclick="clearDirectorySearch()" style="background: var(--accent); color: #fff; border: none; padding: 9px 20px; border-radius: 999px; font-weight: 700; cursor: pointer; font-size: 13.5px; box-shadow: 0 4px 12px rgba(200, 109, 99, 0.3);">✦ Mostrar Todas las Empresas</button>
@@ -6315,7 +6308,7 @@
     <div class="floating-route-cart-bar" id="floatingRouteCartBar" onclick="goToCartRoutePlanner()" style="display: none;">
         <div class="floating-cart-inner">
             <div class="floating-cart-info">
-                <span class="floating-cart-icon">🛒</span>
+                <span class="floating-cart-icon"><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></span>
                 <div>
                     <strong id="floatingCartText">0 productos en tu Carrito</strong>
                     <small id="floatingCartSub">Calcula tu ruta recomendada desde tu ubicación</small>
@@ -6324,7 +6317,7 @@
             <div class="floating-cart-action">
                 <span class="floating-cart-total" id="floatingCartTotal">$0.00 MXN</span>
                 <button type="button" class="btn-floating-route-cta">
-                    <span>🗺️ Ver Ruta Recomendada ➔</span>
+                    <span>Ver Ruta Recomendada ➔</span>
                 </button>
             </div>
         </div>
@@ -6541,7 +6534,7 @@
                     <img id="centralModalImg" src="" alt="Producto" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/600x600?text=Zacatecas+Producto';">
                 </div>
                 <div class="modal-badges-row">
-                    <span class="modal-chip modal-chip-store" id="centralModalStoreBadge">🏬 Tienda</span>
+                    <span class="modal-chip modal-chip-store" id="centralModalStoreBadge">Comercio Local</span>
                     <span class="modal-chip modal-chip-stock" id="centralModalStock">✓ En existencia</span>
                 </div>
             </div>
@@ -6562,7 +6555,7 @@
                 <div class="modal-zac-location-box">
                     <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 4px;">
                         <span style="font-size: 11.5px; font-weight: 800; color: var(--accent); text-transform: uppercase; letter-spacing: .06em; display: flex; align-items: center; gap: 5px;">
-                            <span>📍</span> <span id="centralModalStoreLocName">Sucursal Zacatecas Centro</span>
+                            <span><svg class="ui-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span> <span id="centralModalStoreLocName">Sucursal Zacatecas Centro</span>
                         </span>
                         <a id="centralModalMapsLink" href="#" target="_blank" style="font-size: 11px; font-weight: 700; color: var(--accent); text-decoration: underline;">
                             Ver Mapa ↗
@@ -6579,18 +6572,18 @@
                 <!-- Action Buttons -->
                 <div class="modal-actions-row">
                     <button type="button" id="centralModalAddCartBtn" class="btn-add-cart-route-modal" onclick="addCurrentModalProductToRouteCart()">
-                        <span>🛒</span> Añadir a mi Carrito para Ruta
+                        <span><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></span> Añadir a mi Carrito para Ruta
                     </button>
                     <a id="centralModalWaBtn" href="#" target="_blank" class="btn-whatsapp-order">
                         <svg style="width:20px; height:20px; fill:#fff;" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.699c.971.53 1.769.814 2.797.814 3.18 0 5.767-2.587 5.768-5.766 0-3.18-2.588-5.766-5.769-5.766zm0 10.355c-.886 0-1.616-.242-2.348-.675l-.168-.1-1.745.458.466-1.701-.11-.175c-.476-.757-.728-1.503-.728-2.399 0-2.531 2.059-4.59 4.635-4.59 2.576 0 4.635 2.059 4.635 4.59 0 2.531-2.059 4.592-4.535 4.592zm-8.031-4.589c0 6.627 5.373 12 12 12s12-5.373 12-12-5.373-12-12-12-12 5.373-12 12z"/></svg>
                         Pedir por WhatsApp (<span id="centralModalBtnPrice">$0.00</span>)
                     </a>
                     <a id="centralModalStoreBtn" href="#" class="btn-visit-store-modal">
-                        <span>🏬</span> Ir a la Tienda Completa ↗
+                        <span><svg class="ui-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span> Ir a la Tienda Completa ↗
                     </a>
                 </div>
                     <button type="button" class="btn-return-home-modal" onclick="closeCentralProductModal(); goToPortalHome();" style="width: 100%; margin-top: 10px; padding: 12px; border-radius: 12px; background: rgba(200, 109, 99, 0.12); color: var(--accent); border: 1.5px solid rgba(200, 109, 99, 0.3); font-weight: 700; font-size: 13.5px; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer;">
-                        <span>🏠</span> Volver al Inicio de Zacatecas
+                        <span><svg class="ui-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span> Volver al Inicio de Zacatecas
                     </button>
             </div>
         </div>
@@ -6627,7 +6620,7 @@
     </div>
     <div class="cib-actions">
         <a href="#" target="_blank" class="cib-btn-wa" id="centralCibBtnWa" onclick="closeCentralCartInquiryBanner()">
-            <span id="centralCibBtnWaIcon">💬</span> <span id="centralCibBtnWaText">Preguntar por WhatsApp</span>
+            <span id="centralCibBtnWaIcon"><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></span> <span id="centralCibBtnWaText">Preguntar por WhatsApp</span>
         </a>
         <button type="button" class="cib-btn-cart" onclick="closeCentralCartInquiryBanner(); goToCartRoutePlanner();">
             Ver Carrito &amp; Ruta ➔
@@ -6640,19 +6633,19 @@
 <!-- NATIVE MOBILE BOTTOM NAVIGATION BAR -->
 <nav class="mobile-bottom-nav" id="mobileBottomNav" aria-label="Navegación Móvil Principal">
     <button type="button" class="bottom-nav-tab active" id="bnavStores" onclick="switchMainTab('stores')" aria-label="Tiendas">
-        <span class="bottom-nav-icon">🏬</span>
+        <span class="bottom-nav-icon"><svg class="ui-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg></span>
         <span class="bottom-nav-label">Tiendas</span>
     </button>
     <button type="button" class="bottom-nav-tab" id="bnavFeed" onclick="switchMainTab('feed')" aria-label="Productos">
-        <span class="bottom-nav-icon">🔥</span>
+        <span class="bottom-nav-icon"><svg class="ui-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg></span>
         <span class="bottom-nav-label">Productos</span>
     </button>
     <button type="button" class="bottom-nav-tab" id="bnavMap" onclick="switchMainTab('map')" aria-label="Mapa GPS">
-        <span class="bottom-nav-icon">🗺️</span>
+        <span class="bottom-nav-icon"><svg class="ui-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg></span>
         <span class="bottom-nav-label">Mapa GPS</span>
     </button>
     <button type="button" class="bottom-nav-tab" id="bnavRoute" onclick="goToCartRoutePlanner()" aria-label="Mi Carrito">
-        <span class="bottom-nav-icon">🛒</span>
+        <span class="bottom-nav-icon"><svg class="ui-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg></span>
         <span class="bottom-nav-label">Carrito</span>
         <span class="bottom-nav-badge" id="bnavRouteBadge" style="display: none;">0</span>
     </button>
@@ -7048,12 +7041,12 @@ function addCurrentModalProductToRouteCart() {
     if (!currentCentralProduct) return;
     if (!IS_USER_LOGGED_IN) {
         openAuthModal('login');
-        showToast('🔒 Inicia sesión para tener tu carrito de compras.');
+        showToast('Inicia sesión para tener tu carrito de compras.');
         return;
     }
     addGlobalCartItem(currentCentralProduct);
     closeCentralProductModal();
-    showToast(`🛒 "${currentCentralProduct.name}" añadido a tu carrito para la ruta`);
+    showToast(` "${currentCentralProduct.name}" añadido a tu carrito para la ruta`);
     renderCartForRoute();
     const routeBox = document.getElementById('routeOptimizerPanel');
     if (routeBox) {
@@ -7077,10 +7070,10 @@ function openCentralProductModal(item) {
     if (titleEl) titleEl.textContent = item.name || '';
 
     const storeTagEl = document.getElementById('centralModalStoreTag');
-    if (storeTagEl) storeTagEl.textContent = item.store_name ? ('🏬 ' + item.store_name) : 'Comercio';
+    if (storeTagEl) storeTagEl.textContent = item.store_name ? item.store_name : 'Comercio';
 
     const storeBadgeEl = document.getElementById('centralModalStoreBadge');
-    if (storeBadgeEl) storeBadgeEl.textContent = '🏬 ' + (item.store_name || 'Comercio');
+    if (storeBadgeEl) storeBadgeEl.textContent = item.store_name || 'Comercio';
 
     const stockEl = document.getElementById('centralModalStock');
     if (stockEl) {
@@ -7133,7 +7126,7 @@ function openCentralProductModal(item) {
     const storeBtn = document.getElementById('centralModalStoreBtn');
     if (storeBtn) {
         storeBtn.href = item.store_url || item.url || '#';
-        storeBtn.innerHTML = `<span>🏬</span> Visitar Tienda de ${item.store_name || 'Comercio'} ↗`;
+        storeBtn.innerHTML = `<span><svg class="ui-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span> Visitar Tienda de ${item.store_name || 'Comercio'} ↗`;
     }
 
     modal.classList.add('open');
@@ -7231,7 +7224,7 @@ function renderUserSearchHistory() {
     chipsBox.innerHTML = history.map(term => {
         const safeTerm = term.replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
         const searchUrl = "{{ url('/') }}?q=" + encodeURIComponent(term);
-        return `<a href="${searchUrl}" class="search-history-chip" title="Buscar de nuevo: ${safeTerm}">🔍 ${safeTerm}</a>`;
+        return `<a href="${searchUrl}" class="search-history-chip" title="Buscar de nuevo: ${safeTerm}">${safeTerm}</a>`;
     }).join('');
 }
 
@@ -7283,7 +7276,7 @@ if (searchInput && liveDropdown) {
                                         <img src="${item.image_url || 'https://placehold.co/100x100?text=Prod'}" class="live-search-thumb" alt="${item.name}">
                                         <div class="live-search-details">
                                             <strong>${item.name}</strong>
-                                            <small><span class="live-search-store-badge">🏬 ${item.store_name}</span> · ${item.category_name}</small>
+                                            <small><span class="live-search-store-badge">${item.store_name}</span> · ${item.category_name}</small>
                                         </div>
                                     </div>
                                     <div class="live-search-price">
@@ -7489,7 +7482,7 @@ function renderStoreMarkers(stores) {
 
         const customIcon = L.divIcon({
             className: 'custom-map-pin',
-            html: `<div style="background: ${store.primary_color || '#c86d63'}; color: #fff; width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px; box-shadow: 0 4px 10px rgba(0,0,0,.35); border: 2.5px solid #ffffff;">📍</div>`,
+            html: `<div style="background: ${store.primary_color || '#c86d63'}; color: #fff; width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; box-shadow: 0 4px 10px rgba(0,0,0,.35); border: 2.5px solid #ffffff;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>`,
             iconSize: [34, 34],
             iconAnchor: [17, 34],
             popupAnchor: [0, -32]
@@ -7506,7 +7499,7 @@ function renderStoreMarkers(stores) {
             : `<span style="display:inline-flex; align-items:center; gap:4px; font-size:10.5px; font-weight:700; color:#dc2626; background:rgba(239,68,68,0.12); padding:2px 7px; border-radius:999px;"><span style="width:6px; height:6px; border-radius:50%; background:#ef4444;"></span> ${openStatus.label}</span>`;
 
         const traditionHtml = store.tradition_badge 
-            ? `<div style="font-size:10px; font-weight:700; color:#c86d63; margin-bottom:4px; display:inline-block; background:rgba(200,109,99,0.1); padding:2px 6px; border-radius:6px;">🏛️ ${store.tradition_badge}</div>` 
+            ? `<div style="font-size:10px; font-weight:700; color:#c86d63; margin-bottom:4px; display:inline-block; background:rgba(200,109,99,0.1); padding:2px 6px; border-radius:6px;">${store.tradition_badge}</div>` 
             : '';
 
         const storeLogoHtml = store.logo_url 
@@ -7527,7 +7520,7 @@ function renderStoreMarkers(stores) {
                 </div>
 
                 ${traditionHtml}
-                <p style="font-size: 11.5px; color: #555; margin: 0 0 6px; line-height: 1.35;">📍 ${store.address}</p>
+                <p style="font-size: 11.5px; color: #555; margin: 0 0 6px; line-height: 1.35;">${store.address}</p>
                 <div style="font-size: 11px; color: #059669; font-weight: 700; margin-bottom: 8px;">⏰ ${store.opening_hours}</div>
                 <div style="display: flex; gap: 6px; flex-wrap: wrap;">
                     <a href="${store.store_url}" target="_blank" style="flex: 1; text-align: center; background: #c86d63; color: #fff; padding: 6px 10px; border-radius: 999px; font-size: 11px; font-weight: 700; text-decoration: none;">${currentLang === 'en' ? 'Visit Store ↗' : 'Ver Tienda ↗'}</a>
@@ -7659,7 +7652,7 @@ function requestUserLocation() {
 
             if (distToZac <= 15) {
                 if (statusText) {
-                    statusText.textContent = `📍 Ubicación detectada (${userLat.toFixed(4)}, ${userLng.toFixed(4)})`;
+                    statusText.textContent = `Ubicación detectada (${userLat.toFixed(4)}, ${userLng.toFixed(4)})`;
                 }
 
                 // Update Map Center and add user marker
@@ -7668,7 +7661,7 @@ function requestUserLocation() {
 
                     const userIcon = L.divIcon({
                         className: 'user-map-pin',
-                        html: `<div style="background: #2563eb; color: #fff; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; box-shadow: 0 4px 14px rgba(37,99,235,.5); border: 3px solid #fff;">👤</div>`,
+                        html: `<div style="background: #2563eb; color: #fff; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 14px rgba(37,99,235,.5); border: 3px solid #fff;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>`,
                         iconSize: [36, 36],
                         iconAnchor: [18, 36],
                         popupAnchor: [0, -34]
@@ -7683,9 +7676,9 @@ function requestUserLocation() {
                 sortCardsByProximity(userLat, userLng);
             } else {
                 if (statusText) {
-                    statusText.textContent = `📍 Te encuentras a ${Math.round(distToZac)} km. Mostrando Comercios del Centro Histórico.`;
+                    statusText.textContent = `Te encuentras a ${Math.round(distToZac)} km. Mostrando Comercios del Centro Histórico.`;
                 }
-                showToast(`📍 Tu ubicación está a ${Math.round(distToZac)} km de Zacatecas. Mostrando Comercios desde Plaza de Armas (Centro Histórico).`);
+                showToast(` Tu ubicación está a ${Math.round(distToZac)} km de Zacatecas. Mostrando Comercios desde Plaza de Armas (Centro Histórico).`);
                 sortCardsByProximity(ZACATECAS_CENTER[0], ZACATECAS_CENTER[1]);
                 if (map) {
                     map.setView(ZACATECAS_CENTER, 15);
@@ -7695,7 +7688,7 @@ function requestUserLocation() {
         (error) => {
             console.warn('Geolocation error:', error);
             if (btn) {
-                btn.innerHTML = '<span>🎯</span> Activar Mi Ubicación (GPS)';
+                btn.innerHTML = '<span><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="22" y1="12" x2="18" y2="12"/><line x1="6" y1="12" x2="2" y2="12"/><line x1="12" y1="6" x2="12" y2="2"/><line x1="12" y1="22" x2="12" y2="18"/></svg></span> Activar Mi Ubicación (GPS)';
                 btn.disabled = false;
             }
             // Fallback: use downtown Zacatecas (Plaza de Armas) as user center
@@ -7745,17 +7738,17 @@ let routeOrigin = null;
 
 function matchCategoryIcon(category) {
     switch(category) {
-        case 'Moda y Lujo': return '👗';
-        case 'Bebidas y Alimentos': return '☕';
+        case 'Moda y Lujo': return '•';
+        case 'Bebidas y Alimentos': return '•';
         case 'Joyería y Platería':
-        case 'Platería y Joyería': return '💍';
+        case 'Platería y Joyería': return '•';
         case 'Artesanías y Recuerdos':
-        case 'Arte y Souvenirs': return '🏺';
+        case 'Arte y Souvenirs': return '•';
         case 'Librería y Cultura':
-        case 'Libros y Café': return '📚';
+        case 'Libros y Café': return '•';
         case 'Cantinas Tradicionales':
-        case 'Gastronomía y Tradición': return '🍷';
-        default: return '🏬';
+        case 'Gastronomía y Tradición': return '•';
+        default: return '•';
     }
 }
 
@@ -7824,7 +7817,7 @@ function saveUnifiedCart(cart) {
 function addGlobalCartItem(prod) {
     if (!IS_USER_LOGGED_IN) {
         openAuthModal('login');
-        showRouteToast('🔒 Inicia sesión para tener tu carrito de compras.');
+        showRouteToast('Inicia sesión para tener tu carrito de compras.');
         return false;
     }
     const cart = getUnifiedCart();
@@ -7895,36 +7888,36 @@ function detectCentralProductInquiry(product) {
     const jewelryTerms = ['plata', 'joya', 'joyeria', 'joyería', 'platería', 'plateria', 'anillo', 'dije', 'collar', 'pulsera', 'arete', 'aretes', 'cantera', 'mineral', 'oro', 'artesan', 'souvenir', 'recuerdo'];
     const isJewelry = jewelryTerms.some(t => allText.includes(t));
 
-    let icon = '💬';
+    let icon = '';
     let btnText = 'Preguntar a la Empresa';
-    let promptTitle = '💬 ¿Deseas consultar con la empresa?';
+    let promptTitle = '¿Deseas consultar con la empresa?';
     let promptSubtitle = 'Resuelven tus dudas de inmediato por WhatsApp antes de visitar la tienda.';
     let waMsg = '';
 
     const storeName = storeObj ? storeObj.store_name : (product.store_name || 'la empresa');
 
     if (isClothing) {
-        icon = '👕';
+        icon = '';
         btnText = 'Preguntar por Tallas';
-        promptTitle = '👕 ¿Tienes dudas sobre la talla o medida?';
+        promptTitle = '¿Tienes dudas sobre la talla o medida?';
         promptSubtitle = `Pregunta directamente a ${storeName} qué tallas tienen disponibles en sucursal.`;
         waMsg = `¡Hola! Vi el producto "${product.name}" en su catálogo de Zacatecas Centro. Me interesa adquirirlo, ¿qué tallas tienen disponibles actualmente?`;
     } else if (isFood) {
-        icon = '🍽️';
+        icon = '';
         btnText = 'Preguntar por Existencia Hoy';
-        promptTitle = '🍽️ ¿Deseas verificar si hay existencia hoy?';
+        promptTitle = '¿Deseas verificar si hay existencia hoy?';
         promptSubtitle = `Pregunta a ${storeName} si tienen porciones o unidades listas para recoger o consumir hoy.`;
         waMsg = `¡Hola! Vi en su menú/catálogo de Zacatecas Centro el producto "${product.name}". ¿Aún tienen en existencia disponible para hoy?`;
     } else if (isJewelry) {
-        icon = '💍';
+        icon = '';
         btnText = 'Consultar Acabado o Medida';
-        promptTitle = '💍 ¿Deseas consultar sobre esta pieza?';
+        promptTitle = '¿Deseas consultar sobre esta pieza?';
         promptSubtitle = `Consulta con ${storeName} sobre kilataje de plata ley .925, medidas de anillo o grabado.`;
         waMsg = `¡Hola! Me interesa la pieza "${product.name}" de su tienda en Zacatecas Centro. ¿Tienen existencia o medidas disponibles en sucursal?`;
     } else {
-        icon = '📦';
+        icon = '';
         btnText = 'Consultar Disponibilidad';
-        promptTitle = '📦 ¿Tienes alguna duda sobre este producto?';
+        promptTitle = '¿Tienes alguna duda sobre este producto?';
         promptSubtitle = `Consulta directamente con ${storeName} sobre stock o recogida física en el Centro Histórico.`;
         waMsg = `¡Hola! Vi en su catálogo de Zacatecas Centro el producto "${product.name}". ¿Tienen disponibilidad para entrega o recogida en sucursal?`;
     }
@@ -8001,13 +7994,13 @@ function quickAddProductToRouteCart(prod) {
     if (!prod) return;
     if (!IS_USER_LOGGED_IN) {
         openAuthModal('login');
-        showToast('🔒 Inicia sesión para tener tu carrito de compras.');
+        showToast('Inicia sesión para tener tu carrito de compras.');
         return;
     }
     addGlobalCartItem(prod);
     renderCartForRoute();
     updateHeaderCartBadge();
-    showToast(`🛒 ¡"${prod.name}" añadido a tu Carrito de Ruta!`);
+    showToast(` ¡"${prod.name}" añadido a tu Carrito de Ruta!`);
     showCentralCartInquiryBanner(prod);
     if (currentRoutePolyline) {
         optimizeShoppingRoute(false);
@@ -8054,13 +8047,13 @@ function clearCartRouteItems() {
     saveUnifiedCart({});
     renderCartForRoute();
     resetMapRoute();
-    showToast('🗑️ Carrito vaciado con éxito');
+    showToast('<svg class="ui-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg> Carrito vaciado con éxito');
 }
 
 function loadSampleCartForRouteDemo() {
     if (!IS_USER_LOGGED_IN) {
         openAuthModal('login');
-        showToast('🔒 Inicia sesión para tener tu carrito de compras.');
+        showToast('Inicia sesión para tener tu carrito de compras.');
         return;
     }
     const sampleItems = {
@@ -8127,12 +8120,12 @@ function loadSampleCartForRouteDemo() {
 function updateHeaderCartBadge(count) {
     if (!IS_USER_LOGGED_IN) {
         const badge = document.getElementById('centralCartBadge');
-        if (badge) badge.textContent = '🔒';
+        if (badge) badge.textContent = '';
         const drawerBadge = document.getElementById('drawerCartBadge');
-        if (drawerBadge) drawerBadge.textContent = '🔒';
+        if (drawerBadge) drawerBadge.textContent = '';
         const bottomNavBadge = document.getElementById('bottomNavCartBadge');
         if (bottomNavBadge) {
-            bottomNavBadge.textContent = '🔒';
+            bottomNavBadge.textContent = '';
             bottomNavBadge.style.display = 'inline-flex';
         }
         return;
@@ -8190,7 +8183,7 @@ function toggleRoutePanel(forceOpen) {
 function goToCartRoutePlanner() {
     if (!IS_USER_LOGGED_IN) {
         openAuthModal('login');
-        showToast('🔒 Inicia sesión para tener tu carrito y planificar tu ruta.');
+        showToast('Inicia sesión para tener tu carrito y planificar tu ruta.');
         return;
     }
     switchMainTab('map', false);
@@ -8210,7 +8203,7 @@ function renderCartForRoute() {
         const badgePill = document.getElementById('routeCartBadgePill');
         if (badgePill) {
             badgePill.style.display = 'inline-block';
-            badgePill.textContent = '🔒 Bloqueado';
+            badgePill.textContent = 'Acceso Privado';
         }
         const clearBtn = document.getElementById('btnClearRouteCart');
         if (clearBtn) clearBtn.style.display = 'none';
@@ -8220,7 +8213,7 @@ function renderCartForRoute() {
         container.innerHTML = `
             <div class="cart-route-empty-min" style="border: 2px dashed rgba(217, 119, 6, 0.4); background: rgba(254, 243, 199, 0.4); padding: 18px; border-radius: 14px;">
                 <div style="display: flex; align-items: center; gap: 12px;">
-                    <span style="font-size: 26px;">🔒</span>
+                    <span style="display:flex; justify-content:center;"><svg class="ui-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
                     <div>
                         <strong style="font-size: 14px; color: var(--ink);">Carrito exclusivo para usuarios registrados</strong>
                         <div style="font-size: 12px; color: var(--muted); margin-top: 2px;">Inicia sesión o regístrate en Atelier para guardar productos en tu carrito, conservar tus compras y optimizar tu ruta física en el Centro Histórico.</div>
@@ -8228,7 +8221,7 @@ function renderCartForRoute() {
                 </div>
                 <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-top: 10px;">
                     <button type="button" class="btn-seed-sample-cart-min" style="background: var(--ink); color: #fff; border: none; font-weight: 700; padding: 7px 16px; border-radius: 999px; cursor: pointer;" onclick="openAuthModal('login')">
-                        <span>🔑</span> Iniciar Sesión / Registrarme
+                        <span><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 2l-2 2m-1.5 1.5L14 9l-1.5-1.5L11 9l-1-1-4 4a5 5 0 1 0 7 7l4-4-1-1 1.5-1.5L19 14l3.5-3.5a2.12 2.12 0 0 0 0-3L21 2z"/></svg></span> Iniciar Sesión / Registrarme
                     </button>
                     <button type="button" class="btn-route-origin-pill" onclick="toggleManualStoreSelector(true)">
                         <span>⚙</span> Explorar Tiendas sin Carrito ▾
@@ -8280,7 +8273,7 @@ function renderCartForRoute() {
                     badge.className = 'route-chip-cart-badge';
                     chip.appendChild(badge);
                 }
-                badge.textContent = `🛒 ${count}`;
+                badge.textContent = count;
                 chip.classList.add('selected');
                 selectedRouteStoreIds.add(String(b.id));
             } else {
@@ -8300,7 +8293,7 @@ function renderCartForRoute() {
         container.innerHTML = `
             <div class="cart-route-empty-min">
                 <div style="display: flex; align-items: center; gap: 10px;">
-                    <span style="font-size: 20px;">🛒</span>
+                    <span style="display:flex; justify-content:center;"><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></span>
                     <div>
                         <strong style="font-size: 13px; color: var(--ink);">Tu carrito está vacío</strong>
                         <div style="font-size: 11.5px; color: var(--muted);">Agrega artículos desde las tiendas o carga una muestra para ver la ruta recomendada.</div>
@@ -8360,7 +8353,7 @@ function renderCartForRoute() {
                         <button type="button" onclick="updateRouteCartQty('${sId}', '${it.id}', -1)" title="Reducir">−</button>
                         <span>${q}</span>
                         <button type="button" onclick="updateRouteCartQty('${sId}', '${it.id}', 1)" title="Aumentar">+</button>
-                        <button type="button" class="btn-del-item" onclick="removeRouteCartItem('${sId}', '${it.id}')" title="Quitar">🗑️</button>
+                        <button type="button" class="btn-del-item" onclick="removeRouteCartItem('${sId}', '${it.id}')" title="Quitar"><svg class="ui-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
                     </div>
                 </div>
             `;
@@ -8371,7 +8364,7 @@ function renderCartForRoute() {
                 <div class="cart-store-group-header">
                     <div class="cart-store-info">
                         <strong>${catIcon} ${storeGroup.store_name}</strong>
-                        <small>📍 ${storeGroup.address || storeObj?.address || 'Zacatecas Centro'}</small>
+                        <small>${storeGroup.address || storeObj?.address || 'Zacatecas Centro'}</small>
                     </div>
                     <span style="font-size: 11.5px; font-weight: 800; color: var(--accent);">
                         Subtotal tienda: $${storeSubtotal.toFixed(2)} MXN
@@ -8388,21 +8381,21 @@ function renderCartForRoute() {
         <div class="cart-route-card">
             <div class="cart-route-card-header">
                 <div class="cart-badge-count">
-                    <span>🛍️</span> ${totalItems} producto(s) en ${storeIds.length} tienda(s)
+                    <span><svg class="ui-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span> ${totalItems} producto(s) en ${storeIds.length} tienda(s)
                 </div>
                 <div class="cart-subtotal-text">
                     Total a pagar/ver en tiendas: <strong>$${grandTotal.toFixed(2)} MXN</strong>
                 </div>
             </div>
             <div style="font-size: 12.5px; color: var(--muted); margin-bottom: 12px;">
-                📍 Sucursales físicas en Zacatecas Centro que contienen tus artículos:
+                Sucursales físicas en Zacatecas Centro que contienen tus artículos:
             </div>
             <div class="cart-route-stores-list">
                 ${storesHtml}
             </div>
             <div style="margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
                 <button type="button" class="btn-calculate-route" onclick="optimizeShoppingRoute(true)" style="padding: 10px 22px; font-size: 13.5px;">
-                    <span>🚶‍♂️</span> Calcular Ruta Recomendada (${storeIds.length} tiendas)
+                    <span><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg></span> Calcular Ruta Recomendada (${storeIds.length} tiendas)
                 </button>
             </div>
         </div>
@@ -8458,11 +8451,11 @@ function updateOriginBarUI(activeType, labelText) {
 function requestUserLocationForRoute(andOptimize = false) {
     if (!navigator.geolocation) {
         setOriginPlazaDeArmas();
-        showToast('⚠️ Tu dispositivo no soporta GPS, usando Plaza de Armas');
+        showToast(' Tu dispositivo no soporta GPS, usando Plaza de Armas');
         return;
     }
 
-    updateOriginBarUI('gps', '📡 Obteniendo coordenadas GPS en tiempo real...');
+    updateOriginBarUI('gps', 'Obteniendo coordenadas GPS en tiempo real...');
 
     navigator.geolocation.getCurrentPosition(
         (pos) => {
@@ -8474,11 +8467,11 @@ function requestUserLocationForRoute(andOptimize = false) {
             if (distToZac <= 15) {
                 routeOrigin = { lat, lng, name: 'Tu Ubicación Actual (GPS)' };
                 updateOriginBarUI('gps', `<span style="color:#059669; font-weight:700;">✓ Tu Ubicación Actual (GPS)</span> · Coords: ${lat.toFixed(4)}, ${lng.toFixed(4)}`);
-                showToast('📍 Origen configurado en tu ubicación GPS actual');
+                showToast(' Origen configurado en tu ubicación GPS actual');
             } else {
                 routeOrigin = { lat: ZACATECAS_CENTER[0], lng: ZACATECAS_CENTER[1], name: 'Plaza de Armas (Centro Histórico)' };
-                updateOriginBarUI('plaza', '🏛️ Plaza de Armas (Centro Histórico)');
-                showToast(`📍 Tu ubicación está a ${Math.round(distToZac)} km. Se usa Plaza de Armas como punto de partida sugerido para tu recorrido en el Centro.`);
+                updateOriginBarUI('plaza', 'Plaza de Armas (Centro Histórico)');
+                showToast(` Tu ubicación está a ${Math.round(distToZac)} km. Se usa Plaza de Armas como punto de partida sugerido para tu recorrido en el Centro.`);
             }
 
             if (andOptimize || selectedRouteStoreIds.size > 0) {
@@ -8487,7 +8480,7 @@ function requestUserLocationForRoute(andOptimize = false) {
         },
         (err) => {
             setOriginPlazaDeArmas();
-            showToast('⚠️ No se pudo obtener GPS, usando Plaza de Armas');
+            showToast(' No se pudo obtener GPS, usando Plaza de Armas');
         },
         { enableHighAccuracy: true, timeout: 8000, maximumAge: 30000 }
     );
@@ -8495,8 +8488,8 @@ function requestUserLocationForRoute(andOptimize = false) {
 
 function setOriginPlazaDeArmas() {
     routeOrigin = { lat: ZACATECAS_CENTER[0], lng: ZACATECAS_CENTER[1], name: 'Plaza de Armas (Centro Histórico)' };
-    updateOriginBarUI('plaza', '🏛️ Plaza de Armas (Centro Histórico)');
-    showToast('🏛️ Origen configurado en Plaza de Armas');
+    updateOriginBarUI('plaza', 'Plaza de Armas (Centro Histórico)');
+    showToast(' Origen configurado en Plaza de Armas');
     if (selectedRouteStoreIds.size > 0 && currentRoutePolyline) {
         optimizeShoppingRoute(false);
     }
@@ -8504,8 +8497,8 @@ function setOriginPlazaDeArmas() {
 
 function enableMapPickOrigin() {
     mapPickOriginActive = true;
-    updateOriginBarUI('map', '👉 Haz clic en cualquier punto del mapa para fijar tu ubicación...');
-    showToast('📍 Haz clic en cualquier punto del mapa para fijar tu hotel o punto de partida');
+    updateOriginBarUI('map', 'Haz clic en cualquier punto del mapa para fijar tu ubicación...');
+    showToast(' Haz clic en cualquier punto del mapa para fijar tu hotel o punto de partida');
 }
 
 function setCustomMapOrigin(lat, lng) {
@@ -8515,8 +8508,8 @@ function setCustomMapOrigin(lat, lng) {
         lng: lng,
         name: `Punto en el Mapa (${lat.toFixed(4)}, ${lng.toFixed(4)})`
     };
-    updateOriginBarUI('custom', `<span style="color:#2563eb; font-weight:700;">📍 Punto Fijado en el Mapa</span> (${lat.toFixed(4)}, ${lng.toFixed(4)})`);
-    showToast('📍 Punto de partida actualizado en el mapa. Recalculando ruta recomendada...');
+    updateOriginBarUI('custom', `<span style="color:#2563eb; font-weight:700;">Punto Fijado en el Mapa</span> (${lat.toFixed(4)}, ${lng.toFixed(4)})`);
+    showToast(' Punto de partida actualizado en el mapa. Recalculando ruta recomendada...');
     optimizeShoppingRoute(false);
 }
 
@@ -8536,18 +8529,18 @@ function autoDetectUserLocation() {
                     updateOriginBarUI('gps', `<span style="color:#059669; font-weight:700;">✓ Tu Ubicación Actual (GPS)</span> (${lat.toFixed(4)}, ${lng.toFixed(4)})`);
                 } else {
                     routeOrigin = { lat: ZACATECAS_CENTER[0], lng: ZACATECAS_CENTER[1], name: 'Plaza de Armas (Centro Histórico)' };
-                    updateOriginBarUI('plaza', '🏛️ Plaza de Armas (Centro Histórico)');
+                    updateOriginBarUI('plaza', 'Plaza de Armas (Centro Histórico)');
                 }
             },
             () => {
                 routeOrigin = { lat: ZACATECAS_CENTER[0], lng: ZACATECAS_CENTER[1], name: 'Plaza de Armas (Centro Histórico)' };
-                updateOriginBarUI('plaza', '🏛️ Plaza de Armas (Centro Histórico)');
+                updateOriginBarUI('plaza', 'Plaza de Armas (Centro Histórico)');
             },
             { enableHighAccuracy: true, timeout: 6000, maximumAge: 60000 }
         );
     } else {
         routeOrigin = { lat: ZACATECAS_CENTER[0], lng: ZACATECAS_CENTER[1], name: 'Plaza de Armas (Centro Histórico)' };
-        updateOriginBarUI('plaza', '🏛️ Plaza de Armas (Centro Histórico)');
+        updateOriginBarUI('plaza', 'Plaza de Armas (Centro Histórico)');
     }
 }
 
@@ -8727,7 +8720,7 @@ function renderRouteOnMap(startPoint, orderedRoute) {
 
     const startIcon = L.divIcon({
         className: 'route-start-pin',
-        html: `<div style="background: #2563eb; color: #fff; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 17px; font-weight: 800; border: 3px solid #fff; box-shadow: 0 4px 14px rgba(37,99,235,.6); animation: pulseGps 2s infinite;">🏁</div>`,
+        html: `<div style="background: #2563eb; color: #fff; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; border: 3px solid #fff; box-shadow: 0 4px 14px rgba(37,99,235,.6); animation: pulseGps 2s infinite;">A</div>`,
         iconSize: [36, 36],
         iconAnchor: [18, 36],
         popupAnchor: [0, -34]
@@ -8736,7 +8729,7 @@ function renderRouteOnMap(startPoint, orderedRoute) {
         icon: startIcon,
         draggable: true
     }).addTo(map);
-    startMarker.bindPopup(`<strong>Punto de Partida (Arrastrable):</strong><br>${startPoint.name}<br><small style="color:#555;">💡 Arrastra este pin en el mapa si deseas cambiar tu ubicación</small>`);
+    startMarker.bindPopup(`<strong>Punto de Partida (Arrastrable):</strong><br>${startPoint.name}<br><small style="color:#555;">Arrastra este pin en el mapa si deseas cambiar tu ubicación</small>`);
     startMarker.on('dragend', function(e) {
         const newPos = e.target.getLatLng();
         setCustomMapOrigin(newPos.lat, newPos.lng);
@@ -8767,7 +8760,7 @@ function renderRouteOnMap(startPoint, orderedRoute) {
             const storeSub = leg.cartItems.reduce((acc, it) => acc + (parseFloat(it.price) || 0) * (parseInt(it.quantity) || 1), 0);
             popupProdsHtml = `
                 <div style="background: rgba(200,109,99,0.08); border: 1px solid rgba(200,109,99,0.25); border-radius: 8px; padding: 6px; margin: 6px 0;">
-                    <span style="font-size: 10.5px; font-weight: 800; color: #b45b51;">🛍️ Productos a ver en esta tienda (${leg.cartItems.length}):</span>
+                    <span style="font-size: 10.5px; font-weight: 800; color: #b45b51;">Productos a ver en esta tienda (${leg.cartItems.length}):</span>
                     <ul style="margin: 3px 0 0 14px; padding: 0; font-size: 11px; color: #333; line-height: 1.35;">
                         ${leg.cartItems.map(i => `<li><strong>${i.quantity}x</strong> ${i.name} ($${((parseFloat(i.price)||0)*(parseInt(i.quantity)||1)).toFixed(2)})</li>`).join('')}
                     </ul>
@@ -8783,7 +8776,7 @@ function renderRouteOnMap(startPoint, orderedRoute) {
             <div style="font-family: 'Plus Jakarta Sans', sans-serif; padding: 3px; min-width: 190px;">
                 <span style="font-size: 10px; font-weight: 800; color: ${store.primary_color || '#c86d63'};">PARADA #${stopNum} (+${stopDistStr})</span>
                 <h4 style="margin: 2px 0 4px; font-size: 14px; font-weight: 800;">${store.store_name}</h4>
-                <p style="margin: 0 0 4px; font-size: 11px; color: #555;">📍 ${store.address}</p>
+                <p style="margin: 0 0 4px; font-size: 11px; color: #555;">${store.address}</p>
                 ${popupProdsHtml}
                 <a href="${store.store_url}" target="_blank" style="display: block; text-align: center; background: #c86d63; color: #fff; padding: 5px 10px; border-radius: 999px; font-size: 11px; font-weight: 700; text-decoration: none; margin-top: 4px;">Ver Tienda Online ↗</a>
             </div>
@@ -8843,7 +8836,7 @@ function renderRouteOnMap(startPoint, orderedRoute) {
                 if (timeEl) timeEl.textContent = `~${realMinutes} min`;
                 const tagEl = document.getElementById('itineraryRoutingType');
                 if (tagEl) {
-                    tagEl.innerHTML = '🚶‍♂️ RUTA REAL POR CALLES Y CALLEJONES';
+                    tagEl.innerHTML = 'RUTA PEATONAL SUGERIDA';
                     tagEl.style.background = '#059669';
                 }
             }
@@ -8873,7 +8866,7 @@ function renderRouteItineraryUI(startPoint, orderedRoute, totalKm) {
 
     let stopsHtml = `
         <div class="itinerary-stop" style="background: rgba(37,99,235,0.06); border-color: rgba(37,99,235,0.25);">
-            <div class="stop-number-badge" style="background: #2563eb;">🏁</div>
+            <div class="stop-number-badge" style="background: #2563eb;">A</div>
             <div class="stop-info">
                 <div class="stop-title">Punto de Partida: ${startPoint.name}</div>
                 <div class="stop-meta">Inicio del recorrido por el Centro Histórico de Zacatecas</div>
@@ -8894,7 +8887,7 @@ function renderRouteItineraryUI(startPoint, orderedRoute, totalKm) {
             cartItemsHtml = `
                 <div class="itinerary-cart-box">
                     <div class="itinerary-cart-header">
-                        <span>🛍️ Artículos en tu carrito a ver en esta tienda (${leg.cartItems.length}):</span>
+                        <span>Artículos en tu carrito a ver en esta tienda (${leg.cartItems.length}):</span>
                         <span class="itinerary-cart-subtotal">$${storeSub.toFixed(2)} MXN</span>
                     </div>
                     <ul class="itinerary-cart-list">
@@ -8919,12 +8912,12 @@ function renderRouteItineraryUI(startPoint, orderedRoute, totalKm) {
                 <div class="stop-info">
                     <div class="stop-title">${store.store_name}</div>
                     <div class="stop-meta">
-                        <span>📍 ${store.address}</span><br>
+                        <span>${store.address}</span><br>
                         <span style="color:#059669; font-weight:600;">⏰ ${store.opening_hours}</span>
                     </div>
                     ${cartItemsHtml}
                     <div style="display:flex; gap:8px; align-items:center; margin-top:8px; flex-wrap:wrap;">
-                        <span class="stop-distance-pill">🚶‍♂️ +${legDist} (~${legTimeMin} min)</span>
+                        <span class="stop-distance-pill">+${legDist} (~${legTimeMin} min)</span>
                         <a href="${store.store_url}" target="_blank" style="font-size:11.5px; font-weight:700; color:var(--accent); text-decoration:underline;">Ver Tienda Online ↗</a>
                     </div>
                 </div>
@@ -8936,7 +8929,7 @@ function renderRouteItineraryUI(startPoint, orderedRoute, totalKm) {
         <div class="route-itinerary-card">
             <div class="itinerary-header">
                 <div>
-                    <span class="itinerary-tag" id="itineraryRoutingType">🚶‍♂️ RUTA PEATONAL POR CALLES</span>
+                    <span class="itinerary-tag" id="itineraryRoutingType">RUTA PEATONAL SUGERIDA</span>
                     <h4>Itinerario de Compras</h4>
                     <small style="color:var(--muted); font-size:12px;">Recorrido siguiendo las calles y callejones del Centro Histórico</small>
                 </div>
@@ -8962,10 +8955,10 @@ function renderRouteItineraryUI(startPoint, orderedRoute, totalKm) {
 
             <div class="itinerary-actions-row">
                 <a href="${gmapsUrl}" target="_blank" class="btn-itinerary-gmaps">
-                    <span>🗺️</span> Abrir Ruta Paso a Paso en Google Maps ↗
+                    <span><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg></span> Abrir Ruta Paso a Paso en Google Maps ↗
                 </a>
                 <button type="button" class="btn-itinerary-wa" onclick="shareShoppingRouteWhatsApp('${totalDistStr}', ${walkingMinutes}, ${orderedRoute.length})">
-                    <span>💬</span> Compartir Ruta por WhatsApp
+                    <span><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></span> Compartir Ruta por WhatsApp
                 </button>
                 <button type="button" class="btn-itinerary-reset" onclick="resetMapRoute()">
                     ↺ Quitar Trazado del Mapa
@@ -8978,7 +8971,7 @@ function renderRouteItineraryUI(startPoint, orderedRoute, totalKm) {
 }
 
 function shareShoppingRouteWhatsApp(distStr, minutes, numStops) {
-    let text = `*🗺️ Mi Ruta de Compras en Zacatecas Centro*\n`;
+    let text = `*Mi Ruta de Compras en Zacatecas Centro*\n`;
     text += `• Distancia total a pie: ${distStr}\n`;
     text += `• Tiempo estimado de caminata: ~${minutes} min\n`;
     text += `• Paradas: ${numStops} tiendas a visitar\n\n`;
@@ -8986,7 +8979,7 @@ function shareShoppingRouteWhatsApp(distStr, minutes, numStops) {
 
     if (window.__currentOrderedRoute && window.__currentOrderedRoute.length > 0) {
         window.__currentOrderedRoute.forEach((leg, i) => {
-            text += `\n${i + 1}. *${leg.store.store_name}* (📍 ${leg.store.address})`;
+            text += `\n${i + 1}. *${leg.store.store_name}* (${leg.store.address})`;
             if (leg.cartItems && leg.cartItems.length > 0) {
                 leg.cartItems.forEach(it => {
                     text += `\n   • ${it.quantity}x ${it.name} ($${parseFloat(it.price).toFixed(2)} MXN)`;
@@ -9333,9 +9326,9 @@ const i18nDictionary = {
 
         label_walking: "Distancia a pie:",
         radius_all: "✦ Todo el Centro",
-        radius_200: "⚡ Menos de 200 m (2 min)",
-        radius_500: "🚶‍♀️ Menos de 500 m (5 min)",
-        radius_1k: "🏃‍♂️ Menos de 1 km",
+        radius_200: "Menos de 200 m (2 min)",
+        radius_500: "Menos de 500 m (5 min)",
+        radius_1k: "Menos de 1 km",
         btn_only_open: "Solo Abiertos Ahora",
         reviews: "reseñas",
         featured_items: "Artículos destacados",
@@ -9364,9 +9357,9 @@ const i18nDictionary = {
 
         label_walking: "Walking distance:",
         radius_all: "✦ All Downtown",
-        radius_200: "⚡ Under 200 m (2 min)",
-        radius_500: "🚶‍♀️ Under 500 m (5 min)",
-        radius_1k: "🏃‍♂️ Under 1 km",
+        radius_200: "Under 200 m (2 min)",
+        radius_500: "Under 500 m (5 min)",
+        radius_1k: "Under 1 km",
         btn_only_open: "Open Now Only",
         reviews: "reviews",
         featured_items: "Featured items",
