@@ -4461,7 +4461,7 @@
             <div class="footer-col">
                 <h4>Atención & Soporte</h4>
                 <ul class="footer-links">
-                    <li><a href="#opiniones">Garantía y Envíos</a></li>
+                    <li><a href="#contacto">Garantía y Envíos</a></li>
                     <li><a href="#contacto">Contacto Directo</a></li>
                     <li><a href="{{ url('/tienda/' . ($tenantId ?? 'acropolis') . '/admin') }}">Panel de la Tienda</a></li>
                 </ul>

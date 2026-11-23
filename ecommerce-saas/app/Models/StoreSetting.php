@@ -210,14 +210,6 @@ class StoreSetting extends Model
                 ],
             ],
             [
-                'type' => 'testimonials',
-                'is_visible' => true,
-                'title' => 'Lo que dicen nuestros clientes',
-                'data' => [
-                    'eyebrow' => 'Experiencias Reales',
-                ],
-            ],
-            [
                 'type' => 'contact_box',
                 'is_visible' => true,
                 'title' => '¿Deseas una cotización o pedido especial?',
@@ -234,10 +226,11 @@ class StoreSetting extends Model
      */
     public function getEffectiveLayoutBlocks(): array
     {
-        if (!empty($this->layout_blocks) && is_array($this->layout_blocks) && count($this->layout_blocks) > 0) {
-            return $this->layout_blocks;
-        }
+        $blocks = (!empty($this->layout_blocks) && is_array($this->layout_blocks) && count($this->layout_blocks) > 0)
+            ? $this->layout_blocks
+            : static::defaultLayoutBlocks();
 
-        return static::defaultLayoutBlocks();
+        // Ensure testimonials/reviews are completely excluded per UX requirements
+        return array_values(array_filter($blocks, fn($b) => ($b['type'] ?? '') !== 'testimonials'));
     }
 }

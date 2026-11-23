@@ -370,7 +370,6 @@ class StoreSettingResource extends Resource
                                             'full_catalog' => '📦 Catálogo Completo',
                                             'about_story' => '📖 Historia del Local / Quiénes Somos',
                                             'map_location' => '📍 Ubicación Física y Horarios',
-                                            'testimonials' => '💬 Testimonios y Reseñas',
                                             'contact_box' => '✉️ Caja de Contacto y WhatsApp',
                                             'official_stores' => '🏬 Red de Tiendas Oficiales',
                                         ])
