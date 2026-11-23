@@ -3953,9 +3953,9 @@
             .gps-status-indicator { text-align: center; }
             .zac-map-box { height: 290px; border-radius: 16px; }
             
-            /* PWA Install prompts */
-            .pwa-install-bar { display: block; }
-            .pwa-install-inner { flex-direction: column; text-align: center; gap: 10px; }
+            /* PWA Install prompts (hidden for cleaner visual focus) */
+            .pwa-install-bar { display: none !important; }
+            .pwa-install-inner { display: none !important; }
             .floating-pwa-badge { display: none !important; }
             .btn-back-to-top { bottom: 20px; right: 16px; left: auto; width: 42px; height: 42px; }
 
@@ -5470,24 +5470,7 @@
 </head>
 <body>
 
-<!-- PWA MOBILE INSTALL BANNER -->
-<div class="pwa-install-bar" id="pwaInstallBar">
-    <div class="shell pwa-install-inner">
-        <div style="display: flex; align-items: center; gap: 10px;">
-            <span style="font-size: 22px;">📱</span>
-            <div>
-                <strong>Instala la App de Tiendas de Zacatecas Centro</strong>
-                <div style="font-size: 11.5px; opacity: 0.85;">PWA rápida para tu teléfono · Funciona sin conexión y pedidos por WhatsApp</div>
-            </div>
-        </div>
-        <div style="display: flex; align-items: center; gap: 8px;">
-            <button type="button" class="pwa-install-btn" id="btnPwaInstall" onclick="triggerPwaInstall()">
-                ⬇️ Instalar en Celular
-            </button>
-            <button type="button" onclick="dismissPwaBanner()" style="background: transparent; border: none; color: #fff; font-size: 16px; cursor: pointer; padding: 4px 8px;" title="Cerrar">✕</button>
-        </div>
-    </div>
-</div>
+
 
 <!-- FLOATING PWA INSTALL BADGE -->
 <button type="button" class="floating-pwa-badge" id="floatingPwaBadge" onclick="triggerPwaInstall()">
@@ -5716,15 +5699,19 @@
 <main class="shell">
 
     <!-- HERO WITH MULTI-STORE GLOBAL SEARCH -->
-    <section class="portal-hero" id="buscar" style="margin-bottom: 24px;">
-        <span class="zac-location-hero-badge">🏛️ Zacatecas Centro Histórico · Directorio Oficial</span>
-        <h1>Explora Comercios y Tiendas Locales de <em>Zacatecas Centro</em></h1>
-        <p>Descubre boutiques, cafeterías, joyería en plata ley .925 y productos típicos con pedidos directos por WhatsApp.</p>
+    <section class="portal-hero" id="buscar" style="margin-bottom: 28px; text-align: center;">
+        <span class="zac-location-hero-badge">🏛️ Directorio Comercial del Centro Histórico</span>
+        <h1 style="font-family: 'Playfair Display', serif; font-size: clamp(26px, 4.8vw, 42px); line-height: 1.25; margin: 12px 0 10px; color: var(--ink);">
+            Comercios y Tiendas Locales de <em>Zacatecas Centro</em>
+        </h1>
+        <p style="font-size: 15px; color: var(--muted); max-width: 580px; margin: 0 auto 22px; line-height: 1.55;">
+            Descubre boutiques, cafeterías, joyería en plata ley .925 y productos típicos con pedidos directos.
+        </p>
 
-        <!-- GLOBAL SEARCH BAR -->
-        <div class="global-search-container" style="margin-top: 20px;">
+        <!-- GLOBAL SEARCH BAR (PRIMARY CTA: EXPLORAR / COMPRAR) -->
+        <div class="global-search-container" style="max-width: 600px; margin: 0 auto;">
             <form action="{{ url('/') }}" method="GET" class="global-search-form" id="globalSearchForm">
-                <input type="text" name="q" id="globalSearchInput" class="global-search-input" value="{{ $searchQuery }}" placeholder="¿Qué estás buscando? (ej. café americano, plata ley .925, gorditas, dulces, mezcal)..." autocomplete="off">
+                <input type="text" name="q" id="globalSearchInput" class="global-search-input" value="{{ $searchQuery }}" placeholder="¿Qué buscas? (ej. café, plata ley .925, gorditas, mezcal)..." autocomplete="off">
                 <button type="submit" class="global-search-btn">
                     <span>🔍</span> <span class="search-btn-text">Buscar</span>
                 </button>
@@ -5741,6 +5728,14 @@
                 <div class="search-history-chips" id="userSearchHistoryChips"></div>
                 <button type="button" class="btn-clear-search-history" onclick="clearUserSearchHistory()" title="Borrar historial de búsqueda">✕ Limpiar</button>
             </div>
+        </div>
+
+        <!-- DISCREET SECONDARY OPTION FOR BUSINESS OWNERS -->
+        <div class="hero-business-discreet-cta" style="margin-top: 14px; font-size: 13px; color: var(--muted);">
+            ¿Tienes un negocio en el Centro?
+            <a href="{{ url('/planes') }}" style="color: var(--accent); font-weight: 700; text-decoration: none; border-bottom: 1.5px dotted var(--accent); margin-left: 4px;">
+                Vende aquí con tienda propia →
+            </a>
         </div>
     </section>
 
@@ -5832,20 +5827,12 @@
                                     maps_url: "https://maps.google.com/?q=22.7753,-102.5724"
                                 });'>{{ $item['name'] }}</h3>
                                 <p>{{ Str::limit($item['description'], 75) }}</p>
-                                <div class="search-product-footer">
+                                <div class="search-product-footer" style="margin-top: 10px;">
                                     <span class="search-product-price">${{ number_format($item['price'], 2) }}</span>
-                                    <a href="{{ $item['store_url'] }}" class="btn-buy-store">
+                                    <a href="{{ $item['store_url'] }}" class="btn-buy-store" style="padding: 7px 14px; border-radius: 999px; font-weight: 700;">
                                         Ver en {{ Str::limit($item['store_name'], 12) }} ↗
                                     </a>
                                 </div>
-                                <button type="button" class="search-quick-add-btn" onclick='quickAddProductToRouteCart({
-                                    id: @json((string)$item["id"]),
-                                    store_id: @json((string)$item["store_id"]),
-                                    store_name: @json($item["store_name"]),
-                                    name: @json($item["name"]),
-                                    price: {{ (float)$item["price"] }},
-                                    image_url: @json($item["image_url"] ?? "")
-                                });'>+ 🛒 Añadir al Carrito de Ruta</button>
                             </div>
                         </article>
                     @endforeach
@@ -5892,9 +5879,7 @@
                         address: @json($item["address"]),
                         hours: @json($item["hours"]),
                         whatsapp: @json($item["whatsapp"] ?? ""),
-                        maps_url: @json($item["maps_url"] ?? ""),
-                        rating: {{ (float)$item["rating"] }},
-                        reviews_count: {{ (int)$item["reviews_count"] }}
+                        maps_url: @json($item["maps_url"] ?? "")
                     });'>
                         <img src="{{ !empty($item['image_url']) ? $item['image_url'] : 'https://placehold.co/600x600?text=' . urlencode($item['name']) }}" alt="{{ $item['name'] }}" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/600x600?text=Zacatecas';">
                         <span class="visited-badge-visits">🔥 {{ number_format($item['visits_count']) }} visitas</span>
@@ -5918,54 +5903,17 @@
                             address: @json($item["address"]),
                             hours: @json($item["hours"]),
                             whatsapp: @json($item["whatsapp"] ?? ""),
-                            maps_url: @json($item["maps_url"] ?? ""),
-                            rating: {{ (float)$item["rating"] }},
-                            reviews_count: {{ (int)$item["reviews_count"] }}
+                            maps_url: @json($item["maps_url"] ?? "")
                         });'>{{ $item['name'] }}</h3>
 
-                        <!-- Star Rating Summary -->
-                        <div class="visited-product-rating" onclick='openProductReviewsTab({
-                            id: @json($item["id"]),
-                            slug: @json($item["slug"]),
-                            store_id: @json($item["store_id"]),
-                            name: @json($item["name"]),
-                            price: {{ (float)$item["price"] }},
-                            image_url: @json($item["image_url"] ?? ""),
-                            description: @json($item["description"] ?? ""),
-                            stock: {{ (int)($item["stock"] ?? 15) }},
-                            url: @json($item["url"]),
-                            store_name: @json($item["store_name"]),
-                            store_url: @json($item["store_url"]),
-                            address: @json($item["address"]),
-                            hours: @json($item["hours"]),
-                            whatsapp: @json($item["whatsapp"] ?? ""),
-                            maps_url: @json($item["maps_url"] ?? ""),
-                            rating: {{ (float)$item["rating"] }},
-                            reviews_count: {{ (int)$item["reviews_count"] }}
-                        })' title="Ver opiniones y calificar">
-                            <span class="stars-gold">★★★★★</span>
-                            <span class="rating-val">{{ number_format($item['rating'], 1) }}</span>
-                            <span class="rating-qty">({{ $item['reviews_count'] }} opiniones)</span>
-                        </div>
-
-                        <div class="visited-product-price-row">
+                        <div class="visited-product-price-row" style="margin-top: 10px;">
                             <span class="visited-product-price">${{ number_format($item['price'], 0) }} MXN</span>
                             <span class="visited-product-stock">✓ En existencia</span>
                         </div>
                     </div>
 
                     <div class="visited-product-footer">
-                        <button type="button" class="btn-visited-add-cart" onclick='quickAddProductToRouteCart({
-                            id: @json($item["id"]),
-                            store_id: @json($item["store_id"]),
-                            store_name: @json($item["store_name"]),
-                            name: @json($item["name"]),
-                            price: {{ (float)$item["price"] }},
-                            image_url: @json($item["image_url"] ?? "")
-                        })'>
-                            <span>+ 🛒</span> Añadir
-                        </button>
-                        <button type="button" class="btn-visited-view" onclick='openCentralProductModal({
+                        <button type="button" class="btn-visited-view" style="width: 100%; justify-content: center;" onclick='openCentralProductModal({
                             id: @json($item["id"]),
                             slug: @json($item["slug"]),
                             store_id: @json($item["store_id"]),
@@ -5980,11 +5928,9 @@
                             address: @json($item["address"]),
                             hours: @json($item["hours"]),
                             whatsapp: @json($item["whatsapp"] ?? ""),
-                            maps_url: @json($item["maps_url"] ?? ""),
-                            rating: {{ (float)$item["rating"] }},
-                            reviews_count: {{ (int)$item["reviews_count"] }}
-                        })'>
-                            Ver y Calificar
+                            maps_url: @json($item["maps_url"] ?? "")
+                        });'>
+                            <span>Ver Detalle &amp; Pedir</span> <span>↗</span>
                         </button>
                     </div>
                 </article>
@@ -6236,7 +6182,9 @@
                      data-lng="{{ $company['longitude'] }}" 
                      data-zone="{{ $company['neighborhood_zone'] }}"
                      data-name="{{ $company['store_name'] }}"
-                     data-hours="{{ $company['opening_hours'] }}">
+                     data-hours="{{ $company['opening_hours'] }}"
+                     onclick="if(!event.target.closest('a, button')) { window.location.href='{{ $company['store_url'] }}'; }"
+                     style="cursor: pointer;">
                     <div>
                         <div class="company-header">
                             @if(!empty($company['logo_url']))
@@ -6264,22 +6212,8 @@
                         <div class="company-info">
                             <h3>{{ $company['store_name'] }}</h3>
 
-                            <!-- Star Rating & Tradition Badge -->
-                            <div class="store-rating-row" style="flex-wrap: wrap; gap: 6px;">
-                                <span class="stars-gold">★★★★★</span>
-                                <span class="rating-num" id="companyRatingNum_{{ $company['id'] }}">{{ number_format($company['rating'] ?? 4.9, 1) }}</span>
-                                <span class="rating-count" id="companyReviewsCount_{{ $company['id'] }}">({{ $company['reviews_count'] ?? 180 }} <span data-i18n="reviews">reseñas</span>)</span>
-                                <button type="button" class="btn-company-reviews-trigger" onclick='openCompanyReviewsModal({
-                                    id: @json($company["id"]),
-                                    name: @json($company["store_name"]),
-                                    rating: {{ (float)($company["rating"] ?? 4.9) }},
-                                    reviews_count: {{ (int)($company["reviews_count"] ?? 180) }}
-                                })'>
-                                    💬 Opiniones (1 a 5 ★)
-                                </button>
-                            </div>
                             @if(!empty($company['tradition_badge']))
-                                <div>
+                                <div style="margin-bottom: 8px;">
                                     <span class="tradition-pill">{{ $company['tradition_badge'] }}</span>
                                 </div>
                             @endif
@@ -6339,71 +6273,17 @@
                                                 <img src="{{ !empty($prod['image_url']) ? $prod['image_url'] : 'https://placehold.co/200x200?text=Prod' }}" alt="{{ $prod['name'] }}" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/200x200?text=Zacatecas';">
                                                 <span class="preview-thumb-price">${{ number_format($prod['price'], 0) }}</span>
                                             </a>
-                                            <button type="button" class="preview-quick-add-btn" title="Añadir a mi Carrito de Ruta" onclick='event.stopPropagation(); event.preventDefault(); quickAddProductToRouteCart({
-                                                id: @json($prod["id"] ?? (string)\Illuminate\Support\Str::slug($prod["name"])),
-                                                store_id: @json($company["id"]),
-                                                store_name: @json($company["store_name"]),
-                                                name: @json($prod["name"]),
-                                                price: {{ (float)$prod["price"] }},
-                                                image_url: @json($prod["image_url"] ?? "")
-                                            });'>+ 🛒</button>
                                         </div>
                                     @endforeach
                                 </div>
                             </div>
                         @endif
-
-                        <!-- Redes Sociales y Enlaces -->
-                        @if(!empty($company['whatsapp_number']) || !empty($company['facebook_url']) || !empty($company['instagram_url']) || !empty($company['official_website_url']) || !empty($company['maps_url']))
-                            <div class="company-social-bar">
-                                <span class="company-social-label" data-i18n="social_label">Redes & Contacto</span>
-                                <div class="company-social-links">
-                                    @if(!empty($company['whatsapp_number']))
-                                        @php $compWa = preg_replace('/[^0-9]/', '', $company['whatsapp_number']); @endphp
-                                        <a href="https://wa.me/{{ $compWa }}?text={{ urlencode('¡Hola! Me comunico desde el portal para ' . $company['store_name']) }}" target="_blank" class="social-icon-btn btn-wa" title="WhatsApp: {{ $company['whatsapp_number'] }}">
-                                            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-                                            <span>WhatsApp</span>
-                                        </a>
-                                    @endif
-                                    @if(!empty($company['facebook_url']))
-                                        <a href="{{ $company['facebook_url'] }}" target="_blank" class="social-icon-btn btn-fb" title="Facebook de {{ $company['store_name'] }}">
-                                            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                                            <span>Facebook</span>
-                                        </a>
-                                    @endif
-                                    @if(!empty($company['instagram_url']))
-                                        <a href="{{ $company['instagram_url'] }}" target="_blank" class="social-icon-btn btn-ig" title="Instagram de {{ $company['store_name'] }}">
-                                            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                                            <span>Instagram</span>
-                                        </a>
-                                    @endif
-                                    @if(!empty($company['official_website_url']))
-                                        <a href="{{ $company['official_website_url'] }}" target="_blank" class="social-icon-btn btn-web" title="Sitio Web">
-                                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
-                                            <span>Web</span>
-                                        </a>
-                                    @endif
-                                    @if(!empty($company['maps_url']))
-                                        <a href="{{ $company['maps_url'] }}" target="_blank" class="social-icon-btn btn-map" title="Ver en Google Maps">
-                                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                                            <span>Mapa</span>
-                                        </a>
-                                    @endif
-                                </div>
-                            </div>
-                        @endif
                     </div>
 
-                    <div class="company-actions-footer">
-                        <button type="button" class="btn-focus-map-card" onclick="focusStoreOnMap('{{ $company['id'] }}')" title="Ubicar sucursal física en el mapa de Zacatecas Centro">
-                            <span>📍 Ver en Mapa</span>
-                        </button>
-                        <a href="{{ $company['store_url'] }}" target="_blank" class="btn-visit-company">
-                            <span data-i18n="enter_store">Entrar a la Tienda</span> <span>↗</span>
+                    <div class="company-actions-footer" style="padding-top: 14px; border-top: 1px solid var(--line); margin-top: auto;">
+                        <a href="{{ $company['store_url'] }}" class="btn-visit-company" style="width: 100%; justify-content: center; text-decoration: none;">
+                            <span>Ver Tienda & Catálogo</span> <span>↗</span>
                         </a>
-                        <button type="button" class="btn-share-card" onclick="shareStore('{{ addslashes($company['store_name']) }}', '{{ $company['store_url'] }}', '{{ addslashes($company['tagline']) }}')" title="Compartir comercio" aria-label="Compartir {{ $company['store_name'] }}">
-                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
-                        </button>
                     </div>
                 </div>
             @empty
@@ -6688,50 +6568,7 @@
                     </div>
                 </div>
 
-                <!-- REVIEWS & 1-5 STAR COMMENTS SECTION FOR THIS PRODUCT -->
-                <div class="reviews-section-box">
-                    <div class="reviews-header-row">
-                        <div class="reviews-summary-badge">
-                            <span class="stars-gold">★★★★★</span>
-                            <span id="productModalRatingVal">5.0</span>
-                            <span id="productModalReviewCount">(0 reseñas)</span>
-                        </div>
-                        <button type="button" class="btn-toggle-review-form" onclick="toggleProductReviewForm()">
-                            ✍️ Dejar Opinión (1 a 5 ★)
-                        </button>
-                    </div>
 
-                    <!-- Collapsible Review Form -->
-                    <div class="review-form-card" id="productReviewFormCard" style="display: none;">
-                        <h4 style="font-size: 13px; font-weight: 800; margin: 0 0 4px; color: var(--ink);">Calificar este Producto</h4>
-                        <div style="margin-bottom: 6px;">
-                            <label style="font-size: 11px; color: var(--muted); font-weight: 700;">Selecciona tus estrellas:</label>
-                            <div class="star-rating-selector" id="productStarPicker">
-                                <button type="button" class="star-pick-btn active" data-val="1" onclick="setProductStarRating(1)">★</button>
-                                <button type="button" class="star-pick-btn active" data-val="2" onclick="setProductStarRating(2)">★</button>
-                                <button type="button" class="star-pick-btn active" data-val="3" onclick="setProductStarRating(3)">★</button>
-                                <button type="button" class="star-pick-btn active" data-val="4" onclick="setProductStarRating(4)">★</button>
-                                <button type="button" class="star-pick-btn active" data-val="5" onclick="setProductStarRating(5)">★</button>
-                            </div>
-                        </div>
-                        <div class="auth-field" style="margin-bottom: 8px;">
-                            <label style="font-size: 11px;">Tu Nombre</label>
-                            <input type="text" id="productReviewAuthorInput" placeholder="Ej. Roberto L." required style="padding: 8px 12px; font-size: 12.5px;">
-                        </div>
-                        <div class="auth-field" style="margin-bottom: 10px;">
-                            <label style="font-size: 11px;">Tu Opinión sobre el Producto</label>
-                            <textarea id="productReviewCommentInput" rows="2" placeholder="¿Qué te pareció el sabor, calidad, presentación o textura?" required style="width: 100%; padding: 8px 12px; border-radius: 10px; border: 1.5px solid var(--card-border); background: var(--card); color: var(--ink); font-size: 12.5px; resize: vertical;"></textarea>
-                        </div>
-                        <button type="button" id="btnSubmitProductReview" onclick="submitProductReview()" class="btn-submit-email-auth" style="margin-top: 0; padding: 9px; font-size: 12.5px;">
-                            Publicar Calificación de Producto
-                        </button>
-                    </div>
-
-                    <!-- Reviews List for Product -->
-                    <div id="productReviewsContainer" style="max-height: 220px; overflow-y: auto;">
-                        <!-- Dynamically populated -->
-                    </div>
-                </div>
 
                 <!-- Action Buttons -->
                 <div class="modal-actions-row">
@@ -6792,91 +6629,26 @@
     </div>
 </div>
 
-<!-- MODAL: CALIFICACIONES Y COMENTARIOS DE EMPRESA (1 A 5 ESTRELLAS) -->
-<div class="modal-backdrop" id="companyReviewsModal" onclick="handleCompanyReviewsBackdrop(event)">
-    <div class="modal-card create-story-modal-card" style="max-width: 540px;">
-        <button type="button" class="modal-close-x" onclick="closeCompanyReviewsModal()" aria-label="Cerrar modal">✕</button>
 
-        <div style="text-align: center; margin-bottom: 16px;">
-            <span class="section-eyebrow" style="color: var(--accent);">✦ Opiniones y Calificaciones de Clientes</span>
-            <h3 id="companyReviewStoreTitle" style="font-size: 21px; font-weight: 800; margin: 4px 0; color: var(--ink);">Nombre de la Empresa</h3>
-            <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 6px;">
-                <span class="stars-gold" style="font-size: 16px;">★★★★★</span>
-                <strong id="companyReviewAvgRating" style="font-size: 15px; color: var(--ink);">5.0</strong>
-                <span id="companyReviewCountText" style="font-size: 12px; color: var(--muted);">(0 opiniones)</span>
-            </div>
-        </div>
-
-        <!-- Review Submission Card -->
-        <div class="review-form-card">
-            <h4 style="font-size: 13.5px; font-weight: 800; margin: 0 0 4px; color: var(--ink);">✍️ Deja tu Calificación (1 a 5 Estrellas)</h4>
-            <p style="font-size: 12px; color: var(--muted); margin: 0 0 10px;">Tu experiencia ayuda a otros compradores y a los comercios de Zacatecas Centro.</p>
-
-            <form id="companyReviewForm" onsubmit="submitCompanyReview(event)">
-                <input type="hidden" id="companyReviewStoreId" value="">
-                
-                <div style="margin-bottom: 8px;">
-                    <label style="font-size: 11px; font-weight: 700; color: var(--muted); display: block;">Calificación:</label>
-                    <div class="star-rating-selector" id="companyStarPicker">
-                        <button type="button" class="star-pick-btn active" data-val="1" onclick="setCompanyStarRating(1)">★</button>
-                        <button type="button" class="star-pick-btn active" data-val="2" onclick="setCompanyStarRating(2)">★</button>
-                        <button type="button" class="star-pick-btn active" data-val="3" onclick="setCompanyStarRating(3)">★</button>
-                        <button type="button" class="star-pick-btn active" data-val="4" onclick="setCompanyStarRating(4)">★</button>
-                        <button type="button" class="star-pick-btn active" data-val="5" onclick="setCompanyStarRating(5)">★</button>
-                    </div>
-                </div>
-
-                <div class="auth-field" style="margin-bottom: 8px;">
-                    <label style="font-size: 11px;">Tu Nombre o Alias</label>
-                    <input type="text" id="companyReviewAuthorInput" placeholder="Ej. Mariana González" required style="padding: 9px 12px; font-size: 13px;">
-                </div>
-
-                <div class="auth-field" style="margin-bottom: 12px;">
-                    <label style="font-size: 11px;">Tu Comentario u Opinión</label>
-                    <textarea id="companyReviewCommentInput" rows="2" placeholder="Cuéntanos tu experiencia con sus productos, atención y calidad..." required style="width: 100%; padding: 9px 12px; border-radius: 10px; border: 1.5px solid var(--card-border); background: var(--card); color: var(--ink); font-size: 13px; resize: vertical;"></textarea>
-                </div>
-
-                <button type="submit" id="btnSubmitCompanyReview" class="btn-submit-email-auth" style="margin-top: 0; padding: 10px; font-size: 13px;">
-                    Publicar Mi Opinión (1 a 5 ★)
-                </button>
-            </form>
-        </div>
-
-        <!-- List of Reviews -->
-        <div>
-            <h4 style="font-size: 14px; font-weight: 800; margin: 0 0 10px; color: var(--ink);">Opiniones de Clientes Verificados</h4>
-            <div id="companyReviewsContainer">
-                <!-- Dynamically populated via AJAX -->
-            </div>
-                <button type="button" class="btn-return-home-modal" onclick="closeCompanyReviewsModal(); goToPortalHome();" style="width: 100%; margin-top: 14px; padding: 11px; border-radius: 12px; background: rgba(200, 109, 99, 0.12); color: var(--accent); border: 1.5px solid rgba(200, 109, 99, 0.3); font-weight: 700; font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer;">
-            <span>🏠</span> Volver al Inicio de Zacatecas
-        </button>
-</div>
-    </div>
-</div>
 
 <!-- NATIVE MOBILE BOTTOM NAVIGATION BAR -->
 <nav class="mobile-bottom-nav" id="mobileBottomNav" aria-label="Navegación Móvil Principal">
-    <button type="button" class="bottom-nav-tab active" id="bnavFeed" onclick="goToPortalHome()" aria-label="Inicio">
-        <span class="bottom-nav-icon">🏠</span>
-        <span class="bottom-nav-label">Inicio</span>
-    </button>
-    <button type="button" class="bottom-nav-tab" id="bnavStores" onclick="switchMainTab('stores')" aria-label="Tiendas">
-        <span class="bottom-nav-icon">🏢</span>
+    <button type="button" class="bottom-nav-tab active" id="bnavStores" onclick="switchMainTab('stores')" aria-label="Tiendas">
+        <span class="bottom-nav-icon">🏬</span>
         <span class="bottom-nav-label">Tiendas</span>
+    </button>
+    <button type="button" class="bottom-nav-tab" id="bnavFeed" onclick="switchMainTab('feed')" aria-label="Productos">
+        <span class="bottom-nav-icon">🔥</span>
+        <span class="bottom-nav-label">Productos</span>
     </button>
     <button type="button" class="bottom-nav-tab" id="bnavMap" onclick="switchMainTab('map')" aria-label="Mapa GPS">
         <span class="bottom-nav-icon">🗺️</span>
         <span class="bottom-nav-label">Mapa GPS</span>
     </button>
-    <button type="button" class="bottom-nav-tab" id="bnavRoute" onclick="toggleShoppingRouteOptimizer()" aria-label="Mi Ruta">
-        <span class="bottom-nav-icon">🛍️</span>
-        <span class="bottom-nav-label">Mi Ruta</span>
+    <button type="button" class="bottom-nav-tab" id="bnavRoute" onclick="goToCartRoutePlanner()" aria-label="Mi Carrito">
+        <span class="bottom-nav-icon">🛒</span>
+        <span class="bottom-nav-label">Carrito</span>
         <span class="bottom-nav-badge" id="bnavRouteBadge" style="display: none;">0</span>
-    </button>
-    <button type="button" class="bottom-nav-tab" id="bnavSearch" onclick="focusGlobalSearch()" aria-label="Buscar">
-        <span class="bottom-nav-icon">🔍</span>
-        <span class="bottom-nav-label">Buscar</span>
     </button>
 </nav>
 
@@ -6912,247 +6684,17 @@ function setProductStarRating(stars) {
     });
 }
 
-function toggleProductReviewForm() {
-    const card = document.getElementById('productReviewFormCard');
-    if (card) {
-        card.style.display = (card.style.display === 'none' || card.style.display === '') ? 'block' : 'none';
-    }
-}
-
-function loadProductReviews(prodSlug, defaultAvg = 5.0, defaultCount = 0) {
-    currentProductReviewSlug = prodSlug;
-    const container = document.getElementById('productReviewsContainer');
-    const ratingVal = document.getElementById('productModalRatingVal');
-    const countVal = document.getElementById('productModalReviewCount');
-    if (!container) return;
-
-    container.innerHTML = '<div style="font-size: 12px; color: var(--muted); padding: 8px 0;">Cargando opiniones...</div>';
-
-    fetch('/api/reviews?type=product&id=' + encodeURIComponent(prodSlug))
-        .then(res => res.json())
-        .then(data => {
-            if (data.success && data.reviews.length > 0) {
-                if (ratingVal) ratingVal.textContent = parseFloat(data.average_rating).toFixed(1);
-                if (countVal) countVal.textContent = `(${data.count} reseñas)`;
-                renderReviewsList(container, data.reviews);
-            } else {
-                if (ratingVal) ratingVal.textContent = parseFloat(defaultAvg).toFixed(1);
-                if (countVal) countVal.textContent = `(${defaultCount} reseñas)`;
-                container.innerHTML = '<div style="font-size: 12px; color: var(--muted); padding: 8px 0;">Sé el primero en calificar este producto en Zacatecas Centro.</div>';
-            }
-        })
-        .catch(() => {
-            container.innerHTML = '<div style="font-size: 12px; color: var(--muted); padding: 8px 0;">No se pudieron cargar las opiniones.</div>';
-        });
-}
-
-function submitProductReview() {
-    const authorInput = document.getElementById('productReviewAuthorInput');
-    const commentInput = document.getElementById('productReviewCommentInput');
-    const btn = document.getElementById('btnSubmitProductReview');
-
-    if (!authorInput.value.trim()) {
-        showToast('Por favor escribe tu nombre');
-        authorInput.focus();
-        return;
-    }
-    if (!commentInput.value.trim() || commentInput.value.trim().length < 4) {
-        showToast('Por favor escribe un comentario de al menos 4 letras');
-        commentInput.focus();
-        return;
-    }
-
-    btn.disabled = true;
-    btn.textContent = 'Publicando opinión...';
-
-    fetch('/api/reviews', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-        },
-        body: JSON.stringify({
-            reviewable_type: 'product',
-            reviewable_id: currentProductReviewSlug,
-            rating: currentSelectedProductStars,
-            author_name: authorInput.value.trim(),
-            comment: commentInput.value.trim(),
-        })
-    })
-    .then(res => res.json())
-    .then(data => {
-        btn.disabled = false;
-        btn.textContent = 'Publicar Calificación de Producto';
-
-        if (data.success) {
-            showToast('⭐ ' + data.message);
-            commentInput.value = '';
-            toggleProductReviewForm();
-
-            // Refresh reviews
-            loadProductReviews(currentProductReviewSlug);
-        } else {
-            showToast('Error: ' + (data.message || 'Verifica los datos'));
-        }
-    })
-    .catch(() => {
-        btn.disabled = false;
-        btn.textContent = 'Publicar Calificación de Producto';
-        showToast('Error al enviar la calificación.');
-    });
-}
-
-// --- COMPANY REVIEWS SYSTEM ---
-function openCompanyReviewsModal(comp) {
-    currentCompanyReviewStoreId = comp.id;
-    const modal = document.getElementById('companyReviewsModal');
-    const title = document.getElementById('companyReviewStoreTitle');
-    const avg = document.getElementById('companyReviewAvgRating');
-    const count = document.getElementById('companyReviewCountText');
-    const storeInput = document.getElementById('companyReviewStoreId');
-
-    if (title) title.textContent = comp.name;
-    if (avg) avg.textContent = parseFloat(comp.rating || 4.9).toFixed(1);
-    if (count) count.textContent = `(${comp.reviews_count || 0} opiniones)`;
-    if (storeInput) storeInput.value = comp.id;
-
-    loadCompanyReviews(comp.id, comp.rating, comp.reviews_count);
-
-    if (modal) {
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-        if (window.history && window.history.pushState) {
-            window.history.pushState({ pwaModal: 'companyReviews' }, '');
-        }
-    }
-}
-
-function closeCompanyReviewsModal() {
-    const modal = document.getElementById('companyReviewsModal');
-    if (modal) {
-        modal.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-}
-
-function handleCompanyReviewsBackdrop(event) {
-    if (event.target && event.target.id === 'companyReviewsModal') {
-        closeCompanyReviewsModal();
-    }
-}
-
-function setCompanyStarRating(stars) {
-    currentSelectedCompanyStars = stars;
-    const picker = document.getElementById('companyStarPicker');
-    if (!picker) return;
-    const buttons = picker.querySelectorAll('.star-pick-btn');
-    buttons.forEach((btn, idx) => {
-        btn.classList.toggle('active', idx < stars);
-    });
-}
-
-function loadCompanyReviews(storeId, defaultAvg = 4.9, defaultCount = 0) {
-    const container = document.getElementById('companyReviewsContainer');
-    const avg = document.getElementById('companyReviewAvgRating');
-    const count = document.getElementById('companyReviewCountText');
-    if (!container) return;
-
-    container.innerHTML = '<div style="font-size: 12px; color: var(--muted); padding: 8px 0;">Cargando opiniones de clientes...</div>';
-
-    fetch('/api/reviews?type=company&id=' + encodeURIComponent(storeId))
-        .then(res => res.json())
-        .then(data => {
-            if (data.success && data.reviews.length > 0) {
-                if (avg) avg.textContent = parseFloat(data.average_rating).toFixed(1);
-                if (count) count.textContent = `(${data.count} opiniones)`;
-                renderReviewsList(container, data.reviews);
-            } else {
-                if (avg) avg.textContent = parseFloat(defaultAvg).toFixed(1);
-                if (count) count.textContent = `(${defaultCount} opiniones)`;
-                container.innerHTML = '<div style="font-size: 12px; color: var(--muted); padding: 8px 0;">Esta empresa aún no tiene comentarios. ¡Sé el primero en calificarla!</div>';
-            }
-        })
-        .catch(() => {
-            container.innerHTML = '<div style="font-size: 12px; color: var(--muted); padding: 8px 0;">No se pudieron cargar las opiniones.</div>';
-        });
-}
-
-function submitCompanyReview(event) {
-    event.preventDefault();
-    const authorInput = document.getElementById('companyReviewAuthorInput');
-    const commentInput = document.getElementById('companyReviewCommentInput');
-    const btn = document.getElementById('btnSubmitCompanyReview');
-
-    if (!authorInput.value.trim() || !commentInput.value.trim()) return;
-
-    btn.disabled = true;
-    btn.textContent = 'Guardando opinión...';
-
-    fetch('/api/reviews', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-        },
-        body: JSON.stringify({
-            reviewable_type: 'company',
-            reviewable_id: currentCompanyReviewStoreId,
-            rating: currentSelectedCompanyStars,
-            author_name: authorInput.value.trim(),
-            comment: commentInput.value.trim(),
-        })
-    })
-    .then(res => res.json())
-    .then(data => {
-        btn.disabled = false;
-        btn.textContent = 'Publicar Mi Opinión (1 a 5 ★)';
-
-        if (data.success) {
-            showToast('⭐ ' + data.message);
-            commentInput.value = '';
-
-            // Update badge on company card in directory
-            const cardRatingNum = document.getElementById('companyRatingNum_' + currentCompanyReviewStoreId);
-            const cardCount = document.getElementById('companyReviewsCount_' + currentCompanyReviewStoreId);
-            if (cardRatingNum) cardRatingNum.textContent = parseFloat(data.average_rating).toFixed(1);
-            if (cardCount) cardCount.textContent = `(${data.reviews_count} reseñas)`;
-
-            loadCompanyReviews(currentCompanyReviewStoreId);
-        } else {
-            showToast('Error: ' + (data.message || 'Verifica los datos'));
-        }
-    })
-    .catch(() => {
-        btn.disabled = false;
-        btn.textContent = 'Publicar Mi Opinión (1 a 5 ★)';
-        showToast('Error de conexión al enviar la reseña.');
-    });
-}
-
-function renderReviewsList(container, reviews) {
-    container.innerHTML = '';
-    reviews.forEach(r => {
-        const item = document.createElement('div');
-        item.className = 'review-item-card';
-
-        let starsStr = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
-
-        item.innerHTML = `
-            <div class="review-item-header">
-                <div class="review-author-name">
-                    <span>${r.author_name}</span>
-                    <span class="review-verified-tag">✓ Verificado</span>
-                </div>
-                <div style="display: flex; align-items: center; gap: 8px;">
-                    <span class="stars-gold">${starsStr}</span>
-                    <span class="review-item-date">${r.time_ago}</span>
-                </div>
-            </div>
-            <p class="review-item-text">${r.comment}</p>
-        `;
-        container.appendChild(item);
-    });
-}
+// Reviews & opinions system removed for clean and comfortable UX
+function toggleProductReviewForm() {}
+function loadProductReviews() {}
+function submitProductReview() {}
+function openCompanyReviewsModal() {}
+function closeCompanyReviewsModal() {}
+function handleCompanyReviewsBackdrop() {}
+function setCompanyStarRating() {}
+function loadCompanyReviews() {}
+function submitCompanyReview() {}
+function renderReviewsList() {}
 
 // ========================================================
 // PWA NAVIGATION, GO TO HOME & HISTORY GUARD
@@ -7516,8 +7058,6 @@ function addCurrentModalProductToRouteCart() {
 function openCentralProductModal(item) {
     if (!item) return;
     currentCentralProduct = item;
-    const prodSlug = item.slug || String(item.name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-    loadProductReviews(prodSlug, item.rating || 5.0, item.reviews_count || 12);
     const modal = document.getElementById('centralProductModal');
     if (!modal) return;
 
@@ -7979,7 +7519,7 @@ function renderStoreMarkers(stores) {
                     ${storeLogoHtml}
                     <h4 style="font-size: 15px; margin: 0; font-weight: 800; line-height: 1.25;">${store.store_name}</h4>
                 </div>
-                <div style="font-size:11px; color:#d97706; font-weight:700; margin-bottom:4px;">★ ${Number(store.rating || 4.9).toFixed(1)} <span style="color:#6b7280; font-weight:500;">(${store.reviews_count || 180} ${currentLang === 'en' ? 'reviews' : 'reseñas'})</span></div>
+
                 ${traditionHtml}
                 <p style="font-size: 11.5px; color: #555; margin: 0 0 6px; line-height: 1.35;">📍 ${store.address}</p>
                 <div style="font-size: 11px; color: #059669; font-weight: 700; margin-bottom: 8px;">⏰ ${store.opening_hours}</div>
