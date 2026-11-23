@@ -24,7 +24,7 @@
             
             <div class="about-story-highlights">
                 <div class="about-hl-item">
-                    <span class="about-hl-icon">✨</span>
+                    
                     <div>
                         <strong>Calidad Certificada</strong>
                         <small>Atención al detalle y materiales de primera</small>

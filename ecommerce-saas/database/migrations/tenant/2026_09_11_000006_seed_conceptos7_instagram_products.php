@@ -41,8 +41,8 @@ return new class extends Migration
 
             $updateData = [
                 'store_name' => 'D & R CONCEPTOS',
-                'description' => '📍 Zacatecas Centro | Joyería y Accesorio ✨ | Ropa y calzado 👠 | Atención personalizada',
-                'business_category' => '👗 Moda, Lujo & Accesorios',
+                'description' => ' Zacatecas Centro | Joyería y Accesorio  | Ropa y calzado  | Atención personalizada',
+                'business_category' => ' Moda, Lujo & Accesorios',
             ];
 
             if ($logoData) {
@@ -68,7 +68,7 @@ return new class extends Migration
         $category = Category::firstOrCreate(
             ['slug' => 'ropa-tendencia'],
             [
-                'name' => 'Ropa & Tendencia 👗',
+                'name' => 'Ropa & Tendencia ',
                 'description' => 'Colección exclusiva de prendas y tendencias de temporada',
             ]
         );

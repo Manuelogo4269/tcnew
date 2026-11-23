@@ -24,7 +24,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                 'plan_name' => 'Corporativo',
                 'billing_cycle' => 'annual',
                 'subscription_amount' => 850.00,
-                'tagline' => 'Joyería y Accesorios ✨ · Ropa y Calzado 👠 · Zacatecas Centro',
+       'tagline'=>'Joyería y Accesorios · Ropa y Calzado · Zacatecas Centro',
                 'address' => 'Calle Tacuba #124, Centro Histórico, Zacatecas, Zac., C.P. 98000',
                 'neighborhood_zone' => 'Calle Tacuba',
                 'city' => 'Zacatecas',
@@ -39,7 +39,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                 'banner_url' => 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1400&q=80',
                 'hero_title' => "D & R CONCEPTOS\nJoyería, Ropa y Calzado",
                 'hero_subtitle' => 'Tu boutique de moda en el Centro de Zacatecas. Piezas exclusivas de joyería fina, colecciones de temporada y calzado para elevar cada uno de tus looks.',
-                'announcement_text' => '✨ ¡Nueva Colección 2026 en D & R CONCEPTOS! Joyería, accesorios, ropa y calzado en Zacatecas Centro · Envíos a todo el país ✨',
+       'announcement_text'=>'¡Nueva Colección 2026 en D & R CONCEPTOS! Joyería, accesorios, ropa y calzado en Zacatecas Centro · Envíos a todo el país',
                 'contact_email' => 'contacto@conceptos7.com',
                 'whatsapp_number' => '+52 492 145 7890',
                 'facebook_url' => 'https://www.facebook.com/conceptos7zacatecas/',
@@ -48,14 +48,14 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                 'admin_name' => 'Administrador D & R CONCEPTOS',
                 'admin_email' => 'admin@conceptos7.com',
                 'categories' => [
-                    ['name' => 'Joyería y Accesorios ✨', 'slug' => 'joyeria-y-accesorios', 'description' => 'Gargantillas, aretes, pulseras y anillos en chapa de oro 14K y plata fina.'],
-                    ['name' => 'Ropa & Tendencia 👗', 'slug' => 'ropa-y-tendencia', 'description' => 'Prendas de temporada, vestidos satinados y sastrería femenina.'],
-                    ['name' => 'Calzado & Tacones 👠', 'slug' => 'calzado-y-tacones', 'description' => 'Zapatillas de tacón, mules destalonados y sandalias de plataforma confort.'],
-                    ['name' => 'Bolsos & Complementos 👜', 'slug' => 'bolsos-y-complementos', 'description' => 'Bolsos crossbody, clutches de noche y carteras en tonos neutros.'],
+          ['name'=>'Joyería y Accesorios','slug'=>'joyeria-y-accesorios','description'=>'Gargantillas, aretes, pulseras y anillos en chapa de oro 14K y plata fina.'],
+          ['name'=>'Ropa & Tendencia','slug'=>'ropa-y-tendencia','description'=>'Prendas de temporada, vestidos satinados y sastrería femenina.'],
+          ['name'=>'Calzado & Tacones','slug'=>'calzado-y-tacones','description'=>'Zapatillas de tacón, mules destalonados y sandalias de plataforma confort.'],
+          ['name'=>'Bolsos & Complementos','slug'=>'bolsos-y-complementos','description'=>'Bolsos crossbody, clutches de noche y carteras en tonos neutros.'],
                 ],
                 'products' => [
                     [
-                        'name' => 'Gargantilla Oro 14K Solitaria con Circonia',
+           'name'=>'Gargantilla Oro 14K Solitaria con Circonia',
                         'slug' => 'gargantilla-oro-14k-solitaria',
                         'category_slug' => 'joyeria-y-accesorios',
                         'price' => 450.00,
@@ -63,7 +63,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                         'image_url' => 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=600&q=80',
                     ],
                     [
-                        'name' => 'Vestido Midi Satinado Espalda Cruzada',
+           'name'=>'Vestido Midi Satinado Espalda Cruzada',
                         'slug' => 'vestido-midi-satinado-espalda-cruzada',
                         'category_slug' => 'ropa-y-tendencia',
                         'price' => 750.00,
@@ -71,7 +71,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                         'image_url' => 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=600&q=80',
                     ],
                     [
-                        'name' => 'Mules de Punta Fina con Herraje Joya',
+           'name'=>'Mules de Punta Fina con Herraje Joya',
                         'slug' => 'mules-punta-fina-herraje-joya',
                         'category_slug' => 'calzado-y-tacones',
                         'price' => 790.00,
@@ -79,7 +79,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                         'image_url' => 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=600&q=80',
                     ],
                     [
-                        'name' => 'Bolso Bandolera Acolchado con Cadena Dorada',
+           'name'=>'Bolso Bandolera Acolchado con Cadena Dorada',
                         'slug' => 'bolso-bandolera-acolchado-cadena-dorada',
                         'category_slug' => 'bolsos-y-complementos',
                         'price' => 820.00,
@@ -97,7 +97,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                 'plan_name' => 'Corporativo',
                 'billing_cycle' => 'annual',
                 'subscription_amount' => 950.00,
-                'tagline' => 'Tradición desde 1943 frente a la Catedral. Café turco, pays artesanales y gastronomía zacatecana.',
+       'tagline'=>'Tradición desde 1943 frente a la Catedral. Café turco, pays artesanales y gastronomía zacatecana.',
                 'address' => 'Av. Hidalgo y Plazuela Candelario Huízar #1, Centro Histórico, Zacatecas, Zac.',
                 'neighborhood_zone' => 'Catedral / Plaza de Armas',
                 'city' => 'Zacatecas',
@@ -112,7 +112,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                 'banner_url' => 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=1400&q=80',
                 'hero_title' => "Café Acrópolis\nTradición y Cultura Zacatecana",
                 'hero_subtitle' => 'El punto de encuentro más icónico de Zacatecas desde 1943. Saborea nuestro legendario café turco y repostería artesanal.',
-                'announcement_text' => '☕ Disfruta del auténtico Café Acrópolis en el Centro de Zacatecas o haz tu pedido para llevar ☕',
+       'announcement_text'=>'Disfruta del auténtico Café Acrópolis en el Centro de Zacatecas o haz tu pedido para llevar',
                 'contact_email' => 'contacto@cafeacropolis.mx',
                 'whatsapp_number' => '+52 492 922 1284',
                 'facebook_url' => 'https://www.facebook.com/cafeacropoliszacatecas/',
@@ -121,13 +121,13 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                 'admin_name' => 'Gerencia Café Acrópolis',
                 'admin_email' => 'admin@acropolis.com',
                 'categories' => [
-                    ['name' => 'Café de Especialidad ☕', 'slug' => 'cafe-de-especialidad', 'description' => 'Granos selectos tostados artesanalmente y métodos de extracción tradicionales.'],
-                    ['name' => 'Repostería Fina 🍰', 'slug' => 'reposteria-fina', 'description' => 'Pays horneados diariamente con recetas secretas de la casa.'],
-                    ['name' => 'Desayunos Mineros 🍳', 'slug' => 'desayunos-mineros', 'description' => 'Especialidades culinarias tradicionales de Zacatecas.'],
+          ['name'=>'Café de Especialidad','slug'=>'cafe-de-especialidad','description'=>'Granos selectos tostados artesanalmente y métodos de extracción tradicionales.'],
+          ['name'=>'Repostería Fina','slug'=>'reposteria-fina','description'=>'Pays horneados diariamente con recetas secretas de la casa.'],
+          ['name'=>'Desayunos Mineros','slug'=>'desayunos-mineros','description'=>'Especialidades culinarias tradicionales de Zacatecas.'],
                 ],
                 'products' => [
                     [
-                        'name' => 'Café Turco Acrópolis Tradicional',
+           'name'=>'Café Turco Acrópolis Tradicional',
                         'slug' => 'cafe-turco-acropolis-tradicional',
                         'category_slug' => 'cafe-de-especialidad',
                         'price' => 65.00,
@@ -135,7 +135,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                         'image_url' => 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=600&q=80',
                     ],
                     [
-                        'name' => 'Pay de Queso con Zarzamora de la Casa',
+           'name'=>'Pay de Queso con Zarzamora de la Casa',
                         'slug' => 'pay-de-queso-con-zarzamora',
                         'category_slug' => 'reposteria-fina',
                         'price' => 85.00,
@@ -143,7 +143,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                         'image_url' => 'https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&w=600&q=80',
                     ],
                     [
-                        'name' => 'Desayuno Minero Zacatecano',
+           'name'=>'Desayuno Minero Zacatecano',
                         'slug' => 'desayuno-minero-zacatecano',
                         'category_slug' => 'desayunos-mineros',
                         'price' => 160.00,
@@ -151,7 +151,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                         'image_url' => 'https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=600&q=80',
                     ],
                     [
-                        'name' => 'Bolsa 1/2 Kg Café de Altura Acrópolis Molido',
+           'name'=>'Bolsa 1/2 Kg Café de Altura Acrópolis Molido',
                         'slug' => 'bolsa-medio-kilo-cafe-acropolis',
                         'category_slug' => 'cafe-de-especialidad',
                         'price' => 195.00,
@@ -169,7 +169,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                 'plan_name' => 'Crecimiento',
                 'billing_cycle' => 'annual',
                 'subscription_amount' => 750.00,
-                'tagline' => 'Plata pura Ley .925 certificada, filigrana jerezana y orfebrería tradicional zacatecana.',
+       'tagline'=>'Plata pura Ley .925 certificada, filigrana jerezana y orfebrería tradicional zacatecana.',
                 'address' => 'Av. Hidalgo #305, Portal de Rosales, Centro Histórico, Zacatecas, Zac.',
                 'neighborhood_zone' => 'Portal de Rosales',
                 'city' => 'Zacatecas',
@@ -184,7 +184,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                 'banner_url' => 'https://images.unsplash.com/photo-1573408301185-9146fe634ad0?auto=format&fit=crop&w=1400&q=80',
                 'hero_title' => "Platería Rosa de Plata\nOrfebrería Fina Ley .925",
                 'hero_subtitle' => 'La más distinguida tradición platera de Zacatecas. Joyas elaboradas con metales preciosos extraídos de las minas zacatecanas.',
-                'announcement_text' => '💎 Certificado de autenticidad en cada pieza de plata Ley .925 · Envíos garantizados 💎',
+       'announcement_text'=>'Certificado de autenticidad en cada pieza de plata Ley .925 · Envíos garantizados',
                 'contact_email' => 'ventas@rosadeplata.mx',
                 'whatsapp_number' => '+52 492 924 5510',
                 'facebook_url' => 'https://www.facebook.com/rosadeplatazac/',
@@ -193,13 +193,13 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                 'admin_name' => 'Maestro Platero Rosa de Plata',
                 'admin_email' => 'admin@rosadeplata.com',
                 'categories' => [
-                    ['name' => 'Arracadas Jerezanas 🪢', 'slug' => 'arracadas-jerezanas', 'description' => 'La joya zacatecana por excelencia en filigrana fina.'],
-                    ['name' => 'Dijes & Cantera 🏛️', 'slug' => 'dijes-y-cantera', 'description' => 'Combinación única de plata y cantera rosa de Zacatecas.'],
-                    ['name' => 'Anillos & Solitarios 💍', 'slug' => 'anillos-y-solitarios', 'description' => 'Piezas con engastes artesanales y pulido espejo.'],
+          ['name'=>'Arracadas Jerezanas','slug'=>'arracadas-jerezanas','description'=>'La joya zacatecana por excelencia en filigrana fina.'],
+          ['name'=>'Dijes & Cantera','slug'=>'dijes-y-cantera','description'=>'Combinación única de plata y cantera rosa de Zacatecas.'],
+          ['name'=>'Anillos & Solitarios','slug'=>'anillos-y-solitarios','description'=>'Piezas con engastes artesanales y pulido espejo.'],
                 ],
                 'products' => [
                     [
-                        'name' => 'Arracadas Jerezanas Tradicionales Plata .925',
+           'name'=>'Arracadas Jerezanas Tradicionales Plata .925',
                         'slug' => 'arracadas-jerezanas-tradicionales',
                         'category_slug' => 'arracadas-jerezanas',
                         'price' => 680.00,
@@ -207,7 +207,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                         'image_url' => 'https://images.unsplash.com/photo-1630019852942-f89202989a59?auto=format&fit=crop&w=600&q=80',
                     ],
                     [
-                        'name' => 'Dije Cantera Rosa con Marco de Plata .925',
+           'name'=>'Dije Cantera Rosa con Marco de Plata .925',
                         'slug' => 'dije-cantera-rosa-plata-925',
                         'category_slug' => 'dijes-y-cantera',
                         'price' => 490.00,
@@ -215,7 +215,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                         'image_url' => 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=600&q=80',
                     ],
                     [
-                        'name' => 'Anillo Solitario Circonia Suiza Plata .925',
+           'name'=>'Anillo Solitario Circonia Suiza Plata .925',
                         'slug' => 'anillo-solitario-circonia-suiza',
                         'category_slug' => 'anillos-y-solitarios',
                         'price' => 420.00,
@@ -223,7 +223,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                         'image_url' => 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=600&q=80',
                     ],
                     [
-                        'name' => 'Pulsera Filigrana Zacatecana Tejida',
+           'name'=>'Pulsera Filigrana Zacatecana Tejida',
                         'slug' => 'pulsera-filigrana-zacatecana',
                         'category_slug' => 'arracadas-jerezanas',
                         'price' => 850.00,
@@ -241,7 +241,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                 'plan_name' => 'Crecimiento',
                 'billing_cycle' => 'annual',
                 'subscription_amount' => 750.00,
-                'tagline' => 'El sabor más tradicional de Zacatecas. Gorditas al comal recién hechas y dulces típicos de leche y guayaba.',
+       'tagline'=>'El sabor más tradicional de Zacatecas. Gorditas al comal recién hechas y dulces típicos de leche y guayaba.',
                 'address' => 'Calle Tacuba #112, Centro Histórico, Zacatecas, Zac.',
                 'neighborhood_zone' => 'Plazuela Goitia / Tacuba',
                 'city' => 'Zacatecas',
@@ -256,7 +256,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                 'banner_url' => 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1400&q=80',
                 'hero_title' => "Doña Julia\nGorditas de Comal & Dulces Típicos",
                 'hero_subtitle' => 'Una parada obligada en el Centro de Zacatecas. Gorditas calientitas rellenas de guisados tradicionales y los mejores ates de la región.',
-                'announcement_text' => '🍯 ¡Prueba las famosas gorditas de deshebrada y los jamoncillos con nuez de Doña Julia! 🍯',
+       'announcement_text'=>'¡Prueba las famosas gorditas de deshebrada y los jamoncillos con nuez de Doña Julia!',
                 'contact_email' => 'pedidos@donajulia.mx',
                 'whatsapp_number' => '+52 492 922 8412',
                 'facebook_url' => 'https://www.facebook.com/donajuliazacatecas/',
@@ -265,13 +265,13 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                 'admin_name' => 'Doña Julia Administración',
                 'admin_email' => 'admin@donajulia.com',
                 'categories' => [
-                    ['name' => 'Gorditas de Comal 🫓', 'slug' => 'gorditas-de-comal', 'description' => 'Masa de maíz criollo cocida al comal con guisados caseros.'],
-                    ['name' => 'Dulces Típicos Zacatecanos 🍬', 'slug' => 'dulces-tipicos', 'description' => 'Jamoncillos, rollos de guayaba, charamuscas y cajetas.'],
-                    ['name' => 'Aguas Frescas 🥤', 'slug' => 'aguas-frescas', 'description' => 'Bebidas naturales tradicionales preparadas al momento.'],
+          ['name'=>'Gorditas de Comal','slug'=>'gorditas-de-comal','description'=>'Masa de maíz criollo cocida al comal con guisados caseros.'],
+          ['name'=>'Dulces Típicos Zacatecanos','slug'=>'dulces-tipicos','description'=>'Jamoncillos, rollos de guayaba, charamuscas y cajetas.'],
+          ['name'=>'Aguas Frescas','slug'=>'aguas-frescas','description'=>'Bebidas naturales tradicionales preparadas al momento.'],
                 ],
                 'products' => [
                     [
-                        'name' => 'Paquete 4 Gorditas de Guisado Tradicional',
+           'name'=>'Paquete 4 Gorditas de Guisado Tradicional',
                         'slug' => 'paquete-4-gorditas-guisado',
                         'category_slug' => 'gorditas-de-comal',
                         'price' => 110.00,
@@ -279,7 +279,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                         'image_url' => 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=600&q=80',
                     ],
                     [
-                        'name' => 'Rollo de Guayaba Relleno de Cajeta y Nuez',
+           'name'=>'Rollo de Guayaba Relleno de Cajeta y Nuez',
                         'slug' => 'rollo-guayaba-relleno-cajeta',
                         'category_slug' => 'dulces-tipicos',
                         'price' => 85.00,
@@ -287,7 +287,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                         'image_url' => 'https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=600&q=80',
                     ],
                     [
-                        'name' => 'Jamoncillo de Leche Tradicional con Nuez',
+           'name'=>'Jamoncillo de Leche Tradicional con Nuez',
                         'slug' => 'jamoncillo-leche-con-nuez',
                         'category_slug' => 'dulces-tipicos',
                         'price' => 65.00,
@@ -295,7 +295,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                         'image_url' => 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=600&q=80',
                     ],
                     [
-                        'name' => 'Canasta Surtida Dulces Típicos Zacatecanos',
+           'name'=>'Canasta Surtida Dulces Típicos Zacatecanos',
                         'slug' => 'canasta-surtida-dulces-tipicos',
                         'category_slug' => 'dulces-tipicos',
                         'price' => 280.00,
@@ -313,7 +313,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                 'plan_name' => 'Emprendedor',
                 'billing_cycle' => 'annual',
                 'subscription_amount' => 550.00,
-                'tagline' => 'Nieves de garrafa artesanales con recetas centenarias de Jerez y Zacatecas. Frutas 100% naturales.',
+       'tagline'=>'Nieves de garrafa artesanales con recetas centenarias de Jerez y Zacatecas. Frutas 100% naturales.',
                 'address' => 'Av. Hidalgo #208, Centro Histórico, Zacatecas, Zac.',
                 'neighborhood_zone' => 'Portal de Rosales',
                 'city' => 'Zacatecas',
@@ -328,7 +328,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                 'banner_url' => 'https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=1400&q=80',
                 'hero_title' => "Nieves El Serranito\nSabor de Garrafa Tradicional",
                 'hero_subtitle' => 'Elaboradas a mano en barricas de madera con hielo y sal de grano, con la mejor fruta de la región.',
-                'announcement_text' => '🍧 ¡Nieve de ciruela jerezana y pasta de almendra disponibles hoy! 🍧',
+       'announcement_text'=>'¡Nieve de ciruela jerezana y pasta de almendra disponibles hoy!',
                 'contact_email' => 'contacto@elserranito.com',
                 'whatsapp_number' => '+52 492 925 1102',
                 'facebook_url' => 'https://www.facebook.com/nieveselserranito/',
@@ -337,12 +337,12 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                 'admin_name' => 'Admin El Serranito',
                 'admin_email' => 'admin@elserranito.com',
                 'categories' => [
-                    ['name' => 'Nieves de Garrafa de Fruta 🍧', 'slug' => 'nieves-de-fruta', 'description' => 'Elaboradas con fruta fresca sin conservadores.'],
-                    ['name' => 'Nieves Cremosas de Especialidad 🍨', 'slug' => 'nieves-cremosas', 'description' => 'Recetas con leche entera, canela, nuez y vainilla natural.'],
+          ['name'=>'Nieves de Garrafa de Fruta','slug'=>'nieves-de-fruta','description'=>'Elaboradas con fruta fresca sin conservadores.'],
+          ['name'=>'Nieves Cremosas de Especialidad','slug'=>'nieves-cremosas','description'=>'Recetas con leche entera, canela, nuez y vainilla natural.'],
                 ],
                 'products' => [
                     [
-                        'name' => 'Nieve Tradicional de Ciruela Jerezana',
+           'name'=>'Nieve Tradicional de Ciruela Jerezana',
                         'slug' => 'nieve-tradicional-ciruela-jerezana',
                         'category_slug' => 'nieves-de-fruta',
                         'price' => 55.00,
@@ -350,7 +350,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                         'image_url' => 'https://images.unsplash.com/photo-1501443762994-82bd5dace89a?auto=format&fit=crop&w=600&q=80',
                     ],
                     [
-                        'name' => 'Nieve de Pasta de Almendra y Leche',
+           'name'=>'Nieve de Pasta de Almendra y Leche',
                         'slug' => 'nieve-pasta-almendra-leche',
                         'category_slug' => 'nieves-cremosas',
                         'price' => 60.00,
@@ -358,7 +358,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                         'image_url' => 'https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=600&q=80',
                     ],
                     [
-                        'name' => 'Litro Familiar Nieve de Tuna Roja',
+           'name'=>'Litro Familiar Nieve de Tuna Roja',
                         'slug' => 'litro-familiar-nieve-tuna-roja',
                         'category_slug' => 'nieves-de-fruta',
                         'price' => 160.00,
@@ -376,7 +376,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                 'plan_name' => 'Corporativo',
                 'billing_cycle' => 'annual',
                 'subscription_amount' => 850.00,
-                'tagline' => 'Desde 1906. Más de un siglo de historia minera, galería de arte y la mejor selección de mezcales de Zacatecas.',
+       'tagline'=>'Desde 1906. Más de un siglo de historia minera, galería de arte y la mejor selección de mezcales de Zacatecas.',
                 'address' => 'Calle Mártires de Tacubaya #301, Centro Histórico, Zacatecas, Zac.',
                 'neighborhood_zone' => 'San Agustín / Tacubaya',
                 'city' => 'Zacatecas',
@@ -391,7 +391,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                 'banner_url' => 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=1400&q=80',
                 'hero_title' => "Las Quince Letras\nHistoria, Arte y Mezcal Zacatecano",
                 'hero_subtitle' => 'Fundada en 1906, es la cantina museo más emblemática del estado. Adquiere mezcales de colección y souvenirs conmemorativos.',
-                'announcement_text' => '🥃 Botellas de mezcal artesanal zacatecano conmemorativo con entrega directa 🥃',
+       'announcement_text'=>'Botellas de mezcal artesanal zacatecano conmemorativo con entrega directa',
                 'contact_email' => 'contacto@lasquinceletras.com',
                 'whatsapp_number' => '+52 492 922 4190',
                 'facebook_url' => 'https://www.facebook.com/lasquinceletraszac/',
@@ -400,12 +400,12 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                 'admin_name' => 'Admin Las Quince Letras',
                 'admin_email' => 'admin@quinceletras.com',
                 'categories' => [
-                    ['name' => 'Mezcales de Origen Zacatecano 🥃', 'slug' => 'mezcales-zacatecanos', 'description' => 'Agaves salmiana y tequilana de Jalpa, Huitzila y Pinos.'],
-                    ['name' => 'Souvenirs Conmemorativos 🏛️', 'slug' => 'souvenirs-historicos', 'description' => 'Objetos de colección conmemorando más de 115 años de historia.'],
+          ['name'=>'Mezcales de Origen Zacatecano','slug'=>'mezcales-zacatecanos','description'=>'Agaves salmiana y tequilana de Jalpa, Huitzila y Pinos.'],
+          ['name'=>'Souvenirs Conmemorativos','slug'=>'souvenirs-historicos','description'=>'Objetos de colección conmemorando más de 115 años de historia.'],
                 ],
                 'products' => [
                     [
-                        'name' => 'Mezcal Real de Jalpa Joven 750ml',
+           'name'=>'Mezcal Real de Jalpa Joven 750ml',
                         'slug' => 'mezcal-real-de-jalpa-joven',
                         'category_slug' => 'mezcales-zacatecanos',
                         'price' => 580.00,
@@ -413,7 +413,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                         'image_url' => 'https://images.unsplash.com/photo-1569529465841-dfecdab7503b?auto=format&fit=crop&w=600&q=80',
                     ],
                     [
-                        'name' => 'Mezcal Mala Noche Reposado en Barrica',
+           'name'=>'Mezcal Mala Noche Reposado en Barrica',
                         'slug' => 'mezcal-mala-noche-reposado',
                         'category_slug' => 'mezcales-zacatecanos',
                         'price' => 720.00,
@@ -421,7 +421,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                         'image_url' => 'https://images.unsplash.com/photo-1563227812-0ea4c22e6cc8?auto=format&fit=crop&w=600&q=80',
                     ],
                     [
-                        'name' => 'Tarro de Cerámica Conmemorativo 1906',
+           'name'=>'Tarro de Cerámica Conmemorativo 1906',
                         'slug' => 'tarro-ceramica-conmemorativo-1906',
                         'category_slug' => 'souvenirs-historicos',
                         'price' => 180.00,
@@ -439,7 +439,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                 'plan_name' => 'Emprendedor',
                 'billing_cycle' => 'annual',
                 'subscription_amount' => 550.00,
-                'tagline' => 'El rincón literario y artístico de Zacatecas. Poesía zacatecana, historia de la minería, novela y arte local.',
+       'tagline'=>'El rincón literario y artístico de Zacatecas. Poesía zacatecana, historia de la minería, novela y arte local.',
                 'address' => 'Calle Allende #108, Centro Histórico, Zacatecas, Zac.',
                 'neighborhood_zone' => 'Calle Allende',
                 'city' => 'Zacatecas',
@@ -454,7 +454,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                 'banner_url' => 'https://images.unsplash.com/photo-1507842229452-78d108520b22?auto=format&fit=crop&w=1400&q=80',
                 'hero_title' => "Librería Andrea\nLetras, Arte & Coleccionismo",
                 'hero_subtitle' => 'Obras de poetas e historiadores zacatecanos, narrativa universal y grabados artísticos sobre la ciudad.',
-                'announcement_text' => '📚 Nuevos títulos sobre historia y leyendas coloniales de Zacatecas 📚',
+       'announcement_text'=>'Nuevos títulos sobre historia y leyendas coloniales de Zacatecas',
                 'contact_email' => 'libros@libreriaandrea.mx',
                 'whatsapp_number' => '+52 492 923 7741',
                 'facebook_url' => 'https://www.facebook.com/libreriaandreazac/',
@@ -463,13 +463,13 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                 'admin_name' => 'Admin Librería Andrea',
                 'admin_email' => 'admin@libreriaandrea.com',
                 'categories' => [
-                    ['name' => 'Historia y Leyendas de Zacatecas 📖', 'slug' => 'historia-zacatecana', 'description' => 'Textos fundamentales de cronistas e historiadores locales.'],
-                    ['name' => 'Poesía y Letras Mexicanas ✒️', 'slug' => 'poesia-mexicana', 'description' => 'Obras de Ramón López Velarde, Roberto Cabral del Hoyo y más.'],
-                    ['name' => 'Grabados y Papelería Fina 🎨', 'slug' => 'grabados-artisticos', 'description' => 'Ilustraciones en tinta y libretas encuadernadas artesanalmente.'],
+          ['name'=>'Historia y Leyendas de Zacatecas','slug'=>'historia-zacatecana','description'=>'Textos fundamentales de cronistas e historiadores locales.'],
+          ['name'=>'Poesía y Letras Mexicanas','slug'=>'poesia-mexicana','description'=>'Obras de Ramón López Velarde, Roberto Cabral del Hoyo y más.'],
+          ['name'=>'Grabados y Papelería Fina','slug'=>'grabados-artisticos','description'=>'Ilustraciones en tinta y libretas encuadernadas artesanalmente.'],
                 ],
                 'products' => [
                     [
-                        'name' => 'La Suave Patria - Ramón López Velarde (Edición de Lujo)',
+           'name'=>'La Suave Patria - Ramón López Velarde (Edición de Lujo)',
                         'slug' => 'la-suave-patria-ramon-lopez-velarde',
                         'category_slug' => 'poesia-mexicana',
                         'price' => 280.00,
@@ -477,7 +477,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                         'image_url' => 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=600&q=80',
                     ],
                     [
-                        'name' => 'Libro Leyendas y Misterios del Zacatecas Colonial',
+           'name'=>'Libro Leyendas y Misterios del Zacatecas Colonial',
                         'slug' => 'leyendas-y-misterios-zacatecas',
                         'category_slug' => 'historia-zacatecana',
                         'price' => 320.00,
@@ -485,7 +485,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                         'image_url' => 'https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=600&q=80',
                     ],
                     [
-                        'name' => 'Grabado Artístico Catedral de Zacatecas en Tinta',
+           'name'=>'Grabado Artístico Catedral de Zacatecas en Tinta',
                         'slug' => 'grabado-artistico-catedral-zacatecas',
                         'category_slug' => 'grabados-artisticos',
                         'price' => 450.00,
@@ -503,7 +503,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                 'plan_name' => 'Crecimiento',
                 'billing_cycle' => 'annual',
                 'subscription_amount' => 750.00,
-                'tagline' => 'Boutique de mezcales de origen zacatecano: Jalpa, Juchipila y Pinos. Sales de gusano y miel de agave pura.',
+       'tagline'=>'Boutique de mezcales de origen zacatecano: Jalpa, Juchipila y Pinos. Sales de gusano y miel de agave pura.',
                 'address' => 'Callejón de Quijano #104, Centro Histórico, Zacatecas, Zac.',
                 'neighborhood_zone' => 'Plazuela Miguel Auza',
                 'city' => 'Zacatecas',
@@ -518,7 +518,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                 'banner_url' => 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=1400&q=80',
                 'hero_title' => "Botica La Mina\nMezcales de Selección Especial",
                 'hero_subtitle' => 'Destilados de pequeños maestros mezcaleros de la sierra zacatecana.',
-                'announcement_text' => '🌵 Mezcales silvestres de agave Salmiana con denominación de origen Zacatecas 🌵',
+       'announcement_text'=>'Mezcales silvestres de agave Salmiana con denominación de origen Zacatecas',
                 'contact_email' => 'botica@mezcalerialamina.mx',
                 'whatsapp_number' => '+52 492 112 3344',
                 'facebook_url' => 'https://www.facebook.com/mezcalerialamina/',
@@ -527,12 +527,12 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                 'admin_name' => 'Admin La Mina',
                 'admin_email' => 'admin@mezcalerialamina.com',
                 'categories' => [
-                    ['name' => 'Mezcales Silvestres 🌵', 'slug' => 'mezcales-silvestres', 'description' => 'Agaves que crecen de manera silvestre en el semidesierto.'],
-                    ['name' => 'Sales y Botanas de Cata 🧂', 'slug' => 'sales-de-cata', 'description' => 'Sales de gusano de maguey y chapulines con chiles secos.'],
+          ['name'=>'Mezcales Silvestres','slug'=>'mezcales-silvestres','description'=>'Agaves que crecen de manera silvestre en el semidesierto.'],
+          ['name'=>'Sales y Botanas de Cata','slug'=>'sales-de-cata','description'=>'Sales de gusano de maguey y chapulines con chiles secos.'],
                 ],
                 'products' => [
                     [
-                        'name' => 'Mezcal La Mina Silvestre Salmiana 750ml',
+           'name'=>'Mezcal La Mina Silvestre Salmiana 750ml',
                         'slug' => 'mezcal-la-mina-silvestre-salmiana',
                         'category_slug' => 'mezcales-silvestres',
                         'price' => 620.00,
@@ -540,7 +540,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                         'image_url' => 'https://images.unsplash.com/photo-1569529465841-dfecdab7503b?auto=format&fit=crop&w=600&q=80',
                     ],
                     [
-                        'name' => 'Mezcal Edición Especial de Pechuga',
+           'name'=>'Mezcal Edición Especial de Pechuga',
                         'slug' => 'mezcal-edicion-especial-pechuga',
                         'category_slug' => 'mezcales-silvestres',
                         'price' => 950.00,
@@ -548,7 +548,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                         'image_url' => 'https://images.unsplash.com/photo-1563227812-0ea4c22e6cc8?auto=format&fit=crop&w=600&q=80',
                     ],
                     [
-                        'name' => 'Frasco Sal de Chinicuil y Chile Cascabel',
+           'name'=>'Frasco Sal de Chinicuil y Chile Cascabel',
                         'slug' => 'sal-de-chinicuil-chile-cascabel',
                         'category_slug' => 'sales-de-cata',
                         'price' => 120.00,
@@ -566,7 +566,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                 'plan_name' => 'Crecimiento',
                 'billing_cycle' => 'annual',
                 'subscription_amount' => 750.00,
-                'tagline' => 'Arte sagrado Wixárika (Huichol) elaborado por maestros artesanos, cantera rosa labrada y rebozos tradicionales.',
+       'tagline'=>'Arte sagrado Wixárika (Huichol) elaborado por maestros artesanos, cantera rosa labrada y rebozos tradicionales.',
                 'address' => 'Calle Fernando Villalpando #402, Centro Histórico, Zacatecas, Zac.',
                 'neighborhood_zone' => 'Villalpando / Centro',
                 'city' => 'Zacatecas',
@@ -581,7 +581,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                 'banner_url' => 'https://images.unsplash.com/photo-1528459801416-a9e53bbf4e17?auto=format&fit=crop&w=1400&q=80',
                 'hero_title' => "Casa Zacatecas\nArte Sagrado Wixárika & Cantera",
                 'hero_subtitle' => 'Piezas únicas impregnadas de cosmovisión, chaquira de vidrio y labrado artesanal zacatecano.',
-                'announcement_text' => '🦌 Piezas únicas de colección certificadas directamente por familias de artesanos 🦌',
+       'announcement_text'=>'Piezas únicas de colección certificadas directamente por familias de artesanos',
                 'contact_email' => 'artesanias@casazacatecas.mx',
                 'whatsapp_number' => '+52 492 188 5620',
                 'facebook_url' => 'https://www.facebook.com/casazacatecasartesanias/',
@@ -590,12 +590,12 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                 'admin_name' => 'Admin Casa Zacatecas',
                 'admin_email' => 'admin@artewixarika.com',
                 'categories' => [
-                    ['name' => 'Arte en Chaquira Checa 🦌', 'slug' => 'arte-en-chaquira', 'description' => 'Figuras sagradas recubiertas con cera de campeche y chaquira brillante.'],
-                    ['name' => 'Cantera Rosa Labrada 🏛️', 'slug' => 'cantera-rosa-labrada', 'description' => 'Esculturas y objetos decorativos en la emblemática piedra de Zacatecas.'],
+          ['name'=>'Arte en Chaquira Checa','slug'=>'arte-en-chaquira','description'=>'Figuras sagradas recubiertas con cera de campeche y chaquira brillante.'],
+          ['name'=>'Cantera Rosa Labrada','slug'=>'cantera-rosa-labrada','description'=>'Esculturas y objetos decorativos en la emblemática piedra de Zacatecas.'],
                 ],
                 'products' => [
                     [
-                        'name' => 'Pulsera Wixárika Sagrada Chaquira Checa',
+           'name'=>'Pulsera Wixárika Sagrada Chaquira Checa',
                         'slug' => 'pulsera-wixarika-sagrada-chaquira',
                         'category_slug' => 'arte-en-chaquira',
                         'price' => 220.00,
@@ -603,7 +603,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                         'image_url' => 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=600&q=80',
                     ],
                     [
-                        'name' => 'Cuadro Ojo de Dios de Protección 40x40 cm',
+           'name'=>'Cuadro Ojo de Dios de Protección 40x40 cm',
                         'slug' => 'cuadro-ojo-de-dios-proteccion',
                         'category_slug' => 'arte-en-chaquira',
                         'price' => 680.00,
@@ -611,7 +611,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                         'image_url' => 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=600&q=80',
                     ],
                     [
-                        'name' => 'Set 4 Portavasos Cantera Rosa Labrada',
+           'name'=>'Set 4 Portavasos Cantera Rosa Labrada',
                         'slug' => 'set-4-portavasos-cantera-rosa',
                         'category_slug' => 'cantera-rosa-labrada',
                         'price' => 360.00,
@@ -629,7 +629,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                 'plan_name' => 'Emprendedor',
                 'billing_cycle' => 'annual',
                 'subscription_amount' => 550.00,
-                'tagline' => 'Chocolate de metate 100% artesanal zacatecano, bombones de mezcal y café de altura tostado al punto.',
+       'tagline'=>'Chocolate de metate 100% artesanal zacatecano, bombones de mezcal y café de altura tostado al punto.',
                 'address' => 'Calle Juan de Tolosa #822, Centro Histórico, Zacatecas, Zac.',
                 'neighborhood_zone' => 'Juan de Tolosa / Fuente de los Conquistadores',
                 'city' => 'Zacatecas',
@@ -644,7 +644,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                 'banner_url' => 'https://images.unsplash.com/photo-1481391319762-47dff72954d9?auto=format&fit=crop&w=1400&q=80',
                 'hero_title' => "Mina de Cielo\nCacao de Metate & Café Tostado",
                 'hero_subtitle' => 'El dulce legado minero convertido en tabletas de chocolate puro, trufas con mezcal y aromático café de altura.',
-                'announcement_text' => '🍫 Tabletas de chocolate con canela de metate y bombones de mezcal recién hechos 🍫',
+       'announcement_text'=>'Tabletas de chocolate con canela de metate y bombones de mezcal recién hechos',
                 'contact_email' => 'hola@minadecielo.com',
                 'whatsapp_number' => '+52 492 103 9922',
                 'facebook_url' => 'https://www.facebook.com/minadecielozac/',
@@ -653,12 +653,12 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                 'admin_name' => 'Admin Mina de Cielo',
                 'admin_email' => 'admin@minadecielo.com',
                 'categories' => [
-                    ['name' => 'Chocolate de Metate 🍫', 'slug' => 'chocolate-de-metate', 'description' => 'Molido en piedra volcánica con canela criolla y azúcar mascabado.'],
-                    ['name' => 'Bombones & Trufas 🍬', 'slug' => 'bombones-y-trufas', 'description' => 'Rellenos de licores zacatecanos, guayaba y cajeta.'],
+          ['name'=>'Chocolate de Metate','slug'=>'chocolate-de-metate','description'=>'Molido en piedra volcánica con canela criolla y azúcar mascabado.'],
+          ['name'=>'Bombones & Trufas','slug'=>'bombones-y-trufas','description'=>'Rellenos de licores zacatecanos, guayaba y cajeta.'],
                 ],
                 'products' => [
                     [
-                        'name' => 'Barra Chocolate de Metate 70% Cacao con Canela',
+           'name'=>'Barra Chocolate de Metate 70% Cacao con Canela',
                         'slug' => 'barra-chocolate-metate-70-cacao',
                         'category_slug' => 'chocolate-de-metate',
                         'price' => 95.00,
@@ -666,7 +666,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                         'image_url' => 'https://images.unsplash.com/photo-1548907040-4baa42d10919?auto=format&fit=crop&w=600&q=80',
                     ],
                     [
-                        'name' => 'Caja de 6 Bombones Rellenos de Mezcal Zacatecano',
+           'name'=>'Caja de 6 Bombones Rellenos de Mezcal Zacatecano',
                         'slug' => 'caja-6-bombones-mezcal-zacatecano',
                         'category_slug' => 'bombones-y-trufas',
                         'price' => 160.00,
@@ -674,7 +674,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                         'image_url' => 'https://images.unsplash.com/photo-1549007994-cb92caebd54b?auto=format&fit=crop&w=600&q=80',
                     ],
                     [
-                        'name' => 'Frasco Grageas de Café de Altura con Chocolate',
+           'name'=>'Frasco Grageas de Café de Altura con Chocolate',
                         'slug' => 'grageas-cafe-altura-con-chocolate',
                         'category_slug' => 'chocolate-de-metate',
                         'price' => 85.00,
@@ -748,7 +748,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                     [
                         'store_name' => $biz['store_name'],
                         'business_category' => $biz['business_category'],
-                        'tagline' => $biz['tagline'],
+           'tagline'=> $biz['tagline'],
                         'logo_url' => $biz['logo_url'],
                         'banner_url' => $biz['banner_url'],
                         'primary_color' => $biz['primary_color'],
@@ -758,7 +758,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                         'hero_subtitle' => $biz['hero_subtitle'],
                         'hero_button_text' => 'Explorar Colección',
                         'show_announcement' => true,
-                        'announcement_text' => $biz['announcement_text'],
+           'announcement_text'=> $biz['announcement_text'],
                         'whatsapp_number' => $biz['whatsapp_number'],
                         'facebook_url' => $biz['facebook_url'],
                         'instagram_url' => $biz['instagram_url'],
@@ -779,7 +779,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                 TenantUser::updateOrCreate(
                     ['email' => $biz['admin_email']],
                     [
-                        'name' => $biz['admin_name'],
+           'name'=> $biz['admin_name'],
                         'password' => Hash::make('password123'),
                         'customer_account_id' => null,
                     ]
@@ -791,7 +791,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                     $cat = Category::updateOrCreate(
                         ['slug' => $catData['slug']],
                         [
-                            'name' => $catData['name'],
+             'name'=> $catData['name'],
                             'description' => $catData['description'] ?? null,
                         ]
                     );
@@ -806,7 +806,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                             ['slug' => $prod['slug']],
                             [
                                 'category_id' => $catId,
-                                'name' => $prod['name'],
+               'name'=> $prod['name'],
                                 'description' => $prod['description'],
                                 'price' => $prod['price'],
                                 'stock' => 25,

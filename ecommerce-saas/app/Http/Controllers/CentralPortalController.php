@@ -42,11 +42,19 @@ class CentralPortalController extends Controller
                             'url' => str_contains($storeUrl, '?') ? "{$storeUrl}&producto={$p->slug}" : "{$storeUrl}/?producto={$p->slug}",
                         ]);
 
+                    $rawStoreName = $settings?->store_name ?? str($t->id)->replace(['-', '_'], ' ')->title()->toString();
+                    $rawCategory = $settings?->business_category ?? 'Comercio General';
+                    $rawTagline = $settings?->tagline ?? 'Comercio verificado en Zacatecas Centro.';
+
+                    $cleanStoreName = trim(preg_replace('/\s+/', ' ', preg_replace('/[\x{1F300}-\x{1FAFF}\x{2600}-\x{26FF}\x{2700}-\x{27BF}]\x{FE0F}?/u', '', $rawStoreName)));
+                    $cleanCategory = trim(preg_replace('/\s+/', ' ', preg_replace('/[\x{1F300}-\x{1FAFF}\x{2600}-\x{26FF}\x{2700}-\x{27BF}]\x{FE0F}?/u', '', $rawCategory)));
+                    $cleanTagline = trim(preg_replace('/\s+/', ' ', preg_replace('/[\x{1F300}-\x{1FAFF}\x{2600}-\x{26FF}\x{2700}-\x{27BF}]\x{FE0F}?/u', '', $rawTagline)));
+
                     return [
                         'id' => $t->id,
-                        'store_name' => $settings?->store_name ?? str($t->id)->replace(['-', '_'], ' ')->title()->toString(),
-                        'business_category' => $settings?->business_category ?? 'Comercio General',
-                        'tagline' => $settings?->tagline ?? 'Comercio verificado en Zacatecas Centro.',
+                        'store_name' => $cleanStoreName ?: $rawStoreName,
+                        'business_category' => $cleanCategory ?: $rawCategory,
+                        'tagline' => $cleanTagline ?: $rawTagline,
                         'logo_url' => $settings?->logo_url,
                         'primary_color' => $settings?->primary_color ?? '#d96b45',
                         'secondary_color' => $settings?->secondary_color ?? '#f4efe7',

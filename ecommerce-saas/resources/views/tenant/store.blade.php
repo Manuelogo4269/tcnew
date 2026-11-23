@@ -4123,7 +4123,7 @@
                 ‹ Zacatecas Centro
             </a>
             <span class="announcement-text-content">
-                ✦ {{ !empty($settings?->announcement_text) ? $settings->announcement_text : ('Bienvenido a ' . $storeTitle . ' · Envíos seguros a todo el país') }} ✦
+                ✦ {{ trim(preg_replace('/\s+/', ' ', preg_replace('/[\x{1F300}-\x{1FAFF}\x{2600}-\x{26FF}\x{2700}-\x{27BF}]\x{FE0F}?/u', '', (!empty($settings?->announcement_text) ? $settings->announcement_text : ('Bienvenido a ' . $storeTitle . ' · Envíos seguros a todo el país'))))) }} ✦
             </span>
         </div>
     </aside>

@@ -19,7 +19,7 @@
     <!-- TABS -->
     <div class="appt-tabs-bar">
         <button type="button" class="appt-tab-btn active" id="tabBtnNewAppt" onclick="switchApptTab('new')">
-            <span>✨</span> Reservar Nueva Cita
+            Reservar Nueva Cita
         </button>
         <button type="button" class="appt-tab-btn" id="tabBtnMyAppts" onclick="switchApptTab('my')">
             <span>📋</span> Mis Citas Agendadas

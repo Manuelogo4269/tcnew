@@ -6216,7 +6216,7 @@
                                 </div>
                             @endif
 
-                            <p>{{ $company['tagline'] }}</p>
+                            <p>{{ trim(preg_replace('/\s+/', ' ', preg_replace('/[\x{1F300}-\x{1FAFF}\x{2600}-\x{26FF}\x{2700}-\x{27BF}]\x{FE0F}?/u', '', $company['tagline']))) }}</p>
 
                             <!-- Physical Location in Zacatecas Centro -->
                             <div class="store-location-chip" title="Dirección física en Zacatecas Centro">
