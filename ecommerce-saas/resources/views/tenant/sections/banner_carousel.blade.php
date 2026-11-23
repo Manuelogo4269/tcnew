@@ -20,7 +20,6 @@
                 <p>{{ $bSubtitle }}</p>
                 <div class="hero-cta-group">
                     <a href="{{ $bBtnLink }}" class="btn-brand-primary">{{ $bBtnText }} <span>↓</span></a>
-                    <a href="#destacados" class="btn-brand-outline">Ver Tendencias <span>→</span></a>
                 </div>
             </div>
             <div class="hero-floating-tag">
@@ -38,7 +37,6 @@
                 <p>Diseños exclusivos confeccionados con las mejores materias primas. Estilo impecable tanto para tu día a día como para ocasiones memorables.</p>
                 <div class="hero-cta-group">
                     <a href="#catalogo" class="btn-brand-primary">Ver Colección <span>↓</span></a>
-                    <a href="#categorias" class="btn-brand-outline">Explorar Categorías</a>
                 </div>
             </div>
             <div class="hero-floating-tag">
@@ -60,7 +58,6 @@
                         @php $waNum = preg_replace('/[^0-9]/', '', $settings->whatsapp_number); @endphp
                         <a href="https://wa.me/{{ $waNum }}" target="_blank" class="btn-brand-outline">Pedir por WhatsApp <span>💬</span></a>
                     @endif
-                    <a href="#negocios" class="btn-brand-outline">Explorar Tiendas <span>🏢</span></a>
                 </div>
             </div>
             <div class="hero-floating-tag">

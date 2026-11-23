@@ -4107,35 +4107,11 @@
     <aside class="announcement-bar">
         <div class="shell announcement-shell">
             <a href="{{ $portalHomeUrl }}" class="announcement-portal-back" id="btnHeaderBackPortal" title="Regresar al Portal Zacatecas Centro">
-                ‹ Inicio Zacatecas
+                ‹ Zacatecas Centro
             </a>
             <span class="announcement-text-content">
                 ✦ {{ !empty($settings?->announcement_text) ? $settings->announcement_text : ('Bienvenido a ' . $storeTitle . ' · Envíos seguros a todo el país') }} ✦
             </span>
-            <div class="announcement-stores-wrap">
-                <span class="announcement-stores-link" id="announcementStoresLink" onclick="toggleStoresDropdown()">
-                    Red de Tiendas ▾
-                </span>
-                <div class="official-stores-menu announcement-stores-menu" id="storesDropdownMenu">
-                    <div class="stores-menu-header">
-                        <span>Red de Tiendas</span>
-                        <span>{{ count($officialStores ?? []) }} disponibles</span>
-                    </div>
-                    @foreach($officialStores ?? [] as $store)
-                        <a href="{{ $store['url'] }}" class="store-menu-item {{ $store['is_current'] ? 'current' : '' }}" {{ $store['is_current'] ? '' : 'target="_blank"' }}>
-                            <div class="store-menu-item-info">
-                                <strong>{{ $store['name'] }}</strong>
-                                <small>{{ parse_url($store['url'], PHP_URL_HOST) }}</small>
-                            </div>
-                            @if($store['is_current'])
-                                <span class="store-menu-badge">Tienda Actual</span>
-                            @else
-                                <span class="store-menu-external-icon">↗</span>
-                            @endif
-                        </a>
-                    @endforeach
-                </div>
-            </div>
         </div>
     </aside>
 @endif
@@ -4159,10 +4135,8 @@
         <!-- Clean Navigation Menu -->
         <nav class="nav-menu">
             <a href="#inicio" class="active">Inicio</a>
-            <a href="#categorias">Categorías</a>
             <a href="#catalogo">Catálogo</a>
-            <a href="javascript:void(0)" onclick="openAppointmentsModal()" style="color: var(--accent); font-weight: 700;">📅 Agendar Cita</a>
-            <a href="javascript:void(0)" onclick="openMembershipsModal()" style="font-weight: 700;">⭐ Membresía</a>
+            <a href="#categorias">Categorías</a>
             <a href="#contacto">Ubicación</a>
         </nav>
 
@@ -4186,8 +4160,8 @@
             @endif
 
             <!-- Shopping Cart Header Button -->
-            <button type="button" class="btn-cart-header" id="btnCartHeader" onclick="toggleCartDrawer()" aria-label="Ver Carrito de Compras" title="{{ $user ? 'Ver Carrito de Compras' : 'Inicia sesión para tener tu carrito de compras' }}">
-                <span>🛒</span> <span class="cart-btn-text">Carrito</span> <span id="headerCartBadge" class="header-cart-badge">{{ $user ? '0' : '🔒' }}</span>
+            <button type="button" class="btn-cart-header" id="btnCartHeader" onclick="toggleCartDrawer()" aria-label="Ver Carrito de Compras" title="Ver Carrito de Compras">
+                <span>🛒</span> <span class="cart-btn-text">Carrito</span> <span id="headerCartBadge" class="header-cart-badge">0</span>
             </button>
 
             <!-- Dark / Light Theme Toggle -->
@@ -4195,16 +4169,6 @@
                 <span class="theme-icon-light">🌙</span>
                 <span class="theme-icon-dark" style="display: none;">☀️</span>
             </button>
-
-            <!-- Share Store Direct Web Link -->
-            <button type="button" class="btn-share-store" onclick="copyStoreUrl()" title="Compartir enlace oficial de esta página web" aria-label="Compartir Tienda">
-                <span>🔗</span> <span class="share-btn-text">Compartir</span>
-            </button>
-
-            <!-- Store Admin Panel Direct Access -->
-            <a href="{{ url('/tenant-admin/login?tenant=' . ($tenantId ?? 'acropolis')) }}" class="btn-admin-gear" title="Panel de Administración ({{ $storeTitle }})" aria-label="Panel Admin">
-                <span>⚙</span>
-            </a>
 
             <!-- Mobile Store Hamburger Toggle -->
             <button type="button" class="btn-store-menu" id="storeMenuToggle" onclick="toggleStoreMenu()" aria-label="Abrir Menú">
