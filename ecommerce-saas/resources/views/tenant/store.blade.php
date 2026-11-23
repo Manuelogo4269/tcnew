@@ -2750,7 +2750,7 @@
 
         @media (max-width: 900px) {
             .trust-bar { grid-template-columns: repeat(2, 1fr); gap: 16px; padding: 20px; }
-            .hero-slide { padding: 40px 30px; min-height: 420px; }
+            .hero-slide { padding: 50px 76px; min-height: 420px; }
             .hero-floating-tag { display: none; }
             .footer-grid { grid-template-columns: 1fr 1fr; }
             .modal-main-layout { grid-template-columns: 1fr; }
@@ -2758,6 +2758,8 @@
             .specs-grid { grid-template-columns: 1fr; }
             .nav-menu { display: none; }
             .btn-store-menu { display: inline-flex; }
+            .btn-store-auth-trigger, .btn-share-store, .btn-admin-gear { display: none !important; }
+            main { padding-bottom: 84px; }
         }
 
         @media (max-width: 768px) {
@@ -2841,9 +2843,7 @@
             .hero-slide p { font-size: 13.5px; margin-bottom: 20px; }
             .hero-cta-group { flex-direction: column; width: 100%; }
             .btn-brand-primary, .btn-brand-outline, .btn-official-hero { width: 100%; justify-content: center; padding: 12px; }
-            .hero-nav-arrow { width: 34px; height: 34px; font-size: 18px; }
-            .hero-nav-prev { left: 10px; }
-            .hero-nav-next { right: 10px; }
+            .hero-nav-arrow { display: none !important; }
             .hero-dots { left: 50%; transform: translateX(-50%); bottom: 16px; }
 
             .trust-bar { grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 14px; }
