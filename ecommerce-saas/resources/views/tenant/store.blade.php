@@ -2109,25 +2109,35 @@
         /* FLOATING WHATSAPP BUTTON */
         .whatsapp-float {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
+            bottom: 24px;
+            right: 20px;
+            width: 56px;
+            height: 56px;
             background: #25d366;
             color: #ffffff;
             border-radius: 50%;
-            display: grid;
-            place-items: center;
-            box-shadow: 0 12px 28px rgba(37, 211, 102, 0.45);
-            z-index: 9996;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            animation: pulse-wa 2.5s infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 24px rgba(37, 211, 102, 0.45);
+            z-index: 9999;
+            text-decoration: none;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
         .whatsapp-float:hover {
-            transform: scale(1.12) translateY(-4px);
-            box-shadow: 0 16px 35px rgba(37, 211, 102, 0.6);
+            transform: scale(1.08);
+            box-shadow: 0 12px 28px rgba(37, 211, 102, 0.6);
         }
-        .whatsapp-float svg { width: 32px; height: 32px; fill: #ffffff; }
+        .whatsapp-float svg { width: 30px; height: 30px; fill: #ffffff !important; stroke: none !important; display: block; }
+        @media (max-width: 640px) {
+            .whatsapp-float {
+                bottom: 20px;
+                right: 16px;
+                width: 52px;
+                height: 52px;
+            }
+            .whatsapp-float svg { width: 28px; height: 28px; }
+        }
         @keyframes pulse-wa {
             0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6); }
             70% { box-shadow: 0 0 0 16px rgba(37, 211, 102, 0); }
@@ -3653,7 +3663,7 @@
         }
 
         /* Floating PWA Return Home Bar */
-        .pwa-floating-bottom-bar {
+        .pwa-floating-bottom-bar { display: none !important; } .old-pwa-bottom-bar {
             position: fixed;
             bottom: max(16px, env(safe-area-inset-bottom));
             left: 50%;
@@ -3672,7 +3682,7 @@
             box-shadow: 0 16px 36px -4px rgba(0, 0, 0, 0.15);
             z-index: 9995;
         }
-        [data-theme="dark"] .pwa-floating-bottom-bar {
+        [data-theme="dark"] .pwa-floating-bottom-bar { display: none !important; } .old-pwa-bottom-bar {
             background: rgba(18, 22, 31, 0.92);
             border-color: rgba(255, 255, 255, 0.12);
             box-shadow: 0 16px 36px -4px rgba(0, 0, 0, 0.5);
@@ -3720,7 +3730,7 @@
             transform: scale(0.95);
         }
         @media (min-width: 900px) {
-            .pwa-floating-bottom-bar {
+            .pwa-floating-bottom-bar { display: none !important; } .old-pwa-bottom-bar {
                 display: none !important;
             }
         }
@@ -4575,7 +4585,7 @@
                         </button>
                     </div>
                     <a id="modalWhatsAppBtn" href="#" target="_blank" class="btn-whatsapp-order">
-                        <svg style="width:20px; height:20px; fill:#fff;" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.699c.971.53 1.769.814 2.797.814 3.18 0 5.767-2.587 5.768-5.766 0-3.18-2.588-5.766-5.769-5.766zm0 10.355c-.886 0-1.616-.242-2.348-.675l-.168-.1-1.745.458.466-1.701-.11-.175c-.476-.757-.728-1.503-.728-2.399 0-2.531 2.059-4.59 4.635-4.59 2.576 0 4.635 2.059 4.635 4.59 0 2.531-2.059 4.592-4.535 4.592zm-8.031-4.589c0 6.627 5.373 12 12 12s12-5.373 12-12-5.373-12-12-12-12 5.373-12 12z"/></svg>
+                        <svg style="width:20px; height:20px; fill:#fff;" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
                         Pedir por WhatsApp (<span id="modalBtnTotal">$0.00</span>)
                     </a>
                     <div class="modal-secondary-actions">
@@ -4765,7 +4775,7 @@
     @endphp
     <a href="https://wa.me/{{ $cleanWa }}?text={{ $waMsg }}" target="_blank" class="whatsapp-float" title="Chat directo de WhatsApp con {{ $storeTitle }}">
         <svg viewBox="0 0 24 24">
-            <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.699c.971.53 1.769.814 2.797.814 3.18 0 5.767-2.587 5.768-5.766 0-3.18-2.588-5.766-5.769-5.766zm0 10.355c-.886 0-1.616-.242-2.348-.675l-.168-.1-1.745.458.466-1.701-.11-.175c-.476-.757-.728-1.503-.728-2.399 0-2.531 2.059-4.59 4.635-4.59 2.576 0 4.635 2.059 4.635 4.59 0 2.531-2.059 4.592-4.535 4.592zm-8.031-4.589c0 6.627 5.373 12 12 12s12-5.373 12-12-5.373-12-12-12-12 5.373-12 12z"/>
+            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
         </svg>
     </a>
 @endif
@@ -6576,25 +6586,7 @@ document.addEventListener('click', function(e) {
 });
 </script>
 
-<!-- FLOATING PWA HOME & CART ACTION BAR -->
-<div class="pwa-floating-bottom-bar" id="pwaFloatingBottomBar">
-    <a href="#inicio" class="pwa-fab-home" id="pwaFabHomeBtn" title="Inicio de {{ $storeTitle }}" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">
-        <span class="pwa-fab-icon"><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
-        <span class="pwa-fab-text">Inicio</span>
-    </a>
-    <button type="button" class="pwa-fab-home pwa-fab-appt" onclick="openAppointmentsModal()" title="Agendar Cita">
-        <span class="pwa-fab-icon"><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>
-        <span class="pwa-fab-text">Citas</span>
-    </button>
-    <button type="button" class="pwa-fab-home pwa-fab-memb" onclick="openMembershipsModal()" title="Mi Membresía">
-        <span class="pwa-fab-icon">⭐</span>
-        <span class="pwa-fab-text">Socio</span>
-    </button>
-    <button type="button" class="pwa-fab-cart" onclick="toggleCartDrawer()" aria-label="Ver Carrito">
-        <span class="pwa-fab-icon"><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></span>
-        <span class="pwa-fab-text">Carrito (<span id="fabCartCount">0</span>)</span>
-    </button>
-</div>
+<!-- PWA Floating Bottom Bar Removed by User Request -->
 
 <script>
 // PWA Navigation History & Gestures Trap

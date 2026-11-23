@@ -707,40 +707,29 @@
 @media (max-width: 768px) {
     /* 1. Dar espacio seguro al fondo del body para que nada tape productos ni footer */
     body {
-        padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px)) !important;
+        padding-bottom: 0 !important;
     }
-
-    /* 2. Barra flotante PWA de fondo: Unificada y limpia */
     .pwa-floating-bottom-bar {
-        position: fixed !important;
-        bottom: max(12px, env(safe-area-inset-bottom)) !important;
-        left: 12px !important;
-        right: 12px !important;
-        z-index: 9990 !important;
-        display: flex !important;
-        gap: 6px !important;
+        display: none !important;
     }
-    .pwa-fab-home, .pwa-fab-cart, .pwa-fab-appt, .pwa-fab-memb {
-        padding: 9px 10px !important;
-        font-size: 11.5px !important;
-        flex: 1 !important;
-        text-align: center !important;
-        justify-content: center !important;
-    }
-
-    /* 3. Botón WhatsApp: Elevado para NUNCA tapar la barra inferior ni el carrito */
     .whatsapp-float {
         position: fixed !important;
-        bottom: calc(76px + env(safe-area-inset-bottom, 0px)) !important;
+        bottom: max(20px, env(safe-area-inset-bottom)) !important;
         right: 16px !important;
-        width: 48px !important;
-        height: 48px !important;
-        z-index: 9995 !important;
-        box-shadow: 0 6px 18px rgba(37, 211, 102, 0.4) !important;
+        width: 52px !important;
+        height: 52px !important;
+        z-index: 9999 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        box-shadow: 0 8px 24px rgba(37, 211, 102, 0.45) !important;
     }
     .whatsapp-float svg {
-        width: 26px !important;
-        height: 26px !important;
+        width: 28px !important;
+        height: 28px !important;
+        fill: #ffffff !important;
+        stroke: none !important;
+        display: block !important;
     }
 
     /* 4. Botón de Editor Visual para Administradores: Elevado arriba de WhatsApp */

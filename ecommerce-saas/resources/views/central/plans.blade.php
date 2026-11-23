@@ -22,6 +22,114 @@
     <link href="https://fonts.bunny.net/css?family=plus-jakarta-sans:400,500,600,700,800&display=swap" rel="stylesheet" />
 
     <style>
+
+        .ui-icon {
+            display: inline-block;
+            vertical-align: -2px;
+            width: 1em;
+            height: 1em;
+            stroke-width: 2;
+            stroke: currentColor;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        html, body {
+            overflow-x: hidden;
+            max-width: 100vw;
+        }
+
+        .btn-return-home-mobile { display: none; }
+
+        @media (max-width: 768px) {
+            .plans-header {
+                overflow-x: hidden;
+            }
+            .header-shell {
+                padding: 8px 12px;
+                gap: 8px;
+            }
+            .btn-return-home {
+                padding: 6px 10px;
+                font-size: 12px;
+                gap: 4px;
+            }
+            .btn-return-home-full {
+                display: none;
+            }
+            .btn-return-home-mobile {
+                display: inline;
+            }
+            .brand-icon {
+                width: 32px;
+                height: 32px;
+            }
+            .header-title-box strong {
+                font-size: 13.5px;
+            }
+            .header-title-box small {
+                display: none;
+            }
+            .header-actions {
+                gap: 6px;
+            }
+            .btn-superadmin-header span:last-child,
+            .btn-tenantadmin-header span:last-child {
+                display: none;
+            }
+            .btn-superadmin-header,
+            .btn-tenantadmin-header {
+                padding: 7px !important;
+                border-radius: 50% !important;
+                width: 34px;
+                height: 34px;
+                display: inline-flex !important;
+                align-items: center;
+                justify-content: center;
+            }
+            .btn-theme-toggle {
+                width: 34px;
+                height: 34px;
+            }
+            .plans-hero {
+                padding: 24px 14px 20px;
+            }
+            .hero-title {
+                font-size: 25px;
+                letter-spacing: -0.3px;
+                word-break: break-word;
+            }
+            .hero-desc {
+                font-size: 14px;
+                margin-bottom: 20px;
+            }
+            .billing-toggle-box {
+                width: 100%;
+                max-width: 340px;
+                display: flex;
+            }
+            .billing-toggle-btn {
+                flex: 1;
+                padding: 8px 10px;
+                font-size: 12.5px;
+                text-align: center;
+            }
+            .plans-shell {
+                padding: 0 14px;
+            }
+            .plans-grid {
+                grid-template-columns: 1fr;
+                gap: 18px;
+            }
+            .plan-card {
+                padding: 24px 18px;
+            }
+            .pwa-floating-home-pill {
+                display: none !important;
+            }
+        }
+
         :root {
             --bg: #f8f6f0;
             --card: #ffffff;
@@ -654,12 +762,12 @@
         <div class="header-shell">
             <div class="header-left">
                 <a href="{{ url('/') }}" class="btn-return-home" id="btnReturnHomeHeader" title="Volver al Portal Central">
-                    <span>‹</span> <span>Inicio Zacatecas</span>
+                    <span>‹</span> <span class="btn-return-home-full">Inicio Zacatecas</span><span class="btn-return-home-mobile">Inicio</span>
                 </a>
                 <a href="{{ url('/') }}" class="header-brand">
                     <div class="brand-icon">
                         <img src="/app-icons/icon.svg" alt="Atelier Zacatecas" onerror="this.style.display='none';">
-                        <span>🏛️</span>
+                        <svg class="ui-icon" width="18" height="18" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
                     </div>
                     <div class="header-title-box">
                         <strong>Atelier Zacatecas</strong>
@@ -669,15 +777,15 @@
             </div>
 
             <div class="header-actions">
-                <a href="{{ url('/admin') }}" target="_blank" class="btn-superadmin-header" style="display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: 999px; background: rgba(99, 102, 241, 0.12); color: #6366f1; border: 1px solid rgba(99, 102, 241, 0.25); text-decoration: none; font-size: 13px; font-weight: 700; transition: all .2s ease;">
-                    <span>⚙️</span> <span>Super Admin</span>
+                <a href="{{ url('/admin') }}" target="_blank" class="btn-superadmin-header" title="Super Admin" style="display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: 999px; background: rgba(99, 102, 241, 0.12); color: #6366f1; border: 1px solid rgba(99, 102, 241, 0.25); text-decoration: none; font-size: 13px; font-weight: 700; transition: all .2s ease;">
+                    <svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> <span>Super Admin</span>
                 </a>
-                <a href="{{ url('/tenant-admin') }}" target="_blank" class="btn-tenantadmin-header" style="display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: 999px; background: rgba(244, 63, 94, 0.12); color: #f43f5e; border: 1px solid rgba(244, 63, 94, 0.25); text-decoration: none; font-size: 13px; font-weight: 700; transition: all .2s ease;">
-                    <span>🏬</span> <span>Panel Tienda</span>
+                <a href="{{ url('/tenant-admin') }}" target="_blank" class="btn-tenantadmin-header" title="Panel Tienda" style="display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: 999px; background: rgba(244, 63, 94, 0.12); color: #f43f5e; border: 1px solid rgba(244, 63, 94, 0.25); text-decoration: none; font-size: 13px; font-weight: 700; transition: all .2s ease;">
+                    <svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><line x1="9" y1="22" x2="9" y2="12"/><line x1="15" y1="22" x2="15" y2="12"/></svg> <span>Panel Tienda</span>
                 </a>
                 <button type="button" class="btn-theme-toggle" onclick="toggleTheme()" aria-label="Cambiar tema">
-                    <span class="theme-icon-light">🌙</span>
-                    <span class="theme-icon-dark" style="display: none;">☀️</span>
+                    <span class="theme-icon-light"><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
+                    <span class="theme-icon-dark" style="display: none;"><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></span>
                 </button>
             </div>
         </div>
@@ -708,14 +816,14 @@
             <div class="billing-toggle-container">
                 <div class="billing-toggle-box">
                     <button type="button" class="billing-toggle-btn active" id="btnMonthly" onclick="switchBillingCycle('monthly')">
-                        📅 Facturación Mensual
+                        Facturación Mensual
                     </button>
                     <button type="button" class="billing-toggle-btn" id="btnAnnual" onclick="switchBillingCycle('annual')">
-                        💎 Facturación Anual
+                        Facturación Anual
                     </button>
                 </div>
                 <div class="annual-savings-pill" id="annualSavingsBadge">
-                    <span>🎉 Ahorra 20% anual (2 meses gratis de renta)</span>
+                    <span>Ahorra 20% anual (2 meses gratis de renta)</span>
                 </div>
             </div>
         </section>
