@@ -29,6 +29,17 @@ class StorefrontController extends Controller
 
         $tenantModel = findTenantBySlugOrDomain((string) $targetTenant);
         if (!$tenantModel) {
+            try {
+                if (file_exists(database_path('seeders/ZacatecasRealBusinessesSeeder.php'))) {
+                    require_once database_path('seeders/ZacatecasRealBusinessesSeeder.php');
+                }
+                if (class_exists(\Database\Seeders\ZacatecasRealBusinessesSeeder::class)) {
+                    (new \Database\Seeders\ZacatecasRealBusinessesSeeder())->run();
+                }
+            } catch (\Throwable $e) {}
+            $tenantModel = findTenantBySlugOrDomain((string) $targetTenant);
+        }
+        if (!$tenantModel) {
             abort(404, 'Página de empresa no encontrada.');
         }
 

@@ -14,6 +14,18 @@ class CentralPortalController extends Controller
         $selectedCategory = trim((string) $request->input('categoria', 'all'));
         $user = Auth::guard('web')->user();
 
+        // Auto-seed real Zacatecas Centro businesses if container restarted or empty
+        if (Tenant::where('id', 'acropolis')->doesntExist()) {
+            try {
+                if (file_exists(database_path('seeders/ZacatecasRealBusinessesSeeder.php'))) {
+                    require_once database_path('seeders/ZacatecasRealBusinessesSeeder.php');
+                }
+                if (class_exists(\Database\Seeders\ZacatecasRealBusinessesSeeder::class)) {
+                    (new \Database\Seeders\ZacatecasRealBusinessesSeeder())->run();
+                }
+            } catch (\Throwable $e) {}
+        }
+
         $tenants = Tenant::with('domains')->where('id', 'not like', 'test%')->get();
         $cacheKey = 'central_portal_businesses_list_' . md5($request->getHost() . ':' . $request->getPort());
         $businesses = \Illuminate\Support\Facades\Cache::remember($cacheKey, 10, function () use ($tenants, $request) {
