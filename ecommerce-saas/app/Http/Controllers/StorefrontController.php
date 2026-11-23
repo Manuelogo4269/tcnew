@@ -53,6 +53,17 @@ class StorefrontController extends Controller
 
         $settings = StoreSetting::first();
         $storeName = $settings?->store_name ?? str($tenantId)->replace(['-', '_'], ' ')->title()->toString();
+        
+        // Auto-seed starter catalog if store is newly created and completely empty
+        $productCount = Product::count();
+        if ($productCount === 0) {
+            try {
+                if (class_exists(\Database\Seeders\TenantStoreExpansionSeeder::class)) {
+                    (new \Database\Seeders\TenantStoreExpansionSeeder())->run();
+                }
+            } catch (\Throwable $e) {}
+        }
+
         $categories = Category::withCount('products')->get();
         $products = Product::where('is_active', true)->with('category')->latest()->get();
         $featuredProducts = $products->take(8);

@@ -11,6 +11,7 @@
 @endphp
 
 <!-- FLASH DEALS & SPECIAL DISCOUNTS -->
+@if($dealProducts->count() > 0)
 <section class="flash-deals-section" id="ofertas">
     <div class="flash-deals-banner">
         <div class="flash-deals-header-row">
@@ -40,31 +41,30 @@
             </div>
         </div>
 
-        @if($dealProducts->count() > 0)
-            <div class="flash-deals-grid">
-                @foreach($dealProducts as $dealItem)
-                    @php
-                        $regularPrice = $dealItem->price * 1.25; // Original simulated crossed-out price
-                    @endphp
-                    <div class="flash-deal-card" onclick="openProductById({{ $dealItem->id }})">
-                        <div class="flash-deal-thumb">
-                            <span class="flash-deal-discount">{{ $bBadge }}</span>
-                            <img src="{{ !empty($dealItem->image_url) ? $dealItem->image_url : 'https://placehold.co/400x400?text=' . urlencode($dealItem->name) }}" alt="{{ $dealItem->name }}" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/400x400?text=' + encodeURIComponent('{{ $dealItem->name }}');">
-                        </div>
-                        <div class="flash-deal-body">
-                            <small class="flash-deal-cat">{{ $dealItem->category?->name ?? 'Zacatecas Centro' }}</small>
-                            <h4 class="flash-deal-name">{{ $dealItem->name }}</h4>
-                            <div class="flash-deal-pricing">
-                                <span class="flash-price-now">${{ number_format($dealItem->price, 2) }}</span>
-                                <span class="flash-price-old">${{ number_format($regularPrice, 2) }}</span>
-                            </div>
-                            <button type="button" class="btn-flash-add-cart" onclick="event.stopPropagation(); addCartItem({{ $dealItem->id }})">
-                                🛒 Agregar con Descuento
-                            </button>
-                        </div>
+        <div class="flash-deals-grid">
+            @foreach($dealProducts as $dealItem)
+                @php
+                    $regularPrice = $dealItem->price * 1.25; // Original simulated crossed-out price
+                @endphp
+                <div class="flash-deal-card" onclick="openProductById({{ $dealItem->id }})">
+                    <div class="flash-deal-thumb">
+                        <span class="flash-deal-discount">{{ $bBadge }}</span>
+                        <img src="{{ !empty($dealItem->image_url) ? $dealItem->image_url : 'https://placehold.co/400x400?text=' . urlencode($dealItem->name) }}" alt="{{ $dealItem->name }}" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/400x400?text=' + encodeURIComponent('{{ $dealItem->name }}');">
                     </div>
-                @endforeach
-            </div>
-        @endif
+                    <div class="flash-deal-body">
+                        <small class="flash-deal-cat">{{ $dealItem->category?->name ?? 'Zacatecas Centro' }}</small>
+                        <h4 class="flash-deal-name">{{ $dealItem->name }}</h4>
+                        <div class="flash-deal-pricing">
+                            <span class="flash-price-now">${{ number_format($dealItem->price, 2) }}</span>
+                            <span class="flash-price-old">${{ number_format($regularPrice, 2) }}</span>
+                        </div>
+                        <button type="button" class="btn-flash-add-cart" onclick="event.stopPropagation(); addCartItem({{ $dealItem->id }})">
+                            🛒 Agregar con Descuento
+                        </button>
+                    </div>
+                </div>
+            @endforeach
+        </div>
     </div>
 </section>
+@endif

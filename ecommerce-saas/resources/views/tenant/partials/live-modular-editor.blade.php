@@ -62,7 +62,8 @@
     .btn-floating-visual-editor {
         position: fixed;
         bottom: 24px;
-        left: 24px;
+        right: 24px;
+        left: auto;
         z-index: 9999;
         display: inline-flex;
         align-items: center;
@@ -95,8 +96,9 @@
 
     @media (max-width: 768px) {
         .btn-floating-visual-editor {
-            bottom: calc(134px + env(safe-area-inset-bottom, 0px)) !important;
-            left: 16px !important;
+            bottom: calc(84px + env(safe-area-inset-bottom, 0px)) !important;
+            right: 16px !important;
+            left: auto !important;
             font-size: 11.5px !important;
             padding: 6px 12px !important;
             z-index: 9996 !important;

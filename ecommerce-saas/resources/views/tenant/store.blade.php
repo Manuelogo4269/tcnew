@@ -1,10 +1,10 @@
 @php
     $storeTitle = $settings?->store_name ?? $storeName;
-    $primaryColor = $settings?->primary_color ?? '#d96b45';
-    $secondaryColor = $settings?->secondary_color ?? '#f4efe7';
-    $fontFamily = $settings?->font_family ?? 'DM Sans';
+    $primaryColor = $settings?->primary_color ?? '#c86d63';
+    $rawSecondary = $settings?->secondary_color ?? '#faf9f6';
+    $secondaryColor = ($rawSecondary === '#f4efe7') ? '#faf9f6' : $rawSecondary;
+    $fontFamily = $settings?->font_family ?? 'Plus Jakarta Sans';
 
-    
     // Determine Central Portal Home URL
     $portalHomeUrl = '/';
     $currentHost = request()->getHost();
@@ -12,44 +12,42 @@
     if ($currentHost !== $centralDomain && !str_contains($currentHost, 'localhost') && !str_contains($currentHost, '127.0.0.1')) {
         $portalHomeUrl = request()->getScheme() . '://' . $centralDomain . '/';
     }
-// Calculate background brightness for auto text contrast
+
+    // Calculate background brightness for auto text contrast
     $cleanHex = ltrim($secondaryColor, '#');
     if (strlen($cleanHex) === 3) {
         $cleanHex = $cleanHex[0].$cleanHex[0].$cleanHex[1].$cleanHex[1].$cleanHex[2].$cleanHex[2];
     }
-    $r = hexdec(substr($cleanHex, 0, 2) ?: 'f4');
-    $g = hexdec(substr($cleanHex, 2, 2) ?: 'ef');
-    $b = hexdec(substr($cleanHex, 4, 2) ?: 'e7');
+    $r = hexdec(substr($cleanHex, 0, 2) ?: 'fa');
+    $g = hexdec(substr($cleanHex, 2, 2) ?: 'f9');
+    $b = hexdec(substr($cleanHex, 4, 2) ?: 'f6');
     $brightness = (($r * 299) + ($g * 587) + ($b * 114)) / 1000;
     $isDark = $brightness < 135;
 
-    $ink = $isDark ? '#f8fafc' : '#20211e';
-    $muted = $isDark ? '#94a3b8' : '#77756d';
-    $card = $isDark ? '#1e293b' : '#ffffff';
-    $cardBorder = $isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(32, 33, 30, 0.08)';
-    $line = $isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(32, 33, 30, 0.1)';
-    $glassNav = $isDark ? 'rgba(15, 23, 42, 0.92)' : 'rgba(255, 253, 249, 0.92)';
+    $ink = $isDark ? '#f8fafc' : '#111827';
+    $muted = $isDark ? '#94a3b8' : '#6b7280';
+    $card = $isDark ? '#161b26' : '#ffffff';
+    $cardBorder = $isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.06)';
+    $line = $isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.06)';
+    $glassNav = $isDark ? 'rgba(15, 20, 28, 0.92)' : 'rgba(255, 255, 255, 0.92)';
 
     $fontUrl = match($fontFamily) {
-        'Inter' => 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap',
+        'Inter' => 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;1,600&display=swap',
         'Poppins' => 'https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Poppins:wght@400;500;600;700&display=swap',
-        'Plus Jakarta Sans' => 'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap',
         'Cinzel' => 'https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:wght@400;600;700&display=swap',
-        default => 'https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap',
+        default => 'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,600&display=swap',
     };
 
     $fontBody = match($fontFamily) {
         'Inter' => "'Inter', sans-serif",
         'Poppins' => "'Poppins', sans-serif",
-        'Plus Jakarta Sans' => "'Plus Jakarta Sans', sans-serif",
         'Cinzel' => "'Cormorant Garamond', Georgia, serif",
-        default => "'DM Sans', sans-serif",
+        default => "'Plus Jakarta Sans', sans-serif",
     };
 
     $fontHeading = match($fontFamily) {
-        'Inter' => "'Inter', sans-serif",
+        'Inter' => "'Playfair Display', serif",
         'Poppins' => "'Montserrat', sans-serif",
-        'Plus Jakarta Sans' => "'Plus Jakarta Sans', sans-serif",
         'Cinzel' => "'Cinzel', serif",
         default => "'Playfair Display', serif",
     };
@@ -717,19 +715,20 @@
             align-items: center;
             gap: 6px;
             padding: 7px 14px;
-            background: var(--accent);
-            color: #ffffff;
-            border: none;
+            background: transparent;
+            color: var(--ink);
+            border: 1px solid var(--line);
             border-radius: 999px;
             font-size: 13px;
-            font-weight: 700;
+            font-weight: 600;
             cursor: pointer;
-            box-shadow: 0 2px 8px rgba(200, 109, 99, 0.25);
             transition: all 0.2s ease;
         }
         .btn-store-auth-trigger:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(200, 109, 99, 0.06);
             transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(200, 109, 99, 0.35);
         }
 
         .drawer-user-box {
@@ -1076,7 +1075,7 @@
             position: relative;
             display: flex;
             align-items: center;
-            padding: 60px 70px;
+            padding: 60px 96px;
             background-size: cover;
             background-position: center;
         }
@@ -1188,20 +1187,28 @@
             top: 50%;
             transform: translateY(-50%);
             z-index: 10;
-            width: 48px;
-            height: 48px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
-            background: rgba(255,255,255,.85);
-            color: #111;
-            border: none;
+            background: rgba(15, 23, 42, 0.45);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: #ffffff;
             cursor: pointer;
             display: grid;
             place-items: center;
-            font-size: 22px;
-            box-shadow: 0 4px 15px rgba(0,0,0,.18);
-            transition: all .2s ease;
+            font-size: 20px;
+            box-shadow: 0 8px 24px rgba(0,0,0,.25);
+            transition: all .25s ease;
+            opacity: 0.85;
         }
-        .hero-nav-arrow:hover { background: #ffffff; transform: translateY(-50%) scale(1.08); }
+        .hero-nav-arrow:hover {
+            background: rgba(15, 23, 42, 0.85);
+            border-color: rgba(255, 255, 255, 0.5);
+            opacity: 1;
+            transform: translateY(-50%) scale(1.08);
+        }
         .hero-nav-prev { left: 24px; }
         .hero-nav-next { right: 24px; }
 
@@ -1427,14 +1434,20 @@
             position: absolute;
             top: 14px;
             right: 14px;
-            padding: 4px 9px;
-            border-radius: 6px;
+            padding: 4px 10px;
+            border-radius: 999px;
             font-size: 10px;
             font-weight: 700;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
         }
-        .stock-available { background: #dcfce7; color: #166534; }
-        .stock-low { background: #fef9c3; color: #854d0e; }
-        .stock-none { background: #fee2e2; color: #991b1b; }
+        .stock-available { background: rgba(220, 252, 231, 0.9); color: #166534; border: 1px solid rgba(34, 197, 94, 0.2); }
+        .stock-low { background: rgba(254, 249, 195, 0.9); color: #854d0e; border: 1px solid rgba(234, 179, 8, 0.2); }
+        .stock-none { background: rgba(254, 226, 226, 0.9); color: #991b1b; border: 1px solid rgba(239, 68, 68, 0.2); }
+
+        [data-theme="dark"] .stock-available { background: rgba(22, 101, 52, 0.4); color: #86efac; border-color: rgba(34, 197, 94, 0.3); }
+        [data-theme="dark"] .stock-low { background: rgba(133, 77, 14, 0.4); color: #fde047; border-color: rgba(234, 179, 8, 0.3); }
+        [data-theme="dark"] .stock-none { background: rgba(153, 27, 27, 0.4); color: #fca5a5; border-color: rgba(239, 68, 68, 0.3); }
 
         .product-card-body {
             padding: 20px;
@@ -3630,64 +3643,72 @@
         .pwa-floating-bottom-bar {
             position: fixed;
             bottom: max(16px, env(safe-area-inset-bottom));
-            left: 16px;
-            right: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: min(440px, calc(100% - 32px));
             display: flex;
-            gap: 10px;
+            align-items: center;
+            justify-content: space-around;
+            gap: 6px;
+            padding: 8px 14px;
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 999px;
+            box-shadow: 0 16px 36px -4px rgba(0, 0, 0, 0.15);
             z-index: 9995;
-            pointer-events: none;
+        }
+        [data-theme="dark"] .pwa-floating-bottom-bar {
+            background: rgba(18, 22, 31, 0.92);
+            border-color: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 16px 36px -4px rgba(0, 0, 0, 0.5);
         }
         .pwa-fab-home, .pwa-fab-cart {
-            pointer-events: auto;
             display: inline-flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            padding: 12px 18px;
-            border-radius: 999px;
-            font-weight: 800;
-            font-size: 13.5px;
+            gap: 2px;
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-weight: 700;
+            font-size: 11px;
             text-decoration: none;
-            box-shadow: 0 10px 28px rgba(0,0,0,0.18);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            transition: transform .18s ease, box-shadow .18s ease;
+            background: transparent;
+            border: none;
+            color: var(--ink);
+            cursor: pointer;
+            transition: all .2s ease;
         }
-        .pwa-fab-home {
-            background: rgba(28, 30, 36, 0.92);
-            color: #ffffff;
-            border: 1.5px solid rgba(255, 255, 255, 0.2);
-            flex: 1;
+        .pwa-fab-home:hover {
+            color: var(--accent);
+            background: rgba(0,0,0,0.04);
         }
         [data-theme="dark"] .pwa-fab-home {
-            background: rgba(24, 27, 34, 0.95);
             color: #f1f5f9;
-            border: 1.5px solid rgba(255, 255, 255, 0.16);
-            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
         }
         [data-theme="dark"] .pwa-fab-home:hover {
-            background: rgba(36, 40, 50, 0.98);
-            border-color: var(--accent);
-            color: #ffffff;
+            background: rgba(255,255,255,0.06);
+            color: var(--accent);
         }
         .pwa-fab-cart {
             background: var(--accent);
-            color: #ffffff;
-            border: 1.5px solid rgba(255,255,255,0.25);
-            cursor: pointer;
-            padding: 12px 16px;
+            color: #ffffff !important;
+            padding: 8px 16px;
+            border-radius: 999px;
+            flex-direction: row;
+            gap: 6px;
+            font-size: 12px;
+            box-shadow: 0 4px 14px {{ $primaryColor }}40;
         }
+        .pwa-fab-icon { font-size: 16px; line-height: 1; }
         .pwa-fab-home:active, .pwa-fab-cart:active {
-            transform: scale(0.96);
+            transform: scale(0.95);
         }
         @media (min-width: 900px) {
             .pwa-floating-bottom-bar {
-                left: 28px;
-                right: auto;
-                bottom: 28px;
-            }
-            .pwa-fab-home {
-                flex: initial;
+                display: none !important;
             }
         }
         .drawer-nav-item-portal-home {

@@ -331,6 +331,13 @@ class CentralPortalController extends Controller
                     'password' => \Illuminate\Support\Facades\Hash::make($validated['owner_password']),
                 ]
             );
+
+            // Seed starter catalog and categories so store is immediately lively & beautiful
+            try {
+                if (class_exists(\Database\Seeders\TenantStoreExpansionSeeder::class)) {
+                    (new \Database\Seeders\TenantStoreExpansionSeeder())->run();
+                }
+            } catch (\Throwable $e) {}
         });
 
         // 4. Flush cached businesses so the new enterprise appears instantly
