@@ -5775,16 +5775,6 @@
 
     <!-- TAB 1: PARA TI (PRODUCTOS Y RESULTADOS DE BÚSQUEDA) -->
     <div id="panelFeed" class="tab-panel-content" style="display: none;">
-            <div class="user-welcome-info">
-                <img src="{{ $user->avatar_url ?? 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&q=80' }}" alt="{{ $user->name }}" class="user-welcome-avatar">
-                <div>
-                    <strong>¡Hola, {{ $user->name }}! Has iniciado sesión con {{ ucfirst($user->auth_provider ?? 'Correo') }}.</strong>
-                    <span>Tu cuenta te permite explorar las empresas y rastrear tus pedidos en toda la plataforma.</span>
-                </div>
-            </div>
-            <a href="{{ url('/logout') }}" class="btn-auth-login">Cerrar Sesión</a>
-        </div>
-    @endif
 
     <!-- GLOBAL SEARCH RESULTS (IF SEARCH IS PERFORMED) -->
     @if($searchQuery !== '')
