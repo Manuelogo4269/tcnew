@@ -3480,23 +3480,7 @@
             box-shadow: 0 6px 20px rgba(226, 112, 78, 0.5);
         }
         .floating-pwa-badge {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            z-index: 999;
-            background: #111210;
-            color: #ffffff;
-            border: 1.5px solid var(--accent);
-            padding: 10px 18px;
-            border-radius: 999px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 13px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all .25s ease;
+            display: none !important;
         }
         .floating-pwa-badge:hover {
             transform: scale(1.05);
@@ -5578,18 +5562,17 @@
         </a>
 
         <nav class="portal-nav-links">
-            <a href="{{ url('/pwa') }}" style="display: inline-flex; align-items: center; gap: 6px; color: #c86d63; font-weight: 800; background: rgba(200, 109, 99, 0.12); padding: 5px 12px; border-radius: 999px; border: 1px solid rgba(200, 109, 99, 0.3); text-decoration: none;" title="Abrir App PWA Móvil">📲 App PWA Móvil</a>
-            <a href="javascript:void(0)" onclick="focusGlobalSearch()">🔍 Búsqueda Global</a>
-            <a href="{{ url('/planes') }}" style="display: inline-flex; align-items: center; gap: 6px; color: #9333ea; font-weight: 800; background: rgba(168, 85, 247, 0.1); padding: 5px 12px; border-radius: 999px; border: 1px solid rgba(168, 85, 247, 0.25); text-decoration: none;" title="Planes de Renta de Tiendas para Empresas">💎 Planes de Suscripción</a>
+            <a href="javascript:void(0)" onclick="switchMainTab('stores');" id="navLinkStores">Tiendas</a>
+            <a href="javascript:void(0)" onclick="switchMainTab('feed');" id="navLinkFeed">Productos</a>
+            <a href="javascript:void(0)" onclick="switchMainTab('map');" id="navLinkMap">Mapa con GPS</a>
+            <a href="{{ url('/planes') }}" style="color: var(--accent); font-weight: 700; text-decoration: none;">¿Tienes un negocio?</a>
         </nav>
 
         <div class="portal-auth-actions">
             <button type="button" class="btn-central-cart" id="btnCentralCart" onclick="goToCartRoutePlanner()" title="{{ $user ? 'Ver productos en mi Carrito y calcular ruta' : 'Inicia sesión para tener tu carrito de compras' }}">
-                <span>🛒</span> <span class="central-cart-label">Mi Carrito</span>
+                <span>🛒</span> <span class="central-cart-label">Carrito</span>
                 <span class="central-cart-badge" id="centralCartBadge">{{ $user ? '0' : '🔒' }}</span>
             </button>
-
-            
 
             @if($user)
                 <!-- Usuario Autenticado -->
@@ -5609,18 +5592,6 @@
                     Entrar
                 </button>
             @endif
-
-            
-
-            <!-- Language Toggle (ES / EN) -->
-            <button type="button" class="btn-lang-toggle" onclick="toggleLanguage()" title="Cambiar idioma / Change language">
-                <span>🌐</span> <span class="lang-label-text">ES</span>
-            </button>
-
-            <!-- Web Share Button -->
-            <button type="button" class="btn-share-header" onclick="sharePortal()" title="Compartir portal por WhatsApp / Redes" aria-label="Compartir">
-                <span>📤</span>
-            </button>
 
             <!-- Dark / Light Theme Toggle -->
             <button type="button" class="btn-theme-toggle" id="themeToggleBtn" onclick="toggleTheme()" aria-label="Cambiar modo oscuro/claro" title="Cambiar a Modo Oscuro / Claro">
@@ -5744,37 +5715,18 @@
 
 <main class="shell">
 
-    <!-- SEGMENTED TABS (ESTILO TIKTOK 'PARA TI' / FACEBOOK FEED TABS) -->
-    <nav class="main-tab-nav-wrapper" id="mainTabNavWrapper" aria-label="Secciones principales">
-        <div class="main-tab-switcher">
-            <button type="button" class="main-tab-btn active" id="tabBtnFeed" onclick="switchMainTab('feed')">
-                <span>🔥</span> Más Visitados
-            </button>
-            <button type="button" class="main-tab-btn" id="tabBtnMap" onclick="switchMainTab('map')">
-                <span>📍</span> Mapa &amp; Cercanía
-            </button>
-            <button type="button" class="main-tab-btn" id="tabBtnStores" onclick="switchMainTab('stores')">
-                <span>🏬</span> Directorio <span class="tab-badge">{{ count($allBusinesses) }}</span>
-            </button>
-            
-        </div>
-    </nav>
-
-    <!-- TAB 1: PARA TI (FEED SOCIAL Y BÚSQUEDA) -->
-    <div id="panelFeed" class="tab-panel-content">
-
     <!-- HERO WITH MULTI-STORE GLOBAL SEARCH -->
-    <section class="portal-hero" id="buscar">
-        <span class="zac-location-hero-badge">📍 Zacatecas Centro Histórico · Cantera Rosa &amp; Plata</span>
+    <section class="portal-hero" id="buscar" style="margin-bottom: 24px;">
+        <span class="zac-location-hero-badge">🏛️ Zacatecas Centro Histórico · Directorio Oficial</span>
         <h1>Explora Comercios y Tiendas Locales de <em>Zacatecas Centro</em></h1>
-        <p>Directorio en la <strong>Ciudad de Cantera Rosa y Plata</strong> para descubrir comercios emblemáticos, consultar productos y enviar pedidos directos por WhatsApp con sucursal física geolocalizada.</p>
+        <p>Descubre boutiques, cafeterías, joyería en plata ley .925 y productos típicos con pedidos directos por WhatsApp.</p>
 
         <!-- GLOBAL SEARCH BAR -->
-        <div class="global-search-container">
+        <div class="global-search-container" style="margin-top: 20px;">
             <form action="{{ url('/') }}" method="GET" class="global-search-form" id="globalSearchForm">
-                <input type="text" name="q" id="globalSearchInput" class="global-search-input" value="{{ $searchQuery }}" placeholder="Buscar en tiendas de Zacatecas (ej. café americano, plata ley .925, gorditas, dulces, mezcal)..." autocomplete="off">
+                <input type="text" name="q" id="globalSearchInput" class="global-search-input" value="{{ $searchQuery }}" placeholder="¿Qué estás buscando? (ej. café americano, plata ley .925, gorditas, dulces, mezcal)..." autocomplete="off">
                 <button type="submit" class="global-search-btn">
-                    <span>🔍</span> <span class="search-btn-text">Buscar en todas las tiendas</span>
+                    <span>🔍</span> <span class="search-btn-text">Buscar</span>
                 </button>
             </form>
 
@@ -5790,42 +5742,39 @@
                 <button type="button" class="btn-clear-search-history" onclick="clearUserSearchHistory()" title="Borrar historial de búsqueda">✕ Limpiar</button>
             </div>
         </div>
-
-        <!-- QUICK INTUITIVE ACTION DECK ("¿QUÉ DESEAS HACER HOY?") -->
-        <div class="hero-quick-actions">
-
-            <button type="button" class="hero-action-card" onclick="goToCartRoutePlanner()">
-                <div class="hero-action-icon" style="background: rgba(16, 185, 129, 0.12); color: #10b981;">🗺️</div>
-                <div class="hero-action-text">
-                    <strong>Ruta de Compras</strong>
-                    <p>Arma tu carrito y genera el itinerario sugerido</p>
-                </div>
-                <span class="hero-action-arrow">➔</span>
-            </button>
-
-            <a href="javascript:void(0)" class="hero-action-card" onclick="switchMainTab('feed', true)">
-                <div class="hero-action-icon" style="background: rgba(245, 158, 11, 0.12); color: #f59e0b;">⭐</div>
-                <div class="hero-action-text">
-                    <strong>Reseñas y Opiniones</strong>
-                    <p>Calificaciones reales de productos locales</p>
-                </div>
-                <span class="hero-action-arrow">➔</span>
-            </a>
-
-            <a href="{{ url('/planes') }}" class="hero-action-card" style="border-color: rgba(168, 85, 247, 0.35); background: linear-gradient(135deg, var(--card) 0%, rgba(168, 85, 247, 0.06) 100%);">
-                <div class="hero-action-icon" style="background: rgba(168, 85, 247, 0.15); color: #9333ea;">💎</div>
-                <div class="hero-action-text">
-                    <strong style="color: #9333ea;">Planes de Suscripción</strong>
-                    <p>Renta tu tienda online multi-tenant en Zacatecas</p>
-                </div>
-                <span class="hero-action-arrow" style="color: #9333ea;">➔</span>
-            </a>
-        </div>
     </section>
 
     <!-- USER WELCOME BANNER (IF LOGGED IN) -->
     @if($user)
         <div class="user-welcome-card">
+            <div class="user-welcome-info">
+                <img src="{{ $user->avatar_url ?? 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&q=80' }}" alt="{{ $user->name }}" class="user-welcome-avatar">
+                <div>
+                    <strong>¡Hola, {{ $user->name }}! Has iniciado sesión con {{ ucfirst($user->auth_provider ?? 'Correo') }}.</strong>
+                    <span>Tu cuenta te permite explorar las empresas y rastrear tus pedidos en toda la plataforma.</span>
+                </div>
+            </div>
+            <a href="{{ url('/logout') }}" class="btn-auth-login">Cerrar Sesión</a>
+        </div>
+    @endif
+
+    <!-- SEGMENTED TABS (NAVEGACIÓN SENCILLA PARA EL CLIENTE) -->
+    <nav class="main-tab-nav-wrapper" id="mainTabNavWrapper" aria-label="Secciones principales" style="margin: 20px auto 32px;">
+        <div class="main-tab-switcher">
+            <button type="button" class="main-tab-btn active" id="tabBtnStores" onclick="switchMainTab('stores')">
+                <span>🏬</span> Tiendas de Zacatecas <span class="tab-badge">{{ count($allBusinesses) }}</span>
+            </button>
+            <button type="button" class="main-tab-btn" id="tabBtnFeed" onclick="switchMainTab('feed')">
+                <span>🔥</span> Productos Populares
+            </button>
+            <button type="button" class="main-tab-btn" id="tabBtnMap" onclick="switchMainTab('map')">
+                <span>📍</span> Mapa con GPS
+            </button>
+        </div>
+    </nav>
+
+    <!-- TAB 1: PARA TI (PRODUCTOS Y RESULTADOS DE BÚSQUEDA) -->
+    <div id="panelFeed" class="tab-panel-content" style="display: none;">
             <div class="user-welcome-info">
                 <img src="{{ $user->avatar_url ?? 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&q=80' }}" alt="{{ $user->name }}" class="user-welcome-avatar">
                 <div>
@@ -6261,39 +6210,14 @@
     </section>
     </div> <!-- /#panelMap -->
 
-    <!-- TAB 3: DIRECTORIO DE EMPRESAS -->
-    <div id="panelStores" class="tab-panel-content" style="display: none;">
+    <!-- TAB: DIRECTORIO DE EMPRESAS (VISIBLE POR DEFECTO) -->
+    <div id="panelStores" class="tab-panel-content">
     <section class="companies-section" id="seccionDirectorio" style="padding-top: 10px;">
         <!-- Category Filter Pills for Businesses -->
-        <div id="empresas" style="padding-top: 16px;">
-            <div class="section-intro" style="margin-bottom: 16px;">
-                <span class="section-eyebrow">Directorio de Empresas</span>
-                <h2 class="section-title">Empresas Disponibles en la App</h2>
-                <p style="color: var(--muted); font-size: 14px; margin-top: 4px;">Filtra las empresas por su categoría comercial o busca directamente por nombre, calle o productos:</p>
-            </div>
-
-            <!-- BUSCADOR INTERACTIVO DEL DIRECTORIO DE EMPRESAS -->
-            <div class="directory-search-wrapper" style="margin-bottom: 20px; max-width: 620px;">
-                <div style="position: relative; display: flex; align-items: center;">
-                    <span style="position: absolute; left: 16px; font-size: 18px; pointer-events: none; opacity: 0.65;">🔍</span>
-                    <input type="text" 
-                           id="directorySearchInput" 
-                           class="directory-search-input" 
-                           placeholder="Buscar empresa por nombre, categoría, calle o productos (ej. plata, café, dulces)..." 
-                           oninput="filterDirectoryBusinesses(this.value)" 
-                           autocomplete="off"
-                           style="width: 100%; padding: 13px 44px 13px 46px; border-radius: 14px; border: 1.5px solid var(--border); background: var(--card); color: var(--foreground); font-size: 15px; font-weight: 500; outline: none; box-shadow: 0 4px 14px rgba(0,0,0,0.03); transition: all 0.2s ease;">
-                    <button type="button" 
-                            id="btnClearDirectorySearch" 
-                            onclick="clearDirectorySearch()" 
-                            style="display: none; position: absolute; right: 12px; background: rgba(150,150,150,0.2); border: none; width: 26px; height: 26px; border-radius: 50%; font-size: 12px; font-weight: bold; color: var(--foreground); cursor: pointer; align-items: center; justify-content: center; transition: background 0.15s ease;"
-                            title="Limpiar búsqueda">✕</button>
-                </div>
-                <div id="directoryResultsCount" style="margin-top: 8px; font-size: 13px; color: var(--muted); font-weight: 600; display: none;"></div>
-            </div>
-            <div class="category-filter-pills">
+        <div id="empresas" style="padding-top: 10px;">
+            <div class="category-filter-pills" style="margin-bottom: 24px;">
                 <a href="{{ url('/?categoria=all' . ($searchQuery ? '&q=' . urlencode($searchQuery) : '')) }}#empresas" class="filter-pill {{ $selectedCategory === 'all' ? 'active' : '' }}">
-                    ✦ Todas las Empresas ({{ count($allBusinesses) }})
+                    ✦ Todas ({{ count($allBusinesses) }})
                 </a>
                 @foreach($businessCategories as $catName)
                     @php
@@ -7359,6 +7283,14 @@ function switchMainTab(tabName, shouldScroll = true) {
     if (bnavFeed) bnavFeed.classList.toggle('active', tabName === 'feed');
     if (bnavMap) bnavMap.classList.toggle('active', tabName === 'map');
     if (bnavStores) bnavStores.classList.toggle('active', tabName === 'stores');
+
+    // Update Top Header Nav Links Active State
+    const navLinkStores = document.getElementById('navLinkStores');
+    const navLinkFeed = document.getElementById('navLinkFeed');
+    const navLinkMap = document.getElementById('navLinkMap');
+    if (navLinkStores) navLinkStores.classList.toggle('active', tabName === 'stores');
+    if (navLinkFeed) navLinkFeed.classList.toggle('active', tabName === 'feed');
+    if (navLinkMap) navLinkMap.classList.toggle('active', tabName === 'map');
 
     // Invalidate Leaflet Map Size so tiles re-render properly
     if (tabName === 'map') {
@@ -10027,7 +9959,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (savedTab && ['feed', 'map', 'stores', 'plans'].includes(savedTab)) {
             switchMainTab(savedTab, false);
         } else {
-            switchMainTab('feed', false);
+            switchMainTab('stores', false);
         }
     }
 });
