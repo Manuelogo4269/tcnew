@@ -65,7 +65,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                     [
            'name'=>'Vestido Midi Satinado Espalda Cruzada',
                         'slug' => 'vestido-midi-satinado-espalda-cruzada',
-                        'category_slug' => 'ropa-y-tendencia',
+                        'category_slug' => 'ropa-tendencia',
                         'price' => 750.00,
                         'description' => 'Elegante vestido en satín fluido de caída impecable, ideal para eventos especiales en Zacatecas.',
                         'image_url' => 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=600&q=80',
@@ -687,7 +687,8 @@ class ZacatecasRealBusinessesSeeder extends Seeder
 
         // 2. Loop through each Iconic Business: Create Tenant, Domains, StoreSettings & Products
         foreach ($businesses as $biz) {
-            $tenantId = $biz['id'];
+            try {
+                $tenantId = $biz['id'];
 
             // Find or Create Central Tenant record
             $tenant = Tenant::find($tenantId);
@@ -801,7 +802,7 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                 // Populate Products
                 if (!empty($biz['products'])) {
                     foreach ($biz['products'] as $prod) {
-                        $catId = isset($catMap[$prod['category_slug']]) ? $catMap[$prod['category_slug']]->id : null;
+                        $catId = isset($catMap[$prod['category_slug']]) ? $catMap[$prod['category_slug']]->id : (Category::first()?->id ?? 1);
                         Product::updateOrCreate(
                             ['slug' => $prod['slug']],
                             [
@@ -817,6 +818,9 @@ class ZacatecasRealBusinessesSeeder extends Seeder
                     }
                 }
             });
+            } catch (\Throwable $e) {
+                \Illuminate\Support\Facades\Log::error("Seeder error for {$biz['id']}: " . $e->getMessage());
+            }
         }
 
         // 3. Clear all central and tenant caches
