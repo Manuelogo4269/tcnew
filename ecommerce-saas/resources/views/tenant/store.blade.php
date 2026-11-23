@@ -4527,7 +4527,7 @@
                 <div class="modal-actions-row" style="margin-top: 2px; margin-bottom: 16px;">
                     <div style="display: flex; gap: 8px; width: 100%; flex-wrap: wrap;">
                         <button type="button" class="btn-modal-add-cart" onclick="addModalProductToCart()">
-                            <span><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></span> Agregar al Carrito (<span id="modalAddCartTotal">$0.00</span>)
+                            <span><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></span> Agregar al Carrito
                         </button>
                         <button type="button" class="btn-modal-buy-now" onclick="buyNowFromModal()">
                             <span><svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span> Comprar Ahora
