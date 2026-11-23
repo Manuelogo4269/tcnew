@@ -352,9 +352,7 @@ class StoreSettingResource extends Resource
                                 'full_catalog' => '📦 Catálogo Completo con Buscador y Filtros (' . (($state['is_visible'] ?? true) ? 'Visible' : 'Oculto') . ')',
                                 'about_story' => '📖 Historia del Local / Quiénes Somos (' . (($state['is_visible'] ?? true) ? 'Visible' : 'Oculto') . ')',
                                 'map_location' => '📍 Ubicación Física y Horarios (' . (($state['is_visible'] ?? true) ? 'Visible' : 'Oculto') . ')',
-                                'testimonials' => '💬 Testimonios y Reseñas de Clientes (' . (($state['is_visible'] ?? true) ? 'Visible' : 'Oculto') . ')',
                                 'contact_box' => '✉️ Caja de Contacto y WhatsApp (' . (($state['is_visible'] ?? true) ? 'Visible' : 'Oculto') . ')',
-                                'official_stores' => '🏬 Directorio de Negocios Aliados (' . (($state['is_visible'] ?? true) ? 'Visible' : 'Oculto') . ')',
                                 default => ($state['title'] ?? 'Bloque') . ' (' . (($state['is_visible'] ?? true) ? 'Visible' : 'Oculto') . ')',
                             })
                             ->schema([
@@ -371,7 +369,6 @@ class StoreSettingResource extends Resource
                                             'about_story' => '📖 Historia del Local / Quiénes Somos',
                                             'map_location' => '📍 Ubicación Física y Horarios',
                                             'contact_box' => '✉️ Caja de Contacto y WhatsApp',
-                                            'official_stores' => '🏬 Red de Tiendas Oficiales',
                                         ])
                                         ->required()
                                         ->reactive(),

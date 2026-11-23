@@ -202,14 +202,6 @@ class StoreSetting extends Model
                 ],
             ],
             [
-                'type' => 'official_stores',
-                'is_visible' => true,
-                'title' => 'Directorio de Negocios',
-                'data' => [
-                    'eyebrow' => 'Ecosistema Multi-Tienda',
-                ],
-            ],
-            [
                 'type' => 'contact_box',
                 'is_visible' => true,
                 'title' => '¿Deseas una cotización o pedido especial?',
@@ -230,7 +222,7 @@ class StoreSetting extends Model
             ? $this->layout_blocks
             : static::defaultLayoutBlocks();
 
-        // Ensure testimonials/reviews are completely excluded per UX requirements
-        return array_values(array_filter($blocks, fn($b) => ($b['type'] ?? '') !== 'testimonials'));
+        // Ensure testimonials/reviews and official_stores are completely excluded per UX requirements
+        return array_values(array_filter($blocks, fn($b) => !in_array($b['type'] ?? '', ['testimonials', 'official_stores'])));
     }
 }

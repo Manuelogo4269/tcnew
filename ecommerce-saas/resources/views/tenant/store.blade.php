@@ -4294,15 +4294,6 @@
             <span class="nav-item-arrow">›</span>
         </a>
 
-        <a href="#negocios" class="drawer-nav-item" onclick="closeStoreMenu()">
-            <div class="nav-item-icon" style="background: rgba(139, 92, 246, 0.15); color: #8b5cf6;">🏢</div>
-            <div class="nav-item-text">
-                <div class="nav-item-title">Red de Tiendas</div>
-                <div class="nav-item-sub">Explora otros comercios de Zacatecas</div>
-            </div>
-            <span class="nav-item-arrow">›</span>
-        </a>
-
         <a href="#contacto" class="drawer-nav-item" onclick="closeStoreMenu()">
             <div class="nav-item-icon" style="background: rgba(236, 72, 153, 0.15); color: #ec4899;">💬</div>
             <div class="nav-item-text">
@@ -4419,7 +4410,6 @@
                     <li><a href="#categorias">Categorías</a></li>
                     <li><a href="#destacados">Tendencias</a></li>
                     <li><a href="#catalogo">Catálogo Completo</a></li>
-                    <li><a href="#negocios">Red de Negocios</a></li>
                 </ul>
             </div>
             <div class="footer-col">
@@ -4431,18 +4421,9 @@
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>Red de Negocios</h4>
-                <p style="margin-bottom: 12px;">Descubre las tiendas de nuestra red:</p>
-                <ul class="footer-links" style="margin-bottom: 16px;">
-                    @foreach($officialStores ?? [] as $store)
-                        <li>
-                            <a href="{{ $store['url'] }}" {{ $store['is_current'] ? '' : 'target="_blank"' }}>
-                                {{ $store['name'] }} {{ $store['is_current'] ? '(Esta tienda)' : '↗' }}
-                            </a>
-                        </li>
-                    @endforeach
-                </ul>
-                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <h4>Contacto & Redes</h4>
+                <p style="margin-bottom: 12px;">{{ $storeAddress }}</p>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px;">
                     @if(!empty($settings?->facebook_url))
                         <a href="{{ $settings->facebook_url }}" target="_blank" class="social-circle-btn" style="color: #1877f2;" title="Facebook">FB</a>
                     @endif
