@@ -1,0 +1,1262 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [6 0 R 8 0 R 10 0 R 12 0 R 14 0 R 16 0 R 18 0 R] /Count 7 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier /Encoding /WinAnsiEncoding >>
+endobj
+6 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Contents 7 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> >>
+endobj
+7 0 obj
+<< /Length 1578 >>
+stream
+0.060 0.090 0.160 rg
+0.00 0.00 792.00 612.00 re
+f
+0.120 0.160 0.280 rg
+0.250 0.320 0.450 RG
+1.50 w
+50.00 45.00 692.00 522.00 re
+B
+0.890 0.440 0.310 rg
+250.00 460.00 292.00 32.00 re
+f
+BT
+/F1 12 Tf
+1.000 1.000 1.000 rg
+268.00 471.00 Td
+(PRESENTACION EJECUTIVA PWA) Tj
+ET
+BT
+/F1 42 Tf
+1.000 1.000 1.000 rg
+180.00 390.00 Td
+(ATELIER ZACATECAS) Tj
+ET
+BT
+/F1 18 Tf
+0.890 0.440 0.310 rg
+210.00 345.00 Td
+(Plataforma E-Commerce Multi-Tienda & PWA) Tj
+ET
+BT
+/F2 15 Tf
+0.750 0.820 0.920 rg
+110.00 290.00 Td
+(Digitalizacion del comercio local en el Centro Historico de Zacatecas y el poder de) Tj
+ET
+BT
+/F2 15 Tf
+0.750 0.820 0.920 rg
+130.00 268.00 Td
+(las Progressive Web Apps frente a las paginas web convencionales.) Tj
+ET
+0.080 0.110 0.200 rg
+0.220 0.300 0.420 RG
+1.00 w
+90.00 160.00 180.00 50.00 re
+B
+BT
+/F1 13 Tf
+0.900 0.950 1.000 rg
+105.00 182.00 Td
+(10 Comercios Activos) Tj
+ET
+BT
+/F2 11 Tf
+0.600 0.700 0.800 rg
+105.00 166.00 Td
+(Zacatecas Centro) Tj
+ET
+0.080 0.110 0.200 rg
+0.220 0.300 0.420 RG
+1.00 w
+300.00 160.00 190.00 50.00 re
+B
+BT
+/F1 13 Tf
+0.400 0.900 0.600 rg
+320.00 182.00 Td
+(Modo Offline PWA) Tj
+ET
+BT
+/F2 11 Tf
+0.600 0.700 0.800 rg
+320.00 166.00 Td
+(Service Worker v3.1) Tj
+ET
+0.080 0.110 0.200 rg
+0.220 0.300 0.420 RG
+1.00 w
+520.00 160.00 180.00 50.00 re
+B
+BT
+/F1 13 Tf
+1.000 0.750 0.300 rg
+538.00 182.00 Td
+(0% Comisiones) Tj
+ET
+BT
+/F2 11 Tf
+0.600 0.700 0.800 rg
+538.00 166.00 Td
+(Pedidos WhatsApp) Tj
+ET
+BT
+/F1 13 Tf
+0.500 0.750 0.950 rg
+250.00 75.00 Td
+(En vivo: atelier-zacatecas.onrender.com) Tj
+ET
+BT
+/F1 10 Tf
+0.500 0.600 0.700 rg
+700.00 20.00 Td
+(1 / 7) Tj
+ET
+endstream
+endobj
+8 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Contents 9 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> >>
+endobj
+9 0 obj
+<< /Length 2760 >>
+stream
+0.060 0.090 0.160 rg
+0.00 0.00 792.00 612.00 re
+f
+0.120 0.160 0.280 rg
+0.250 0.320 0.450 RG
+1.50 w
+50.00 45.00 692.00 522.00 re
+B
+BT
+/F1 12 Tf
+0.890 0.440 0.310 rg
+70.00 510.00 Td
+(1. FUNCIONALIDAD DEL PROYECTO) Tj
+ET
+BT
+/F1 24 Tf
+1.000 1.000 1.000 rg
+70.00 475.00 Td
+(Que es Atelier Zacatecas y que problema resuelve?) Tj
+ET
+BT
+/F2 14 Tf
+0.700 0.800 0.900 rg
+70.00 445.00 Td
+(Plataforma que reune y digitaliza los comercios locales dandole a cada tienda un sitio propio.) Tj
+ET
+0.080 0.110 0.200 rg
+0.250 0.320 0.450 RG
+1.00 w
+70.00 140.00 205.00 270.00 re
+B
+BT
+/F1 16 Tf
+0.950 0.450 0.450 rg
+85.00 370.00 Td
+([!] El Problema) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+85.00 335.00 Td
+(Negocios historicos como) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+85.00 315.00 Td
+(cafeterias, platerias y) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+85.00 295.00 Td
+(artesanias no tenian tienda) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+85.00 275.00 Td
+(online propia o dependian) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+85.00 255.00 Td
+(de apps con comisiones) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+85.00 235.00 Td
+(abusivas del 20% al 30%.) Tj
+ET
+BT
+/F1 11 Tf
+0.950 0.450 0.450 rg
+85.00 180.00 Td
+(> Sin presencia digital) Tj
+ET
+0.080 0.110 0.200 rg
+0.250 0.320 0.450 RG
+1.00 w
+295.00 140.00 205.00 270.00 re
+B
+BT
+/F1 16 Tf
+0.400 0.900 0.600 rg
+310.00 370.00 Td
+([*] Multi-Tienda SaaS) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+310.00 335.00 Td
+(Cada tienda opera como) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+310.00 315.00 Td
+(un sitio web autonomo) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+310.00 295.00 Td
+(\(/acropolis, /rosadeplata\)) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+310.00 275.00 Td
+(con base de datos propia,) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+310.00 255.00 Td
+(catalogo, inventario y) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+310.00 235.00 Td
+(0% de comisiones.) Tj
+ET
+BT
+/F1 11 Tf
+0.400 0.900 0.600 rg
+310.00 180.00 Td
+(> Autonomia e identidad) Tj
+ET
+0.080 0.110 0.200 rg
+0.250 0.320 0.450 RG
+1.00 w
+520.00 140.00 205.00 270.00 re
+B
+BT
+/F1 16 Tf
+0.400 0.750 0.950 rg
+535.00 370.00 Td
+([#] Directorio Central) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+535.00 335.00 Td
+(Los clientes y turistas) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+535.00 315.00 Td
+(encuentran todo en un) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+535.00 295.00 Td
+(solo portal: buscador) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+535.00 275.00 Td
+(global, estado abierto/) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+535.00 255.00 Td
+(cerrado en vivo y ruta) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+535.00 235.00 Td
+(turistica comercial.) Tj
+ET
+BT
+/F1 11 Tf
+0.400 0.750 0.950 rg
+535.00 180.00 Td
+(> Todo Zacatecas en 1 clic) Tj
+ET
+BT
+/F1 10 Tf
+0.500 0.600 0.700 rg
+700.00 20.00 Td
+(2 / 7) Tj
+ET
+endstream
+endobj
+10 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Contents 11 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> >>
+endobj
+11 0 obj
+<< /Length 2364 >>
+stream
+0.060 0.090 0.160 rg
+0.00 0.00 792.00 612.00 re
+f
+0.120 0.160 0.280 rg
+0.250 0.320 0.450 RG
+1.50 w
+50.00 45.00 692.00 522.00 re
+B
+BT
+/F1 12 Tf
+0.400 0.750 0.950 rg
+70.00 510.00 Td
+(2. EXPERIENCIA DEL USUARIO) Tj
+ET
+BT
+/F1 24 Tf
+1.000 1.000 1.000 rg
+70.00 475.00 Td
+(Que puede hacer el cliente en la plataforma?) Tj
+ET
+BT
+/F2 14 Tf
+0.700 0.800 0.900 rg
+70.00 445.00 Td
+(Proceso de compra rapido, intuitivo y sin barreras tecnologicas.) Tj
+ET
+0.080 0.110 0.200 rg
+0.250 0.320 0.450 RG
+1.00 w
+70.00 260.00 310.00 150.00 re
+B
+BT
+/F1 16 Tf
+1.000 1.000 1.000 rg
+90.00 375.00 Td
+(1. Catalogo Interactivo) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+90.00 345.00 Td
+(Fotos HD, descripcion completa, precios en) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+90.00 325.00 Td
+(pesos mexicanos y filtros por categoria.) Tj
+ET
+BT
+/F2 11 Tf
+0.600 0.700 0.800 rg
+90.00 295.00 Td
+(Stock y disponibilidad fisica garantizada.) Tj
+ET
+0.080 0.110 0.200 rg
+0.250 0.320 0.450 RG
+1.00 w
+410.00 260.00 310.00 150.00 re
+B
+BT
+/F1 16 Tf
+0.400 0.900 0.600 rg
+430.00 375.00 Td
+(2. Pedidos Directos por WhatsApp) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+430.00 345.00 Td
+(El carrito genera el pedido formateado y) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+430.00 325.00 Td
+(lo manda directo al chat del comercio.) Tj
+ET
+BT
+/F2 11 Tf
+0.600 0.700 0.800 rg
+430.00 295.00 Td
+(Cero intermediarios y atencion humana.) Tj
+ET
+0.080 0.110 0.200 rg
+0.250 0.320 0.450 RG
+1.00 w
+70.00 85.00 310.00 150.00 re
+B
+BT
+/F1 16 Tf
+1.000 0.750 0.300 rg
+90.00 200.00 Td
+(3. Horarios en Tiempo Real) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+90.00 170.00 Td
+(Insignias dinamicas 'Abierto Ahora' o) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+90.00 150.00 Td
+('Cerrado' calculadas con el reloj local.) Tj
+ET
+BT
+/F2 11 Tf
+0.600 0.700 0.800 rg
+90.00 120.00 Td
+(Evita visitas cuando la tienda no atiende.) Tj
+ET
+0.080 0.110 0.200 rg
+0.250 0.320 0.450 RG
+1.00 w
+410.00 85.00 310.00 150.00 re
+B
+BT
+/F1 16 Tf
+0.890 0.440 0.310 rg
+430.00 200.00 Td
+(4. Ruta Peatonal del Centro) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+430.00 170.00 Td
+(Guia paso a paso por callejones y plazas) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+430.00 150.00 Td
+(para recorrer las tiendas caminando.) Tj
+ET
+BT
+/F2 11 Tf
+0.600 0.700 0.800 rg
+430.00 120.00 Td
+(Ideal para turistas y paseantes locales.) Tj
+ET
+BT
+/F1 10 Tf
+0.500 0.600 0.700 rg
+700.00 20.00 Td
+(3 / 7) Tj
+ET
+endstream
+endobj
+12 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Contents 13 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> >>
+endobj
+13 0 obj
+<< /Length 2702 >>
+stream
+0.060 0.090 0.160 rg
+0.00 0.00 792.00 612.00 re
+f
+0.120 0.160 0.280 rg
+0.250 0.320 0.450 RG
+1.50 w
+50.00 45.00 692.00 522.00 re
+B
+BT
+/F1 12 Tf
+0.400 0.900 0.600 rg
+70.00 510.00 Td
+(3. ARQUITECTURA TECNOLOGICA) Tj
+ET
+BT
+/F1 24 Tf
+1.000 1.000 1.000 rg
+70.00 475.00 Td
+(Por que es una PWA \(Progressive Web App\)?) Tj
+ET
+BT
+/F2 14 Tf
+0.700 0.800 0.900 rg
+70.00 445.00 Td
+(En terminos simples: Es una pagina web con 'superpoderes' de aplicacion movil.) Tj
+ET
+0.080 0.110 0.200 rg
+0.250 0.320 0.450 RG
+1.00 w
+70.00 130.00 205.00 280.00 re
+B
+BT
+/F1 15 Tf
+0.400 0.750 0.950 rg
+85.00 375.00 Td
+(1. Se Instala Directo) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+85.00 340.00 Td
+(El usuario da 1 toque) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+85.00 320.00 Td
+(en su navegador y se) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+85.00 300.00 Td
+(agrega a la pantalla) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+85.00 280.00 Td
+(de inicio como una app.) Tj
+ET
+BT
+/F2 11 Tf
+0.600 0.700 0.800 rg
+85.00 245.00 Td
+(Sin pasar por Play Store) Tj
+ET
+BT
+/F2 11 Tf
+0.600 0.700 0.800 rg
+85.00 225.00 Td
+(ni App Store de Apple.) Tj
+ET
+BT
+/F1 10 Tf
+0.400 0.750 0.950 rg
+85.00 160.00 Td
+(> Cero descargas de 100MB) Tj
+ET
+0.080 0.110 0.200 rg
+0.250 0.320 0.450 RG
+1.00 w
+295.00 130.00 205.00 280.00 re
+B
+BT
+/F1 15 Tf
+0.400 0.900 0.600 rg
+310.00 375.00 Td
+(2. Modo Offline) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+310.00 340.00 Td
+(Un Service Worker en) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+310.00 320.00 Td
+(segundo plano guarda el) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+310.00 300.00 Td
+(catalogo y las tiendas) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+310.00 280.00 Td
+(en la memoria local.) Tj
+ET
+BT
+/F2 11 Tf
+0.600 0.700 0.800 rg
+310.00 245.00 Td
+(Si se cae el internet,) Tj
+ET
+BT
+/F2 11 Tf
+0.600 0.700 0.800 rg
+310.00 225.00 Td
+(la app sigue visible.) Tj
+ET
+BT
+/F1 10 Tf
+0.400 0.900 0.600 rg
+310.00 160.00 Td
+(> Adios al dinosaurio offline) Tj
+ET
+0.080 0.110 0.200 rg
+0.250 0.320 0.450 RG
+1.00 w
+520.00 130.00 205.00 280.00 re
+B
+BT
+/F1 15 Tf
+1.000 0.750 0.300 rg
+535.00 375.00 Td
+(3. Carga Instantanea) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+535.00 340.00 Td
+(No vuelve a pedir todo) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+535.00 320.00 Td
+(al servidor cada vez) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+535.00 300.00 Td
+(que das clic.) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+535.00 280.00 Td
+(Abre al momento y ahorra) Tj
+ET
+BT
+/F2 11 Tf
+0.600 0.700 0.800 rg
+535.00 245.00 Td
+(hasta un 80% de datos) Tj
+ET
+BT
+/F2 11 Tf
+0.600 0.700 0.800 rg
+535.00 225.00 Td
+(moviles del usuario.) Tj
+ET
+BT
+/F1 10 Tf
+1.000 0.750 0.300 rg
+535.00 160.00 Td
+(> Velocidad nativa) Tj
+ET
+BT
+/F1 10 Tf
+0.500 0.600 0.700 rg
+700.00 20.00 Td
+(4 / 7) Tj
+ET
+endstream
+endobj
+14 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Contents 15 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> >>
+endobj
+15 0 obj
+<< /Length 2837 >>
+stream
+0.060 0.090 0.160 rg
+0.00 0.00 792.00 612.00 re
+f
+0.120 0.160 0.280 rg
+0.250 0.320 0.450 RG
+1.50 w
+50.00 45.00 692.00 522.00 re
+B
+BT
+/F1 12 Tf
+0.890 0.440 0.310 rg
+70.00 510.00 Td
+(4. DIFERENCIAS CLAVE) Tj
+ET
+BT
+/F1 24 Tf
+1.000 1.000 1.000 rg
+70.00 475.00 Td
+(Pagina Web Normal  vs.  Nuestra Tienda PWA) Tj
+ET
+0.080 0.110 0.200 rg
+70.00 410.00 652.00 32.00 re
+f
+BT
+/F1 12 Tf
+0.600 0.700 0.800 rg
+85.00 422.00 Td
+(Caracteristica) Tj
+ET
+BT
+/F1 12 Tf
+0.950 0.450 0.450 rg
+260.00 422.00 Td
+(Pagina Web Normal \(Sin PWA\)) Tj
+ET
+BT
+/F1 12 Tf
+0.400 0.900 0.600 rg
+500.00 422.00 Td
+(Nuestra Tienda PWA \(Atelier\)) Tj
+ET
+0.100 0.130 0.230 rg
+0.180 0.220 0.330 RG
+1.00 w
+70.00 335.00 652.00 70.00 re
+B
+BT
+/F1 13 Tf
+1.000 1.000 1.000 rg
+85.00 375.00 Td
+(Sin Internet) Tj
+ET
+BT
+/F1 11 Tf
+0.950 0.450 0.450 rg
+260.00 380.00 Td
+([X] Se bloquea por completo.) Tj
+ET
+BT
+/F2 10.5 Tf
+0.700 0.750 0.850 rg
+260.00 360.00 Td
+(Muestra pantalla de error / dinosaurio.) Tj
+ET
+BT
+/F1 11 Tf
+0.400 0.900 0.600 rg
+500.00 380.00 Td
+([V] Sigue funcionando \(Offline\).) Tj
+ET
+BT
+/F2 10.5 Tf
+0.700 0.750 0.850 rg
+500.00 360.00 Td
+(Catalogo y tiendas guardadas en cache.) Tj
+ET
+0.100 0.130 0.230 rg
+0.180 0.220 0.330 RG
+1.00 w
+70.00 260.00 652.00 70.00 re
+B
+BT
+/F1 13 Tf
+1.000 1.000 1.000 rg
+85.00 300.00 Td
+(Instalacion) Tj
+ET
+BT
+/F1 11 Tf
+0.950 0.450 0.450 rg
+260.00 305.00 Td
+([X] No se puede instalar.) Tj
+ET
+BT
+/F2 10.5 Tf
+0.700 0.750 0.850 rg
+260.00 285.00 Td
+(Obliga a teclear la URL cada vez.) Tj
+ET
+BT
+/F1 11 Tf
+0.400 0.900 0.600 rg
+500.00 305.00 Td
+([V] Icono directo en el celular.) Tj
+ET
+BT
+/F2 10.5 Tf
+0.700 0.750 0.850 rg
+500.00 285.00 Td
+(Abre a pantalla completa como app nativa.) Tj
+ET
+0.100 0.130 0.230 rg
+0.180 0.220 0.330 RG
+1.00 w
+70.00 185.00 652.00 70.00 re
+B
+BT
+/F1 13 Tf
+1.000 1.000 1.000 rg
+85.00 225.00 Td
+(Velocidad) Tj
+ET
+BT
+/F1 11 Tf
+0.950 0.450 0.450 rg
+260.00 230.00 Td
+([X] Depende de la senal celular.) Tj
+ET
+BT
+/F2 10.5 Tf
+0.700 0.750 0.850 rg
+260.00 210.00 Td
+(Cada pagina vuelve a pedir todo al server.) Tj
+ET
+BT
+/F1 11 Tf
+0.400 0.900 0.600 rg
+500.00 230.00 Td
+([V] Instantanea desde memoria local.) Tj
+ET
+BT
+/F2 10.5 Tf
+0.700 0.750 0.850 rg
+500.00 210.00 Td
+(Ahorra datos y navega con fluidez 60 FPS.) Tj
+ET
+0.100 0.130 0.230 rg
+0.180 0.220 0.330 RG
+1.00 w
+70.00 110.00 652.00 70.00 re
+B
+BT
+/F1 13 Tf
+1.000 1.000 1.000 rg
+85.00 150.00 Td
+(App Stores) Tj
+ET
+BT
+/F1 11 Tf
+0.950 0.450 0.450 rg
+260.00 155.00 Td
+([X] Crear app cuesta miles de USD.) Tj
+ET
+BT
+/F2 10.5 Tf
+0.700 0.750 0.850 rg
+260.00 135.00 Td
+(Pagar cuentas y esperar semanas de aprobacion.) Tj
+ET
+BT
+/F1 11 Tf
+0.400 0.900 0.600 rg
+500.00 155.00 Td
+([V] 100% Libre y Desplegable al momento.) Tj
+ET
+BT
+/F2 10.5 Tf
+0.700 0.750 0.850 rg
+500.00 135.00 Td
+(Un solo codigo compatible con Android e iOS.) Tj
+ET
+BT
+/F1 10 Tf
+0.500 0.600 0.700 rg
+700.00 20.00 Td
+(5 / 7) Tj
+ET
+endstream
+endobj
+16 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Contents 17 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> >>
+endobj
+17 0 obj
+<< /Length 2696 >>
+stream
+0.060 0.090 0.160 rg
+0.00 0.00 792.00 612.00 re
+f
+0.120 0.160 0.280 rg
+0.250 0.320 0.450 RG
+1.50 w
+50.00 45.00 692.00 522.00 re
+B
+BT
+/F1 12 Tf
+0.400 0.900 0.600 rg
+70.00 510.00 Td
+(5. IMPACTO LOCAL EN ZACATECAS) Tj
+ET
+BT
+/F1 23 Tf
+1.000 1.000 1.000 rg
+70.00 475.00 Td
+(Por que esta tecnologia es ideal para Zacatecas Centro?) Tj
+ET
+BT
+/F2 14 Tf
+0.700 0.800 0.900 rg
+70.00 445.00 Td
+(Resuelve un desafio geografico y comercial real del Centro Historico.) Tj
+ET
+0.080 0.110 0.200 rg
+0.250 0.320 0.450 RG
+1.00 w
+70.00 130.00 205.00 280.00 re
+B
+BT
+/F1 16 Tf
+0.890 0.440 0.310 rg
+85.00 375.00 Td
+(Muros de Cantera) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+85.00 340.00 Td
+(Las casonas antiguas y) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+85.00 320.00 Td
+(callejones estrechos) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+85.00 300.00 Td
+(bloquean o atenúan la) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+85.00 280.00 Td
+(senal celular 4G/5G.) Tj
+ET
+BT
+/F2 11 Tf
+0.600 0.700 0.800 rg
+85.00 235.00 Td
+(La PWA garantiza que) Tj
+ET
+BT
+/F2 11 Tf
+0.600 0.700 0.800 rg
+85.00 215.00 Td
+(el catalogo siga visible.) Tj
+ET
+BT
+/F1 11 Tf
+0.890 0.440 0.310 rg
+85.00 160.00 Td
+(> No se cae al caminar) Tj
+ET
+0.080 0.110 0.200 rg
+0.250 0.320 0.450 RG
+1.00 w
+295.00 130.00 205.00 280.00 re
+B
+BT
+/F1 16 Tf
+0.400 0.750 0.950 rg
+310.00 375.00 Td
+(Turismo Sin Roaming) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+310.00 340.00 Td
+(Los turistas que visitan) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+310.00 320.00 Td
+(Catedral o la Mina) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+310.00 300.00 Td
+(pueden explorar tiendas) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+310.00 280.00 Td
+(y precios sin agotar) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+310.00 260.00 Td
+(sus datos celulares.) Tj
+ET
+BT
+/F2 11 Tf
+0.600 0.700 0.800 rg
+310.00 215.00 Td
+(Guia de bolsillo offline.) Tj
+ET
+BT
+/F1 11 Tf
+0.400 0.750 0.950 rg
+310.00 160.00 Td
+(> Ahorro real de datos) Tj
+ET
+0.080 0.110 0.200 rg
+0.250 0.320 0.450 RG
+1.00 w
+520.00 130.00 205.00 280.00 re
+B
+BT
+/F1 16 Tf
+0.400 0.900 0.600 rg
+535.00 375.00 Td
+(Economia Local) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+535.00 340.00 Td
+(Los comerciantes) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+535.00 320.00 Td
+(reciben pedidos directos) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+535.00 300.00 Td
+(por WhatsApp sin) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+535.00 280.00 Td
+(intermediarios bancarios) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+535.00 260.00 Td
+(ni comisiones forzosas.) Tj
+ET
+BT
+/F2 11 Tf
+0.600 0.700 0.800 rg
+535.00 215.00 Td
+(100% de la ganancia.) Tj
+ET
+BT
+/F1 11 Tf
+0.400 0.900 0.600 rg
+535.00 160.00 Td
+(> Apoyo a productores) Tj
+ET
+BT
+/F1 10 Tf
+0.500 0.600 0.700 rg
+700.00 20.00 Td
+(6 / 7) Tj
+ET
+endstream
+endobj
+18 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Contents 19 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> >>
+endobj
+19 0 obj
+<< /Length 2177 >>
+stream
+0.060 0.090 0.160 rg
+0.00 0.00 792.00 612.00 re
+f
+0.120 0.160 0.280 rg
+0.250 0.320 0.450 RG
+1.50 w
+50.00 45.00 692.00 522.00 re
+B
+0.160 0.650 0.450 rg
+280.00 490.00 230.00 28.00 re
+f
+BT
+/F1 11 Tf
+1.000 1.000 1.000 rg
+300.00 500.00 Td
+(RESUMEN Y CONCLUSION) Tj
+ET
+BT
+/F1 28 Tf
+1.000 1.000 1.000 rg
+170.00 435.00 Td
+(El Futuro del Comercio en Zacatecas) Tj
+ET
+BT
+/F2 14 Tf
+0.700 0.800 0.900 rg
+160.00 400.00 Td
+(Tres ideas fundamentales para recordar sobre este proyecto:) Tj
+ET
+0.080 0.110 0.200 rg
+0.250 0.320 0.450 RG
+1.00 w
+70.00 160.00 205.00 200.00 re
+B
+BT
+/F1 15 Tf
+1.000 1.000 1.000 rg
+85.00 325.00 Td
+(1. Digitalizacion Real) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+85.00 290.00 Td
+(Unifica y da tienda) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+85.00 270.00 Td
+(propia a los negocios) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+85.00 250.00 Td
+(emblematicos con 0%) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+85.00 230.00 Td
+(comisiones y WhatsApp.) Tj
+ET
+0.080 0.110 0.200 rg
+0.250 0.320 0.450 RG
+1.00 w
+295.00 160.00 205.00 200.00 re
+B
+BT
+/F1 15 Tf
+0.400 0.900 0.600 rg
+310.00 325.00 Td
+(2. Tecnologia PWA) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+310.00 290.00 Td
+(Une lo mejor de una web) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+310.00 270.00 Td
+(\(un link facil de enviar\)) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+310.00 250.00 Td
+(con una app movil) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+310.00 230.00 Td
+(\(instalable y offline\).) Tj
+ET
+0.080 0.110 0.200 rg
+0.250 0.320 0.450 RG
+1.00 w
+520.00 160.00 205.00 200.00 re
+B
+BT
+/F1 15 Tf
+0.400 0.750 0.950 rg
+535.00 325.00 Td
+(3. Resiliencia Total) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+535.00 290.00 Td
+(Supera a las paginas) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+535.00 270.00 Td
+(tradicionales al no) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+535.00 250.00 Td
+(romperse si falla) Tj
+ET
+BT
+/F2 12 Tf
+0.800 0.850 0.900 rg
+535.00 230.00 Td
+(la senal de internet.) Tj
+ET
+0.100 0.140 0.250 rg
+0.400 0.900 0.600 RG
+1.00 w
+160.00 80.00 472.00 45.00 re
+B
+BT
+/F1 14 Tf
+0.400 0.900 0.600 rg
+180.00 97.00 Td
+(Proyecto en vivo: atelier-zacatecas.onrender.com) Tj
+ET
+BT
+/F1 10 Tf
+0.500 0.600 0.700 rg
+700.00 20.00 Td
+(7 / 7) Tj
+ET
+endstream
+endobj
+xref
+0 20
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000156 00000 n 
+0000000258 00000 n 
+0000000355 00000 n 
+0000000450 00000 n 
+0000000596 00000 n 
+0000002225 00000 n 
+0000002371 00000 n 
+0000005182 00000 n 
+0000005330 00000 n 
+0000007746 00000 n 
+0000007894 00000 n 
+0000010648 00000 n 
+0000010796 00000 n 
+0000013685 00000 n 
+0000013833 00000 n 
+0000016581 00000 n 
+0000016729 00000 n 
+trailer
+<< /Size 20 /Root 1 0 R >>
+startxref
+18958
+%%EOF

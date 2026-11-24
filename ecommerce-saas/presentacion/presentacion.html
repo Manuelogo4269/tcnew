@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentación del Proyecto — Atelier Zacatecas & PWA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0f172a;
+            --surface: #1e293b;
+            --surface-card: #243048;
+            --border: rgba(255, 255, 255, 0.1);
+            --ink: #f8fafc;
+            --muted: #94a3b8;
+            --accent: #e2704e;
+            --accent-glow: rgba(226, 112, 78, 0.25);
+            --accent-light: #fcdad1;
+            --green: #10b981;
+            --green-glow: rgba(16, 185, 129, 0.2);
+            --blue: #38bdf8;
+            --radius-lg: 24px;
+            --radius-md: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--ink);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            user-select: none;
+        }
+
+        /* TOP PROGRESS BAR */
+        .progress-bar-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.05);
+            z-index: 100;
+        }
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #e2704e, #f59e0b, #10b981);
+            width: 14%;
+            transition: width 0.35s ease;
+        }
+
+        /* HEADER CONTROLS */
+        header {
+            position: fixed;
+            top: 5px;
+            left: 0;
+            width: 100%;
+            padding: 16px 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 90;
+            pointer-events: none;
+        }
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--muted);
+            pointer-events: auto;
+        }
+        .header-brand span {
+            color: var(--accent);
+        }
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            pointer-events: auto;
+        }
+        .slide-counter {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid var(--border);
+            padding: 6px 14px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--ink);
+            backdrop-filter: blur(8px);
+        }
+        .btn-header {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid var(--border);
+            color: var(--ink);
+            padding: 6px 14px;
+            border-radius: 999px;
+            font-size: 12.5px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+            backdrop-filter: blur(8px);
+        }
+        .btn-header:hover {
+            background: var(--surface-card);
+            border-color: var(--accent);
+            color: #fff;
+        }
+
+        /* DECK SLIDES CONTAINER */
+        .presentation-deck {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 24px 100px;
+            position: relative;
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .slide {
+            display: none;
+            width: 100%;
+            animation: fadeIn 0.4s ease forwards;
+        }
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(12px) scale(0.99);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* BADGES & TYPOGRAPHY */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 18px;
+        }
+        .badge-coral {
+            background: rgba(226, 112, 78, 0.15);
+            color: #f69476;
+            border: 1px solid rgba(226, 112, 78, 0.3);
+        }
+        .badge-green {
+            background: rgba(16, 185, 129, 0.15);
+            color: #6ee7b7;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+        .badge-blue {
+            background: rgba(56, 189, 248, 0.15);
+            color: #7dd3fc;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+        }
+
+        .slide-title {
+            font-size: clamp(32px, 5vw, 54px);
+            font-weight: 800;
+            line-height: 1.15;
+            letter-spacing: -0.03em;
+            margin-bottom: 18px;
+            color: #ffffff;
+        }
+        .slide-title em {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .slide-subtitle {
+            font-size: clamp(16px, 2.2vw, 20px);
+            color: var(--muted);
+            line-height: 1.6;
+            max-width: 800px;
+            margin-bottom: 36px;
+        }
+
+        /* GRID CARDS LAYOUT */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+            margin-top: 10px;
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 28px;
+            transition: all 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .card:hover {
+            border-color: rgba(226, 112, 78, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.35);
+        }
+        .card-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            margin-bottom: 18px;
+        }
+        .card-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+        .card-desc {
+            font-size: 14.5px;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+        .card-highlight {
+            display: inline-block;
+            margin-top: 14px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        /* HERO COVER SLIDE (SLIDE 1) */
+        .cover-content {
+            text-align: center;
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 40px 0;
+        }
+        .cover-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(226, 112, 78, 0.12);
+            border: 1px solid rgba(226, 112, 78, 0.3);
+            color: #f69476;
+            padding: 8px 20px;
+            border-radius: 999px;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+        .cover-title {
+            font-size: clamp(40px, 6.5vw, 68px);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.04em;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+        .cover-title em {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: var(--accent);
+        }
+        .cover-desc {
+            font-size: clamp(18px, 2.5vw, 22px);
+            color: var(--muted);
+            line-height: 1.6;
+            max-width: 680px;
+            margin: 0 auto 36px;
+        }
+        .cover-meta {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .meta-tag {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 10px 18px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #cbd5e1;
+        }
+
+        /* COMPARISON TABLE SLIDE (SLIDE 5) */
+        .comparison-table-wrapper {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            margin-top: 10px;
+            box-shadow: 0 16px 40px rgba(0,0,0,0.25);
+        }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+        .comparison-table th {
+            padding: 18px 24px;
+            background: rgba(0, 0, 0, 0.2);
+            font-size: 15px;
+            font-weight: 800;
+            border-bottom: 1px solid var(--border);
+        }
+        .comparison-table th.col-feature { width: 30%; color: var(--muted); }
+        .comparison-table th.col-normal { width: 35%; color: #f87171; }
+        .comparison-table th.col-pwa { width: 35%; color: #4ade80; background: rgba(16, 185, 129, 0.08); }
+        .comparison-table td {
+            padding: 18px 24px;
+            border-bottom: 1px solid var(--border);
+            font-size: 14.5px;
+            line-height: 1.5;
+            vertical-align: top;
+        }
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+        .comparison-table td.col-pwa {
+            background: rgba(16, 185, 129, 0.04);
+            font-weight: 600;
+            color: #f1f5f9;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 999px;
+            font-size: 11.5px;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+        .status-bad { background: rgba(239, 68, 68, 0.15); color: #fca5a5; }
+        .status-good { background: rgba(16, 185, 129, 0.18); color: #86efac; }
+
+        /* BOTTOM CONTROLS DOCK */
+        .bottom-dock {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(15, 23, 42, 0.85);
+            border: 1px solid var(--border);
+            padding: 8px 14px;
+            border-radius: 999px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            backdrop-filter: blur(16px);
+            z-index: 90;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+        .nav-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: #ffffff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: all 0.2s ease;
+        }
+        .nav-btn:hover:not(:disabled) {
+            background: var(--accent);
+            border-color: var(--accent);
+            transform: scale(1.08);
+        }
+        .nav-btn:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+        }
+        .dots-container {
+            display: flex;
+            gap: 8px;
+            padding: 0 8px;
+        }
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+        .dot.active {
+            background: var(--accent);
+            width: 24px;
+            border-radius: 999px;
+        }
+
+        /* KEYBOARD HINT */
+        .keyboard-hint {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            font-size: 11.5px;
+            color: rgba(255, 255, 255, 0.35);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .key-chip {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 10px;
+        }
+
+        /* PRINT STYLES FOR EXPORTING TO PDF */
+        @media print {
+            body {
+                background: #ffffff !important;
+                color: #0f172a !important;
+            }
+            .progress-bar-container, header, .bottom-dock, .keyboard-hint {
+                display: none !important;
+            }
+            .presentation-deck {
+                padding: 0 !important;
+                max-width: 100% !important;
+            }
+            .slide {
+                display: block !important;
+                page-break-after: always;
+                min-height: 100vh;
+                padding: 40px 20px;
+            }
+            .card {
+                background: #f8fafc !important;
+                border: 1px solid #cbd5e1 !important;
+                color: #0f172a !important;
+            }
+            .slide-title, .cover-title, .card-title {
+                color: #0f172a !important;
+            }
+            .slide-subtitle, .cover-desc, .card-desc {
+                color: #475569 !important;
+            }
+            .comparison-table-wrapper {
+                background: #ffffff !important;
+                border: 1px solid #cbd5e1 !important;
+            }
+            .comparison-table th {
+                background: #f1f5f9 !important;
+                color: #0f172a !important;
+            }
+            .comparison-table td {
+                color: #0f172a !important;
+                border-bottom: 1px solid #e2e8f0 !important;
+            }
+            .comparison-table td.col-pwa {
+                background: #f0fdf4 !important;
+                color: #166534 !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .keyboard-hint { display: none; }
+            .header-brand span { display: none; }
+            .cards-grid { grid-template-columns: 1fr; }
+            .comparison-table { font-size: 12.5px; }
+            .comparison-table th, .comparison-table td { padding: 12px 14px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PROGRESS BAR -->
+    <div class="progress-bar-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- TOP HEADER -->
+    <header>
+        <div class="header-brand">
+            🏛️ <strong>Atelier Zacatecas</strong> <span>· Plataforma Multi-Tienda & PWA</span>
+        </div>
+        <div class="header-actions">
+            <span class="slide-counter" id="slideCounter">1 / 7</span>
+            <button class="btn-header" onclick="window.print()" title="Imprimir o guardar como PDF">
+                🖨️ <span>Guardar PDF</span>
+            </button>
+            <button class="btn-header" onclick="toggleFullScreen()" title="Pantalla completa">
+                ⛶ <span>Pantalla Completa</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- SLIDE DECK -->
+    <main class="presentation-deck">
+
+        <!-- DIAPOSITIVA 1: PORTADA -->
+        <section class="slide active" id="slide-1">
+            <div class="cover-content">
+                <div class="cover-pill">
+                    ✨ Presentación Ejecutiva del Proyecto
+                </div>
+                <h1 class="cover-title">
+                    Atelier <em>Zacatecas</em>
+                </h1>
+                <p class="cover-desc">
+                    Plataforma e-commerce multi-tienda para el Centro Histórico y por qué la tecnología <strong>PWA (Progressive Web App)</strong> cambia las reglas del comercio local.
+                </p>
+                <div class="cover-meta">
+                    <div class="meta-tag">🏪 10 Comercios Emblemáticos</div>
+                    <div class="meta-tag">⚡ Arquitectura PWA Offline</div>
+                    <div class="meta-tag">🗺️ Ruta Comercial y Turística</div>
+                    <div class="meta-tag">💬 Pedidos Vía WhatsApp</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DIAPOSITIVA 2: ¿QUÉ ES EL PROYECTO? -->
+        <section class="slide" id="slide-2">
+            <span class="badge badge-coral">1. Funcionalidad del Proyecto</span>
+            <h2 class="slide-title">¿Qué es <em>Atelier Zacatecas</em> y qué problema resuelve?</h2>
+            <p class="slide-subtitle">
+                Es una plataforma web moderna que reúne y digitaliza a los comercios más representativos del Centro Histórico de Zacatecas, dándole a cada negocio su propia tienda virtual independiente.
+            </p>
+
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon">🏬</div>
+                    <h3 class="card-title">El Problema de los Negocios</h3>
+                    <p class="card-desc">
+                        Muchos comercios locales emblemáticos (cafeterías, platerías, ropa tradicional, librerías) no cuentan con tienda en línea propia o dependen de plataformas con comisiones altas y difíciles de usar.
+                    </p>
+                    <span class="card-highlight">Sin presencia digital moderna</span>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">🚀</div>
+                    <h3 class="card-title">Nuestra Solución (Multi-Tienda)</h3>
+                    <p class="card-desc">
+                        Cada negocio tiene su propio sitio web autónomo (como <code>/acropolis</code> o <code>/conceptos7</code>) con su propia base de datos, catálogo privado, precios, fotos y pedidos directos.
+                    </p>
+                    <span class="card-highlight">Autonomía total + 0% comisiones</span>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">🗺️</div>
+                    <h3 class="card-title">Portal Central Unificado</h3>
+                    <p class="card-desc">
+                        Los clientes y turistas encuentran todas las tiendas en un solo lugar: un directorio interactivo con horarios en vivo, búsqueda global de productos y una ruta peatonal por el Centro.
+                    </p>
+                    <span class="card-highlight">Todo Zacatecas Centro en 1 clic</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- DIAPOSITIVA 3: FUNCIONALIDADES CLAVE -->
+        <section class="slide" id="slide-3">
+            <span class="badge badge-blue">2. Experiencia de Usuario</span>
+            <h2 class="slide-title">¿Qué puede hacer el <em>cliente</em> en la plataforma?</h2>
+            <p class="slide-subtitle">
+                Diseñado para que comprar en los negocios locales sea tan fácil, rápido e intuitivo como mandar un mensaje por teléfono.
+            </p>
+
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon">🛍️</div>
+                    <h3 class="card-title">Explorar Catálogos en Vivo</h3>
+                    <p class="card-desc">
+                        Ver productos reales con fotos en alta definición, descripción detallada, precios en pesos mexicanos y disponibilidad en tienda física.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">💬</div>
+                    <h3 class="card-title">Pedidos Directos por WhatsApp</h3>
+                    <p class="card-desc">
+                        Con un botón, el cliente genera su pedido con el resumen de productos y precio listo para enviar directamente al WhatsApp oficial del comercio.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">🕒</div>
+                    <h3 class="card-title">Horarios y Estado en Tiempo Real</h3>
+                    <p class="card-desc">
+                        Etiquetas dinámicas ("Abierto Ahora" / "Cerrado") calculadas automáticamente según el reloj local para saber qué tiendas están dando servicio.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">🚶</div>
+                    <h3 class="card-title">Ruta Turística Peatonal</h3>
+                    <p class="card-desc">
+                        Trazado paso a paso por los callejones de Zacatecas (Catedral, Plaza Bicentenario, Plazuela Miguel Auza) para visitar físicamente cada tienda.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- DIAPOSITIVA 4: ¿POR QUÉ ES PWA? -->
+        <section class="slide" id="slide-4">
+            <span class="badge badge-green">3. Arquitectura Tecnológica</span>
+            <h2 class="slide-title">¿Por qué es una <em>PWA</em> (Progressive Web App)?</h2>
+            <p class="slide-subtitle">
+                En palabras muy simples: <strong>Una PWA es una página web con "superpoderes" de aplicación móvil.</strong>
+            </p>
+
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon">📲</div>
+                    <h3 class="card-title">Se Instala en el Celular</h3>
+                    <p class="card-desc">
+                        El usuario entra desde su navegador y con un solo toque se instala en su pantalla de inicio con su icono propio, exactamente igual a una app de WhatsApp o Instagram.
+                    </p>
+                    <span class="card-highlight">Sin tiendas ni descargas de 100MB</span>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">🚫📶</div>
+                    <h3 class="card-title">Funciona Sin Conexión (Offline)</h3>
+                    <p class="card-desc">
+                        Gracias a un "Service Worker" (asistente en segundo plano), guarda automáticamente las tiendas y productos en la memoria del teléfono para verlos aun sin internet.
+                    </p>
+                    <span class="card-highlight">Adiós a la pantalla de error</span>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">⚡</div>
+                    <h3 class="card-title">Carga Instantánea (0 Esperas)</h3>
+                    <p class="card-desc">
+                        Al no tener que pedirle todo a un servidor lejano cada vez que das clic, las páginas y fotos abren de inmediato, consumiendo el mínimo de datos móviles.
+                    </p>
+                    <span class="card-highlight">Velocidad nativa en cualquier red</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- DIAPOSITIVA 5: TABLA COMPARATIVA -->
+        <section class="slide" id="slide-5">
+            <span class="badge badge-coral">4. Diferencias Clave</span>
+            <h2 class="slide-title">Página Web Normal <em>vs.</em> Nuestra PWA</h2>
+            <p class="slide-subtitle">
+                ¿Por qué una PWA es infinitamente superior para el usuario final y para los negocios?
+            </p>
+
+            <div class="comparison-table-wrapper">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th class="col-feature">Característica</th>
+                            <th class="col-normal">❌ Página Web Normal (Sin PWA)</th>
+                            <th class="col-pwa">✅ Nuestra Tienda PWA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>¿Funciona sin Internet?</strong></td>
+                            <td>
+                                <span class="status-badge status-bad">No</span><br>
+                                Si se corta la señal, muestra la pantalla de error ("Sin conexión" / Dinosaurio).
+                            </td>
+                            <td class="col-pwa">
+                                <span class="status-badge status-good">Sí (Modo Offline)</span><br>
+                                Sigue mostrando el catálogo, datos y tiendas gracias a su memoria local inteligente.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Instalación en Teléfono</strong></td>
+                            <td>
+                                <span class="status-badge status-bad">No se puede</span><br>
+                                Obliga a abrir Chrome/Safari y teclear la dirección larga cada vez que quieres entrar.
+                            </td>
+                            <td class="col-pwa">
+                                <span class="status-badge status-good">Instalable con 1 Toque</span><br>
+                                Crea un icono directo en la pantalla del celular y abre a pantalla completa como app nativa.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Velocidad de Carga</strong></td>
+                            <td>
+                                <span class="status-badge status-bad">Lenta</span><br>
+                                Cada clic recarga todo desde el servidor. Si el internet está lento, la página se congela.
+                            </td>
+                            <td class="col-pwa">
+                                <span class="status-badge status-good">Instantánea</span><br>
+                                Carga de inmediato desde la memoria caché del teléfono. Ahorra hasta un 80% de datos.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Dependencia de Tiendas de Apps</strong></td>
+                            <td>
+                                <span class="status-badge status-bad">No aplica</span><br>
+                                Para ser "App" tendrías que pagar a Apple y Google y esperar semanas de aprobación.
+                            </td>
+                            <td class="col-pwa">
+                                <span class="status-badge status-good">100% Libre y Directa</span><br>
+                                Se actualiza sola al instante sin descargar actualizaciones pesadas de Play Store.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- DIAPOSITIVA 6: IMPACTO EN ZACATECAS -->
+        <section class="slide" id="slide-6">
+            <span class="badge badge-green">5. Caso de Uso Real</span>
+            <h2 class="slide-title">¿Por qué esto es perfecto para <em>Zacatecas Centro</em>?</h2>
+            <p class="slide-subtitle">
+                Resolviendo un problema geográfico y comercial real del Centro Histórico.
+            </p>
+
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon">🧱</div>
+                    <h3 class="card-title">Muros de Cantera y Pérdida de Señal</h3>
+                    <p class="card-desc">
+                        En el Centro Histórico de Zacatecas, los edificios antiguos con muros de cantera gruesa y callejones estrechos frecuentemente atenúan la señal celular.
+                    </p>
+                    <span class="card-highlight">La PWA no se cae cuando caminas por el Centro</span>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">🎒</div>
+                    <h3 class="card-title">Ideal para Turistas y Locales</h3>
+                    <p class="card-desc">
+                        Un turista paseando por la Catedral o la Mina del Edén puede abrir la app sin gastar sus datos de roaming, ver dónde queda Café Acrópolis o Doña Julia y hacer su pedido.
+                    </p>
+                    <span class="card-highlight">Guía de bolsillo siempre disponible</span>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">🤝</div>
+                    <h3 class="card-title">Impulso a la Economía Local</h3>
+                    <p class="card-desc">
+                        Los microempresarios no necesitan contratar programadores ni pagar comisiones del 30% a apps extranjeras: tienen su tienda profesional lista para operar.
+                    </p>
+                    <span class="card-highlight">Tecnología al alcance de los comerciantes</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- DIAPOSITIVA 7: CONCLUSIONES -->
+        <section class="slide" id="slide-7">
+            <div class="cover-content">
+                <div class="cover-pill">
+                    🎯 Conclusión y Puntos Clave
+                </div>
+                <h2 class="cover-title">
+                    El Futuro del <em>Comercio Local</em>
+                </h2>
+                <p class="cover-desc">
+                    Tres ideas fundamentales para recordar sobre este proyecto:
+                </p>
+
+                <div class="cards-grid" style="text-align: left; margin-bottom: 30px;">
+                    <div class="card">
+                        <div class="card-icon">1️⃣</div>
+                        <h3 class="card-title">Digitalización Real</h3>
+                        <p class="card-desc">Unifica y da tienda propia a los negocios emblemáticos de Zacatecas con 0% comisiones y pedidos por WhatsApp.</p>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-icon">2️⃣</div>
+                        <h3 class="card-title">Tecnología PWA</h3>
+                        <p class="card-desc">Une lo mejor de una página web (accesible con un link) con lo mejor de una app móvil (rápida, instalable y sin conexión).</p>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-icon">3️⃣</div>
+                        <h3 class="card-title">Ventaja Competitiva</h3>
+                        <p class="card-desc">Supera a las páginas tradicionales al no romperse sin internet y no requerir descargas pesadas en tiendas de apps.</p>
+                    </div>
+                </div>
+
+                <div class="cover-pill" style="background: rgba(16, 185, 129, 0.15); border-color: rgba(16, 185, 129, 0.3); color: #6ee7b7;">
+                    🚀 Proyecto disponible en vivo en: <strong>atelier-zacatecas.onrender.com</strong>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- BOTTOM DOCK CONTROLS -->
+    <div class="bottom-dock">
+        <button class="nav-btn" id="prevBtn" onclick="prevSlide()" title="Diapositiva Anterior">
+            ‹
+        </button>
+        <div class="dots-container" id="dotsContainer">
+            <!-- Dynamically populated -->
+        </div>
+        <button class="nav-btn" id="nextBtn" onclick="nextSlide()" title="Siguiente Diapositiva">
+            ›
+        </button>
+    </div>
+
+    <!-- KEYBOARD NAVIGATION HINT -->
+    <div class="keyboard-hint">
+        Navegar: <span class="key-chip">←</span> <span class="key-chip">→</span> o <span class="key-chip">Espacio</span>
+    </div>
+
+    <!-- SCRIPT FOR SLIDE NAVIGATION -->
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 7;
+
+        const slides = document.querySelectorAll('.slide');
+        const dotsContainer = document.getElementById('dotsContainer');
+        const progressBar = document.getElementById('progressBar');
+        const slideCounter = document.getElementById('slideCounter');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        // Initialize dots
+        for (let i = 1; i <= totalSlides; i++) {
+            const dot = document.createElement('div');
+            dot.className = `dot ${i === 1 ? 'active' : ''}`;
+            dot.onclick = () => goToSlide(i);
+            dotsContainer.appendChild(dot);
+        }
+
+        function updateSlideUI() {
+            slides.forEach((slide, idx) => {
+                slide.classList.toggle('active', idx + 1 === currentSlide);
+            });
+
+            const dots = dotsContainer.querySelectorAll('.dot');
+            dots.forEach((dot, idx) => {
+                dot.classList.toggle('active', idx + 1 === currentSlide);
+            });
+
+            progressBar.style.width = `${(currentSlide / totalSlides) * 100}%`;
+            slideCounter.textContent = `${currentSlide} / ${totalSlides}`;
+
+            prevBtn.disabled = currentSlide === 1;
+            nextBtn.disabled = currentSlide === totalSlides;
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides) {
+                currentSlide++;
+                updateSlideUI();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 1) {
+                currentSlide--;
+                updateSlideUI();
+            }
+        }
+
+        function goToSlide(n) {
+            if (n >= 1 && n <= totalSlides) {
+                currentSlide = n;
+                updateSlideUI();
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft' || e.key === 'Backspace') {
+                e.preventDefault();
+                prevSlide();
+            }
+        });
+
+        // Touch swipe support for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+        document.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) {
+                nextSlide();
+            } else if (touchEndX - touchStartX > 50) {
+                prevSlide();
+            }
+        }, { passive: true });
+
+        // Fullscreen toggle
+        function toggleFullScreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
+        updateSlideUI();
+    </script>
+</body>
+</html>

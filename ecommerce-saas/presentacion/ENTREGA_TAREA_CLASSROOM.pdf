@@ -1,0 +1,258 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [6 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier /Encoding /WinAnsiEncoding >>
+endobj
+6 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 7 0 R /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> >>
+endobj
+7 0 obj
+<< /Length 4243 >>
+stream
+0.980 0.980 0.990 rg
+0.00 0.00 612.00 792.00 re
+f
+0.120 0.160 0.280 rg
+40.00 700.00 532.00 60.00 re
+f
+BT
+/F1 14 Tf
+1.000 1.000 1.000 rg
+55.00 735.00 Td
+(ENTREGA DE TAREA: APLICACION WEB PROGRESIVA \(PWA\)) Tj
+ET
+BT
+/F2 10.5 Tf
+0.800 0.850 0.950 rg
+55.00 715.00 Td
+(Materia: Programacion Web / Tecnologias Moviles) Tj
+ET
+1.000 1.000 1.000 rg
+0.800 0.850 0.900 RG
+1.00 w
+40.00 565.00 532.00 115.00 re
+B
+BT
+/F1 12 Tf
+0.890 0.440 0.310 rg
+55.00 655.00 Td
+(DATOS DE ACCESO Y REPOSITORIO) Tj
+ET
+BT
+/F1 10.5 Tf
+0.200 0.250 0.350 rg
+55.00 630.00 Td
+(Enlace publico a la App PWA \(en vivo\):) Tj
+ET
+BT
+/F3 10 Tf
+0.100 0.400 0.800 rg
+55.00 615.00 Td
+(https://atelier-zacatecas.onrender.com/) Tj
+ET
+BT
+/F1 10.5 Tf
+0.200 0.250 0.350 rg
+55.00 590.00 Td
+(Repositorio publico de codigo fuente \(GitHub\):) Tj
+ET
+BT
+/F3 10 Tf
+0.100 0.400 0.800 rg
+55.00 575.00 Td
+(https://github.com/Manuelogo4269/tcnew) Tj
+ET
+1.000 1.000 1.000 rg
+0.800 0.850 0.900 RG
+1.00 w
+40.00 390.00 532.00 160.00 re
+B
+BT
+/F1 12 Tf
+0.160 0.650 0.450 rg
+55.00 525.00 Td
+(DESCRIPCION DEL PROYECTO \(5 A 7 LINEAS\)) Tj
+ET
+BT
+/F2 9.5 Tf
+0.200 0.250 0.300 rg
+55.00 495.00 Td
+(Atelier Zacatecas es una PWA e-commerce multi-tienda desarrollada para digitalizar a 10 comercios) Tj
+ET
+BT
+/F2 9.5 Tf
+0.200 0.250 0.300 rg
+55.00 477.00 Td
+(emblematicos del Centro Historico de Zacatecas \(cafeterias, platerias, dulcerias y artesanias\).) Tj
+ET
+BT
+/F2 9.5 Tf
+0.200 0.250 0.300 rg
+55.00 459.00 Td
+(La plataforma otorga a cada negocio un catalogo autonomo con pedidos directos por WhatsApp, y un) Tj
+ET
+BT
+/F2 9.5 Tf
+0.200 0.250 0.300 rg
+55.00 441.00 Td
+(portal central con directorio comercial en vivo, horarios y ruta turistica peatonal.) Tj
+ET
+BT
+/F2 9.5 Tf
+0.200 0.250 0.300 rg
+55.00 423.00 Td
+(La parte PWA se implemento mediante un Web App Manifest con iconos de 192px y 512px, y un Service) Tj
+ET
+BT
+/F2 9.5 Tf
+0.200 0.250 0.300 rg
+55.00 405.00 Td
+(Worker con cache estrategico offline que permite navegar los catalogos aun sin conexion a internet.) Tj
+ET
+1.000 1.000 1.000 rg
+0.800 0.850 0.900 RG
+1.00 w
+40.00 90.00 532.00 285.00 re
+B
+BT
+/F1 12 Tf
+0.100 0.350 0.700 rg
+55.00 350.00 Td
+(CHECKLIST DE CUMPLIMIENTO DE REQUISITOS) Tj
+ET
+BT
+/F1 9.5 Tf
+0.100 0.550 0.250 rg
+55.00 325.00 Td
+([x] 3 Pantallas o Secciones:) Tj
+ET
+BT
+/F2 8.5 Tf
+0.250 0.300 0.400 rg
+220.00 325.00 Td
+(1. Portal y Directorio \(/\), 2. Tiendas y Catalogos \(/conceptos7, /acropolis\), 3. Planes \(/planes\).) Tj
+ET
+BT
+/F1 9.5 Tf
+0.100 0.550 0.250 rg
+55.00 297.00 Td
+([x] manifest.json:) Tj
+ET
+BT
+/F2 8.5 Tf
+0.250 0.300 0.400 rg
+220.00 297.00 Td
+(Ubicado en /manifest.json con iconos 192x192, 512x512, modo standalone y colores corporativos.) Tj
+ET
+BT
+/F1 9.5 Tf
+0.100 0.550 0.250 rg
+55.00 269.00 Td
+([x] service-worker.js:) Tj
+ET
+BT
+/F2 8.5 Tf
+0.250 0.300 0.400 rg
+220.00 269.00 Td
+(Registrado en /sw.js y /service-worker.js con precache, stale-while-revalidate y fallback offline.) Tj
+ET
+BT
+/F1 9.5 Tf
+0.100 0.550 0.250 rg
+55.00 241.00 Td
+([x] Respuesta Offline Basica:) Tj
+ET
+BT
+/F2 8.5 Tf
+0.250 0.300 0.400 rg
+220.00 241.00 Td
+(Muestra catalogos y datos en cache cuando el navegador pierde conexion \(/offline.html\).) Tj
+ET
+BT
+/F1 9.5 Tf
+0.100 0.550 0.250 rg
+55.00 213.00 Td
+([x] Diseno Responsive:) Tj
+ET
+BT
+/F2 8.5 Tf
+0.250 0.300 0.400 rg
+220.00 213.00 Td
+(100% adaptable a movil verificado en viewport 390x844 sin desbordamientos horizontales.) Tj
+ET
+BT
+/F1 9.5 Tf
+0.100 0.550 0.250 rg
+55.00 185.00 Td
+([x] Instalable:) Tj
+ET
+BT
+/F2 8.5 Tf
+0.250 0.300 0.400 rg
+220.00 185.00 Td
+(Emite evento beforeinstallprompt y banner para agregar directamente a la pantalla de inicio.) Tj
+ET
+BT
+/F1 9.5 Tf
+0.100 0.550 0.250 rg
+55.00 157.00 Td
+([x] Funcionalidad Activa:) Tj
+ET
+BT
+/F2 8.5 Tf
+0.250 0.300 0.400 rg
+220.00 157.00 Td
+(LocalStorage para carrito de compras, historial de busquedas recientes y tema claro/oscuro.) Tj
+ET
+BT
+/F1 9.5 Tf
+0.100 0.550 0.250 rg
+55.00 129.00 Td
+([x] Servidor Gratuito:) Tj
+ET
+BT
+/F2 8.5 Tf
+0.250 0.300 0.400 rg
+220.00 129.00 Td
+(Desplegado en la nube con Render \(URL https://\) y codigo fuente sincronizado en GitHub.) Tj
+ET
+BT
+/F2 9 Tf
+0.500 0.550 0.600 rg
+40.00 50.00 Td
+(Atelier Zacatecas - Tarea Academica PWA) Tj
+ET
+BT
+/F1 9 Tf
+0.500 0.550 0.600 rg
+540.00 50.00 Td
+(Pagina 1 de 1) Tj
+ET
+endstream
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000217 00000 n 
+0000000314 00000 n 
+0000000409 00000 n 
+0000000555 00000 n 
+trailer
+<< /Size 8 /Root 1 0 R >>
+startxref
+4849
+%%EOF

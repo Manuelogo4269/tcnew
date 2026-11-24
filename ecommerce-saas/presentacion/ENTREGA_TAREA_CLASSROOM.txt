@@ -1,0 +1,42 @@
+========================================================================
+DATOS PARA LA ENTREGA EN GOOGLE CLASSROOM
+Tarea: Crear una App Web Progresiva (PWA)
+========================================================================
+
+1. ENLACE PUBLICO A LA APP (EN VIVO):
+https://atelier-zacatecas.onrender.com/
+
+2. REPOSITORIO CON EL CODIGO (GITHUB):
+https://github.com/Manuelogo4269/tcnew
+
+------------------------------------------------------------------------
+3. BREVE DESCRIPCION (5 A 7 LINEAS):
+------------------------------------------------------------------------
+Atelier Zacatecas es una aplicacion web progresiva (PWA) multi-tienda desarrollada para digitalizar a los comercios mas representativos del Centro Historico de Zacatecas (cafeterias, platerias ley .925, tiendas de ropa, dulcerias y artesanias).
+La plataforma otorga a cada negocio un sitio web y catalogo autonomo con inventario y pedidos directos por WhatsApp, ademas de un portal central con directorio, horarios en vivo y ruta turistica peatonal.
+La arquitectura PWA se implemento configurando un archivo manifest.json con iconos de 192x192 y 512x512 para instalacion en pantalla principal, y un Service Worker con cache inteligente que permite navegar las tiendas y productos aun sin conexion a internet.
+
+------------------------------------------------------------------------
+4. CUMPLIMIENTO DETALLADO DE REQUISITOS:
+------------------------------------------------------------------------
+* Pantallas / Secciones:
+  1) Pantalla Principal / Directorio: https://atelier-zacatecas.onrender.com/
+  2) Tiendas y Catalogos: https://atelier-zacatecas.onrender.com/acropolis (y /conceptos7, /rosadeplata)
+  3) Planes y Registro: https://atelier-zacatecas.onrender.com/planes
+
+* Archivos PWA esenciales:
+  - manifest.json: https://atelier-zacatecas.onrender.com/manifest.json
+  - service-worker: https://atelier-zacatecas.onrender.com/service-worker.js (y /sw.js)
+  - Pagina offline: https://atelier-zacatecas.onrender.com/offline.html
+
+* Funcionalidad activa implementada:
+  - Carrito de compras y pedidos por WhatsApp con persistencia en localStorage.
+  - Historial de busquedas recientes guardado en localStorage.
+  - Selector de modo oscuro / claro con persistencia de sesion.
+  - Calculo en tiempo real de tiendas "Abierto Ahora" o "Cerrado" segun horario comercial.
+
+* Despliegue en Servidor Gratuito:
+  - Servidor de produccion: Render (Web Service con HTTPS obligatorio, requisito indispensable para PWA).
+  - Versionamiento: GitHub (https://github.com/Manuelogo4269/tcnew).
+
+========================================================================
